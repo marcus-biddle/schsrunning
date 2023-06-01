@@ -1,0 +1,50 @@
+.athlete-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    counter-reset: list-counter;
+  }
+  
+.athlete-item {
+list-style: none;
+}
+
+.athlete-item-number::before {
+counter-increment: list-counter;
+content: counter(list-counter) '. ';
+font-weight: bold;
+margin-right: 5px;
+}
+
+.latest-race-heading {
+font-size: 24px;
+font-weight: bold;
+color: #000;
+margin-bottom: 10px;
+}
+
+.race-details {
+font-size: 16px;
+color: #315c978c;
+margin-bottom: 20px;
+border-bottom: 1px solid #0000006e;
+max-width: 60%;
+padding-bottom: 5px;
+}
+
+.column-container {
+display: flex;
+}
+
+.column {
+flex: 1;
+margin-right: 20px;
+}
+
+.record-heading {
+font-size: 18px;
+font-weight: bold;
+color: #333;
+margin-bottom: 10px;
+}
+
