@@ -5,7 +5,7 @@ import {
   createAthlete,
   updateAthlete,
   deleteAthlete
-} from './controllers/athlete.controller.js';
+} from '../controllers/athlete.controller.js';
 
 const athleteRoutes = express.Router();
 

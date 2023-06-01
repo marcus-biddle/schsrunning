@@ -1,7 +1,7 @@
 import { query } from '../utility/database.js';
 
 // Get all genders
-async function getAllGenders(req, res) {
+export async function getAllGenders(req, res) {
   try {
     const sql = 'SELECT * FROM Gender';
     const genders = await query(sql);
@@ -12,7 +12,7 @@ async function getAllGenders(req, res) {
 }
 
 // Get gender by ID
-async function getGenderById(req, res) {
+export async function getGenderById(req, res) {
   const { genderId } = req.params;
   try {
     const sql = 'SELECT * FROM Gender WHERE genderId = ?';
@@ -26,8 +26,3 @@ async function getGenderById(req, res) {
     res.status(500).json({ error: 'An error occurred while fetching the gender.' });
   }
 }
-
-export default {
-  getAllGenders,
-  getGenderById,
-};

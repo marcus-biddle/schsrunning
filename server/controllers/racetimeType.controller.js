@@ -1,4 +1,4 @@
-import { query } from '../database';
+import { query } from '../utility/database.js';
 
 // Get all race time types
 export const getAllRaceTimeTypes = async (req, res) => {

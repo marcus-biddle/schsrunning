@@ -1,7 +1,7 @@
 import { query } from '../utility/database.js';
 
 // Get all course types
-async function getAllCourseTypes(req, res) {
+export async function getAllCourseTypes(req, res) {
   try {
     const sql = 'SELECT * FROM CourseType';
     const courseTypes = await query(sql);
@@ -12,7 +12,7 @@ async function getAllCourseTypes(req, res) {
 }
 
 // Get course type by ID
-async function getCourseTypeById(req, res) {
+export async function getCourseTypeById(req, res) {
   const { courseTypeId } = req.params;
   try {
     const sql = 'SELECT * FROM CourseType WHERE courseTypeId = ?';
@@ -28,7 +28,7 @@ async function getCourseTypeById(req, res) {
 }
 
 // Create a new course type
-async function createCourseType(req, res) {
+export async function createCourseType(req, res) {
   const { courseType } = req.body;
   try {
     const sql = 'INSERT INTO CourseType (courseType) VALUES (?)';
@@ -44,7 +44,7 @@ async function createCourseType(req, res) {
 }
 
 // Update a course type
-async function updateCourseType(req, res) {
+export async function updateCourseType(req, res) {
   const { courseTypeId } = req.params;
   const { courseType } = req.body;
   try {
@@ -57,7 +57,7 @@ async function updateCourseType(req, res) {
 }
 
 // Delete a course type
-async function deleteCourseType(req, res) {
+export async function deleteCourseType(req, res) {
   const { courseTypeId } = req.params;
   try {
     const sql = 'DELETE FROM CourseType WHERE courseTypeId = ?';
@@ -67,11 +67,3 @@ async function deleteCourseType(req, res) {
     res.status(500).json({ error: 'An error occurred while deleting the course type.' });
   }
 }
-
-export default {
-  getAllCourseTypes,
-  getCourseTypeById,
-  createCourseType,
-  updateCourseType,
-  deleteCourseType,
-};
