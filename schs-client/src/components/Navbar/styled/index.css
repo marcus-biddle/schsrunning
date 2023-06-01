@@ -1,6 +1,8 @@
 .navbar {
-    background-color: blue;
-    color: yellow;
+    background-color: white;
+    border-bottom: solid thin #5e5e5e50;
+    margin-right: 10rem;
+    margin-left: 10rem;
   }
   
   .container {
@@ -12,12 +14,12 @@
   }
   
   .navbar__link {
-    color: yellow;
+    color: #007bff;
     text-decoration: none;
     margin-right: 10px;
   }
   
   .navbar__link:hover {
-    color: black;
+    color: #0056b3;
   }
   
