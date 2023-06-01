@@ -7,7 +7,7 @@ import {
   deleteAthlete
 } from './controllers/athlete.controller.js';
 
-const athleteRoutes = express.athleteRoutes();
+const athleteRoutes = express.Router();
 
 // Get all athletes
 athleteRoutes.get('/athletes', getAllAthletes);

@@ -1,4 +1,4 @@
-import { query } from '..';
+import { query } from '../utility/database.js';
 
 // Get all athletes
 export const getAllAthletes = async (req, res) => {
