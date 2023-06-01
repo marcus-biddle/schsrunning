@@ -1,0 +1,23 @@
+.navbar {
+    background-color: blue;
+    color: yellow;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  .navbar__link {
+    color: yellow;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  .navbar__link:hover {
+    color: black;
+  }
+  
