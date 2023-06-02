@@ -1,20 +1,16 @@
 import React from 'react'
-import ImageCarousel from '../../component-lib/carousel'
+import ImageCarousel from '../../component-lib/carousel';
 import './styled/index.css';
-import img1 from '../../assets/image1.png';
-import img2 from '../../assets/image2.png';
-import img3 from '../../assets/image3.png';
-import img4 from '../../assets/image4.png';
-import img5 from '../../assets/image5.png';
+import { teamImgs } from '../../assets/index.tsx';
 
 export const Home = () => {
-    const images = [
-        img1,
-        img2,
-        img3,
-        img4,
-        img5,
-      ];
+    // const images = [
+    //     img1,
+    //     img2,
+    //     img3,
+    //     img4,
+    //     img5,
+    //   ];
 
     const athletes = [
         {
@@ -104,7 +100,7 @@ export const Home = () => {
   return (
     <div style={{ marginLeft: '10rem', marginRight: '10rem'}}>
         {/* Images */}
-        <ImageCarousel images={images} interval={12000} />
+        <ImageCarousel images={teamImgs} interval={12000} />
         {/* Latest races */}
         <div style={{ marginBottom: '4rem'}}>
             <h2>Latest Race</h2>

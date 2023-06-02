@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './styled/index.css';
+import { Images } from '../../assets';
 
 interface ImageCarouselProps {
-  images: string[];
+  images: Images[];
   interval?: number;
 }
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, interval }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // Change 0 to use random number between 0 and 27
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); 
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,7 +27,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, interval }) => {
         <img
           key={index}
           className={`carousel-image ${index === currentImageIndex ? 'active' : ''}`}
-          src={image}
+          src={image.img}
           alt={`Image ${index + 1}`}
         />
       ))}
