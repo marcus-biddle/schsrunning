@@ -7,7 +7,9 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Outlet />
+      <div style={{ marginTop: '4rem'}}>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   )

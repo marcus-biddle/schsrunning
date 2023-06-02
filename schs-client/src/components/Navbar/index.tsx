@@ -9,10 +9,10 @@ export const Navbar: React.FC = () => {
         <Link to="/" className="navbar__link">
           Home
         </Link>
-        <Link to="/xc" className="navbar__link">
+        <Link to="santa-clara-high-cross-country/" className="navbar__link">
           XC
         </Link>
-        <Link to="/track" className="navbar__link">
+        <Link to="santa-clara-high-track-and-field/" className="navbar__link">
           Track
         </Link>
         <Link to="/workouts" className="navbar__link">

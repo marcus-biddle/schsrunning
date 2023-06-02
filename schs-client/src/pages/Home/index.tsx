@@ -107,7 +107,7 @@ export const Home = () => {
         <ImageCarousel images={images} interval={12000} />
         {/* Latest races */}
         <div style={{ marginBottom: '4rem'}}>
-            <h2 className="latest-race-heading">Latest Race</h2>
+            <h2>Latest Race</h2>
             <h4 className="race-details">Crystal Springs, 2.95M (2021-11-02)</h4>
             <ol className="athlete-list">
                 {athletes.map((athlete, index) => (
@@ -118,7 +118,7 @@ export const Home = () => {
             </ol>
         </div>
         <div>
-            <h2 className="latest-race-heading">Top Athletes</h2>
+            <h2>Top Athletes</h2>
             <h4 className="race-details">Most recent record breaker: Name - event - time</h4>
             <div className="column-container">
                 {topRecords.map((record) => (
