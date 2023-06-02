@@ -64,7 +64,7 @@ export const Home = () => {
             type: 'Men',
             records: [
                 {
-                    name: 'John Smith',
+                    name: 'Cedric Lastname',
                     event: '1600m',
                     result: '4:16.7'
                 },
@@ -106,7 +106,7 @@ export const Home = () => {
         {/* Images */}
         <ImageCarousel images={images} interval={12000} />
         {/* Latest races */}
-        <div>
+        <div style={{ marginBottom: '4rem'}}>
             <h2 className="latest-race-heading">Latest Race</h2>
             <h4 className="race-details">Crystal Springs, 2.95M (2021-11-02)</h4>
             <ol className="athlete-list">
@@ -116,24 +116,29 @@ export const Home = () => {
                     </li>
                 ))}
             </ol>
-            </div>
-            <div>
+        </div>
+        <div>
             <h2 className="latest-race-heading">Top Athletes</h2>
-            <h4 className="race-details">Most recent record breaker: Name - Some event - time</h4>
+            <h4 className="race-details">Most recent record breaker: Name - event - time</h4>
             <div className="column-container">
-            {topRecords.map((record) => (
-                <div className="column" key={record.type}>
-                <h4 className="record-heading">Top 3 Records - {record.type}</h4>
-                <ul>
-                    {record.records.map((athlete) => (
-                    <li key={athlete.name}>
-                        {athlete.name} - {athlete.event} - {athlete.result}
-                    </li>
-                    ))}
-                </ul>
-                </div>
-            ))}
+                {topRecords.map((record) => (
+                    <div className="column" key={record.type}>
+                        <h4 className="record-heading">Top 3 Records - {record.type}</h4>
+                        <ul>
+                            {record.records.map((athlete) => (
+                            <li key={athlete.name}>
+                                {athlete.name} - {athlete.event} - {athlete.result}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
             </div>
+        </div>
+        <div>
+        <h2 className="latest-race-heading">Latest Updates</h2>
+        <p>12/12/21 - added 2021 XC Season</p>
+        <p>12/01/21 added 2019 XC Season</p>
         </div>
     </div>
   )

@@ -1,3 +1,6 @@
+/*  Blue: #007bff (a vibrant blue)
+    Gold: #ffd700 (a bright gold)
+*/
 .athlete-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -25,7 +28,7 @@ margin-bottom: 10px;
 
 .race-details {
 font-size: 16px;
-color: #315c978c;
+color: #007bff;
 margin-bottom: 20px;
 border-bottom: 1px solid #0000006e;
 max-width: 60%;
@@ -44,7 +47,7 @@ margin-right: 20px;
 .record-heading {
 font-size: 18px;
 font-weight: bold;
-color: #333;
+color: #333333;
 margin-bottom: 10px;
 }
 
