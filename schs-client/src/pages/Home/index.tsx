@@ -108,7 +108,8 @@ export const Home = () => {
             <ol className="athlete-list">
                 {athletes.map((athlete, index) => (
                     <li key={athlete.name} className="athlete-item">
-                    <span className="athlete-item-number">{athlete.name} - {athlete.time}</span>
+                    <span>{athlete.name}</span>
+                    <span>{athlete.time}</span>
                     </li>
                 ))}
             </ol>
@@ -120,10 +121,12 @@ export const Home = () => {
                 {topRecords.map((record) => (
                     <div className="column" key={record.type}>
                         <h4 className="record-heading">Top 3 Records - {record.type}</h4>
-                        <ul>
+                        <ul className='top-athlete-list'>
                             {record.records.map((athlete) => (
-                            <li key={athlete.name}>
-                                {athlete.name} - {athlete.event} - {athlete.result}
+                            <li key={athlete.name} className='top-athlete-item'>
+                                <span>{athlete.name}</span>
+                                <span>{athlete.event}</span>
+                                <span>{athlete.result}</span>
                             </li>
                             ))}
                         </ul>

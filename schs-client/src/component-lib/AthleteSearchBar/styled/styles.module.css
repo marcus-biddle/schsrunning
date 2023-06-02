@@ -28,7 +28,7 @@
 }
 
 .input {
-  width: 94%;
+  width: 93.5%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -45,6 +45,12 @@
   padding: 8px;
   background-color: #f9f9f9;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.athleteItem:hover {
+  background-color: #ffd9002e;
 }
 
 .athleteItem:last-child {
