@@ -17,7 +17,52 @@ const router = createBrowserRouter(
       <Route path='/' index={true} element={<Home />} />
       {/* Cross Country Paths */}
       <Route path="santa-clara-high-cross-country/" element={<CrossCountry />} />
-      <Route path='santa-clara-high-cross-country/runners/' element={<Runners />} />
+        {/* Runners */}
+        <Route path='santa-clara-high-cross-country/runners/' element={<Runners />} />
+        <Route path='santa-clara-high-cross-country/runners/men' element={<Runners />} />
+        <Route path='santa-clara-high-cross-country/runners/men/:runnerId' element={<Runners />} />
+        <Route path='santa-clara-high-cross-country/runners/women' element={<Runners />} />
+        <Route path='santa-clara-high-cross-country/runners/women/:runnerId' element={<Runners />} />
+        {/* Seasons */}
+        <Route path='santa-clara-high-cross-country/seasons/' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/seasons/:year' element={<XCSeason />} />
+        {/* Coaches */}
+        <Route path='santa-clara-high-cross-country/coaches/' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/coaches/timeline' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/coaches/:coachId' element={<XCSeason />} />
+
+        {/* Top Individual Result */}
+        <Route path='santa-clara-high-cross-country/top-25-results' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/all-men' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/all-women' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/all-men/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/all-women/:raceId' element={<XCSeason />} />
+
+        <Route path='santa-clara-high-cross-country/top-25-results/senior-men' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/senior-women' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/senior-men/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/senior-women/:raceId' element={<XCSeason />} />
+
+        <Route path='santa-clara-high-cross-country/top-25-results/junior-men' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/junior-women' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/junior-men/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/junior-women/:raceId' element={<XCSeason />} />
+
+        <Route path='santa-clara-high-cross-country/top-25-results/soph-men' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/soph-women' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/soph-men/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/soph-women/:raceId' element={<XCSeason />} />
+
+        <Route path='santa-clara-high-cross-country/top-25-results/fresh-men' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/fresh-women' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/fresh-men/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results/fresh-women/:raceId' element={<XCSeason />} />
+
+        {/* Top Team */}
+        <Route path='santa-clara-high-cross-country/top-team' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-team/men/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-team/women/:raceId' element={<XCSeason />} />
+
       {/* Track Paths */}
       <Route path="santa-clara-high-track-and-field/" element={<Track />} />
       {/* Workout Paths */}
