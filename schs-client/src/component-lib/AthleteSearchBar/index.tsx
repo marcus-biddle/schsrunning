@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styles from './styled/styles.module.css';
+import { Link } from 'react-router-dom';
 
 interface Athlete {
   id: number;
   name: string;
+  path: string;
 }
 
 interface AthleteSearchProps {
@@ -44,13 +46,16 @@ const AthleteSearch: React.FC<AthleteSearchProps> = ({ title, athletes }) => {
           <ul className={styles.athleteList}>
             {filteredAthletes.map((athlete) => (
               <li key={athlete.id} className={styles.athleteItem}>
-                <div style={{ color: 'black', fontSize: '18px', fontWeight: 'bold'}}>
-                  {athlete.name}
-                </div>
-                <div style={{ paddingLeft: '6px', color: '#333'}}>
-                  Current Runner - 2023 - 12th grade
-                </div>
-                {/* Could add other stuff here too */}
+                <Link to={`runners/${athlete.path}`}>
+                  <div style={{ color: 'black', fontSize: '18px', fontWeight: 'bold'}}>
+                    {athlete.name}
+                  </div>
+                  <div style={{ paddingLeft: '6px', color: '#333'}}>
+                    Current Runner - 2023 - 12th grade
+                  </div>
+                  {/* Could add other stuff here too */}
+                </Link>
+                
               </li>
             ))}
           </ul>

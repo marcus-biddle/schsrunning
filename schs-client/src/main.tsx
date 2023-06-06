@@ -9,6 +9,7 @@ import { CrossCountry } from './pages/XC/index.tsx'
 import { Track } from './pages/Track/index.tsx'
 import { Workouts } from './pages/Workouts/index.tsx'
 import { XCSeason } from './pages/XC/Season/index.tsx';
+import { Runners } from './pages/XC/Runners/index.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,19 @@ const router = createBrowserRouter([
         element: <CrossCountry />,
         children: [
           {
-            path: 'season/',
+            path: 'seasons/',
+            element: <XCSeason />
+          },
+          {
+            path: 'runners/',
+            element: <Runners />
+          },
+          {
+            path: 'coaches/',
+            element: <XCSeason />
+          },
+          {
+            path: 'alumni/',
             element: <XCSeason />
           }
         ]

@@ -1,0 +1,1 @@
+export const isCX = (url: string, searchtext: string) => { return url.includes(searchtext) }

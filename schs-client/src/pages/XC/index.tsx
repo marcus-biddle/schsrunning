@@ -7,25 +7,25 @@ import './styles/index.css';
 
 export const CrossCountry = () => {
     const athleteData = [
-        { id: 1, name: 'Cal Ochoa' },
-        { id: 2, name: 'Marcus Biddle' },
-        { id: 3, name: 'Alejandro Martinez' },
-        { id: 4, name: 'Max Howell' },
+        { id: 1, name: 'Cal Ochoa', path: '1001010/'},
+        { id: 2, name: 'Marcus Biddle' , path: '1001610/'},
+        { id: 3, name: 'Alejandro Martinez', path: '1001040/'},
+        { id: 4, name: 'Max Howell', path: '1001013/' },
         // ... other athlete data
       ];
     const coachData = [
-        { id: 1, name: 'Cal Ochoa' },
-        { id: 2, name: 'Julie L\'Heureux' },
-        { id: 3, name: 'Jamie Vierling' },
-        { id: 4, name: 'Mario Bouza' },
+        { id: 1, name: 'Cal Ochoa', path: '1001010/' },
+        { id: 2, name: 'Julie L\'Heureux', path: '1001010/' },
+        { id: 3, name: 'Jamie Vierling', path: '1001010/' },
+        { id: 4, name: 'Mario Bouza', path: '1001010/' },
         // ... other athlete data
     ]
 
     const top25MenData = [
-        { id: 1, name: 'Crystal Springs' },
-        { id: 2, name: 'Toro Park' },
-        { id: 3, name: 'Central Park' },
-        { id: 4, name: 'Baylands' },
+        { id: 1, name: 'Crystal Springs', path: '1001010/' },
+        { id: 2, name: 'Toro Park', path: '1001010/' },
+        { id: 3, name: 'Central Park', path: '1001010/' },
+        { id: 4, name: 'Baylands', path: '1001010/' },
         // ... other athlete data
     ]
 
