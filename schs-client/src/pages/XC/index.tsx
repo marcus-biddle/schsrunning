@@ -46,7 +46,11 @@ export const CrossCountry = () => {
             {/* First Column */}
             <div>
                 <div>
-                    <h2>XC Results by Runner</h2>
+                    <h2>
+                        <Link to={'runners/'}>
+                            XC Results by Runner
+                        </Link>
+                    </h2>
                     <div >
                         <AthleteSearch athletes={athleteData} title='Men' />
                         <AthleteSearch athletes={athleteData} title='Women' />
