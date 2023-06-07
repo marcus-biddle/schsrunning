@@ -10,6 +10,11 @@ import { Track } from './pages/Track/index.tsx'
 import { Workouts } from './pages/Workouts/index.tsx'
 import { XCSeason } from './pages/XC/Season/index.tsx';
 import { Runners } from './pages/XC/Runners/index.tsx';
+import { Athlete } from './pages/XC/Athlete/index.tsx';
+import { SeasonInfo } from './pages/XC/SeasonInfo/index.tsx';
+import { Coaches } from './pages/XC/Coaches/index.tsx';
+import { Coach } from './pages/XC/Coach/index.tsx';
+import { Top25 } from './pages/XC/Top25/index.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,19 +25,18 @@ const router = createBrowserRouter(
         {/* Runners */}
         <Route path='santa-clara-high-cross-country/runners/' element={<Runners />} />
         <Route path='santa-clara-high-cross-country/runners/men' element={<Runners />} />
-        <Route path='santa-clara-high-cross-country/runners/men/:runnerId' element={<Runners />} />
+        <Route path='santa-clara-high-cross-country/runners/men/:runnerId' element={<Athlete />} />
         <Route path='santa-clara-high-cross-country/runners/women' element={<Runners />} />
-        <Route path='santa-clara-high-cross-country/runners/women/:runnerId' element={<Runners />} />
+        <Route path='santa-clara-high-cross-country/runners/women/:runnerId' element={<Athlete />} />
         {/* Seasons */}
         <Route path='santa-clara-high-cross-country/seasons/' element={<XCSeason />} />
-        <Route path='santa-clara-high-cross-country/seasons/:year' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/seasons/:year' element={<SeasonInfo />} />
         {/* Coaches */}
-        <Route path='santa-clara-high-cross-country/coaches/' element={<XCSeason />} />
-        <Route path='santa-clara-high-cross-country/coaches/timeline' element={<XCSeason />} />
-        <Route path='santa-clara-high-cross-country/coaches/:coachId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/coaches/' element={<Coaches />} />
+        <Route path='santa-clara-high-cross-country/coaches/:coachId' element={<Coach />} />
 
         {/* Top Individual Result */}
-        <Route path='santa-clara-high-cross-country/top-25-results' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-25-results' element={<Top25 />} />
         <Route path='santa-clara-high-cross-country/top-25-results/all-men' element={<XCSeason />} />
         <Route path='santa-clara-high-cross-country/top-25-results/all-women' element={<XCSeason />} />
         <Route path='santa-clara-high-cross-country/top-25-results/all-men/:raceId' element={<XCSeason />} />
@@ -59,7 +63,7 @@ const router = createBrowserRouter(
         <Route path='santa-clara-high-cross-country/top-25-results/fresh-women/:raceId' element={<XCSeason />} />
 
         {/* Top Team */}
-        <Route path='santa-clara-high-cross-country/top-team' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-team' element={<Top25 />} />
         <Route path='santa-clara-high-cross-country/top-team/men/:raceId' element={<XCSeason />} />
         <Route path='santa-clara-high-cross-country/top-team/women/:raceId' element={<XCSeason />} />
 

@@ -58,24 +58,28 @@ export const CrossCountry = () => {
                     <div style={{ paddingTop: '1rem'}}>
                         Can't find a runner? Search by season 
                         <span style={{ textDecorationLine: 'underline', cursor: 'pointer', paddingLeft: '5px'}}>
-                            <Link to={'season/'}>
+                            <Link to={'seasons/'}>
                             here
                             </Link>
                         </span>
                     </div>
                 </div>
                 <div>
-                    <h2>XC Coaches</h2>
+                    <h2>
+                        <Link to={'coaches/'}>
+                            XC Coaches
+                        </Link>
+                    </h2>
                     <div >
                         <AthleteSearch athletes={coachData} title='Coaches' />
                     </div>
                 </div>
-                <h4>XC Special Achievements</h4>
+                <h2>XC Special Achievements</h2>
                 <span className='alumni-item'>State Qualifiers</span>
                 <span className='alumni-item'>CCS Champions</span>
                 <span className='alumni-item'>League Champions</span>
 
-                <h4>XC Awards</h4>
+                <h2>XC Awards</h2>
                 <span className='alumni-item'>Timeline</span>
                 <span className='alumni-item'>Most Valuable Runner</span>
                 <span className='alumni-item'>Most Improved</span>
@@ -83,14 +87,22 @@ export const CrossCountry = () => {
             {/* Second column */}
             <div>
                 <div>
-                    <h2>XC Top 25 Individual List</h2>
+                    <h2>
+                        <Link to={'top-25-results/'}>
+                            XC Top 25 Individual List
+                        </Link>
+                    </h2>
                     <div >
                         <AthleteSearch athletes={top25MenData} title='All Time Men' />
                         <AthleteSearch athletes={top25MenData} title='All Time Women' />
                     </div>
                 </div>
                 <div>
-                    <h2>XC Top 15 Team List</h2>
+                    <h2>
+                        <Link to={'top-team/'}>
+                        XC Top 15 Team List
+                        </Link>
+                    </h2>
                     <div >
                         <AthleteSearch athletes={top25MenData} title='All Time Men Teams' />
                         <AthleteSearch athletes={top25MenData} title='All Time Women Teams' />
