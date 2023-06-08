@@ -2,33 +2,6 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
-import athletesRoutes from './routes/athlete.route.js';
-import competitorRoutes from './routes/competitor.route.js';
-import genderRoutes from './routes/gender.route.js';
-import courseTypeRoutes from './routes/courseType.route.js';
-import stateRoutes from './routes/state.route.js';
-import locationRoutes from './routes/location.route.js';
-import raceConditionRoutes from './routes/raceCondition.route.js';
-import raceNameRoutes from './routes/raceName.route.js';
-import courseRoutes from './routes/course.route.js';
-import raceRoutes from './routes/race.route.js';
-import resultRoutes from './routes/result.route.js';
-import coachRoutes from './routes/coach.route.js';
-import coachTypeRoutes from './routes/coachType.route.js';
-import coachSeasonRoutes from './routes/coachSeason.route.js';
-import squadRoutes from './routes/squad.route.js';
-import awardRoutes from './routes/award.route.js';
-import sportRoutes from './routes/sport.route.js';
-import awardeeRoutes from './routes/awardee.route.js';
-import specialAchievementRoutes from './routes/specialAchievement.route.js';
-import specialAchieverRoutes from './routes/specialAchiever.route.js';
-import eventTypeRoutes from './routes/eventType.route.js';
-import eventSubTypeRoutes from './routes/eventSubType.route.js';
-import eventRoutes from './routes/event.route.js';
-import fieldResultRoutes from './routes/fieldResult.route.js';
-import raceTimeTypeRoutes from './routes/raceTimeType.route.js';
-import raceResultRoutes from './routes/raceResult.route.js';
-import relayResultRoutes from './routes/relayResult.route.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -252,32 +225,293 @@ app.get('/events/:eventId', async (req, res) => {
 });
 
 // Event Sub Type
+app.get('/event-subtypes', async (req, res) => {
+  const query = "SELECT * FROM EventSubType";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
 
-// app.use('/api', genderRoutes);
-// app.use('/api', courseTypeRoutes);
-// app.use('/api', stateRoutes);
-// app.use('/api', locationRoutes);
-// app.use('/api', raceConditionRoutes);
-// app.use('/api', raceNameRoutes);
-// app.use('/api', courseRoutes);
-// app.use('/api', raceRoutes);
-// app.use('/api', resultRoutes);
-// app.use('/api', coachRoutes);
-// app.use('/api', coachTypeRoutes);
-// app.use('/api', coachSeasonRoutes);
-// app.use('/api', squadRoutes);
-// app.use('/api', awardRoutes);
-// app.use('/api', sportRoutes);
-// app.use('/api', awardeeRoutes);
-// app.use('/api', specialAchievementRoutes);
-// app.use('/api', specialAchieverRoutes);
-// app.use('/api', eventTypeRoutes);
-// app.use('/api', eventSubTypeRoutes);
-// app.use('/api', eventRoutes);
-// app.use('/api', fieldResultRoutes);
-// app.use('/api', raceTimeTypeRoutes);
-// app.use('/api', raceResultRoutes);
-// app.use('/api', relayResultRoutes);
+app.get('/event-subtypes/:eventSubTypeId', async (req, res) => {
+  const { eventSubTypeId } = req.params;
+
+  const query = "SELECT * FROM EventSubType WHERE EventSubType.eventSubTypeId=?;";
+  const [rows] = await connection.query(query, eventSubTypeId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows[0])
+});
+
+// Event Type
+app.get('/event-types', async (req, res) => {
+  const query = "SELECT * FROM EventType";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/event-types/:eventTypeId', async (req, res) => {
+  const { eventTypeId } = req.params;
+
+  const query = "SELECT * FROM EventType WHERE EventType.eventTypeId=?;";
+  const [rows] = await connection.query(query, eventTypeId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows[0])
+});
+
+// Field Result
+app.get('/field-results', async (req, res) => {
+  const query = "SELECT * FROM FieldResult";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/field-results/:competitorId', async (req, res) => {
+  const { competitorId } = req.params;
+
+  const query = "SELECT * FROM FieldResult WHERE FieldResult.competitorId=?;";
+  const [rows] = await connection.query(query, competitorId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Gender
+// Skipping this one, might be unneeded to GET
+
+// Location
+app.get('/locations', async (req, res) => {
+  const query = "SELECT * FROM Location";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/locations/:locationId', async (req, res) => {
+  const { locationId } = req.params;
+
+  const query = "SELECT * FROM Location WHERE Location.locationId=?;";
+  const [rows] = await connection.query(query, locationId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows[0])
+});
+
+// Race
+app.get('/races', async (req, res) => {
+  const query = "SELECT * FROM Race";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/races/:raceId', async (req, res) => {
+  const { raceId } = req.params;
+
+  const query = "SELECT * FROM Race WHERE Race.raceId=?;";
+  const [rows] = await connection.query(query, raceId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows[0])
+});
+
+// Race Condition
+// skipping for now
+
+// Race Name
+app.get('/race-names', async (req, res) => {
+  const query = "SELECT * FROM RaceName";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/race-names/:raceNameId', async (req, res) => {
+  const { raceNameId } = req.params;
+
+  const query = "SELECT * FROM RaceName WHERE RaceName.raceNameId=?;";
+  const [rows] = await connection.query(query, raceNameId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows[0])
+});
+
+// Race Result
+app.get('/race-results', async (req, res) => {
+  const query = "SELECT * FROM RaceResult";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/race-results/:competitorId', async (req, res) => {
+  const { competitorId } = req.params;
+
+  const query = "SELECT * FROM RaceResult WHERE RaceResult.competitorId=?;";
+  const [rows] = await connection.query(query, competitorId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Race Time Type
+app.get('/race-time-types', async (req, res) => {
+  const query = "SELECT * FROM RaceTimeType";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/race-time-types/:raceTimeTypeId', async (req, res) => {
+  const { raceTimeTypeId } = req.params;
+
+  const query = "SELECT * FROM RaceTimeType WHERE RaceTimeType.raceTimeTypeId=?;";
+  const [rows] = await connection.query(query, raceTimeTypeId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows[0])
+});
+
+// Relay Result
+app.get('/relay-results', async (req, res) => {
+  const query = "SELECT * FROM RelayResult";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/relay-results/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+
+  const query = "SELECT * FROM RelayResult WHERE RelayResult.eventId=?;";
+  const [rows] = await connection.query(query, eventId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Results
+app.get('/results', async (req, res) => {
+  const query = "SELECT * FROM Result";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/results/:competitorId', async (req, res) => {
+  const { competitorId } = req.params;
+
+  const query = "SELECT * FROM Result WHERE Result.competitorId=?;";
+  const [rows] = await connection.query(query, competitorId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Special Achievements
+app.get('/special-achievements', async (req, res) => {
+  const query = "SELECT * FROM SpecialAchievement";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/special-achievements/:specialAchievementId', async (req, res) => {
+  const { specialAchievementId } = req.params;
+
+  const query = "SELECT * FROM SpecialAchievement WHERE SpecialAchievement.specialAchievementId=?;";
+  const [rows] = await connection.query(query, specialAchievementId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Special Achiever
+app.get('/special-achievers', async (req, res) => {
+  const query = "SELECT * FROM SpecialAchiever";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/special-achievers/:competitorId', async (req, res) => {
+  const { competitorId } = req.params;
+
+  const query = "SELECT * FROM SpecialAchiever WHERE SpecialAchiever.competitorId=?;";
+  const [rows] = await connection.query(query, competitorId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Sport 
+app.get('/sports', async (req, res) => {
+  const query = "SELECT * FROM Sport";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/sports/:sportId', async (req, res) => {
+  const { sportId } = req.params;
+
+  const query = "SELECT * FROM Sport WHERE Sport.sportId=?;";
+  const [rows] = await connection.query(query, sportId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// Squad
+app.get('/squads', async (req, res) => {
+  const query = "SELECT * FROM Squad";
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
+app.get('/squads/:squadId', async (req, res) => {
+  const { squadId } = req.params;
+
+  const query = "SELECT * FROM Squad WHERE Squad.squadId=?;";
+  const [rows] = await connection.query(query, squadId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find coach's seasons." });
+  };
+
+  res.json(rows)
+});
+
+// State
+// skipping
 
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello World' })
