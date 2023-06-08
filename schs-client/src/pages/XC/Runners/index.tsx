@@ -39,7 +39,7 @@ export const Runners = () => {
                     </span>
                 </div>}
                 <ol className="athlete-list">
-                {runnerData.map((athlete, index) => (
+                {runnerData.map((athlete) => (
                     // We can update this accordingly when we have real data with gender and names so we can filter it better
                     <Link to={athlete.gender === 1 ? `men/${athlete.id}` : `women/${athlete.id}`}>
                     <li key={athlete.name} className="athlete-item">

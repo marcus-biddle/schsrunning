@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useParams } from 'react-router'
 
 export const SeasonInfo = () => {
@@ -36,7 +36,7 @@ export const SeasonInfo = () => {
                 <div>
                     <h4>Coaches</h4>
                     <ol className="athlete-list">
-                        {coachesData.map((coach, index) => (
+                        {coachesData.map((coach) => (
                             <li key={coach.name} className="athlete-item">
                             <span>{coach.name}</span>
                             </li>
@@ -46,7 +46,7 @@ export const SeasonInfo = () => {
                 <div>
                     <h4>Runners - Men</h4>
                     <ol className="athlete-list">
-                        {runnerData.map((runner, index) => (
+                        {runnerData.map((runner) => (
                             <li key={runner.name} className="athlete-item">
                             <span>{runner.name}</span>
                             </li>
@@ -56,7 +56,7 @@ export const SeasonInfo = () => {
                 <div>
                     <h4>Runners - Women</h4>
                     <ol className="athlete-list">
-                        {runnerData.map((runner, index) => (
+                        {runnerData.map((runner) => (
                             <li key={runner.name} className="athlete-item">
                                 <span>{runner.name}</span>
                             </li>
@@ -68,7 +68,7 @@ export const SeasonInfo = () => {
                 <div>
                     <h4>Races</h4>
                     <ol className="athlete-list" style={{ display: 'flex', flexDirection: 'column'}}>
-                        {raceData.map((race, index) => (
+                        {raceData.map((race) => (
                             <li key={race.name} className="athlete-item" style={{ display: 'flex', flexDirection: 'column'}}>
                                 <div>
                                     <span>{race.date} -{' '}</span>

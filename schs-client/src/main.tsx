@@ -2,12 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './App.css';
-import { ErrorPage } from './pages/ErrorPage.jsx'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import { Home } from './pages/Home/index.tsx'
 import { CrossCountry } from './pages/XC/index.tsx'
 import { Track } from './pages/Track/index.tsx'
-import { Workouts } from './pages/Workouts/index.tsx'
 import { XCSeason } from './pages/XC/Season/index.tsx';
 import { Runners } from './pages/XC/Runners/index.tsx';
 import { Runner } from './pages/XC/Runner/index.tsx';

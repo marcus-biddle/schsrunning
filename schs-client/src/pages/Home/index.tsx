@@ -1,4 +1,3 @@
-import React from 'react'
 import ImageCarousel from '../../component-lib/carousel';
 import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
@@ -106,7 +105,7 @@ export const Home = () => {
             <h2>Latest Race</h2>
             <h4 className="race-details">Crystal Springs, 2.95M (2021-11-02)</h4>
             <ol className="athlete-list">
-                {athletes.map((athlete, index) => (
+                {athletes.map((athlete) => (
                     <li key={athlete.name} className="athlete-item">
                     <span>{athlete.name}</span>
                     <span>{athlete.time}</span>

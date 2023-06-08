@@ -1,4 +1,4 @@
-import React from 'react'
+
 import AthleteSearch from '../../component-lib/AthleteSearchBar'
 import { Link } from 'react-router-dom';
 import ImageCarousel from '../../component-lib/carousel';

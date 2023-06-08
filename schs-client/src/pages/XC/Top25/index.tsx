@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const Top25 = () => {
@@ -16,7 +15,7 @@ export const Top25 = () => {
                 <div>
                     <h4>Top 25 Men - All Time</h4>
                     <ol className="athlete-list">
-                        {data.map((race, index) => (
+                        {data.map((race) => (
                             <Link to={race.id}>
                                 <li key={race.name} className="athlete-item">
                                     <span>{race.name}</span>
@@ -28,7 +27,7 @@ export const Top25 = () => {
                 <div>
                     <h4>Top 25 Men - Senior</h4>
                     <ol className="athlete-list">
-                        {data.map((race, index) => (
+                        {data.map((race) => (
                             <Link to={race.id}>
                                 <li key={race.name} className="athlete-item">
                                     <span>{race.name}</span>
@@ -40,7 +39,7 @@ export const Top25 = () => {
                 <div>
                     <h4>Top 25 Men - Junior</h4>
                     <ol className="athlete-list">
-                        {data.map((race, index) => (
+                        {data.map((race) => (
                             <Link to={race.id}>
                                 <li key={race.name} className="athlete-item">
                                     <span>{race.name}</span>
@@ -52,7 +51,7 @@ export const Top25 = () => {
                 <div>
                     <h4>Top 25 Men - Sophomore</h4>
                     <ol className="athlete-list">
-                        {data.map((race, index) => (
+                        {data.map((race) => (
                             <Link to={race.id}>
                                 <li key={race.name} className="athlete-item">
                                     <span>{race.name}</span>
@@ -64,7 +63,7 @@ export const Top25 = () => {
                 <div>
                     <h4>Top 25 Men - Freshmen</h4>
                     <ol className="athlete-list">
-                        {data.map((race, index) => (
+                        {data.map((race) => (
                             <Link to={race.id}>
                                 <li key={race.name} className="athlete-item">
                                     <span>{race.name}</span>
@@ -78,7 +77,7 @@ export const Top25 = () => {
             <div>
                 <h4>Top 25 Women - All Time</h4>
                 <ol className="athlete-list">
-                    {data.map((race, index) => (
+                    {data.map((race) => (
                         <Link to={race.id}>
                             <li key={race.name} className="athlete-item">
                                 <span>{race.name}</span>
@@ -90,7 +89,7 @@ export const Top25 = () => {
             <div>
                 <h4>Top 25 Women - Senior</h4>
                 <ol className="athlete-list">
-                    {data.map((race, index) => (
+                    {data.map((race) => (
                         <Link to={race.id}>
                             <li key={race.name} className="athlete-item">
                                 <span>{race.name}</span>
@@ -102,7 +101,7 @@ export const Top25 = () => {
             <div>
                 <h4>Top 25 Women - Junior</h4>
                 <ol className="athlete-list">
-                    {data.map((race, index) => (
+                    {data.map((race) => (
                         <Link to={race.id}>
                             <li key={race.name} className="athlete-item">
                                 <span>{race.name}</span>
@@ -114,7 +113,7 @@ export const Top25 = () => {
             <div>
                 <h4>Top 25 Women - Sophomore</h4>
                 <ol className="athlete-list">
-                    {data.map((race, index) => (
+                    {data.map((race) => (
                         <Link to={race.id}>
                             <li key={race.name} className="athlete-item">
                                 <span>{race.name}</span>
@@ -126,7 +125,7 @@ export const Top25 = () => {
             <div>
                 <h4>Top 25 Women - Freshmen</h4>
                 <ol className="athlete-list">
-                    {data.map((race, index) => (
+                    {data.map((race) => (
                         <Link to={race.id}>
                             <li key={race.name} className="athlete-item">
                                 <span>{race.name}</span>

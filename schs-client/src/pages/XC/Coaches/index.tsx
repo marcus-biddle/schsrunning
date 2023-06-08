@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Link } from 'react-router-dom'
 
 export const Coaches = () => {
@@ -16,7 +16,7 @@ export const Coaches = () => {
     <div style={{ marginLeft: '10rem', marginRight: '10rem'}}>
         <h2>All Coaches</h2>
         <ol className="athlete-list">
-            {coachData.map((coach, index) => (
+            {coachData.map((coach) => (
                 <Link to={coach.id}>
                     <li key={coach.name} className="athlete-item">
                         <span>{coach.name}</span>
