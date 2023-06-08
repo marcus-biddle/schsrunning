@@ -4,7 +4,7 @@ import { query } from '../utility/database.js';
 export const getAllAthletes = async (req, res) => {
   try {
     const athletes = await query('SELECT * FROM Athlete');
-    res.json(athletes);
+    res.send(athletes);
   } catch (error) {
     console.error('Error fetching athletes:', error);
     res.status(500).json({ error: 'Failed to fetch athletes' });
