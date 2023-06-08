@@ -11,19 +11,6 @@ const connection = await mysql.createConnection(process.env.DATABASE_URL);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Create MySQL connection pool
-
-
-// Middleware to make MySQL connection available in request object
-// app.use((req, res, next) => {
-//   req.socket = connection;
-//   next();
-// });
-
-// // Parse JSON request bodies
-// app.use(express.json());
-
-
 // Athletes
 app.get('/athletes', async (req, res) => {
   const query = "SELECT * FROM Athlete";
@@ -44,7 +31,7 @@ app.get('/athletes/:athleteId', async (req, res) => {
   res.json(rows[0])
 });
 
-// Awards
+// Award
 app.get('/awards', async (req, res) => {
   const query = "SELECT * FROM Award";
   const [rows] = await connection.query(query);
@@ -138,7 +125,7 @@ app.get('/coach-types/:coachTypeId', async (req, res) => {
   const [rows] = await connection.query(query, coachTypeId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find coach type." });
   };
 
   res.json(rows[0])
@@ -158,7 +145,7 @@ app.get('/competitors/:athleteId', async (req, res) => {
   const [rows] = await connection.query(query, athleteId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find competitor." });
   };
 
   res.json(rows)
@@ -178,7 +165,7 @@ app.get('/courses/:courseId', async (req, res) => {
   const [rows] = await connection.query(query, courseId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find course." });
   };
 
   res.json(rows)
@@ -198,7 +185,7 @@ app.get('/course-types/:courseTypeId', async (req, res) => {
   const [rows] = await connection.query(query, courseTypeId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find course type." });
   };
 
   res.json(rows)
@@ -218,7 +205,7 @@ app.get('/events/:eventId', async (req, res) => {
   const [rows] = await connection.query(query, eventId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find event." });
   };
 
   res.json(rows[0])
@@ -238,7 +225,7 @@ app.get('/event-subtypes/:eventSubTypeId', async (req, res) => {
   const [rows] = await connection.query(query, eventSubTypeId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find event subtype." });
   };
 
   res.json(rows[0])
@@ -258,7 +245,7 @@ app.get('/event-types/:eventTypeId', async (req, res) => {
   const [rows] = await connection.query(query, eventTypeId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find event type." });
   };
 
   res.json(rows[0])
@@ -278,7 +265,7 @@ app.get('/field-results/:competitorId', async (req, res) => {
   const [rows] = await connection.query(query, competitorId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find field result." });
   };
 
   res.json(rows)
@@ -301,7 +288,7 @@ app.get('/locations/:locationId', async (req, res) => {
   const [rows] = await connection.query(query, locationId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find location." });
   };
 
   res.json(rows[0])
@@ -321,7 +308,7 @@ app.get('/races/:raceId', async (req, res) => {
   const [rows] = await connection.query(query, raceId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find race." });
   };
 
   res.json(rows[0])
@@ -344,7 +331,7 @@ app.get('/race-names/:raceNameId', async (req, res) => {
   const [rows] = await connection.query(query, raceNameId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find race name." });
   };
 
   res.json(rows[0])
@@ -364,7 +351,7 @@ app.get('/race-results/:competitorId', async (req, res) => {
   const [rows] = await connection.query(query, competitorId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find race result." });
   };
 
   res.json(rows)
@@ -384,7 +371,7 @@ app.get('/race-time-types/:raceTimeTypeId', async (req, res) => {
   const [rows] = await connection.query(query, raceTimeTypeId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find race time." });
   };
 
   res.json(rows[0])
@@ -404,7 +391,7 @@ app.get('/relay-results/:eventId', async (req, res) => {
   const [rows] = await connection.query(query, eventId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find relay result." });
   };
 
   res.json(rows)
@@ -424,7 +411,7 @@ app.get('/results/:competitorId', async (req, res) => {
   const [rows] = await connection.query(query, competitorId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find result." });
   };
 
   res.json(rows)
@@ -444,7 +431,7 @@ app.get('/special-achievements/:specialAchievementId', async (req, res) => {
   const [rows] = await connection.query(query, specialAchievementId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find achievement." });
   };
 
   res.json(rows)
@@ -464,7 +451,7 @@ app.get('/special-achievers/:competitorId', async (req, res) => {
   const [rows] = await connection.query(query, competitorId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find achiever." });
   };
 
   res.json(rows)
@@ -484,7 +471,7 @@ app.get('/sports/:sportId', async (req, res) => {
   const [rows] = await connection.query(query, sportId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find sport." });
   };
 
   res.json(rows)
@@ -504,7 +491,7 @@ app.get('/squads/:squadId', async (req, res) => {
   const [rows] = await connection.query(query, squadId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
+    return res.json({ msg: "Could not find squad." });
   };
 
   res.json(rows)
