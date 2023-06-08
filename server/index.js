@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
+// File contains all the GETs for the database
 
 // Load environment variables from .env file
 dotenv.config();
@@ -9,6 +10,14 @@ dotenv.config();
 const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
 const app = express();
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 const PORT = process.env.PORT || 3000;
 
 // Athletes

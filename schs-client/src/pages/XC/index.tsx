@@ -39,6 +39,8 @@ export const CrossCountry = () => {
         { title: '7th Annual Alumni Race', year: '2018'},
         { title: '8st Annual Alumni Race', year: '2019'},
     ]
+    
+
   return (
     <div style={{ marginRight: '10rem', marginLeft: '10rem'}}>
         <ImageCarousel images={teamImgs} interval={15000}/>
