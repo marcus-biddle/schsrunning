@@ -1,4 +1,4 @@
-import ImageCarousel from '../../component-lib/carousel';
+import ImageCarousel from '../../components/Carousel/index.tsx';
 import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
 

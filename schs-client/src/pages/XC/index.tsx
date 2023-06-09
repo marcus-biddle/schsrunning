@@ -1,7 +1,7 @@
 
-import AthleteSearch from '../../component-lib/AthleteSearchBar'
+import AthleteSearch from '../../components/AthleteSearchBar'
 import { Link } from 'react-router-dom';
-import ImageCarousel from '../../component-lib/carousel';
+import ImageCarousel from '../../components/Carousel';
 import { teamImgs } from '../../assets';
 import './styles/index.css';
 

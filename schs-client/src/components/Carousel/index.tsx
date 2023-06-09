@@ -12,7 +12,6 @@ const getrandomNumber = (max: number): number => {
 };
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, interval }) => {
-  // Change 0 to use random number between 0 and 27
   const [currentImageIndex, setCurrentImageIndex] = useState(getrandomNumber(27)); 
 
   useEffect(() => {
