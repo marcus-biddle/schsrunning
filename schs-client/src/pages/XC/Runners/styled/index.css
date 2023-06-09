@@ -1,0 +1,17 @@
+/* ToggleButtons.css */
+
+.toggle-button {
+    border: none;
+    background-color: #eaeaea;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 35px;
+  }
+  
+  .toggle-button.active {
+    background-color: #333;
+    color: #fff;
+  }
