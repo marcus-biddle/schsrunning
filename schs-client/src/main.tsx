@@ -8,11 +8,11 @@ import { CrossCountry } from './pages/XC/index.tsx'
 import { Track } from './pages/Track/index.tsx'
 import { XCSeason } from './pages/XC/Season/index.tsx';
 import { Runners } from './pages/XC/Runners/index.tsx';
-import { Runner } from './pages/XC/Runner/index.tsx';
 import { SeasonInfo } from './pages/XC/SeasonInfo/index.tsx';
 import { Coaches } from './pages/XC/Coaches/index.tsx';
-import { Coach } from './pages/XC/Coach/index.tsx';
 import { Top25 } from './pages/XC/Top25/index.tsx';
+import { CoachPage } from './pages/XC/Coach/index.tsx';
+import { Runner } from './pages/XC/Runner/index.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
         <Route path='santa-clara-high-cross-country/seasons/:year' element={<SeasonInfo />} />
         {/* Coaches */}
         <Route path='santa-clara-high-cross-country/coaches/' element={<Coaches />} />
-        <Route path='santa-clara-high-cross-country/coaches/:coachId' element={<Coach />} />
+        <Route path='santa-clara-high-cross-country/coaches/:coachId' element={<CoachPage />} />
 
         {/* Top Individual Result */}
         <Route path='santa-clara-high-cross-country/top-25-results' element={<Top25 />} />

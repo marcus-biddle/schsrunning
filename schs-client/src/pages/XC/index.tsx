@@ -49,74 +49,70 @@ export const CrossCountry = () => {
             <div>
                 <div>
                     <h2>
-                        <Link to={'runners/'}>
-                            XC Results by Runner
+                        <Link className='h2linkstyle' to={'runners/'}>
+                            XC Runners
                         </Link>
                     </h2>
-                    <div >
-                        <AthleteSearch athletes={athleteData} title='Men' />
-                        <AthleteSearch athletes={athleteData} title='Women' />
-                    </div>
-                    <div style={{ paddingTop: '1rem'}}>
+                    <span className='list-item'>XC Runners - Men</span>
+                    <span className='list-item'>XC Runners - Women</span>
+                    <span className='list-item'>XC Runners - All</span>
+                    {/* <div style={{ paddingTop: '1rem'}}>
                         Can't find a runner? Search by season 
                         <span style={{ textDecorationLine: 'underline', cursor: 'pointer', paddingLeft: '5px'}}>
                             <Link to={'seasons/'}>
                             here
                             </Link>
                         </span>
-                    </div>
+                    </div> */}
                 </div>
                 <div>
                     <h2>
-                        <Link to={'coaches/'}>
+                        <Link to={'coaches/'} className='h2linkstyle'>
                             XC Coaches
                         </Link>
                     </h2>
-                    <div >
-                        <AthleteSearch athletes={coachData} title='Coaches' />
-                    </div>
+                    <h4>Head Coach</h4>
+                    <span className='list-item'>Julie L'Heureux</span>
+                    <h4>Assistant Coaches</h4>
+                    <span className='list-item'>Cal Ochoa</span>
                 </div>
                 <h2>XC Special Achievements</h2>
-                <span className='alumni-item'>State Qualifiers</span>
-                <span className='alumni-item'>CCS Champions</span>
-                <span className='alumni-item'>League Champions</span>
+                <span className='list-item'>State Qualifiers</span>
+                <span className='list-item'>CCS Champions</span>
+                <span className='list-item'>League Champions</span>
 
                 <h2>XC Awards</h2>
-                <span className='alumni-item'>Timeline</span>
-                <span className='alumni-item'>Most Valuable Runner</span>
-                <span className='alumni-item'>Most Improved</span>
+                <span className='list-item'>Timeline</span>
+                <span className='list-item'>Most Valuable Runner</span>
+                <span className='list-item'>Most Improved</span>
             </div>
             {/* Second column */}
             <div>
                 <div>
                     <h2>
-                        <Link to={'top-25-results/'}>
+                        <Link to={'top-25-results/'} className='h2linkstyle'>
                             XC Top 25 Individual List
                         </Link>
                     </h2>
-                    <div >
-                        <AthleteSearch athletes={top25MenData} title='All Time Men' />
-                        <AthleteSearch athletes={top25MenData} title='All Time Women' />
-                    </div>
+                    <span className='list-item'>All Time XC Runner - Men</span>
+                    <span className='list-item'>All Time XC Runner - Women</span>
                 </div>
                 <div>
                     <h2>
-                        <Link to={'top-team/'}>
+                        <Link to={'top-team/'} className='h2linkstyle'>
                         XC Top 15 Team List
                         </Link>
                     </h2>
-                    <div >
-                        <AthleteSearch athletes={top25MenData} title='All Time Men Teams' />
-                        <AthleteSearch athletes={top25MenData} title='All Time Women Teams' />
-                    </div>
+                    <span className='list-item'>All Time XC Team - Men</span>
+                    <span className='list-item'>All Time XC Team - Women</span>
                 </div>
                 <div>
                     <h2>XC Alumni Race</h2>
                     <h4>Crystal Springs, CA</h4>
-                    <ul className='alumni-list'>
+                    <ul className='list'>
                         {alumniData.map((item) => {
                             return (
-                                <li className='alumni-item'>
+                                <li className='list-item'>
                                     <span>{item.title}</span>
                                     <span>{item.year}</span>
                                 </li>
@@ -125,14 +121,14 @@ export const CrossCountry = () => {
                     </ul>
 
                     <h4>Alumni Race Champions</h4>
-                    <span className='alumni-item'>Past Champions</span>
+                    <span className='list-item'>Past Champions</span>
 
                     <h4>XC Photos</h4>
-                    <span className='alumni-item'>Team Timeline</span>
-                    <span className='alumni-item'>Alumni Races</span>
+                    <span className='list-item'>Team Timeline</span>
+                    <span className='list-item'>Alumni Races</span>
 
                     <h4>XC Videos</h4>
-                    <span className='alumni-item'>Crystal Springs Alumni Race</span>
+                    <span className='list-item'>Crystal Springs Alumni Race</span>
                 </div>
             </div>
         </div>
