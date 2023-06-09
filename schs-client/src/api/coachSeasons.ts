@@ -1,0 +1,29 @@
+import axios from 'axios';
+
+const BASE_URL = 'http://localhost:3000';
+
+export interface CoachSeason {
+  coachId: number;
+  coachTypeId: number;
+  year: number;
+}
+
+export async function fetchCoachSeasons(): Promise<CoachSeason[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/coach-seasons`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching coach seasons:', error);
+    throw new Error('Failed to fetch coach seasons');
+  }
+}
+
+export async function fetchCoachSeason(coachId: number): Promise<CoachSeason> {
+  try {
+    const response = await axios.get(`${BASE_URL}/coache-seasons/${coachId}`);
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching coach season:', error);
+    throw new Error('Failed to fetch coach season');
+  }
+}
