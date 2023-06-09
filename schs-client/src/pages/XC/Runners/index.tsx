@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Athlete, fetchAthletes } from "../../../api/athletes";
 import './styled/index.css'
 import { SeasonInfo } from "../SeasonInfo";
-import AthleteSearch from "../../../component-lib/AthleteSearchBar";
 
 export const Runners = () => {
     // get the url, check if xc or not then use correct data for page
