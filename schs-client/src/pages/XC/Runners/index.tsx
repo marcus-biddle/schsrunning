@@ -3,6 +3,9 @@ import { urlContains } from "../../../helpers"
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Athlete, fetchAthletes } from "../../../api/athletes";
+import './styled/index.css'
+import { SeasonInfo } from "../SeasonInfo";
+import AthleteSearch from "../../../component-lib/AthleteSearchBar";
 
 export const Runners = () => {
     // get the url, check if xc or not then use correct data for page
@@ -10,6 +13,11 @@ export const Runners = () => {
     const XCPage: string | null = urlContains(location.pathname, ['cross-country']);
     const genderFilter: string | null= urlContains(location.pathname, ['men', 'women']);
     const [athletes, setAthletes] = useState([]);
+    const [activeButton, setActiveButton] = useState('');
+
+  const handleButtonClick = (value: string) => {
+    setActiveButton(value === activeButton ? '' : value);
+};
 
     useEffect(() => {
         fetchAthletes()
@@ -17,23 +25,35 @@ export const Runners = () => {
         .catch((error: any) => console.error('Error fetching athletes:', error));
     }, []);
 
-    console.log(genderFilter, athletes.filter((athlete: Athlete) => genderFilter === "women" ? athlete.genderId === 3 : genderFilter === "men" ? athlete.genderId === 2 : athlete));
+    const filteredAthletes = athletes.filter((athlete: Athlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
 
   return (
     <div style={{ marginLeft: '10rem', marginRight: '10rem'}}>
         { XCPage ?
             <>
-                <h2>SCHS Cross Country Runners (<span>{athletes.length}</span>) {`- ${genderFilter ? genderFilter : ''}`}</h2>
-                {!genderFilter && <div>
-                    <span>
-                        <Link to={'men/'}>Men</Link>
-                    </span>
-                    <span>
-                        <Link to={'women/'}>Women</Link>
-                    </span>
-                </div>}
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <h2>SCHS Cross Country Runners (<span>{filteredAthletes.length}</span>)</h2>
+                    <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
+                    <button
+                        className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
+                        onClick={() => handleButtonClick('men')}
+                    >
+                        Men
+                    </button>
+                    <button
+                        className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
+                        onClick={() => handleButtonClick('women')}
+                    >
+                        Women
+                    </button>
+                    </div>
+                </div>
+                <div>
+                    
+                </div>
+                
                 <ol className="athlete-list">
-                {athletes.filter((athlete: Athlete) => genderFilter === "women" ? athlete.genderId === 3 : genderFilter === "men" ? athlete.genderId === 2 : athlete).map((athlete: Athlete) => (
+                {athletes.filter((athlete: Athlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete).map((athlete: Athlete) => (
                     // We can update this accordingly when we have real data with gender and names so we can filter it better
                     <Link to={athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}`}>
                     <li key={athlete.athleteId} className="athlete-item">
