@@ -102,9 +102,23 @@ app.get('/coaches/:coachId', async (req, res) => {
 
 // Coach Season
 app.get('/coach-seasons', async (req, res) => {
-  const query = "SELECT * FROM CoachSeason";
-  const [rows] = await connection.query(query);
-  res.send(rows)
+  const { coachIds } = req.query;
+
+  // Convert comma-separated string of coach IDs to an array
+  const coachIdArray = coachIds.split(',').map(Number);
+
+  // Prepare the MySQL query with placeholders for the coach IDs
+  const query = "SELECT * FROM CoachSeason WHERE CoachSeason.coachId IN (?)";
+
+  try {
+    // Execute the query with the coach IDs array as a parameter
+    const [rows] = await connection.query(query, [coachIdArray]);
+
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching coach seasons:", error);
+    res.status(500).json({ error: "Failed to fetch coach seasons" });
+  }
 });
 
 app.get('/coach-seasons/:coachId', async (req, res) => {

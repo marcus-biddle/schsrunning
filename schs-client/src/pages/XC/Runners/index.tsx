@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Athlete, fetchAthletes } from "../../../api/athletes";
 import './styled/index.css'
 import { SeasonInfo } from "../SeasonInfo";
-import AthleteSearch from "../../../component-lib/AthleteSearchBar";
 
 export const Runners = () => {
     // get the url, check if xc or not then use correct data for page
@@ -52,13 +51,16 @@ export const Runners = () => {
                     
                 </div>
                 
-                <ol className="athlete-list">
+                <ol className="list">
                 {athletes.filter((athlete: Athlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete).map((athlete: Athlete) => (
                     // We can update this accordingly when we have real data with gender and names so we can filter it better
-                    <Link to={athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}`}>
-                    <li key={athlete.athleteId} className="athlete-item">
-                    <span>{athlete.firstName} {athlete.lastName}</span>
-                    </li>
+                    <Link 
+                    to={athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}`}
+                    className="spanlinkstyle"
+                    >
+                        <li key={athlete.athleteId} className="list-item">
+                            <span>{athlete.firstName} {athlete.lastName}</span>
+                        </li>
                     </Link>
                     
                 ))}

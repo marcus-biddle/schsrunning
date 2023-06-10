@@ -22,4 +22,12 @@ export async function fetchAthletes(): Promise<Athlete[]> {
   }
 }
 
-// Add other athlete-related API functions such as createAthlete, updateAthlete, deleteAthlete, etc.
+export async function fetchAthlete(athleteId: number): Promise<Athlete> {
+    try {
+        const response = await axios.get(`${BASE_URL}/athletes/${athleteId}`);
+        return response.data;
+    } catch (error) {
+        console.log('Error fetching athlete:', error);
+        throw new Error('Failed to fetch athlete');
+    }
+}

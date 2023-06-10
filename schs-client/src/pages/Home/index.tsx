@@ -1,4 +1,4 @@
-import ImageCarousel from '../../component-lib/carousel';
+import ImageCarousel from '../../components/Carousel/index.tsx';
 import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
 
@@ -104,9 +104,9 @@ export const Home = () => {
         <div style={{ marginBottom: '4rem'}}>
             <h2>Latest Race</h2>
             <h4 className="race-details">Crystal Springs, 2.95M (2021-11-02)</h4>
-            <ol className="athlete-list">
+            <ol className="list">
                 {athletes.map((athlete) => (
-                    <li key={athlete.name} className="athlete-item">
+                    <li key={athlete.name} className="list-item">
                     <span>{athlete.name}</span>
                     <span>{athlete.time}</span>
                     </li>
@@ -120,7 +120,7 @@ export const Home = () => {
                 {topRecords.map((record) => (
                     <div className="column" key={record.type}>
                         <h4 className="record-heading">Top 3 Records - {record.type}</h4>
-                        <ul className='top-athlete-list'>
+                        <ul className='top-list'>
                             {record.records.map((athlete) => (
                             <li key={athlete.name} className='top-athlete-item'>
                                 <span>{athlete.name}</span>
