@@ -21,6 +21,32 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 // PROCEDURES
+  // Get XC Runner Results
+  app.get('/xc-runner', async (req, res) => {
+    const inputAthleteId = req.query.athleteId;
+
+    const query = `
+    SELECT R.time, R.pace, C.grade, RA.date, RN.racename, CO.coursename, CO.coursedistance,
+       RC.racecondition, A.firstname, A.lastname, R.raceid, A.genderId
+    FROM Result R
+    JOIN Competitor C ON R.competitorId = C.competitorId
+    JOIN Athlete A ON C.athleteId = A.athleteId
+    JOIN Race RA ON R.raceId = RA.raceId
+    JOIN RaceName RN ON RA.raceNameId = RN.raceNameId
+    JOIN RaceCondition RC ON RA.raceConditionId = RC.raceConditionId
+    JOIN Course CO ON RA.courseId = CO.courseId
+    WHERE A.athleteId = ? AND YEAR(RA.date) = year
+    ORDER BY RA.date DESC;
+    `;
+
+      try {
+        const [rows] = await connection.query(query, [inputAthleteId]);
+        res.json(rows);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+  });
   // Get top XC Athletes
   app.get('/best-times', async (req, res) => {
     const inputCourseId = req.query.courseId;
