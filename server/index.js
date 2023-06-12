@@ -20,6 +20,45 @@ app.use((req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
+// PROCEDURES
+  // Get top XC Athletes
+  app.get('/best-times', async (req, res) => {
+    const inputCourseId = req.query.courseId;
+    const inputGenderId = req.query.genderId;
+    const limit = parseInt(req.query.limit);
+
+    const query = `
+      SELECT DISTINCT A.firstName, A.lastName, R.time, R.pace, C.year, C.grade, C.competitorId
+      FROM Result AS R
+      JOIN Competitor AS C ON R.competitorId = C.competitorId
+      JOIN Athlete AS A ON C.athleteId = A.athleteId
+      JOIN Gender AS G ON A.genderId = G.genderId
+      JOIN Race AS RC ON R.raceId = RC.raceId
+      JOIN (
+          SELECT C.athleteId, MIN(R.time) AS bestTime
+          FROM Result AS R
+          JOIN Competitor AS C ON R.competitorId = C.competitorId
+          JOIN Athlete AS A ON C.athleteId = A.athleteId
+          JOIN Gender AS G ON A.genderId = G.genderId
+          JOIN Race AS RC ON R.raceId = RC.raceId
+          JOIN Course AS CO ON RC.courseId = CO.courseId
+          WHERE CO.courseId = ? AND G.genderId = ? AND C.grade != 0
+          GROUP BY C.athleteId
+      ) AS BT ON C.athleteId = BT.athleteId AND R.time = BT.bestTime
+      JOIN Course AS CO ON RC.courseId = CO.courseId
+      WHERE CO.courseId = ? AND G.genderId = ? AND YEAR(RC.date) = C.year
+      ORDER BY R.time
+      LIMIT ?;`;
+
+      try {
+        const [rows] = await connection.query(query, [inputCourseId, inputGenderId, inputCourseId, inputGenderId, limit]);
+        res.json(rows);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+  });
+
 // Athletes
 app.get('/athletes', async (req, res) => {
   const query = "SELECT * FROM Athlete";
