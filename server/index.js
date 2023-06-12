@@ -54,7 +54,7 @@ const PORT = process.env.PORT || 3000;
     const limit = parseInt(req.query.limit);
 
     const query = `
-      SELECT DISTINCT A.firstName, A.lastName, R.time, R.pace, C.year, C.grade, C.competitorId
+      SELECT DISTINCT A.firstName, A.lastName, R.time, R.pace, C.year, C.grade, C.competitorId, A.athleteId
       FROM Result AS R
       JOIN Competitor AS C ON R.competitorId = C.competitorId
       JOIN Athlete AS A ON C.athleteId = A.athleteId
@@ -250,13 +250,20 @@ app.get('/courses/:courseId', async (req, res) => {
   const { courseId } = req.params;
 
   const query = "SELECT * FROM Course WHERE Course.courseId=?;";
-  const [rows] = await connection.query(query, courseId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find course." });
-  };
 
-  res.json(rows)
+  try {
+    const [rows] = await connection.query(query, courseId);
+  
+    if(!rows[0]) {
+      return res.json({ msg: "Could not find course." });
+    };
+  
+    res.json(rows[0])
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
 });
 
 // Course Type

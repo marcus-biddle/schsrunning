@@ -10,6 +10,7 @@ export interface BestTime {
   year: number;
   grade: number;
   competitorId: string;
+  athleteId: string;
 }
 
 export async function fetchBestTimes(courseId: number, genderId: number, limit: number): Promise<BestTime[]> {

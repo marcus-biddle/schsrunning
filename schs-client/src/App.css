@@ -26,13 +26,33 @@ h4 {
   justify-content: space-between;
 }
 
+.num-list-item {
+  padding: 6px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .list {
   list-style-type: none;
   padding-left: 0;
   overflow: hidden;
 }
 
+.num-list {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
 .list-item:hover {
+  background-color: #5ca3ef5f;
+}
+
+.num-list-item:hover {
   background-color: #5ca3ef5f;
 }
 
