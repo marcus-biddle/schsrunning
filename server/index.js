@@ -105,6 +105,19 @@ app.get('/athletes/:athleteId', async (req, res) => {
   res.json(rows[0])
 });
 
+// Athlete Procedures
+//     Get XC Runners
+app.get('/xc-athletes', async (req, res) => {
+  const query = `SELECT DISTINCT a.athleteId, a.firstName, a.lastName, a.genderId
+  FROM Athlete a
+  JOIN Competitor c ON a.athleteId = c.athleteId
+  JOIN Result re ON c.competitorId = re.competitorId
+  JOIN Race r ON re.raceId = r.raceId;
+  `;
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
 // Award
 app.get('/awards', async (req, res) => {
   const query = "SELECT * FROM Award";

@@ -12,6 +12,46 @@
   }
   
   .toggle-button.active {
-    background-color: #333;
+    background-color: #007bff;
     color: #fff;
   }
+
+.search-text {
+    padding: 20px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.input {
+    border-radius: 3px;
+    padding: 4px;
+    border: solid thin grey;
+    margin-right: 5px;
+}
+
+.reset-btn {
+    padding: 6px;
+    border-radius: 2px;
+    border: none;
+}
+  
+  #resetButton {
+    border: none;
+    background-color: #f2f2f2;
+    color: #777;
+    cursor: pointer;
+    padding: 7px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #resetButton:hover {
+    background-color: #e6e6e6;
+    color: #333;
+  }
+  
+  #resetButton:focus {
+    outline: none;
+  }
+  
