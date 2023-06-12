@@ -1,33 +1,10 @@
 
-import AthleteSearch from '../../components/AthleteSearchBar'
 import { Link } from 'react-router-dom';
 import ImageCarousel from '../../components/Carousel';
 import { teamImgs } from '../../assets';
 import './styles/index.css';
 
 export const CrossCountry = () => {
-    const athleteData = [
-        { id: 1, name: 'Cal Ochoa', path: '1001010/'},
-        { id: 2, name: 'Marcus Biddle' , path: '1001610/'},
-        { id: 3, name: 'Alejandro Martinez', path: '1001040/'},
-        { id: 4, name: 'Max Howell', path: '1001013/' },
-        // ... other athlete data
-      ];
-    const coachData = [
-        { id: 1, name: 'Cal Ochoa', path: '1001010/' },
-        { id: 2, name: 'Julie L\'Heureux', path: '1001010/' },
-        { id: 3, name: 'Jamie Vierling', path: '1001010/' },
-        { id: 4, name: 'Mario Bouza', path: '1001010/' },
-        // ... other athlete data
-    ]
-
-    const top25MenData = [
-        { id: 1, name: 'Crystal Springs', path: '1001010/' },
-        { id: 2, name: 'Toro Park', path: '1001010/' },
-        { id: 3, name: 'Central Park', path: '1001010/' },
-        { id: 4, name: 'Baylands', path: '1001010/' },
-        // ... other athlete data
-    ]
 
     const alumniData = [
         { title: '1st Annual Alumni Race', year: '2012'},
