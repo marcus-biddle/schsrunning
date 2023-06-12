@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
 import { useLocation, useParams } from 'react-router';
 import { capitalizeFirstLetter, convertToNum, mapGradeToNumber, urlContains } from '../../../helpers';
