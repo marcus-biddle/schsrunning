@@ -14,10 +14,10 @@ export const Top25 = () => {
             <div>
                 <div>
                     <h4>Top 25 Men - All Time</h4>
-                    <ol className="athlete-list">
+                    <ol className="list">
                         {data.map((race) => (
-                            <Link to={race.id}>
-                                <li key={race.name} className="athlete-item">
+                            <Link to={race.id} className='spanlinkstyle'>
+                                <li key={race.name} className="list-item">
                                     <span>{race.name}</span>
                                 </li>
                             </Link>
@@ -26,10 +26,10 @@ export const Top25 = () => {
                 </div>
                 <div>
                     <h4>Top 25 Men - Senior</h4>
-                    <ol className="athlete-list">
+                    <ol className="list">
                         {data.map((race) => (
-                            <Link to={race.id}>
-                                <li key={race.name} className="athlete-item">
+                            <Link to={race.id} className='spanlinkstyle'>
+                                <li key={race.name} className="list-item">
                                     <span>{race.name}</span>
                                 </li>
                             </Link>
@@ -38,10 +38,10 @@ export const Top25 = () => {
                 </div>
                 <div>
                     <h4>Top 25 Men - Junior</h4>
-                    <ol className="athlete-list">
+                    <ol className="list">
                         {data.map((race) => (
-                            <Link to={race.id}>
-                                <li key={race.name} className="athlete-item">
+                            <Link to={race.id} className='spanlinkstyle'>
+                                <li key={race.name} className="list-item">
                                     <span>{race.name}</span>
                                 </li>
                             </Link>
@@ -50,10 +50,10 @@ export const Top25 = () => {
                 </div>
                 <div>
                     <h4>Top 25 Men - Sophomore</h4>
-                    <ol className="athlete-list">
+                    <ol className="list">
                         {data.map((race) => (
-                            <Link to={race.id}>
-                                <li key={race.name} className="athlete-item">
+                            <Link to={race.id} className='spanlinkstyle'>
+                                <li key={race.name} className="list-item">
                                     <span>{race.name}</span>
                                 </li>
                             </Link>
@@ -62,10 +62,10 @@ export const Top25 = () => {
                 </div>
                 <div>
                     <h4>Top 25 Men - Freshmen</h4>
-                    <ol className="athlete-list">
+                    <ol className="list">
                         {data.map((race) => (
-                            <Link to={race.id}>
-                                <li key={race.name} className="athlete-item">
+                            <Link to={race.id} className='spanlinkstyle'>
+                                <li key={race.name} className="list-item">
                                     <span>{race.name}</span>
                                 </li>
                             </Link>
@@ -76,10 +76,10 @@ export const Top25 = () => {
             <div>
             <div>
                 <h4>Top 25 Women - All Time</h4>
-                <ol className="athlete-list">
+                <ol className="list">
                     {data.map((race) => (
-                        <Link to={race.id}>
-                            <li key={race.name} className="athlete-item">
+                        <Link to={race.id} className='spanlinkstyle'>
+                            <li key={race.name} className="list-item">
                                 <span>{race.name}</span>
                             </li>
                         </Link>
@@ -88,10 +88,10 @@ export const Top25 = () => {
             </div>
             <div>
                 <h4>Top 25 Women - Senior</h4>
-                <ol className="athlete-list">
+                <ol className="list">
                     {data.map((race) => (
-                        <Link to={race.id}>
-                            <li key={race.name} className="athlete-item">
+                        <Link to={race.id} className='spanlinkstyle'>
+                            <li key={race.name} className="list-item">
                                 <span>{race.name}</span>
                             </li>
                         </Link>
@@ -100,10 +100,10 @@ export const Top25 = () => {
             </div>
             <div>
                 <h4>Top 25 Women - Junior</h4>
-                <ol className="athlete-list">
+                <ol className="list">
                     {data.map((race) => (
-                        <Link to={race.id}>
-                            <li key={race.name} className="athlete-item">
+                        <Link to={race.id} className='spanlinkstyle'>
+                            <li key={race.name} className="list-item">
                                 <span>{race.name}</span>
                             </li>
                         </Link>
@@ -112,10 +112,10 @@ export const Top25 = () => {
             </div>
             <div>
                 <h4>Top 25 Women - Sophomore</h4>
-                <ol className="athlete-list">
+                <ol className="list">
                     {data.map((race) => (
-                        <Link to={race.id}>
-                            <li key={race.name} className="athlete-item">
+                        <Link to={race.id} className='spanlinkstyle'>
+                            <li key={race.name} className="list-item">
                                 <span>{race.name}</span>
                             </li>
                         </Link>
@@ -124,10 +124,10 @@ export const Top25 = () => {
             </div>
             <div>
                 <h4>Top 25 Women - Freshmen</h4>
-                <ol className="athlete-list">
+                <ol className="list">
                     {data.map((race) => (
-                        <Link to={race.id}>
-                            <li key={race.name} className="athlete-item">
+                        <Link to={race.id} className='spanlinkstyle'>
+                            <li key={race.name} className="list-item">
                                 <span>{race.name}</span>
                             </li>
                         </Link>

@@ -12,6 +12,13 @@ export interface Athlete {
   confidentHsYear: number;
 }
 
+export interface XCAthlete {
+  athleteId: number;
+  firstName: string;
+  lastName: string;
+  genderId: number;
+}
+
 export async function fetchAthletes(): Promise<Athlete[]> {
   try {
     const response = await axios.get(`${BASE_URL}/athletes`);
@@ -30,4 +37,14 @@ export async function fetchAthlete(athleteId: number): Promise<Athlete> {
         console.log('Error fetching athlete:', error);
         throw new Error('Failed to fetch athlete');
     }
+}
+
+export async function fetchXCAthletes(): Promise<XCAthlete[]> {
+  try {
+      const response = await axios.get(`${BASE_URL}/xc-athletes`);
+      return response.data;
+  } catch (error) {
+      console.log('Error fetching xc athletes:', error);
+      throw new Error('Failed to fetch xc athletes');
+  }
 }
