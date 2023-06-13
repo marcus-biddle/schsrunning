@@ -38,3 +38,8 @@ export function mapGradeToNumber(grade: string) {
       return -1; // Or any other value to represent an invalid grade
   }
 }
+
+export function getYearFromDate(inputDate: string): number {
+  const date = new Date(inputDate);
+  return date.getFullYear();
+}

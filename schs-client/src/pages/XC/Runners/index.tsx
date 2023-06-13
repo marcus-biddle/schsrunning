@@ -8,9 +8,11 @@ import './styled/index.css';
 export const Runners = () => {
     // get the url, check if xc or not then use correct data for page
     const location = useLocation();
+    const genderType = urlContains(location.pathname, ['men', 'women'])
+    const initialButtonPosition = genderType === 'men' ? 'men' : genderType === 'women' ? 'women' : '';
     const XCPage: string | null = urlContains(location.pathname, ['cross-country']);
     const [athletes, setAthletes] = useState<XCAthlete[]>([]);
-    const [activeButton, setActiveButton] = useState('');
+    const [activeButton, setActiveButton] = useState(initialButtonPosition);
     const [searchTerm, setSearchTerm] = useState('');
 
   const handleButtonClick = (value: string) => {

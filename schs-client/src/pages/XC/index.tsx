@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ImageCarousel from '../../components/Carousel';
 import { teamImgs } from '../../assets';
 import './styles/index.css';
+import { CourseID } from './Top25';
 
 export const CrossCountry = () => {
 
@@ -30,9 +31,14 @@ export const CrossCountry = () => {
                             XC Runners
                         </Link>
                     </h2>
-                    <span className='list-item'>XC Runners - Men</span>
-                    <span className='list-item'>XC Runners - Women</span>
-                    <span className='list-item'>XC Runners - All</span>
+                    <h4>Men</h4>
+                    <Link to={'runners/men/'} className='spanlinkstyle'>
+                        <span className='list-item'>XC Runners</span>
+                    </Link>
+                    <h4>Women</h4>
+                    <Link to={'runners/women/'} className='spanlinkstyle'>
+                    <span className='list-item'>XC Runners</span>
+                    </Link>
                     {/* <div style={{ paddingTop: '1rem'}}>
                         Can't find a runner? Search by season 
                         <span style={{ textDecorationLine: 'underline', cursor: 'pointer', paddingLeft: '5px'}}>
@@ -71,8 +77,39 @@ export const CrossCountry = () => {
                             XC Top 25 Individual List
                         </Link>
                     </h2>
-                    <span className='list-item'>All Time XC Runner - Men</span>
-                    <span className='list-item'>All Time XC Runner - Women</span>
+                    <h4>All Time Men</h4>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.CRYSTAL_SPRING}`} className='spanlinkstyle'>
+                        <span className='list-item'>Crystal Springs</span> 
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.TORO_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Toro Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.CENTRAL_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Central Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.BAYLANDS_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Baylands Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.LYNBRROK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Lynbrook High school</span>
+                    </Link>
+                    
+                    <h4>All Time Women</h4>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.CRYSTAL_SPRING}`} className='spanlinkstyle'>
+                        <span className='list-item'>Crystal Springs</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.TORO_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Toro Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.CENTRAL_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Central Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.BAYLANDS_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Baylands Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.LYNBRROK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Lynbrook High school</span>
+                    </Link>
                 </div>
                 <div>
                     <h2>
@@ -80,8 +117,10 @@ export const CrossCountry = () => {
                         XC Top 15 Team List
                         </Link>
                     </h2>
-                    <span className='list-item'>All Time XC Team - Men</span>
-                    <span className='list-item'>All Time XC Team - Women</span>
+                    <h4>Men</h4>
+                    <span className='list-item'>All Time XC Team</span>
+                    <h4>Women</h4>
+                    <span className='list-item'>All Time XC Team</span>
                 </div>
                 <div>
                     <h2>XC Alumni Race</h2>

@@ -26,7 +26,7 @@ export const CoachPage = () => {
     }, []);
 
   return (
-    <div style={{ marginRight: '10rem', marginLeft: '10rem'}}>
+    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
         <h2>SCHS XC Coach: {coach?.firstName} {coach?.lastName} </h2>
         {coachSeasons.filter((season) => season.coachTypeId === 1).length > 0 &&
         <>

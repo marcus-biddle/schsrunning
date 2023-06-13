@@ -42,7 +42,7 @@ export const Top25Runners = () => {
             }).map((runner) => {
                 return (
                     <Link 
-                    to={`/santa-clara-high-cross-country/${genderType}/${runner.athleteId}`}
+                    to={`/santa-clara-high-cross-country/runners/${genderType}/${runner.athleteId}`}
                     className='spanlinkstyle'
                     key={runner.athleteId}
                     >
