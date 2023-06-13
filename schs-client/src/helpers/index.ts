@@ -22,24 +22,49 @@ export function capitalizeFirstLetter(str: string): string {
   return `${firstLetter}${restOfString}`;
 }
 
-export function mapGradeToNumber(grade: string) {
-  switch (grade) {
-    case 'all-time':
-      return 0;
-    case 'senior':
-      return 12;
-    case 'junior':
-      return 11;
-    case 'sophomore':
-      return 10;
-    case 'freshmen':
-      return 9;
-    default:
-      return -1; // Or any other value to represent an invalid grade
+export function convertGrade(grade: string | number) {
+  if (typeof grade === 'string') {
+    switch (grade) {
+      case 'all-time':
+        return 0;
+      case 'senior':
+        return 12;
+      case 'junior':
+        return 11;
+      case 'sophomore':
+        return 10;
+      case 'freshmen':
+        return 9;
+      default:
+        return -1; 
+    }
+  } else if (typeof grade === 'number') {
+    switch (grade) {
+      case 0:
+        return 'all-time';
+      case 12:
+        return 'senior';
+      case 11:
+        return 'junior';
+      case 10:
+        return 'sophomore';
+      case 9:
+        return 'freshmen';
+      default:
+        return 'unknown'; 
+    }
   }
+  
 }
 
 export function getYearFromDate(inputDate: string): number {
   const date = new Date(inputDate);
   return date.getFullYear();
+}
+
+export function parseNumberString(numberString: string) {
+  const numbers = numberString.split(',');
+  const parsedNumbers = numbers.map((num) => parseFloat(num));
+
+  return parsedNumbers;
 }

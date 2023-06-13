@@ -14,6 +14,7 @@ import { Top25 } from './pages/XC/Top25/index.tsx';
 import { CoachPage } from './pages/XC/Coach/index.tsx';
 import { Runner } from './pages/XC/Runner/index.tsx';
 import { Top25Runners } from './pages/XC/Top25Runners/index.tsx';
+import { Top15 } from './pages/XC/Top15Teams/index.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,8 +55,8 @@ const router = createBrowserRouter(
 
         {/* Top Team */}
         <Route path='santa-clara-high-cross-country/top-team' element={<Top25 />} />
-        <Route path='santa-clara-high-cross-country/top-team/men/:raceId' element={<XCSeason />} />
-        <Route path='santa-clara-high-cross-country/top-team/women/:raceId' element={<XCSeason />} />
+        <Route path='santa-clara-high-cross-country/top-team/men/:courseId' element={<Top15 />} />
+        <Route path='santa-clara-high-cross-country/top-team/women/:courseId' element={<Top15 />} />
 
       {/* Track Paths */}
       <Route path="santa-clara-high-track-and-field/" element={<Track />} />

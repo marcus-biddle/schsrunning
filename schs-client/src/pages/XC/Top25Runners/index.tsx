@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
 import { useLocation, useParams } from 'react-router';
-import { capitalizeFirstLetter, convertToNum, mapGradeToNumber, urlContains } from '../../../helpers';
+import { capitalizeFirstLetter, convertGrade, convertToNum, urlContains } from '../../../helpers';
 import { Course, fetchCourse } from '../../../api/courses';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export const Top25Runners = () => {
     const genderType = urlContains(location.pathname, ['men', 'women']);
     const genderId = genderType === 'men' ? 2 : 3;
     const filterType = urlContains(location.pathname, ['all-time', 'senior', 'junior', 'sophomore', 'freshmen'])
-    const filter = mapGradeToNumber(filterType || '');
+    const filter = convertGrade(filterType || '');
 
     useEffect(() => {
         fetchBestTimes(convertToNum(courseId), genderId, 65)

@@ -24,10 +24,12 @@ const PORT = process.env.PORT || 3000;
   // Get XC Runner Results
   app.get('/xc-runner', async (req, res) => {
     const inputAthleteId = req.query.athleteId;
-
+    const competitorIds = req.query.competitorIds.split(',');
+    const raceId = req.query.raceId;
+  
     const query = `
     SELECT R.time, R.pace, C.grade, RA.date, RN.racename, CO.coursename, CO.coursedistance,
-       RC.racecondition, A.firstname, A.lastname, R.raceid, A.genderId
+    RC.racecondition, A.firstname, A.lastname, R.raceid, A.genderId, C.competitorId
     FROM Result R
     JOIN Competitor C ON R.competitorId = C.competitorId
     JOIN Athlete A ON C.athleteId = A.athleteId
@@ -35,18 +37,22 @@ const PORT = process.env.PORT || 3000;
     JOIN RaceName RN ON RA.raceNameId = RN.raceNameId
     JOIN RaceCondition RC ON RA.raceConditionId = RC.raceConditionId
     JOIN Course CO ON RA.courseId = CO.courseId
-    WHERE A.athleteId = ? AND YEAR(RA.date) = year
+    WHERE (A.athleteId = ?)
+    OR (R.raceId = ? 
+      AND C.competitorId IN (?))
+      AND YEAR(RA.date) = year
     ORDER BY RA.date DESC;
     `;
-
-      try {
-        const [rows] = await connection.query(query, [inputAthleteId]);
-        res.json(rows);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-      }
+  
+    try {
+      const [rows] = await connection.query(query, [inputAthleteId, raceId, competitorIds]);
+      res.json(rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   });
+  
   // Get top XC Athletes
   app.get('/best-times', async (req, res) => {
     const inputCourseId = req.query.courseId;
@@ -78,6 +84,113 @@ const PORT = process.env.PORT || 3000;
 
       try {
         const [rows] = await connection.query(query, [inputCourseId, inputGenderId, inputCourseId, inputGenderId, limit]);
+        res.json(rows);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+  });
+
+  // Get Top XC Teams
+  app.get('/top-teams', async (req, res) => {
+    const inputCourseId = req.query.courseId;
+    const inputGenderId = req.query.genderId;
+
+    const query = `
+    SELECT
+    yr AS 'year',
+    MIN(team_time) AS 'team_time',
+    MIN(team_avg) AS 'avg_ind_time',
+    SUBSTRING_INDEX(GROUP_CONCAT(team_raceid ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'raceId',
+    SUBSTRING_INDEX(GROUP_CONCAT(team_competitors ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'competitors'
+FROM
+    (
+        SELECT
+            YEAR(Race.date) AS yr,
+            Result.raceid AS team_raceid,
+            SEC_TO_TIME(AVG(TIME_TO_SEC(Result.time))) AS team_avg,
+            SEC_TO_TIME(SUM(TIME_TO_SEC(Result.time))) AS team_time,
+            GROUP_CONCAT(Result.competitorid ORDER BY Result.time ASC) AS team_competitors
+        FROM
+            Result
+        JOIN
+            Race ON Result.raceid = Race.raceid
+        JOIN
+            Competitor ON Result.competitorid = Competitor.competitorid
+        JOIN
+            Athlete ON Competitor.athleteid = Athlete.athleteid
+        JOIN
+            (
+                SELECT
+                    r.raceid,
+                    GROUP_CONCAT(CONCAT(r.competitorid, ":", r.raceid) ORDER BY r.time ASC) AS finisher_key,
+                    COUNT(DISTINCT r.competitorid) AS team_size
+                FROM
+                    Result r
+                JOIN
+                    Race ra ON r.raceid = ra.raceid
+                JOIN
+                    Competitor c ON r.competitorid = c.competitorid
+                JOIN
+                    Athlete a ON c.athleteid = a.athleteid
+                WHERE
+                    a.genderid = ?
+                    AND YEAR(ra.date) = YEAR(ra.date)
+                    AND ra.courseid = ?
+                    AND r.raceid IN (
+                        SELECT
+                            ra.raceid
+                        FROM
+                            (
+                                SELECT
+                                    r.raceid,
+                                    COUNT(r.raceid) AS num_racers
+                                FROM
+                                    Result r
+                                JOIN
+                                    Race ra ON r.raceid = ra.raceid
+                                JOIN
+                                    Competitor c ON r.competitorid = c.competitorid
+                                JOIN
+                                    Athlete a ON c.athleteid = a.athleteid
+                                WHERE
+                                    ra.courseid = ?
+                                    AND a.genderid = ?
+                                    AND YEAR(ra.date) = YEAR(ra.date)
+                                GROUP BY
+                                    r.raceid
+                                HAVING
+                                    num_racers >= 5
+                            ) num_racers_table
+                        WHERE
+                            num_racers >= 5
+                    )
+                GROUP BY
+                    r.raceid
+                HAVING
+                    team_size >= 5
+            ) finisher_tbl
+        ON
+            Result.raceid = finisher_tbl.raceid
+        WHERE
+            FIND_IN_SET(CONCAT(Result.competitorid, ":", Result.raceid), finisher_tbl.finisher_key) BETWEEN 1 AND 5
+        GROUP BY
+            Result.raceid
+        HAVING
+            COUNT(Result.competitorid) = 5 -- Include this condition to filter rows with exactly 5 competitorIds
+        ORDER BY
+            yr, team_time
+    ) team_times
+GROUP BY
+    yr
+ORDER BY
+    MIN(team_time)
+LIMIT
+    15;
+`;
+
+      try {
+        const [rows] = await connection.query(query, [inputGenderId, inputCourseId, inputCourseId, inputGenderId]);
         res.json(rows);
       } catch (error) {
         console.error(error);
@@ -512,18 +625,25 @@ app.get('/results', async (req, res) => {
   res.send(rows)
 });
 
-app.get('/results/:competitorId', async (req, res) => {
-  const { competitorId } = req.params;
+app.get('/results/:raceId', async (req, res) => {
+  try {
+    const { raceId } = req.params;
+    const limit = parseInt(req.query.limit, 10);
 
-  const query = "SELECT * FROM Result WHERE Result.competitorId=?;";
-  const [rows] = await connection.query(query, competitorId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find result." });
-  };
+    const query = "SELECT * FROM Result WHERE Result.raceId=? ORDER BY Result.time LIMIT ?;";
+    const [rows] = await connection.query(query, [raceId, limit]);
 
-  res.json(rows)
+    if (!rows[0]) {
+      return res.json({ msg: "Could not find result." });
+    }
+
+    res.json(rows);
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
 
 // Special Achievements
 app.get('/special-achievements', async (req, res) => {

@@ -17,15 +17,15 @@ export interface XCRunner {
   genderId: number;
 }
 
-export async function fetchXCRunner(athleteId: number): Promise<XCRunner[]> {
+export async function fetchXCRunner(athleteId: number, competitorIds: string, raceId: number): Promise<XCRunner[]> {
   try {
-    console.log('before api');
     const response: AxiosResponse<XCRunner[]> = await axios.get(`${BASE_URL}/xc-runner`, {
       params: {
-        athleteId: athleteId
+        athleteId: athleteId,
+        competitorIds: competitorIds,
+        raceId: raceId
       },
     });
-    console.log('after api', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching XCRunner:', error);

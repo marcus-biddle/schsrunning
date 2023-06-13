@@ -9,22 +9,26 @@ export interface Result {
     pace: string;
 }
 
-export async function fetchResults(): Promise<Result[]> {
-    try {
-        const response = await axios.get(`${BASE_URL}/results`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching results:', error);
-        throw new Error('Failed to fetch results');
-    }
-}
+// export async function fetchResults(): Promise<Result[]> {
+//     try {
+//         const response = await axios.get(`${BASE_URL}/results`);
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error fetching results:', error);
+//         throw new Error('Failed to fetch results');
+//     }
+// }
 
-export async function fetchResult(competitorId: number): Promise<Result> {
+export async function fetchResults(raceId: string, limit: number): Promise<Result[]> {
     try {
-        const response = await axios.get(`${BASE_URL}/results/${competitorId}`);
-        return response.data;
+      const response = await axios.get(`${BASE_URL}/results/${raceId}`, {
+        params: {
+          limit: limit, 
+        },
+      });
+      return response.data;
     } catch (error) {
-        console.log('Error fetching result:', error);
-        throw new Error('Failed to fetch result');
+      console.log('Error fetching result:', error);
+      throw new Error('Failed to fetch result');
     }
-}
+  }
