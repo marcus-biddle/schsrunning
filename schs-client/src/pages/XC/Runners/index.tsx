@@ -77,7 +77,7 @@ export const Runners = () => {
                 <ol className="list" style={{ columnCount: '2', columnGap: '20px'}}>
                 {filteredAthletesByName.map((athlete: XCAthlete) => (
                     <Link 
-                    to={athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}`}
+                    to={genderType === 'men' || genderType === 'women' ? `${athlete.athleteId}/` : athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` }
                     className="spanlinkstyle"
                     key={athlete.athleteId}
                     >

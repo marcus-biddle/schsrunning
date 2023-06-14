@@ -315,7 +315,11 @@ app.get('/coach-seasons', async (req, res) => {
 app.get('/coach-seasons/:coachId', async (req, res) => {
   const { coachId } = req.params;
 
-  const query = "SELECT * FROM CoachSeason WHERE CoachSeason.coachId=?;";
+  const query = `SELECT CoachSeason.*, Coach.firstname, Coach.lastname
+  FROM CoachSeason
+  JOIN Coach ON CoachSeason.coachId = Coach.coachId
+  WHERE CoachSeason.coachId IN (?);
+  `;
   const [rows] = await connection.query(query, coachId);
   
   if(!rows[0]) {
@@ -346,11 +350,18 @@ app.get('/coach-types/:coachTypeId', async (req, res) => {
 });
 
 // Competitor
-app.get('/competitors', async (req, res) => {
-  const query = "SELECT * FROM Competitor";
-  const [rows] = await connection.query(query);
-  res.send(rows)
-});
+app.get('/competitors/year/:yearId', async (req, res) => {
+  const { yearId } = req.params;
+  const query = "SELECT * FROM Competitor WHERE Competitor.year = ?";
+  const [rows] = await connection.query(query, [yearId]);
+
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find competitors." });
+  };
+
+  res.send(rows);
+}); 
+
 
 app.get('/competitors/:athleteId', async (req, res) => {
   const { athleteId } = req.params;

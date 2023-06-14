@@ -6,6 +6,8 @@ export interface CoachSeason {
   coachId: number;
   coachTypeId: number;
   year: number;
+  firstname: string;
+  lastname: string;
 }
 
 export async function fetchCoachSeasonsByIds(coachIds: number[]): Promise<CoachSeason[]> {
@@ -22,7 +24,7 @@ export async function fetchCoachSeasonsByIds(coachIds: number[]): Promise<CoachS
     }
   }
 
-export async function fetchCoachSeason(coachId: number): Promise<CoachSeason[]> {
+export async function fetchCoachSeasons(coachId: number): Promise<CoachSeason[]> {
   try {
     const response = await axios.get(`${BASE_URL}/coach-seasons/${coachId}`);
     return response.data;

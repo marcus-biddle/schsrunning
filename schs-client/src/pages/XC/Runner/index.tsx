@@ -13,7 +13,7 @@ export const Runner = () => {
   const freshmenRaces = runner.filter((row) => row.grade === 9);
 
   useEffect(() => {
-    fetchXCRunner(convertToNum(athleteId))
+    fetchXCRunner(convertToNum(athleteId), '', -1)
         .then((data) => {
             setRunner(data);
         })
@@ -55,7 +55,7 @@ export const Runner = () => {
           return (
             <li className="list-item">
               <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
-              <span>{row.time} ({row.pace})</span>
+              <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
             </li>
           )
         })}
@@ -73,7 +73,7 @@ export const Runner = () => {
           return (
             <li className="list-item">
               <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
-              <span>{row.time} ({row.pace})</span>
+              <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
             </li>
           )
         })}
@@ -91,7 +91,7 @@ export const Runner = () => {
           return (
             <li className="list-item">
               <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
-              <span>{row.time} ({row.pace})</span>
+              <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
             </li>
           )
         })}
@@ -109,7 +109,7 @@ export const Runner = () => {
           return (
             <li className="list-item">
               <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
-              <span>{row.time} ({row.pace})</span>
+              <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
             </li>
           )
         })}

@@ -1,6 +1,6 @@
 
 import { Link, useParams } from 'react-router-dom'
-import { CoachSeason, fetchCoachSeason } from '../../../api/coachSeasons';
+import { CoachSeason, fetchCoachSeasons } from '../../../api/coachSeasons';
 import { useEffect, useState } from 'react';
 import { convertToNum } from '../../../helpers';
 import { Coach, fetchCoach } from '../../../api/coaches';
@@ -12,7 +12,7 @@ export const CoachPage = () => {
     const coachIdNum = convertToNum(coachId);
 
     useEffect(() => {
-        fetchCoachSeason(coachIdNum)
+        fetchCoachSeasons(coachIdNum)
             .then((data) => {
                 setCoachSeasons(data.filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2));
             })
@@ -27,7 +27,7 @@ export const CoachPage = () => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <h2>SCHS XC Coach: {coach?.firstName} {coach?.lastName} </h2>
+        <h1>{coach?.firstName} {coach?.lastName} </h1>
         {coachSeasons.filter((season) => season.coachTypeId === 1).length > 0 &&
         <>
             <h4>Head XC Coach</h4>

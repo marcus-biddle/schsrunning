@@ -42,7 +42,6 @@ export const Top15 = () => {
           });
       }, [genderId, courseId, teamResults]);
       
-      console.log('teamResults',teamResults);
   return (
     <div>
         <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>

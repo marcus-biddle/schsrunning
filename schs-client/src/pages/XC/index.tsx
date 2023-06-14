@@ -20,9 +20,9 @@ export const CrossCountry = () => {
     
 
   return (
-    <div style={{ marginRight: '10rem', marginLeft: '10rem'}}>
+    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
         <ImageCarousel images={teamImgs} interval={15000}/>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly'}}>
+        <div style={{ display: 'flex', justifyContent: 'space-around'}}>
             {/* First Column */}
             <div>
                 <div>
