@@ -39,14 +39,6 @@ export const CrossCountry = () => {
                     <Link to={'runners/women/'} className='spanlinkstyle'>
                     <span className='list-item'>XC Runners</span>
                     </Link>
-                    {/* <div style={{ paddingTop: '1rem'}}>
-                        Can't find a runner? Search by season 
-                        <span style={{ textDecorationLine: 'underline', cursor: 'pointer', paddingLeft: '5px'}}>
-                            <Link to={'seasons/'}>
-                            here
-                            </Link>
-                        </span>
-                    </div> */}
                 </div>
                 <div>
                     <h2>

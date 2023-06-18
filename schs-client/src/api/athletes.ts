@@ -19,6 +19,22 @@ export interface XCAthlete {
   genderId: number;
 }
 
+export interface XCAthleteByRace {
+  time: string;
+  pace: string;
+  grade: number;
+  date: string;
+  raceName: string;
+  courseName: string;
+  courseDistance: number;
+  raceCondition: string;
+  firstName: string;
+  lastName: string;
+  competitorId: number;
+  genderId: number;
+  athleteId: number;
+}
+
 export async function fetchAthletes(): Promise<Athlete[]> {
   try {
     const response = await axios.get(`${BASE_URL}/athletes`);
@@ -46,5 +62,29 @@ export async function fetchXCAthletes(): Promise<XCAthlete[]> {
   } catch (error) {
       console.log('Error fetching xc athletes:', error);
       throw new Error('Failed to fetch xc athletes');
+  }
+}
+
+export async function fetchXCAthletesByYear(yearId: number): Promise<XCAthlete[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/xc-athletes/season`, {
+      params: { yearId },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching XC athletes:', error);
+    throw new Error('Failed to fetch XC athletes');
+  }
+}
+
+export async function fetchXCAthletesByRace(raceId: number): Promise<XCAthleteByRace[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/xc-athletes/race`, {
+      params: { raceId },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching XC athletes:', error);
+    throw new Error('Failed to fetch XC athletes');
   }
 }
