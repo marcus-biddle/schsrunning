@@ -220,6 +220,49 @@ app.get('/athletes/:athleteId', async (req, res) => {
 
 // Athlete Procedures
 //     Get XC Runners
+app.get('/xc-athletes/race', async (req, res) => {
+  const { raceId } = req.query;
+  const query = `
+  SELECT DISTINCT Result.time, Result.pace, Competitor.grade, Race.date, RaceName.raceName, Course.courseName, Course.courseDistance,
+       RaceCondition.raceCondition, Athlete.genderId, Athlete.firstName, Athlete.lastName, Athlete.athleteId, Competitor.competitorId
+FROM Result
+JOIN Competitor ON Result.competitorId = Competitor.competitorId
+JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+JOIN Race ON Result.raceId = Race.raceId
+JOIN RaceName ON Race.raceNameId = RaceName.raceNameId
+JOIN RaceCondition ON Race.raceConditionId = RaceCondition.raceConditionId
+JOIN Course ON Race.courseId = Course.courseId
+WHERE Race.raceId = ? AND Competitor.grade != 0
+ORDER BY Result.time ASC;
+  `;
+  const [rows] = await connection.query(query, [raceId]);
+  res.send(rows)
+});
+
+app.get('/xc-athletes/season', async (req, res) => {
+  const { yearId } = req.query;
+
+  const query = `SELECT DISTINCT A.firstName, A.lastName, C.grade, C.competitorId, A.athleteId, G.genderId
+  FROM Result AS R
+  JOIN Competitor AS C ON R.competitorId = C.competitorId
+  JOIN Athlete AS A ON C.athleteId = A.athleteId
+  JOIN Gender AS G ON A.genderId = G.genderId
+  JOIN Race AS RC ON R.raceId = RC.raceId
+  JOIN Course AS CO ON RC.courseId = CO.courseId
+  WHERE YEAR(RC.date) = ? AND C.grade != 0
+  ORDER BY A.athleteId;  
+  `;
+
+  try {
+    const [rows] = await connection.query(query, [yearId]);
+    res.send(rows);
+  } catch (error) {
+    console.error("Error fetching XC athletes:", error);
+    res.status(500).json({ error: "Failed to fetch XC athletes" });
+  }
+});
+
+//     Get XC Runners
 app.get('/xc-athletes', async (req, res) => {
   const query = `SELECT DISTINCT a.athleteId, a.firstName, a.lastName, a.genderId
   FROM Athlete a
@@ -230,6 +273,33 @@ app.get('/xc-athletes', async (req, res) => {
   const [rows] = await connection.query(query);
   res.send(rows)
 });
+
+app.get('/xc-raceresults', async (req, res) => {
+  const { yearId } = req.query;
+
+  const query = `
+  SELECT Result.time, Result.pace, Competitor.grade, Race.date, RaceName.raceName, Course.courseName, Course.courseDistance,
+         RaceCondition.raceCondition, Athlete.firstName, Athlete.lastName, Competitor.competitorId, Race.raceId
+  FROM Result
+  JOIN Competitor ON Result.competitorId = Competitor.competitorId
+  JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+  JOIN Race ON Result.raceId = Race.raceId
+  JOIN RaceName ON Race.raceNameId = RaceName.raceNameId
+  JOIN RaceCondition ON Race.raceConditionId = RaceCondition.raceConditionId
+  JOIN Course ON Race.courseId = Course.courseId
+  WHERE YEAR(Race.date) = ?
+  ORDER BY Result.time ASC;  
+  `;
+
+  try {
+    const [rows] = await connection.query(query, [yearId]);
+    res.send(rows);
+  } catch (error) {
+    console.error("Error fetching XC race results:", error);
+    res.status(500).json({ error: "Failed to fetch XC race results" });
+  }
+});
+
 
 // Award
 app.get('/awards', async (req, res) => {
@@ -299,7 +369,12 @@ app.get('/coach-seasons', async (req, res) => {
   const coachIdArray = coachIds.split(',').map(Number);
 
   // Prepare the MySQL query with placeholders for the coach IDs
-  const query = "SELECT * FROM CoachSeason WHERE CoachSeason.coachId IN (?)";
+  const query = `
+    SELECT Coach.firstname, Coach.lastname, CoachSeason.*
+    FROM CoachSeason
+    INNER JOIN Coach ON CoachSeason.coachId = Coach.coachId
+    WHERE CoachSeason.coachId IN (?)
+  `;
 
   try {
     // Execute the query with the coach IDs array as a parameter
@@ -366,7 +441,7 @@ app.get('/competitors/year/:yearId', async (req, res) => {
 app.get('/competitors/:athleteId', async (req, res) => {
   const { athleteId } = req.params;
 
-  const query = "SELECT * FROM Competitor WHERE Competitor.athleteId=?;";
+  const query = "SELECT * FROM Competitor Where Competitor.competitorId = ?;";
   const [rows] = await connection.query(query, athleteId);
   
   if(!rows[0]) {

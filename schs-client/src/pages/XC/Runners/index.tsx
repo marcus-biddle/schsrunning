@@ -4,34 +4,53 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
 import './styled/index.css';
+import { useQuery } from '@tanstack/react-query';
 
-export const Runners = () => {
+const runnerListQuery = () => ({
+    queryKey: ['runners'],
+    queryFn: async () => {
+        const athletes = await fetchXCAthletes();
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+})
+
+export const loader = (queryClient: any) => async () => {
+    if (!queryClient.getQueryData(runnerListQuery().queryKey)) {
+      return await queryClient.fetchQuery(runnerListQuery());
+    }
+    return queryClient.getQueryData(runnerListQuery().queryKey);
+}
+
+export interface GenderType {
+    gender: 'men' | 'women' | 'all';
+}
+
+export const Runners = ({ gender }: { gender: GenderType }) => {
     // get the url, check if xc or not then use correct data for page
     const location = useLocation();
-    const genderType = urlContains(location.pathname, ['men', 'women'])
-    const initialButtonPosition = genderType === 'men' ? 'men' : genderType === 'women' ? 'women' : '';
     const XCPage: string | null = urlContains(location.pathname, ['cross-country']);
-    const [athletes, setAthletes] = useState<XCAthlete[]>([]);
-    const [activeButton, setActiveButton] = useState(initialButtonPosition);
+    const [activeButton, setActiveButton] = useState<String>(gender.gender);
     const [searchTerm, setSearchTerm] = useState('');
 
-  const handleButtonClick = (value: string) => {
-    setActiveButton(value === activeButton ? '' : value);
-};
+    const { data: runners } = useQuery(runnerListQuery());
 
-    useEffect(() => {
-        fetchXCAthletes()
-        .then((data: any) => setAthletes(data))
-        .catch((error: any) => console.error('Error fetching athletes:', error));
-    }, []);
+    const handleButtonClick = (value: string) => {
+        setActiveButton(value === gender.gender ? activeButton === value ? 'all' : gender.gender : activeButton === value ? 'all' : value);
+    };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredAthletesByGender = athletes.filter((athlete: XCAthlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
+    const filteredAthletesByGender = runners?.filter((athlete: XCAthlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
 
-    const filteredAthletesByName = filteredAthletesByGender.filter((athlete) => {
+    const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
         const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
         const searchTermLowerCase = searchTerm.toLowerCase();
         return fullName.includes(searchTermLowerCase);
@@ -39,11 +58,11 @@ export const Runners = () => {
       
 
   return (
-    <div style={{ marginLeft: '10rem', marginRight: '10rem'}}>
+    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
         { XCPage ?
             <>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <h2>SCHS Cross Country Runners (<span>{filteredAthletesByGender.length}</span>)</h2>
+                    <h2>SCHS Cross Country Runners (<span>{filteredAthletesByGender?.length}</span>)</h2>
                     <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
                     <button
                         className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
@@ -71,13 +90,13 @@ export const Runners = () => {
                 <button id="resetButton" type="reset" onClick={() => setSearchTerm('')}>
                     Reset
                 </button>
-                <span className="search-text">{searchTerm !== '' && `Found ${filteredAthletesByName.length} runners...`}</span>
+                <span className="search-text">{searchTerm !== '' && `Found ${filteredAthletesByName?.length} runners...`}</span>
                 </div>
                 
                 <ol className="list" style={{ columnCount: '2', columnGap: '20px'}}>
-                {filteredAthletesByName.map((athlete: XCAthlete) => (
+                {filteredAthletesByName?.map((athlete: XCAthlete) => (
                     <Link 
-                    to={genderType === 'men' || genderType === 'women' ? `${athlete.athleteId}/` : athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` }
+                    to={`${gender.gender === 'all' ? athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` : `${athlete.athleteId}`}`}
                     className="spanlinkstyle"
                     key={athlete.athleteId}
                     >

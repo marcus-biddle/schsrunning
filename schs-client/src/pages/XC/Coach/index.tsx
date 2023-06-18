@@ -4,42 +4,53 @@ import { CoachSeason, fetchCoachSeasons } from '../../../api/coachSeasons';
 import { useEffect, useState } from 'react';
 import { convertToNum } from '../../../helpers';
 import { Coach, fetchCoach } from '../../../api/coaches';
+import { useQuery } from '@tanstack/react-query'
+import { coachListQuery } from '../Coaches';
+
+const coachQuery = (coachId: number) => ({
+    queryKey: ['coaches', coachId],
+    queryFn: async () => {
+        const coach = await fetchCoach(coachId);
+        if (!coach) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return coach;
+    },
+})
+
+export const loader = (queryClient: any) => async ({ params }: any) => {
+    if (!queryClient.getQueryData(coachQuery(params.coachId).queryKey)) {
+      return await queryClient.fetchQuery(coachQuery(params.coachId));
+    }
+    return queryClient.getQueryData(coachQuery(params.coachId).queryKey);
+}
 
 export const CoachPage = () => {
-    const [coachSeasons, setCoachSeasons] = useState<CoachSeason[]>([]);
-    const [coach, setCoach] = useState<Coach>();
+    // const [coachSeasons, setCoachSeasons] = useState<CoachSeason[]>([]);
+    // const [coach, setCoach] = useState<Coach>();
     const { coachId } = useParams();
-    const coachIdNum = convertToNum(coachId);
-
-    useEffect(() => {
-        fetchCoachSeasons(coachIdNum)
-            .then((data) => {
-                setCoachSeasons(data.filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2));
-            })
-            .catch((error) => console.error(error));
-        
-        fetchCoach(coachIdNum)
-            .then((data) => {
-                setCoach(data);
-            })
-            .catch((error) => console.error(error));
-    }, []);
+    const { data: coach } = useQuery(coachQuery(convertToNum(coachId)));
+    const { data: coaches } = useQuery(coachListQuery());
+    console.log(coach);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
         <h1>{coach?.firstName} {coach?.lastName} </h1>
-        {coachSeasons.filter((season) => season.coachTypeId === 1).length > 0 &&
+        { coaches && coaches?.filter((season) => season.coachTypeId === 1 && season.coachId === coach?.coachId).length > 0 &&
         <>
             <h4>Head XC Coach</h4>
             <ol className="list" style={{ columnCount: '2', columnGap: '20x'}}>
-                {coachSeasons.filter((season) => season.coachTypeId === 1).map((season) => (
+                {coaches?.filter((season) => season.coachTypeId === 1 && season.coachId === coach?.coachId).map((coach) => (
                     <Link 
-                    to={`/santa-clara-high-cross-country/seasons/${season.year}`} 
-                    key={`${season.coachId}-${season.year}`}
+                    to={`/santa-clara-high-cross-country/seasons/${coach.year}`} 
+                    key={`${coach.coachId}-${coach.year}`}
                     className='spanlinkstyle'
                     >
                         <li className="list-item">
-                            <span>{season.year}</span>
+                            <span>{coach.year}</span>
                         </li>
                     </Link>
                 ))}
@@ -47,14 +58,14 @@ export const CoachPage = () => {
         </>}
         <h4>Assistant XC Coach</h4>
         <ol className="list" style={{ columnCount: '2', columnGap: '20x'}}>
-        {coachSeasons.filter((season) => season.coachTypeId === 2).map((season) => (
+        {coaches?.filter((season) => season.coachTypeId === 2 && coach?.coachId === season.coachId).map((coach) => (
                 <Link 
-                to={`/santa-clara-high-cross-country/seasons/${season.year}`} 
-                key={`${season.coachId}-${season.year}`}
+                to={`/santa-clara-high-cross-country/seasons/${coach.year}`} 
+                key={`${coach.coachId}-${coach.year}`}
                 className='spanlinkstyle'
                 >
                     <li className="list-item">
-                        <span>{season.year}</span>
+                        <span>{coach.year}</span>
                     </li>
                 </Link>
             ))}

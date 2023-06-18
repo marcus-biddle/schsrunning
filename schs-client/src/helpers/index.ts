@@ -62,9 +62,35 @@ export function getYearFromDate(inputDate: string): number {
   return date.getFullYear();
 }
 
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}/${month}/${day}`;
+}
+
+
 export function parseNumberString(numberString: string) {
   const numbers = numberString.split(',');
   const parsedNumbers = numbers.map((num) => parseFloat(num));
 
   return parsedNumbers;
+}
+
+export function extractXCRaceResultData(array: any[]) {
+  const uniqueDates: any[] = [];
+  const uniqueArray: any[] = [];
+
+  array.forEach((obj) => {
+    const { courseName, courseDistance, date, raceName, raceId } = obj;
+
+    if (!uniqueDates.includes(date)) {
+      uniqueDates.push(date);
+      uniqueArray.push({ courseName, courseDistance, date, raceName, raceId });
+    }
+  });
+
+  return uniqueArray;
 }

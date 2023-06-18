@@ -1,118 +1,72 @@
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router'
 import { fetchCompetitors } from '../../../api/competitors';
-import { convertToNum } from '../../../helpers';
-import { Athlete, fetchAthlete, fetchAthletes } from '../../../api/athletes';
+import { convertToNum, extractXCRaceResultData, formatDate } from '../../../helpers';
+import { Athlete, fetchAthlete, fetchAthletes, fetchXCAthletesByYear } from '../../../api/athletes';
 import { Link } from 'react-router-dom';
 import { fetchCoach, fetchCoaches } from '../../../api/coaches';
 import { CoachSeason, fetchCoachSeasons, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
+import { useQuery } from '@tanstack/react-query';
+import { coachListQuery } from '../Coaches';
+import { fetchXCRaceResults } from '../../../api/XCRaceResults';
 
+const competitorListQuery = (yearId: number) => ({
+    queryKey: ['competitors', yearId],
+    queryFn: async () => {
+        const athletes = await fetchXCAthletesByYear(yearId);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+})
+
+const raceResultListQuery = (yearId: number) => ({
+    queryKey: ['raceResult', yearId],
+    queryFn: async () => {
+        const raceResults = await fetchXCRaceResults(yearId);
+        if (!raceResults) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return raceResults;
+    },
+})
+
+export const loader = (queryClient: any) => async ({ params }: any) => {
+    if (!queryClient.getQueryData(competitorListQuery(params.yearId).queryKey) && !queryClient.getQueryData(raceResultListQuery(params.yearId).queryKey)) {
+        await queryClient.fetchQuery(raceResultListQuery(params.yearId))
+        return await queryClient.fetchQuery(competitorListQuery(params.yearId));
+    }
+    return queryClient.getQueriesData(competitorListQuery(params.yearId).queryKey, raceResultListQuery(params.yearId).queryKey);
+}
 
 export const SeasonInfo = () => {
-    const { year } = useParams();
-    const coachesData = [
-        { name: 'Julie L`Heuruex' },
-        { name: 'Cal Ochoa' },
-    ];
-    const runnerData = [
-        { name: 'Example Name'},
-        { name: 'Example Name'},
-        { name: 'Example Name'},
-        { name: 'Example Name'},
-        { name: 'Example Name'},
-        { name: 'Example Name'},
-        { name: 'Example Name'},
-    ];
-    const raceData = [
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-        { date: '11/2', type: 'SCVAL #2', name: 'Crystal Springs (2.95M)'},
-    ]
-
-    const [ coachSeasons, setCoachSeasons ] = useState<{
-        seasons: CoachSeason[];
-        coachId: number;
-        firstName: string;
-        lastName: string;
-        genderId: number;
-    }[]>([]);
-    const [ runners, setRunners ] = useState<({
-        athlete: Athlete;
-        competitorId: number;
-        athleteId: number;
-        year: number;
-        grade: number;
-    } | undefined)[]>([])
     const { yearId } = useParams();
-
-    useEffect(() => {
-        fetchCompetitors(convertToNum(yearId))
-        .then(async (data) => {
-            const fetchedRunners: ({
-                athlete: Athlete;
-                competitorId: number;
-                athleteId: number;
-                year: number;
-                grade: number;
-            } | undefined)[] = await Promise.all(data.map(async (runner) => {
-                try {
-                    const athlete = await fetchAthlete(runner.athleteId);
-                    return { ...runner, athlete }
-                } catch (error) {
-                    console.log(`Error fetching competitors:`, error);
-                }
-            }))
-            setRunners(fetchedRunners);
-        })
-    }, [yearId]);
-
-    useEffect(() => {
-        fetchCoaches()
-            .then(async (data) => {
-                const fetchedCoachSeasons: {
-                    seasons: CoachSeason[];
-                    coachId: number;
-                    firstName: string;
-                    lastName: string;
-                    genderId: number;
-                }[] = await Promise.all(data.map(async (coach) => {
-                    const seasons = (await fetchCoachSeasons(coach.coachId)).filter((row) => {
-                        return row.year === convertToNum(yearId);
-                    });
-                    return { ...coach, seasons };
-                }));
-
-                setCoachSeasons(fetchedCoachSeasons);
-            })
-            .catch((error) => console.error(error));
-    }, [yearId]);
-
-    console.log('coach',coachSeasons)
+    const { data: competitors } = useQuery(competitorListQuery(convertToNum(yearId)));
+    const { data: coaches } = useQuery(coachListQuery());
+    const { data: raceResults } = useQuery(raceResultListQuery(convertToNum(yearId)));
+    const races = extractXCRaceResultData(raceResults || []);
+    console.log(races);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <h1>{year} SCHS Cross Country {yearId} Season</h1>
+        <h1> SCHS Cross Country {yearId} Season</h1>
         <div style={{ display: 'flex', justifyContent:'space-around'}}>
             <div>
                 <div style={{ width: '16rem'}}>
                     <h2>Coaches</h2>
                     <ol className="list">
-                        {coachSeasons.filter((coach) => {
-                            if (coach.seasons.length > 0 && coach.seasons.some(season => season.coachTypeId === 1 || season.coachTypeId === 2)) {
-                                return coach;
-                            }
-                        }).map((coach) => {
+                        {coaches?.filter(coach => coach.year === convertToNum(yearId) && (coach.coachTypeId === 1 || coach.coachTypeId === 2)).map((coach) => {
                             return (
                                 <Link to={`/santa-clara-high-cross-country/coaches/${coach.coachId}`} className='spanlinkstyle' key={coach.coachId}>
                                 <li className="list-item">
-                                    <span>{coach.seasons[0].firstname} {coach.seasons[0].lastname}</span>
+                                    <span>{coach.firstname} {coach.lastname}</span>
                                 </li>
                             </Link>
                             )
@@ -124,13 +78,13 @@ export const SeasonInfo = () => {
                     <h2>Runners</h2>
                     <h4>Men</h4>
                     <ul className="list">
-                        {runners && runners.filter(runner => runner?.athlete.genderId === 2).map((runner) => {
+                        {competitors && competitors.filter(competitor => competitor?.genderId === 2).map((competitor) => {
                             return (
-                                <Link to={`/santa-clara-high-cross-country/runners/men/${runner?.athleteId}/`}
+                                <Link to={`/santa-clara-high-cross-country/runners/men/${competitor?.athleteId}/`}
                                 className='spanlinkstyle'
-                                key={runner?.athleteId}>
+                                key={competitor?.athleteId}>
                                     <li className='list-item'>
-                                        <span>{runner?.athlete.firstName} {runner?.athlete.lastName}</span>
+                                        <span>{competitor.firstName} {competitor.lastName}</span>
                                     </li>
                                 </Link>
                                 
@@ -141,11 +95,15 @@ export const SeasonInfo = () => {
                 <div>
                     <h4>Women</h4>
                     <ol className="list">
-                        {runners && runners.filter(runner => runner?.athlete.genderId === 3).map((runner) => {
+                        {competitors && competitors.filter(competitor => competitor?.genderId === 3).map((competitor) => {
                             return (
-                                <li className='list-item'>
-                                {runner?.athlete.firstName} {runner?.athlete.lastName}
-                                </li>
+                                <Link to={`/santa-clara-high-cross-country/runners/women/${competitor?.athleteId}/`}
+                                className='spanlinkstyle'
+                                key={competitor?.athleteId}>
+                                    <li className='list-item'>
+                                        <span>{competitor.firstName} {competitor.lastName}</span>
+                                    </li>
+                                </Link>
                             )
                         })}
                     </ol>
@@ -153,19 +111,23 @@ export const SeasonInfo = () => {
             </div>
             <div>
                 <div>
-                    <h2>Races</h2>
-                    <ol className="athlete-list" style={{ display: 'flex', flexDirection: 'column'}}>
-                        {raceData.map((race) => (
-                            <li key={race.name} className="athlete-item" style={{ display: 'flex', flexDirection: 'column'}}>
-                                <div>
-                                    <span>{race.date} -{' '}</span>
-                                    <span>{race.type}:</span>
-                                    <span> {race.name}</span>
+                    <h2>Races ({races?.length})</h2>
+                    <ol className="list" style={{ display: 'flex', flexDirection: 'column'}}>
+                        {races.map((race, index) => (
+                            <li key={`${race.name}-${index}`} className="list-item-style2" style={{ display: 'flex', flexDirection: 'column'}}>
+                                <div style={{ fontSize: '18px'}}>
+                                    <span>{formatDate(race.date)} -{' '}</span>
+                                    <span>{race.raceName}:</span>
+                                    <span> {race.courseName}</span>
                                 </div>
                                 
                                 {/* Create Links */}
                                 <div>
-                                    <span>Men | Women | Combined</span>
+                                    <span>
+                                        <Link to={`/santa-clara-high-cross-country/race-results/men/${race.raceId}`} style={{ color: '#007bff'}}>Men</Link> | {' '}
+                                        <Link to={`/santa-clara-high-cross-country/race-results/women/${race.raceId}`} style={{ color: '#007bff'}}>Women</Link> | {' '}
+                                        <Link to={`/santa-clara-high-cross-country/race-results/${race.raceId}`} style={{ color: '#007bff'}}>Combined</Link>
+                                    </span>
                                 </div>
                             </li>
                         ))}

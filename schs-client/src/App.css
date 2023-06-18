@@ -37,6 +37,16 @@ h4 {
   justify-content: space-between;
 }
 
+.list-item-style2 {
+  padding: 6px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .list {
   list-style-type: none;
   padding-left: 0;
