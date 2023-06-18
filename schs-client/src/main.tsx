@@ -2,21 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './App.css';
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Home } from './pages/Home/index.tsx'
 import { CrossCountry } from './pages/XC/index.tsx'
-import { Track } from './pages/Track/index.tsx'
+// import { Track } from './pages/Track/index.tsx'
 import { XCSeason } from './pages/XC/Seasons/index.tsx';
 import { Runners, loader as runnersLoader, } from './pages/XC/Runners/index.tsx';
 import { SeasonInfo, loader as seasonLoader, } from './pages/XC/Season/index.tsx';
 import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
-import { Top25 } from './pages/XC/Top25/index.tsx';
+// import { Top25 } from './pages/XC/Top25/index.tsx';
 import { CoachPage, loader as coachLoader, } from './pages/XC/Coach/index.tsx';
 import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
-import { Top25Runners } from './pages/XC/Top25Runners/index.tsx';
-import { Top15 } from './pages/XC/Top15Teams/index.tsx';
+// import { Top25Runners } from './pages/XC/Top25Runners/index.tsx';
+// import { Top15 } from './pages/XC/Top15Teams/index.tsx';
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
 
 const queryClient = new QueryClient();

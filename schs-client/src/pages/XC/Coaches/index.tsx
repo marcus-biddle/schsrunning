@@ -1,7 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
-import { Coach, fetchCoaches } from '../../../api/coaches';
+import { fetchCoaches } from '../../../api/coaches';
 import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
 import { useQuery } from '@tanstack/react-query';
 

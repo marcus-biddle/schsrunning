@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router'
-import { fetchCompetitors } from '../../../api/competitors';
 import { convertToNum, extractXCRaceResultData, formatDate } from '../../../helpers';
-import { Athlete, fetchAthlete, fetchAthletes, fetchXCAthletesByYear } from '../../../api/athletes';
+import { fetchXCAthletesByYear } from '../../../api/athletes';
 import { Link } from 'react-router-dom';
-import { fetchCoach, fetchCoaches } from '../../../api/coaches';
-import { CoachSeason, fetchCoachSeasons, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
 import { useQuery } from '@tanstack/react-query';
 import { coachListQuery } from '../Coaches';
 import { fetchXCRaceResults } from '../../../api/XCRaceResults';

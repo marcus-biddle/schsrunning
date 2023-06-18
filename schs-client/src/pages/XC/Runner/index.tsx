@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
 import { useParams } from "react-router";
 import { convertToNum, getYearFromDate } from "../../../helpers";
-import { XCRunner, fetchXCRunner } from "../../../api/XCRunner";
+import { fetchXCRunner } from "../../../api/XCRunner";
 import { useQuery } from '@tanstack/react-query';
 
 const xcrunnerQuery = (athleteId: number) => ({

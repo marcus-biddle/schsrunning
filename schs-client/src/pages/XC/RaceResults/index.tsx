@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { GenderType } from '../Runners';
 import { useQuery } from '@tanstack/react-query';
-import { XCAthlete, XCAthleteByRace, fetchXCAthletesByRace } from '../../../api/athletes';
+import { XCAthleteByRace, fetchXCAthletesByRace } from '../../../api/athletes';
 import { useParams } from 'react-router';
 import { convertToNum, formatDate } from '../../../helpers';
 import { Link } from 'react-router-dom';

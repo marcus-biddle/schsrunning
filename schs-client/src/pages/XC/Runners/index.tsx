@@ -1,7 +1,7 @@
 import { useLocation } from "react-router"
 import { urlContains } from "../../../helpers"
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
 import './styled/index.css';
 import { useQuery } from '@tanstack/react-query';

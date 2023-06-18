@@ -1,9 +1,7 @@
 
 import { Link, useParams } from 'react-router-dom'
-import { CoachSeason, fetchCoachSeasons } from '../../../api/coachSeasons';
-import { useEffect, useState } from 'react';
 import { convertToNum } from '../../../helpers';
-import { Coach, fetchCoach } from '../../../api/coaches';
+import { fetchCoach } from '../../../api/coaches';
 import { useQuery } from '@tanstack/react-query'
 import { coachListQuery } from '../Coaches';
 
