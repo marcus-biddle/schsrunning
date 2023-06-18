@@ -9,6 +9,14 @@ dotenv.config();
 
 const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
+connection.connect((error) => {
+  if (error) {
+    console.error('Error connecting to the database:', error);
+  } else {
+    console.log('Connected to the database');
+  }
+});
+
 const app = express();
 
 app.use((req, res, next) => {
