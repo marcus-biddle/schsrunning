@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
 import { useLocation, useParams } from 'react-router';
-import { capitalizeFirstLetter, convertGrade, convertToNum, urlContains } from '../../../helpers';
-import { Course, fetchCourse } from '../../../api/courses';
+import { convertGrade, convertToNum, urlContains } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
@@ -28,14 +27,9 @@ export const loader = (queryClient: any) => async ({ params }: any) => {
 }
 
 export const Top25Runners = () => {
-    // const [BestRunners, setBestRunners] = useState<BestTime[]>([]);
-    // const [ course, setCourse ] = useState<Course>();
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
-    console.log(courseId, bestTimes);
     const location = useLocation();
-    // const genderType = urlContains(location.pathname, ['men', 'women']);
-    // const genderId = genderType === 'men' ? 2 : 3;
     const filterType = urlContains(location.pathname, ['all-time', 'senior', 'junior', 'sophomore', 'freshmen'])
     const filter = convertGrade(filterType || '');
     const [activeButton, setActiveButton] = useState<String>('all');
@@ -57,8 +51,6 @@ export const Top25Runners = () => {
         }
     }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
 
-    console.log('gender', activeButton, filteredAthletesByGender);
-    console.log('women', bestTimes?.filter(row => row.genderId === 3))
     const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
         const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
         const searchTermLowerCase = searchTerm.toLowerCase();
