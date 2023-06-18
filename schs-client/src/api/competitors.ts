@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://schs-server.onrender.com/';
+const BASE_URL = 'https://schs-server.onrender.com';
 
 export interface Competitor {
   competitorId: number;
