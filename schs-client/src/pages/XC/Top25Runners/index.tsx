@@ -55,8 +55,10 @@ export const Top25Runners = () => {
         } else if (filter === 0) {
             return row;
         }
-    }).slice(0, 25).filter((athlete: BestTime) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
+    }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
 
+    console.log('gender', activeButton, filteredAthletesByGender);
+    console.log('women', bestTimes?.filter(row => row.genderId === 3))
     const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
         const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
         const searchTermLowerCase = searchTerm.toLowerCase();

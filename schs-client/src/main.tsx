@@ -110,6 +110,26 @@ const router = createBrowserRouter([
         element: <Top25Runners/>,
         loader: bestTimesLoader(queryClient),
       },
+      {
+        path: 'santa-clara-high-cross-country/top-25-results/senior/:courseId',
+        element: <Top25Runners/>,
+        loader: bestTimesLoader(queryClient),
+      },
+      {
+        path: 'santa-clara-high-cross-country/top-25-results/junior/:courseId',
+        element: <Top25Runners/>,
+        loader: bestTimesLoader(queryClient),
+      },
+      {
+        path: 'santa-clara-high-cross-country/top-25-results/sophomore/:courseId',
+        element: <Top25Runners/>,
+        loader: bestTimesLoader(queryClient),
+      },
+      {
+        path: 'santa-clara-high-cross-country/top-25-results/freshmen/:courseId',
+        element: <Top25Runners/>,
+        loader: bestTimesLoader(queryClient),
+      },
       // {
       //   path: 'contacts/:contactId/destroy',
       //   element: <EditContact />,
