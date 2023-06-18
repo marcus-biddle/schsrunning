@@ -69,37 +69,20 @@ export const CrossCountry = () => {
                             XC Top 25 Individual List
                         </Link>
                     </h2>
-                    <h4>All Time Men</h4>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.CRYSTAL_SPRING}`} className='spanlinkstyle'>
+                    <h4>All Time Runners</h4>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/all-time/${CourseID.CRYSTAL_SPRING}`} className='spanlinkstyle'>
                         <span className='list-item'>Crystal Springs</span> 
                     </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.TORO_PARK}`} className='spanlinkstyle'>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/all-time/${CourseID.TORO_PARK}`} className='spanlinkstyle'>
                         <span className='list-item'>Toro Park</span>
                     </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.CENTRAL_PARK}`} className='spanlinkstyle'>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/all-time/${CourseID.CENTRAL_PARK}`} className='spanlinkstyle'>
                         <span className='list-item'>Central Park</span>
                     </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.BAYLANDS_PARK}`} className='spanlinkstyle'>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/all-time/${CourseID.BAYLANDS_PARK}`} className='spanlinkstyle'>
                         <span className='list-item'>Baylands Park</span>
                     </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/men/all-time/${CourseID.LYNBRROK}`} className='spanlinkstyle'>
-                        <span className='list-item'>Lynbrook High school</span>
-                    </Link>
-                    
-                    <h4>All Time Women</h4>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.CRYSTAL_SPRING}`} className='spanlinkstyle'>
-                        <span className='list-item'>Crystal Springs</span>
-                    </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.TORO_PARK}`} className='spanlinkstyle'>
-                        <span className='list-item'>Toro Park</span>
-                    </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.CENTRAL_PARK}`} className='spanlinkstyle'>
-                        <span className='list-item'>Central Park</span>
-                    </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.BAYLANDS_PARK}`} className='spanlinkstyle'>
-                        <span className='list-item'>Baylands Park</span>
-                    </Link>
-                    <Link to={`/santa-clara-high-cross-country/top-25-results/women/all-time/${CourseID.LYNBRROK}`} className='spanlinkstyle'>
+                    <Link to={`/santa-clara-high-cross-country/top-25-results/all-time/${CourseID.LYNBRROK}`} className='spanlinkstyle'>
                         <span className='list-item'>Lynbrook High school</span>
                     </Link>
                 </div>
@@ -118,9 +101,9 @@ export const CrossCountry = () => {
                     <h2>XC Alumni Race</h2>
                     <h4>Crystal Springs, CA</h4>
                     <ul className='list'>
-                        {alumniData.map((item) => {
+                        {alumniData.map((item, index) => {
                             return (
-                                <li className='list-item'>
+                                <li className='list-item' key={index}>
                                     <span>{item.title}</span>
                                     <span>{item.year}</span>
                                 </li>

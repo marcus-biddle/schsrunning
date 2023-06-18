@@ -4,11 +4,26 @@ import { useLocation, useParams } from 'react-router';
 import { convertGrade, convertToNum, urlContains } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { fetchTopTeams } from '../../../api/TopTeams';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
     queryFn: async () => {
         const times = await fetchBestTimes(courseId);
+        if (!times) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return times;
+    },
+})
+
+const bestTeamListQuery = (courseId: number) => ({
+    queryKey: ['bestTimes', courseId],
+    queryFn: async () => {
+        const times = await fetchTopTeams(courseId);
         if (!times) {
             throw new Response('', {
                 status: 404,

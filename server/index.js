@@ -100,7 +100,6 @@ const PORT = process.env.PORT || 3000;
   // Get Top XC Teams
   app.get('/top-teams', async (req, res) => {
     const inputCourseId = req.query.courseId;
-    const inputGenderId = req.query.genderId;
 
     const query = `
     SELECT
@@ -140,7 +139,6 @@ FROM
                 JOIN
                     Athlete a ON c.athleteid = a.athleteid
                 WHERE
-                    a.genderid = ?
                     AND YEAR(ra.date) = YEAR(ra.date)
                     AND ra.courseid = ?
                     AND r.raceid IN (
@@ -161,7 +159,6 @@ FROM
                                     Athlete a ON c.athleteid = a.athleteid
                                 WHERE
                                     ra.courseid = ?
-                                    AND a.genderid = ?
                                     AND YEAR(ra.date) = YEAR(ra.date)
                                 GROUP BY
                                     r.raceid
@@ -190,13 +187,11 @@ FROM
 GROUP BY
     yr
 ORDER BY
-    MIN(team_time)
-LIMIT
-    15;
+    MIN(team_time);
 `;
 
       try {
-        const [rows] = await connection.query(query, [inputGenderId, inputCourseId, inputCourseId, inputGenderId]);
+        const [rows] = await connection.query(query, [inputCourseId, inputCourseId]);
         res.json(rows);
       } catch (error) {
         console.error(error);

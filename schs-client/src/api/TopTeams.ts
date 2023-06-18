@@ -10,12 +10,11 @@ export interface TeamData {
   competitors: string;
 }
 
-export async function fetchTopTeams(courseId: number, genderId: number): Promise<TeamData[]> {
+export async function fetchTopTeams(courseId: number): Promise<TeamData[]> {
   try {
     const response = await axios.get(`${BASE_URL}/top-teams`, {
       params: {
         courseId,
-        genderId,
       },
     });
     return response.data as TeamData[];

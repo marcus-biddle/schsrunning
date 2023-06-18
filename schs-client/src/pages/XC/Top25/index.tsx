@@ -24,7 +24,7 @@ export const Top25 = () => {
         <h2>{pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'}</h2>
         <div>
             <div>
-                <h4>{pageType === 25 ? 'Top 25 - All Time' : 'Top 15 All Time Men\'s Team' }</h4>
+                <h4>{pageType === 25 ? 'Top 25 - All Time' : 'Top 15 - All Time' }</h4>
                 <ol className="list">
                     {data.map((course) => (
                         <Link to={`all-time/${course.path}`} className='spanlinkstyle' key={`all-time-${course.path}`}>
