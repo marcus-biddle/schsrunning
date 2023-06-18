@@ -28,7 +28,7 @@ export const Top25 = () => {
                     <h4>{pageType === 25 ? 'Top 25 Men - All Time' : 'Top 15 All Time Men\'s Team' }</h4>
                     <ol className="list">
                         {data.map((course) => (
-                            <Link to={`${pageType === 25 ? `men/all-time/${course.path}` : `men/${course.path}`}`} className='spanlinkstyle'>
+                            <Link to={`${pageType === 25 ? `all-time/${course.path}` : `men/${course.path}`}`} className='spanlinkstyle'>
                                 <li key={course.name} className="list-item">
                                     <span>{course.name}</span>
                                 </li>
@@ -92,7 +92,7 @@ export const Top25 = () => {
                 <h4>{pageType === 25 ? 'Top 25 Women - All Time' : 'Top 15 All Time Women\'s Team' }</h4>
                 <ol className="list">
                     {data.map((course) => (
-                        <Link to={`women/all-time/${course.path}`} className='spanlinkstyle'>
+                        <Link to={`all-time/${course.path}`} className='spanlinkstyle'>
                             <li key={course.name} className="list-item">
                                 <span>{course.name}</span>
                             </li>

@@ -65,34 +65,33 @@ const PORT = process.env.PORT || 3000;
   // Get top XC Athletes
   app.get('/best-times', async (req, res) => {
     const inputCourseId = req.query.courseId;
-    const inputGenderId = req.query.genderId;
     const limit = parseInt(req.query.limit);
 
     const query = `
-      SELECT DISTINCT A.firstName, A.lastName, R.time, R.pace, C.year, C.grade, C.competitorId, A.athleteId
-      FROM Result AS R
-      JOIN Competitor AS C ON R.competitorId = C.competitorId
-      JOIN Athlete AS A ON C.athleteId = A.athleteId
-      JOIN Gender AS G ON A.genderId = G.genderId
-      JOIN Race AS RC ON R.raceId = RC.raceId
-      JOIN (
-          SELECT C.athleteId, MIN(R.time) AS bestTime
-          FROM Result AS R
-          JOIN Competitor AS C ON R.competitorId = C.competitorId
-          JOIN Athlete AS A ON C.athleteId = A.athleteId
-          JOIN Gender AS G ON A.genderId = G.genderId
-          JOIN Race AS RC ON R.raceId = RC.raceId
-          JOIN Course AS CO ON RC.courseId = CO.courseId
-          WHERE CO.courseId = ? AND G.genderId = ? AND C.grade != 0
-          GROUP BY C.athleteId
-      ) AS BT ON C.athleteId = BT.athleteId AND R.time = BT.bestTime
-      JOIN Course AS CO ON RC.courseId = CO.courseId
-      WHERE CO.courseId = ? AND G.genderId = ? AND YEAR(RC.date) = C.year
-      ORDER BY R.time
-      LIMIT ?;`;
+    SELECT DISTINCT A.firstName, A.lastName, A.genderId, R.time, R.pace, C.year, C.grade, C.competitorId, A.athleteId, CO.courseName, CO.courseDistance
+    FROM Result AS R
+    JOIN Competitor AS C ON R.competitorId = C.competitorId
+    JOIN Athlete AS A ON C.athleteId = A.athleteId
+    JOIN Gender AS G ON A.genderId = G.genderId
+    JOIN Race AS RC ON R.raceId = RC.raceId
+    JOIN (
+        SELECT C.athleteId, MIN(R.time) AS bestTime
+        FROM Result AS R
+        JOIN Competitor AS C ON R.competitorId = C.competitorId
+        JOIN Athlete AS A ON C.athleteId = A.athleteId
+        JOIN Gender AS G ON A.genderId = G.genderId
+        JOIN Race AS RC ON R.raceId = RC.raceId
+        JOIN Course AS CO ON RC.courseId = CO.courseId
+        WHERE CO.courseId = ? AND C.grade != 0
+        GROUP BY C.athleteId
+    ) AS BT ON C.athleteId = BT.athleteId AND R.time = BT.bestTime
+    JOIN Course AS CO ON RC.courseId = CO.courseId
+    WHERE CO.courseId = ? AND YEAR(RC.date) = C.year
+    ORDER BY R.time
+    LIMIT ?;`;
 
       try {
-        const [rows] = await connection.query(query, [inputCourseId, inputGenderId, inputCourseId, inputGenderId, limit]);
+        const [rows] = await connection.query(query, [inputCourseId, inputCourseId, limit]);
         res.json(rows);
       } catch (error) {
         console.error(error);

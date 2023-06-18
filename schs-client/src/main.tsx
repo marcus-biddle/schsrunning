@@ -15,9 +15,10 @@ import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
 // import { Top25 } from './pages/XC/Top25/index.tsx';
 import { CoachPage, loader as coachLoader, } from './pages/XC/Coach/index.tsx';
 import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
-// import { Top25Runners } from './pages/XC/Top25Runners/index.tsx';
-// import { Top15 } from './pages/XC/Top15Teams/index.tsx';
+import { Top25Runners, loader as bestTimesLoader, } from './pages/XC/Top25Runners/index.tsx';
+import { Top15 } from './pages/XC/Top15Teams/index.tsx';
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
+import { Top25 } from './pages/XC/Top25/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,16 @@ const router = createBrowserRouter([
         path: 'santa-clara-high-cross-country/race-results/:raceId',
         element: <RaceResult gender={{ gender: 'all'}}/>,
         loader: raceResultLoader(queryClient),
+      },
+      {
+        path: 'santa-clara-high-cross-country/top-25-results',
+        element: <Top25/>,
+        // loader: raceResultLoader(queryClient),
+      },
+      {
+        path: 'santa-clara-high-cross-country/top-25-results/all-time/:courseId',
+        element: <Top25Runners/>,
+        loader: bestTimesLoader(queryClient),
       },
       // {
       //   path: 'contacts/:contactId/destroy',
