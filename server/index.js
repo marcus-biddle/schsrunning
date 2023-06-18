@@ -87,8 +87,7 @@ const PORT = process.env.PORT || 3000;
     ) AS BT ON C.athleteId = BT.athleteId AND R.time = BT.bestTime
     JOIN Course AS CO ON RC.courseId = CO.courseId
     WHERE CO.courseId = ? AND YEAR(RC.date) = C.year
-    ORDER BY R.time
-    LIMIT ?;`;
+    ORDER BY R.time;`;
 
       try {
         const [rows] = await connection.query(query, [inputCourseId, inputCourseId, limit]);
