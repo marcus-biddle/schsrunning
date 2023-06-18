@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
     queryFn: async () => {
-        const times = await fetchBestTimes(courseId, 100);
+        const times = await fetchBestTimes(courseId);
         if (!times) {
             throw new Response('', {
                 status: 404,

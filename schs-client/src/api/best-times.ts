@@ -16,12 +16,11 @@ export interface BestTime {
   genderId: number;
 }
 
-export async function fetchBestTimes(courseId: number, limit: number): Promise<BestTime[]> {
+export async function fetchBestTimes(courseId: number): Promise<BestTime[]> {
   try {
     const response = await axios.get<BestTime[]>(`${BASE_URL}/best-times`, {
       params: {
         courseId,
-        limit,
       },
     });
     console.log(response)

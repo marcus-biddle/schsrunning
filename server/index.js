@@ -65,7 +65,6 @@ const PORT = process.env.PORT || 3000;
   // Get top XC Athletes
   app.get('/best-times', async (req, res) => {
     const inputCourseId = req.query.courseId;
-    const limit = parseInt(req.query.limit);
 
     const query = `
     SELECT DISTINCT A.firstName, A.lastName, A.genderId, R.time, R.pace, C.year, C.grade, C.competitorId, A.athleteId, CO.courseName, CO.courseDistance
@@ -90,7 +89,7 @@ const PORT = process.env.PORT || 3000;
     ORDER BY R.time;`;
 
       try {
-        const [rows] = await connection.query(query, [inputCourseId, inputCourseId, limit]);
+        const [rows] = await connection.query(query, [inputCourseId, inputCourseId]);
         res.json(rows);
       } catch (error) {
         console.error(error);
