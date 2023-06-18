@@ -21,29 +21,31 @@ const bestTimeListQuery = (courseId: number) => ({
 })
 
 const bestTeamListQuery = (courseId: number) => ({
-    queryKey: ['bestTimes', courseId],
+    queryKey: ['bestTeams', courseId],
     queryFn: async () => {
-        const times = await fetchTopTeams(courseId);
-        if (!times) {
+        const teams = await fetchTopTeams(courseId);
+        if (!teams) {
             throw new Response('', {
                 status: 404,
                 statusText: 'Not Found',
             })
         }
-        return times;
+        return teams;
     },
 })
 
 export const loader = (queryClient: any) => async ({ params }: any) => {
-    if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey)) {
-      return await queryClient.fetchQuery(bestTimeListQuery(params.courseId));
+    if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey) && !queryClient.getQueryData(bestTeamListQuery(params.courseId).queryKey)) {
+        await queryClient.fetchQuery(bestTeamListQuery(params.courseId))
+        return await queryClient.fetchQuery(bestTimeListQuery(params.courseId));
     }
-    return queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey);
+    return queryClient.getQueriesData(bestTimeListQuery(params.courseId).queryKey, bestTeamListQuery(params.courseId).queryKey);
 }
 
 export const Top25Runners = () => {
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
+    const { data: bestTeams } = useQuery(bestTeamListQuery(convertToNum(courseId)));
     const location = useLocation();
     const filterType = urlContains(location.pathname, ['all-time', 'senior', 'junior', 'sophomore', 'freshmen'])
     const filter = convertGrade(filterType || '');
