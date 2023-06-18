@@ -17,7 +17,8 @@ export async function fetchTopTeams(courseId: number): Promise<TeamData[]> {
         courseId,
       },
     });
-    return response.data as TeamData[];
+    console.log('api', response.data)
+    return response.data;
   } catch (error) {
     console.error('Error fetching top teams:', error);
     throw new Error('Failed to fetch top teams');
