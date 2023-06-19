@@ -98,16 +98,16 @@ const PORT = process.env.PORT || 3000;
   });
 
   // Get Top XC Teams
-  app.get('/top-teams', async (req, res) => {
+  app.get('/top-teams/men', async (req, res) => {
     const inputCourseId = req.query.courseId;
 
-    const query = `SELECT
+    const query = `
+    SELECT
     yr AS 'year',
     MIN(team_time) AS 'team_time',
     MIN(team_avg) AS 'avg_ind_time',
     SUBSTRING_INDEX(GROUP_CONCAT(team_raceid ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'raceId',
-    SUBSTRING_INDEX(GROUP_CONCAT(team_competitors ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'competitors',
-    Athlete.genderId AS 'genderId'
+    SUBSTRING_INDEX(GROUP_CONCAT(team_competitors ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'competitors'
 FROM
     (
         SELECT
@@ -139,8 +139,9 @@ FROM
                 JOIN
                     Athlete a ON c.athleteid = a.athleteid
                 WHERE
-                    YEAR(ra.date) = YEAR(ra.date)
-                    AND ra.courseid = 1
+                    a.genderid = 2
+                    AND YEAR(ra.date) = YEAR(ra.date)
+                    AND ra.courseid = ?
                     AND r.raceid IN (
                         SELECT
                             ra.raceid
@@ -158,7 +159,8 @@ FROM
                                 JOIN
                                     Athlete a ON c.athleteid = a.athleteid
                                 WHERE
-                                    ra.courseid = 1
+                                    ra.courseid = ?
+                                    AND a.genderid = 2
                                     AND YEAR(ra.date) = YEAR(ra.date)
                                 GROUP BY
                                     r.raceid
@@ -184,16 +186,117 @@ FROM
         ORDER BY
             yr, team_time
     ) team_times
-JOIN
-    Result ON team_times.team_raceid = Result.raceid
-JOIN
-    Competitor ON Result.competitorid = Competitor.competitorid
-JOIN
-    Athlete ON Competitor.athleteid = Athlete.athleteid
 GROUP BY
-    yr, genderId
+    yr
 ORDER BY
-    MIN(team_time);
+    MIN(team_time)
+LIMIT
+    15;
+`;
+
+      try {
+        const [rows] = await connection.query(query, [inputCourseId, inputCourseId]);
+        res.json(rows);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+  });
+
+  app.get('/top-teams/women', async (req, res) => {
+    const inputCourseId = req.query.courseId;
+
+    const query = `
+    SELECT
+    yr AS 'year',
+    MIN(team_time) AS 'team_time',
+    MIN(team_avg) AS 'avg_ind_time',
+    SUBSTRING_INDEX(GROUP_CONCAT(team_raceid ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'raceId',
+    SUBSTRING_INDEX(GROUP_CONCAT(team_competitors ORDER BY team_time ASC SEPARATOR "#"), "#", 1) AS 'competitors'
+FROM
+    (
+        SELECT
+            YEAR(Race.date) AS yr,
+            Result.raceid AS team_raceid,
+            SEC_TO_TIME(AVG(TIME_TO_SEC(Result.time))) AS team_avg,
+            SEC_TO_TIME(SUM(TIME_TO_SEC(Result.time))) AS team_time,
+            GROUP_CONCAT(Result.competitorid ORDER BY Result.time ASC) AS team_competitors
+        FROM
+            Result
+        JOIN
+            Race ON Result.raceid = Race.raceid
+        JOIN
+            Competitor ON Result.competitorid = Competitor.competitorid
+        JOIN
+            Athlete ON Competitor.athleteid = Athlete.athleteid
+        JOIN
+            (
+                SELECT
+                    r.raceid,
+                    GROUP_CONCAT(CONCAT(r.competitorid, ":", r.raceid) ORDER BY r.time ASC) AS finisher_key,
+                    COUNT(DISTINCT r.competitorid) AS team_size
+                FROM
+                    Result r
+                JOIN
+                    Race ra ON r.raceid = ra.raceid
+                JOIN
+                    Competitor c ON r.competitorid = c.competitorid
+                JOIN
+                    Athlete a ON c.athleteid = a.athleteid
+                WHERE
+                    a.genderid = 3
+                    AND YEAR(ra.date) = YEAR(ra.date)
+                    AND ra.courseid = ?
+                    AND r.raceid IN (
+                        SELECT
+                            ra.raceid
+                        FROM
+                            (
+                                SELECT
+                                    r.raceid,
+                                    COUNT(r.raceid) AS num_racers
+                                FROM
+                                    Result r
+                                JOIN
+                                    Race ra ON r.raceid = ra.raceid
+                                JOIN
+                                    Competitor c ON r.competitorid = c.competitorid
+                                JOIN
+                                    Athlete a ON c.athleteid = a.athleteid
+                                WHERE
+                                    ra.courseid = ?
+                                    AND a.genderid = 3
+                                    AND YEAR(ra.date) = YEAR(ra.date)
+                                GROUP BY
+                                    r.raceid
+                                HAVING
+                                    num_racers >= 5
+                            ) num_racers_table
+                        WHERE
+                            num_racers >= 5
+                    )
+                GROUP BY
+                    r.raceid
+                HAVING
+                    team_size >= 5
+            ) finisher_tbl
+        ON
+            Result.raceid = finisher_tbl.raceid
+        WHERE
+            FIND_IN_SET(CONCAT(Result.competitorid, ":", Result.raceid), finisher_tbl.finisher_key) BETWEEN 1 AND 5
+        GROUP BY
+            Result.raceid
+        HAVING
+            COUNT(Result.competitorid) = 5 -- Include this condition to filter rows with exactly 5 competitorIds
+        ORDER BY
+            yr, team_time
+    ) team_times
+GROUP BY
+    yr
+ORDER BY
+    MIN(team_time)
+LIMIT
+    15;
 `;
 
       try {

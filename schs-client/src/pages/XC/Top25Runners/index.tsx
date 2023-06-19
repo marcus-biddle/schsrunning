@@ -64,7 +64,7 @@ export const Top25Runners = () => {
     const [activeButton, setActiveButton] = useState<String>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
-
+    console.log('best teams', bestTeams);
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
     };
