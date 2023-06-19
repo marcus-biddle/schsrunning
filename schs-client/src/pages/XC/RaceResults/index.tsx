@@ -32,7 +32,6 @@ export const RaceResult = ({ gender }: { gender: GenderType }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const { raceId } = useParams();
   const { data: raceResultsByRace } = useQuery(raceResultByRaceListQuery(convertToNum(raceId)));
-  console.log(raceResultsByRace);
 
   const handleButtonClick = (value: string) => {
       setActiveButton(value === gender.gender ? activeButton === value ? 'all' : gender.gender : activeButton === value ? 'all' : value);

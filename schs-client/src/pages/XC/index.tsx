@@ -92,24 +92,27 @@ export const CrossCountry = () => {
                         XC Top 15 Team List
                         </Link>
                     </h2>
-                    <h4>Men</h4>
-                    <span className='list-item'>All Time XC Team</span>
-                    <h4>Women</h4>
-                    <span className='list-item'>All Time XC Team</span>
+                    <h4>All Time Teams</h4>
+                    <Link to={`/santa-clara-high-cross-country/top-team/all-time/${CourseID.CRYSTAL_SPRING}`} className='spanlinkstyle'>
+                        <span className='list-item'>Crystal Springs</span> 
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-team/all-time/${CourseID.TORO_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Toro Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-team/all-time/${CourseID.CENTRAL_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Central Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-team/all-time/${CourseID.BAYLANDS_PARK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Baylands Park</span>
+                    </Link>
+                    <Link to={`/santa-clara-high-cross-country/top-team/all-time/${CourseID.LYNBRROK}`} className='spanlinkstyle'>
+                        <span className='list-item'>Lynbrook High school</span>
+                    </Link>
                 </div>
                 <div>
                     <h2>XC Alumni Race</h2>
-                    <h4>Crystal Springs, CA</h4>
-                    <ul className='list'>
-                        {alumniData.map((item, index) => {
-                            return (
-                                <li className='list-item' key={index}>
-                                    <span>{item.title}</span>
-                                    <span>{item.year}</span>
-                                </li>
-                            )
-                        })}
-                    </ul>
+                    <h4>Past Races</h4>
+                    <span className='list-item'>All Races</span>
 
                     <h4>Alumni Race Champions</h4>
                     <span className='list-item'>Past Champions</span>

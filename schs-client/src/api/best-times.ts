@@ -23,7 +23,6 @@ export async function fetchBestTimes(courseId: number): Promise<BestTime[]> {
         courseId,
       },
     });
-    console.log(response)
     return response.data;
   } catch (error) {
     console.error('Error fetching best times:', error);

@@ -91,7 +91,6 @@ export const Top25Runners = () => {
     const [activeButton, setActiveButton] = useState<String>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
-    console.log('best teams', bestWomenTeams, bestMenTeams);
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
     };
@@ -115,8 +114,6 @@ export const Top25Runners = () => {
         const searchTermLowerCase = searchTerm.toLowerCase();
         return fullName.includes(searchTermLowerCase);
       });
-
-      console.log(activeButton, filterTeamsByGender);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
@@ -180,7 +177,7 @@ export const Top25Runners = () => {
             filterTeamsByGender?.map((team: any, index: number) => {
                 return (
                     <Link 
-                    to={`/santa-clara-high-cross-country/race-results/${team.genderId === 2 ? 'men' : 'women'}/${team.raceId}`}
+                    to={`/santa-clara-high-cross-country/race-results/${team.raceId}`}
                     className='spanlinkstyle'
                     key={`${team.raceId}-${index}`}
                     >
@@ -192,9 +189,9 @@ export const Top25Runners = () => {
                             </h3>
                             
                             <ul className='num-list'>
-                                {team?.runners.map((runner: any) => {
+                                {team?.runners.map((runner: any, index: number) => {
                                     return (
-                                        <li className='num-list-item' key={runner.athleteId}>
+                                        <li className='num-list-item' key={`${runner.athleteId}-${index}`}>
                                         <span>{runner.firstname} {runner.lastname} ({convertGrade(runner.grade)}) - {runner.time} ({runner.pace})</span>
                                         </li>
                                     )

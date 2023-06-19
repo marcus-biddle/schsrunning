@@ -48,7 +48,6 @@ export const SeasonInfo = () => {
     const { data: coaches } = useQuery(coachListQuery());
     const { data: raceResults } = useQuery(raceResultListQuery(convertToNum(yearId)));
     const races = extractXCRaceResultData(raceResults || []);
-    console.log(races);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>

@@ -32,7 +32,6 @@ export const CoachPage = () => {
     const { coachId } = useParams();
     const { data: coach } = useQuery(coachQuery(convertToNum(coachId)));
     const { data: coaches } = useQuery(coachListQuery());
-    console.log(coach);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>

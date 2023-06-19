@@ -33,8 +33,6 @@ export const Runner = () => {
   const sophomoreRaces = xcrunner?.filter((row) => row.grade === 10);
   const freshmenRaces = xcrunner?.filter((row) => row.grade === 9);
 
-  console.log(xcrunner);
-
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
       {/* Alumni Records */}
