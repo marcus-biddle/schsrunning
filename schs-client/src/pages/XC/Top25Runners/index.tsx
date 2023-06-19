@@ -4,7 +4,7 @@ import { useLocation, useParams } from 'react-router';
 import { convertGrade, convertToNum, urlContains } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { fetchTopTeams } from '../../../api/TopTeams';
+import { fetchMenTopTeams, fetchWomenTopTeams } from '../../../api/TopTeams';
 import { fetchXCRunner } from '../../../api/XCRunner';
 
 const bestTimeListQuery = (courseId: number) => ({
@@ -21,10 +21,35 @@ const bestTimeListQuery = (courseId: number) => ({
     },
 })
 
-const bestTeamListQuery = (courseId: number) => ({
-    queryKey: ['bestTeams', courseId],
+const bestMenTeamListQuery = (courseId: number) => ({
+    queryKey: ['bestMenTeams', courseId],
     queryFn: async () => {
-        const teams = await fetchTopTeams(courseId)
+        const teams = await fetchMenTopTeams(courseId)
+            .then(async (data) => {
+                const fetchedTeamResults: any = await Promise.all(data.map(async (team) => {
+                    try {
+                      const runners = await fetchXCRunner(-1, team.competitors, team.raceId);
+                      return { ...team, runners };
+                    } catch (error) {
+                      console.log(`Error fetching runners for team ${team.raceId}:`, error);
+                    }
+                  }));
+                return fetchedTeamResults;
+            });
+        if (!teams) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return teams;
+    },
+})
+
+const bestWomenTeamListQuery = (courseId: number) => ({
+    queryKey: ['bestWomenTeams',  courseId],
+    queryFn: async () => {
+        const teams = await fetchWomenTopTeams(courseId)
             .then(async (data) => {
                 const fetchedTeamResults: any = await Promise.all(data.map(async (team) => {
                     try {
@@ -47,24 +72,26 @@ const bestTeamListQuery = (courseId: number) => ({
 })
 
 export const loader = (queryClient: any) => async ({ params }: any) => {
-    if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey) && !queryClient.getQueryData(bestTeamListQuery(params.courseId).queryKey)) {
-        await queryClient.fetchQuery(bestTeamListQuery(params.courseId))
+    if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey) && !queryClient.getQueryData(bestWomenTeamListQuery(params.courseId).queryKey)) {
+        await queryClient.fetchQuery(bestMenTeamListQuery(params.courseId))
+        await queryClient.fetchQuery(bestWomenTeamListQuery(params.courseId))
         return await queryClient.fetchQuery(bestTimeListQuery(params.courseId));
     }
-    return queryClient.getQueriesData(bestTimeListQuery(params.courseId).queryKey, bestTeamListQuery(params.courseId).queryKey);
+    return queryClient.getQueriesData(bestTimeListQuery(params.courseId).queryKey, bestMenTeamListQuery(params.courseId).queryKey, bestWomenTeamListQuery(params.courseId).queryKey);
 }
 
 export const Top25Runners = () => {
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
-    const { data: bestTeams } = useQuery(bestTeamListQuery(convertToNum(courseId)));
+    const { data: bestMenTeams } = useQuery(bestMenTeamListQuery(convertToNum(courseId)));
+    const { data: bestWomenTeams } = useQuery(bestWomenTeamListQuery(convertToNum(courseId)));
     const location = useLocation();
     const filterType = urlContains(location.pathname, ['all-time', 'senior', 'junior', 'sophomore', 'freshmen'])
     const filter = convertGrade(filterType || '');
     const [activeButton, setActiveButton] = useState<String>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
-    console.log('best teams', bestTeams);
+    console.log('best teams', bestWomenTeams, bestMenTeams);
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
     };
@@ -81,7 +108,7 @@ export const Top25Runners = () => {
         }
     }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
 
-    const filterTeamsByGender = bestTeams?.filter((team: any) => activeButton === 'women' ? team.genderId === 3 : activeButton === 'men' ? team.genderId === 2 : team);
+    const filterTeamsByGender = activeButton === 'women' ? bestWomenTeams : bestMenTeams;
 
     const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
         const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();

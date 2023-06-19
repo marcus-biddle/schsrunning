@@ -35,7 +35,7 @@ export const Top25 = () => {
                     ))}
                 </ol>
             </div>
-            <div>
+            {pageType === 25 && <><div>
                 <h4>Top 25 - Senior</h4>
                 <ol className="list">
                     {data.map((course) => (
@@ -82,7 +82,7 @@ export const Top25 = () => {
                         </Link>
                     ))}
                 </ol>
-            </div>
+            </div></>}
         </div>
     </div>
   )

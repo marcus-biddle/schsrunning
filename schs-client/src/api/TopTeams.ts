@@ -11,9 +11,23 @@ export interface TeamData {
   genderId: number;
 }
 
-export async function fetchTopTeams(courseId: number): Promise<TeamData[]> {
+export async function fetchWomenTopTeams(courseId: number): Promise<TeamData[]> {
   try {
-    const response = await axios.get(`${BASE_URL}/top-teams`, {
+    const response = await axios.get(`${BASE_URL}/top-teams/women`, {
+      params: {
+        courseId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching top teams:', error);
+    throw new Error('Failed to fetch top teams');
+  }
+}
+
+export async function fetchMenTopTeams(courseId: number): Promise<TeamData[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/top-teams/men`, {
       params: {
         courseId,
       },
