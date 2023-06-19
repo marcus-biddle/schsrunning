@@ -16,7 +16,6 @@ import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
 import { CoachPage, loader as coachLoader, } from './pages/XC/Coach/index.tsx';
 import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
 import { Top25Runners, loader as bestTimesLoader, } from './pages/XC/Top25Runners/index.tsx';
-import { Top15 } from './pages/XC/Top15Teams/index.tsx';
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
 import { Top25 } from './pages/XC/Top25/index.tsx';
 
