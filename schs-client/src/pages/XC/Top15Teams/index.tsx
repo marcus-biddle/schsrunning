@@ -22,7 +22,7 @@ export const Top15 = () => {
     const genderId = genderType === 'men' ? 2 : 3;
 
     useEffect(() => {
-        fetchTopTeams(convertToNum(courseId), genderId)
+        fetchTopTeams(convertToNum(courseId))
           .then(async (data) => {
             const fetchedTeamResults: any = await Promise.all(data.map(async (team) => {
               try {

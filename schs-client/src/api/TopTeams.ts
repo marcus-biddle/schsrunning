@@ -8,6 +8,7 @@ export interface TeamData {
   avg_ind_time: string;
   raceId: number;
   competitors: string;
+  genderId: number;
 }
 
 export async function fetchTopTeams(courseId: number): Promise<TeamData[]> {
@@ -17,7 +18,6 @@ export async function fetchTopTeams(courseId: number): Promise<TeamData[]> {
         courseId,
       },
     });
-    console.log('api', response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching top teams:', error);

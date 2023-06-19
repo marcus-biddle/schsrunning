@@ -5,6 +5,7 @@ import { convertGrade, convertToNum, urlContains } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchTopTeams } from '../../../api/TopTeams';
+import { fetchXCRunner } from '../../../api/XCRunner';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
@@ -23,7 +24,18 @@ const bestTimeListQuery = (courseId: number) => ({
 const bestTeamListQuery = (courseId: number) => ({
     queryKey: ['bestTeams', courseId],
     queryFn: async () => {
-        const teams = await fetchTopTeams(courseId);
+        const teams = await fetchTopTeams(courseId)
+            .then(async (data) => {
+                const fetchedTeamResults: any = await Promise.all(data.map(async (team) => {
+                    try {
+                      const runners = await fetchXCRunner(-1, team.competitors, team.raceId);
+                      return { ...team, runners };
+                    } catch (error) {
+                      console.log(`Error fetching runners for team ${team.raceId}:`, error);
+                    }
+                  }));
+                return fetchedTeamResults;
+            });
         if (!teams) {
             throw new Response('', {
                 status: 404,
@@ -51,6 +63,7 @@ export const Top25Runners = () => {
     const filter = convertGrade(filterType || '');
     const [activeButton, setActiveButton] = useState<String>('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
 
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
@@ -68,11 +81,15 @@ export const Top25Runners = () => {
         }
     }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
 
+    const filterTeamsByGender = bestTeams?.filter((team: any) => activeButton === 'women' ? team.genderId === 3 : activeButton === 'men' ? team.genderId === 2 : team);
+
     const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
         const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
         const searchTermLowerCase = searchTerm.toLowerCase();
         return fullName.includes(searchTermLowerCase);
       });
+
+      console.log(activeButton, filterTeamsByGender);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
@@ -98,7 +115,7 @@ export const Top25Runners = () => {
                     </div>
                 </div>
 
-                <div>
+                {pageType === 25 && <div>
                 <input
                     type="text"
                     placeholder="Search Athletes"
@@ -110,21 +127,15 @@ export const Top25Runners = () => {
                     Reset
                 </button>
                 <span className="search-text">{searchTerm !== '' && `Found ${filteredAthletesByName?.length} runners...`}</span>
-                </div>
+                </div>}
         
         <ul className='num-list'>
-            {filteredAthletesByName?.filter(row => {
-                if (filter != 0 && row.grade === filter) {
-                    return row;
-                } else if (filter === 0) {
-                    return row;
-                }
-            }).slice(0, 25).map((runner) => {
+            {pageType === 25 ? filteredAthletesByName?.map((runner, index) => {
                 return (
                     <Link 
                     to={`/santa-clara-high-cross-country/runners/${runner.genderId === 2 ? 'men' : 'women'}/${runner.athleteId}`}
                     className='spanlinkstyle'
-                    key={runner.athleteId}
+                    key={`${runner.athleteId}-${index}`}
                     >
                         <div className='num-list-item'>
                             <li>
@@ -136,6 +147,34 @@ export const Top25Runners = () => {
                         </div>
                     </Link>
                     
+                )
+            })
+            :
+            filterTeamsByGender?.map((team: any, index: number) => {
+                return (
+                    <Link 
+                    to={`/santa-clara-high-cross-country/race-results/${team.genderId === 2 ? 'men' : 'women'}/${team.raceId}`}
+                    className='spanlinkstyle'
+                    key={`${team.raceId}-${index}`}
+                    >
+                        <div >
+                            <h3>
+                                <li>
+                                    {team?.year} season Combined Time: {team?.team_time} Average Time: {team?.avg_ind_time}
+                                </li>
+                            </h3>
+                            
+                            <ul className='num-list'>
+                                {team?.runners.map((runner: any) => {
+                                    return (
+                                        <li className='num-list-item' key={runner.athleteId}>
+                                        <span>{runner.firstname} {runner.lastname} ({convertGrade(runner.grade)}) - {runner.time} ({runner.pace})</span>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    </Link>
                 )
             })}
         </ul>

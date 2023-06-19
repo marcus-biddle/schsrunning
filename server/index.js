@@ -140,7 +140,7 @@ FROM
                     Athlete a ON c.athleteid = a.athleteid
                 WHERE
                     YEAR(ra.date) = YEAR(ra.date)
-                    AND ra.courseid = ?
+                    AND ra.courseid = 1
                     AND r.raceid IN (
                         SELECT
                             ra.raceid
@@ -158,7 +158,7 @@ FROM
                                 JOIN
                                     Athlete a ON c.athleteid = a.athleteid
                                 WHERE
-                                    ra.courseid = ?
+                                    ra.courseid = 1
                                     AND YEAR(ra.date) = YEAR(ra.date)
                                 GROUP BY
                                     r.raceid
@@ -180,7 +180,7 @@ FROM
         GROUP BY
             Result.raceid
         HAVING
-            COUNT(Result.competitorid) = 5 
+            COUNT(Result.competitorid) = 5 -- Include this condition to filter rows with exactly 5 competitorIds
         ORDER BY
             yr, team_time
     ) team_times
