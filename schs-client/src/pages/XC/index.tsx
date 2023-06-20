@@ -7,18 +7,6 @@ import { CourseID } from './Top25';
 
 export const CrossCountry = () => {
 
-    const alumniData = [
-        { title: '1st Annual Alumni Race', year: '2012'},
-        { title: '2nd Annual Alumni Race', year: '2013'},
-        { title: '3rd Annual Alumni Race', year: '2014'},
-        { title: '4th Annual Alumni Race', year: '2015'},
-        { title: '5th Annual Alumni Race', year: '2016'},
-        { title: '6th Annual Alumni Race', year: '2017'},
-        { title: '7th Annual Alumni Race', year: '2018'},
-        { title: '8st Annual Alumni Race', year: '2019'},
-    ]
-    
-
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
         <ImageCarousel images={teamImgs} interval={15000}/>
