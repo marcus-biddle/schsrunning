@@ -28,7 +28,7 @@ export const loader = (queryClient: any) => async ({ params }: any) => {
 }
 
 export const RaceResult = ({ gender }: { gender: GenderType }) => {
-  const [activeButton, setActiveButton] = useState<String>(gender.gender);
+  const [activeButton, setActiveButton] = useState<string>(gender.gender);
   const [searchTerm, setSearchTerm] = useState('');
   const { raceId } = useParams();
   const { data: raceResultsByRace } = useQuery(raceResultByRaceListQuery(convertToNum(raceId)));

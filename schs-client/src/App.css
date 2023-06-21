@@ -83,3 +83,23 @@ h4 {
 .spanlinkstyle:hover {
   color: #007bff;
 }
+
+.filter-btn {
+  border: solid 1px black;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  opacity: .75;
+}
+
+.filter-btn-active {
+  border: solid 1px transparent;
+  background-color: black;
+  color: white;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+}
