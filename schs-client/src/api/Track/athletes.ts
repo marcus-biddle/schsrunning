@@ -5,8 +5,8 @@ const BASE_URL = 'https://schs-server.onrender.com';
 export interface TrackAthlete {
   athleteId: number;
   genderId: number;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   years: string;
 }
 
