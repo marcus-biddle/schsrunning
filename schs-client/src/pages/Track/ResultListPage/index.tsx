@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router';
-import { urlContains } from '../../../helpers';
+import { useState } from 'react'
+// import { useLocation } from 'react-router';
+// import { urlContains } from '../../../helpers';
 import { Link } from 'react-router-dom';
 
 const eventData = [
@@ -54,8 +54,8 @@ const eventData = [
 ]
 
 export const ResultListPage = () => {
-    const location = useLocation();
-    const pageType = urlContains(location.pathname, ['event', 'hall-of-fame']);
+    // const location = useLocation();
+    // const pageType = urlContains(location.pathname, ['event', 'hall-of-fame']);
     const [filter, setFilter] = useState('');
 
     const handleEventFilter = (value: string) => {
@@ -84,7 +84,7 @@ export const ResultListPage = () => {
         
         <div style={{ width: '100%'}}>
             <ol className="list" style={{ display: 'flex', flexWrap: 'wrap', gap: '38px'}}>
-                {eventData.filter(event => filter !== '' ? event.event === filter : event).map((event, index) => {
+                {eventData.filter(event => filter !== '' ? event.event === filter : event).map((event) => {
                     return (
                         <div style={{ width: `${ filter !== '' ? '100%' : '18rem'}`}} key={event.event}>
                         <h4>{event.event}</h4>

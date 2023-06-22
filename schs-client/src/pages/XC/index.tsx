@@ -4,27 +4,15 @@ import ImageCarousel from '../../components/Carousel';
 import { teamImgs } from '../../assets';
 import './styles/index.css';
 import { CourseID } from './Top25';
-import { useQueryClient } from '@tanstack/react-query';
-import { fetchXCAthletes } from '../../api/athletes';
+// import { useQueryClient, useQuery } from '@tanstack/react-query';
+// import { fetchXCAthletes } from '../../api/athletes';
+
+// export const runnerListQuery = useQuery({
+//     queryKey: ['runners'],
+//     queryFn: async () => await fetchXCAthletes()
+// });
 
 export const CrossCountry = () => {
-    const queryClient = useQueryClient();
-
-    const onHoverRunnersLink = () => {
-        queryClient.prefetchQuery({
-            queryKey: ['runners'],
-            queryFn: async () => {
-                const athletes = await fetchXCAthletes();
-                if (!athletes) {
-                    throw new Response('', {
-                        status: 404,
-                        statusText: 'Not Found',
-                    })
-                }
-                return athletes;
-            },
-        })
-    }
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
@@ -34,7 +22,7 @@ export const CrossCountry = () => {
             <div>
                 <div>
                     <h2>
-                        <Link className='h2linkstyle' to={'runners/'} onMouseEnter={onHoverRunnersLink}>
+                        <Link className='h2linkstyle' to={'runners/'}>
                             XC Runners
                         </Link>
                     </h2>

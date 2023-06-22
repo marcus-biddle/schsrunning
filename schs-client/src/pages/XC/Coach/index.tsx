@@ -27,8 +27,6 @@ export const loader = (queryClient: any) => async ({ params }: any) => {
 }
 
 export const CoachPage = () => {
-    // const [coachSeasons, setCoachSeasons] = useState<CoachSeason[]>([]);
-    // const [coach, setCoach] = useState<Coach>();
     const { coachId } = useParams();
     const { data: coach } = useQuery(coachQuery(convertToNum(coachId)));
     const { data: coaches } = useQuery(coachListQuery());

@@ -18,7 +18,7 @@ return (
               </h2>
               <div>
                   <h2>
-                      <Link className='h2linkstyle' to={''} >
+                      <Link className='h2linkstyle' to={'athletes/'} >
                           Track Athletes
                       </Link>
                   </h2>
