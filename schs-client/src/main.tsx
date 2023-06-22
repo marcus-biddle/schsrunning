@@ -18,6 +18,7 @@ import { Top25Runners, loader as bestTimesLoader, } from './pages/XC/Top25Runner
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
 import { Top25 } from './pages/XC/Top25/index.tsx';
 import { ResultListPage } from './pages/Track/ResultListPage/index.tsx';
+import { AthleteListPage } from './pages/Track/AthleteListPage/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -168,6 +169,10 @@ const router = createBrowserRouter([
       {
         path: 'santa-clara-high-track-and-field/event',
         element: <ResultListPage/>,
+      },
+      {
+        path: 'santa-clara-high-track-and-field/athletes',
+        element: <AthleteListPage gender={{ gender: 'all'}} />,
       },
     ],
   },

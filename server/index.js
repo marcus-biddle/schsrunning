@@ -928,9 +928,9 @@ app.get('/squads/:squadId', async (req, res) => {
 
 app.get('/track-athletes', async (req, res) => {
   const query = `SELECT
-  genderid, athleteid,
-  firstname,
-  lastname,
+  genderid, athleteId,
+  firstName,
+  lastName,
   GROUP_CONCAT(DISTINCT year ORDER BY year ASC SEPARATOR ', ') AS years
 FROM (
   -- query all race results
