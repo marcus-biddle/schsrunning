@@ -35,7 +35,7 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
     // get the url, check if xc or not then use correct data for page
     const location = useLocation();
     const XCPage: string | null = urlContains(location.pathname, ['cross-country']);
-    const [activeButton, setActiveButton] = useState<String>(gender.gender);
+    const [activeButton, setActiveButton] = useState<string>(gender.gender);
     const [searchTerm, setSearchTerm] = useState('');
 
     const { data: runners } = useQuery(runnerListQuery());
