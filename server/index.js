@@ -928,14 +928,14 @@ app.get('/squads/:squadId', async (req, res) => {
 
 app.get('/track-athletes', async (req, res) => {
   const query = `SELECT
-  athleteid,
+  genderid, athleteid,
   firstname,
   lastname,
   GROUP_CONCAT(DISTINCT year ORDER BY year ASC SEPARATOR ', ') AS years
 FROM (
   -- query all race results
   SELECT
-      Athlete.athleteid,
+      Athlete.athleteid, Athlete.genderid,
       Athlete.firstname,
       Athlete.lastname,
       RaceResult.year
@@ -950,7 +950,7 @@ FROM (
   UNION
   -- query all field results
   SELECT
-      Athlete.athleteid,
+      Athlete.athleteid, Athlete.genderid,
       Athlete.firstname,
       Athlete.lastname,
       FieldResult.year
@@ -965,7 +965,7 @@ FROM (
   UNION
   -- query 1st leg of all relay results
   SELECT
-      Athlete.athleteid,
+      Athlete.athleteid, Athlete.genderid,
       Athlete.firstname,
       Athlete.lastname,
       Competitor.year
@@ -980,7 +980,7 @@ FROM (
   UNION
   -- query 2nd leg of all relay results
   SELECT
-      Athlete.athleteid,
+      Athlete.athleteid, Athlete.genderid,
       Athlete.firstname,
       Athlete.lastname,
       Competitor.year
@@ -995,7 +995,7 @@ FROM (
   UNION
   -- query 3rd leg of all relay results
   SELECT
-      Athlete.athleteid,
+      Athlete.athleteid, Athlete.genderid,
       Athlete.firstname,
       Athlete.lastname,
       Competitor.year
@@ -1010,7 +1010,7 @@ FROM (
   UNION
   -- query 4th leg of all relay results
   SELECT
-      Athlete.athleteid,
+      Athlete.athleteid, Athlete.genderid,
       Athlete.firstname,
       Athlete.lastname,
       Competitor.year
@@ -1024,7 +1024,7 @@ FROM (
       
 ) AS t
 GROUP BY
-  athleteid,
+  athleteid, genderid,
   firstname,
   lastname
 ORDER BY
