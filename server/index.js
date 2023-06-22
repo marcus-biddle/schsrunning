@@ -924,6 +924,117 @@ app.get('/squads/:squadId', async (req, res) => {
 // State
 // skipping
 
+// -------------------------------------------- Track Queries ----------------------------------------------
+
+app.get('/track-athletes', async (req, res) => {
+  const query = `SELECT
+  athleteid,
+  firstname,
+  lastname,
+  GROUP_CONCAT(DISTINCT year ORDER BY year ASC SEPARATOR ', ') AS years
+FROM (
+  -- query all race results
+  SELECT
+      Athlete.athleteid,
+      Athlete.firstname,
+      Athlete.lastname,
+      RaceResult.year
+  FROM
+      RaceResult
+  JOIN Competitor ON RaceResult.competitorid = Competitor.competitorid
+  JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
+  JOIN Gender ON Athlete.genderId = Gender.genderId
+  WHERE
+      RaceResult.year = Competitor.year
+    
+  UNION
+  -- query all field results
+  SELECT
+      Athlete.athleteid,
+      Athlete.firstname,
+      Athlete.lastname,
+      FieldResult.year
+  FROM
+      FieldResult
+  JOIN Competitor ON FieldResult.competitorid = Competitor.competitorid
+  JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
+  JOIN Gender ON Athlete.genderId = Gender.genderId
+  WHERE
+      FieldResult.year = Competitor.year
+      
+  UNION
+  -- query 1st leg of all relay results
+  SELECT
+      Athlete.athleteid,
+      Athlete.firstname,
+      Athlete.lastname,
+      Competitor.year
+  FROM
+      RelayResult
+  JOIN Competitor ON RelayResult.competitorId1 = Competitor.competitorid
+  JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
+  JOIN Gender ON Athlete.genderId = Gender.genderId
+  WHERE
+      RelayResult.year = Competitor.year
+      
+  UNION
+  -- query 2nd leg of all relay results
+  SELECT
+      Athlete.athleteid,
+      Athlete.firstname,
+      Athlete.lastname,
+      Competitor.year
+  FROM
+      RelayResult
+  JOIN Competitor ON RelayResult.competitorId2 = Competitor.competitorid
+  JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
+  JOIN Gender ON Athlete.genderId = Gender.genderId
+  WHERE
+      RelayResult.year = Competitor.year
+      
+  UNION
+  -- query 3rd leg of all relay results
+  SELECT
+      Athlete.athleteid,
+      Athlete.firstname,
+      Athlete.lastname,
+      Competitor.year
+  FROM
+      RelayResult
+  JOIN Competitor ON RelayResult.competitorId3 = Competitor.competitorid
+  JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
+  JOIN Gender ON Athlete.genderId = Gender.genderId
+  WHERE
+      RelayResult.year = Competitor.year
+      
+  UNION
+  -- query 4th leg of all relay results
+  SELECT
+      Athlete.athleteid,
+      Athlete.firstname,
+      Athlete.lastname,
+      Competitor.year
+  FROM
+      RelayResult
+  JOIN Competitor ON RelayResult.competitorId4 = Competitor.competitorid
+  JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
+  JOIN Gender ON Athlete.genderId = Gender.genderId
+  WHERE
+      RelayResult.year = Competitor.year
+      
+) AS t
+GROUP BY
+  athleteid,
+  firstname,
+  lastname
+ORDER BY
+  lastname,
+  firstname;`
+  ;
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
+
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello World' })
 })
