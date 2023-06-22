@@ -4,8 +4,8 @@ import ImageCarousel from '../../components/Carousel';
 import { teamImgs } from '../../assets';
 import './styles/index.css';
 import { CourseID } from './Top25';
-import { useQueryClient, useQuery } from '@tanstack/react-query';
-import { fetchXCAthletes } from '../../api/athletes';
+// import { useQueryClient, useQuery } from '@tanstack/react-query';
+// import { fetchXCAthletes } from '../../api/athletes';
 
 // export const runnerListQuery = useQuery({
 //     queryKey: ['runners'],
