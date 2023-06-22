@@ -51,7 +51,7 @@ export const AthleteListPage = ({ gender }: { gender: GenderType }) => {
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <h2>SCHS Cross Country Runners (<span>{filteredAthletesByGender?.length}</span>)</h2>
+            <h2>SCHS Track & Field Athletes (<span>{filteredAthletesByGender?.length}</span>)</h2>
             <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
             <button
                 className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
@@ -94,9 +94,7 @@ export const AthleteListPage = ({ gender }: { gender: GenderType }) => {
                         <span>{athlete.firstName} {athlete.lastName}</span>
                     </li>
                 </Link>
-            )
-        }
-            // 
+            )} 
             )}
         </ol>
     </div>
