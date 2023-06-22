@@ -1,10 +1,10 @@
 import { useParams } from "react-router";
-import { convertToNum } from "../../../helpers";
+import { convertToNum, groupEvents } from "../../../helpers";
 import { useQuery } from '@tanstack/react-query';
 import { fetchTrackAthlete } from "../../../api/Track/athletes";
 
 const trackAthleteQuery = (athleteId: number) => ({
-  queryKey: ['trackRunner', athleteId],
+  queryKey: ['trackAthlete', athleteId],
   queryFn: async () => {
       const xcrunner = await fetchTrackAthlete(athleteId);
       if (!xcrunner) {
@@ -19,7 +19,10 @@ const trackAthleteQuery = (athleteId: number) => ({
 
 export const AthletePage = () => {
   const { athleteId } = useParams();
-  const { data: trackRunner } = useQuery(trackAthleteQuery(convertToNum(athleteId)));
+  const { data: trackAthlete } = useQuery(trackAthleteQuery(convertToNum(athleteId)));
+  console.log(trackAthlete);
+  console.log(groupEvents(trackAthlete || []));
+  const events = groupEvents(trackAthlete || []);
 //   const alumniRaces = xcrunner?.filter((row) => row.grade === 0);
 //   const seniorRaces = xcrunner?.filter((row) => row.grade === 12);
 //   const juniorRaces = xcrunner?.filter((row) => row.grade === 11);
@@ -28,15 +31,36 @@ export const AthletePage = () => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
+      <div>
+        <h1>{trackAthlete && trackAthlete[0].fullName}</h1>
+        <p>Insert breadcrumb</p>
+      </div>
+      {events && events.map((event: any) => {
+        return (
+          <>
+          <h4>{event.event}</h4>
+          <ol>
+            {event.results.map((result: any) => {
+              return (
+                <li className="list-item">
+                  <h4>{result.squadName} ({result.grade}th grade) - {result.result1}</h4>
+                  {/* <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span> */}
+              </li>
+              )
+            })}
+          </ol>
+          </>
+        )
+      })}
       {/* Alumni Records */}
-      {/* { xcrunner && xcrunner?.length > 0 ? <h1>{xcrunner[0].firstname} {xcrunner[0].lastname}</h1> : <h1>Runner</h1>} */}
+      {/* { xcrunner && xcrunner?.length > 0 ? <h1>{xcrunner[0].firstname} {xcrunner[0].lastname}</h1> : <h1>Athlete</h1>} */}
       {/* {alumniRaces && alumniRaces.length > 0 && 
         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
           <h2>Season {getYearFromDate(alumniRaces[0].date)}</h2>
           <h2>Alumni Records</h2>
         </div>
       } */}
-      <ul className="list">
+      {/* <ul className="list"> */}
         {/* {alumniRaces && alumniRaces.length > 0 && alumniRaces.map((row) => {
           return (
             <li className="list-item">
@@ -45,7 +69,7 @@ export const AthletePage = () => {
             </li>
           )
         })} */}
-      </ul>
+      {/* </ul> */}
 
       {/* 12th grade records */}
       {/* {seniorRaces && seniorRaces.length > 0 && 
@@ -118,6 +142,6 @@ export const AthletePage = () => {
           )
         })}
       </ul> */}
-    </div>
+      </div>
   )
 }

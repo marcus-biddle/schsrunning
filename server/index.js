@@ -938,7 +938,7 @@ JOIN Event ON RaceResult.eventId = Event.eventId
 JOIN Competitor ON RaceResult.competitorid = Competitor.competitorId
 JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
 JOIN Squad ON RaceResult.squadId = Squad.squadId
-WHERE Athlete.athleteId = ?
+WHERE Athlete.athleteId = ? AND RaceResult.year = Competitor.year
 
 UNION
 
@@ -951,7 +951,7 @@ JOIN Event ON FieldResult.eventId = Event.eventId
 JOIN Competitor ON FieldResult.competitorId = Competitor.competitorId
 JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
 JOIN Squad ON FieldResult.squadId = Squad.squadId
-WHERE Athlete.athleteId = ?
+WHERE Athlete.athleteId = ? AND FieldResult.year = Competitor.year
 
 UNION
 
@@ -1020,7 +1020,7 @@ ORDER BY result1, result2;`;
 
 app.get('/track-athletes', async (req, res) => {
   const query = `SELECT
-  genderid, athleteId,
+  genderId, athleteId,
   firstName,
   lastName,
   GROUP_CONCAT(DISTINCT year ORDER BY year ASC SEPARATOR ', ') AS years

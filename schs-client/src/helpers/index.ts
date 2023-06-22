@@ -1,3 +1,5 @@
+import { TrackAthleteResult } from "../api/Track/athletes";
+
 export const urlContains = (url: string, searchTexts: string[]): string | null => {
   const foundText = searchTexts.find((searchText) => {
     const regex = new RegExp(`\\b${searchText}\\b`, 'i');
@@ -93,4 +95,34 @@ export function extractXCRaceResultData(array: any[]) {
   });
 
   return uniqueArray;
+}
+
+export function groupEvents(results: TrackAthleteResult[]) {
+  const groupedEvents = results.reduce((groups: any, result) => {
+    const { event, eventId, fullName, grade, year, squadName, squadId, athleteId, genderId, result1 } = result;
+    const key = event + '-' + eventId;
+    
+    if (!groups[key]) {
+      groups[key] = {
+        event,
+        eventId,
+        results: []
+      };
+    }
+    
+    groups[key].results.push({
+      fullName,
+      grade,
+      year,
+      squadName,
+      squadId,
+      athleteId,
+      genderId,
+      result1
+    });
+    
+    return groups;
+  }, {});
+  
+  return Object.values(groupedEvents);
 }
