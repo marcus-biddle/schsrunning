@@ -924,11 +924,103 @@ app.get('/squads/:squadId', async (req, res) => {
 // State
 // skipping
 
-// -------------------------------------------- Track Queries ----------------------------------------------
+// ----------------------------------------------------------- TRACK ----------------------------------------------------
+
+app.get('/track-athlete/:athleteId', async (req, res) => {
+  const { athleteId } = req.params; 
+
+  const query = `SELECT event, Event.eventId, CONCAT(firstname, ' ', lastname) AS fullName, 
+  RaceResult.time AS result1, raceTimeTypeId AS result2, 
+  grade, Competitor.competitorId, Competitor.year, squadName, Squad.squadId, 
+  Athlete.athleteId, Athlete.genderId
+FROM RaceResult
+JOIN Event ON RaceResult.eventId = Event.eventId
+JOIN Competitor ON RaceResult.competitorid = Competitor.competitorId
+JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+JOIN Squad ON RaceResult.squadId = Squad.squadId
+WHERE Athlete.athleteId = ? AND RaceResult.year = Competitor.year
+
+UNION
+
+
+SELECT event, Event.eventId, CONCAT(firstname, ' ', lastname) AS fullName, 
+  footPartOfDistance AS result1, inchPartOfDistance AS result2, 
+  grade, Competitor.competitorId, Competitor.year, squadName, Squad.squadId, Athlete.athleteId, Athlete.genderId
+FROM FieldResult
+JOIN Event ON FieldResult.eventId = Event.eventId
+JOIN Competitor ON FieldResult.competitorId = Competitor.competitorId
+JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+JOIN Squad ON FieldResult.squadId = Squad.squadId
+WHERE Athlete.athleteId = ? AND FieldResult.year = Competitor.year
+
+UNION
+
+SELECT event, Event.eventId, CONCAT(firstname, ' ', lastname) AS fullName, 
+  RelayResult.time AS result1, raceTimeTypeId AS result2, 
+  grade, competitorId, RelayResult.year, squadName, Squad.squadId, 
+  Athlete.athleteId, Athlete.genderId
+FROM RelayResult
+JOIN Event ON RelayResult.eventId = Event.eventId
+JOIN Squad ON RelayResult.squadId = Squad.squadId
+JOIN Competitor ON Competitor.competitorId = RelayResult.competitorId1
+JOIN Athlete ON Athlete.athleteId = Competitor.athleteId
+WHERE Athlete.athleteId = ?
+  AND RelayResult.year = Competitor.year
+
+UNION
+
+SELECT event, Event.eventId, CONCAT(firstname, ' ', lastname) AS fullName, 
+  RelayResult.time AS result1, raceTimeTypeId AS result2, 
+  grade, competitorId, RelayResult.year, squadName, Squad.squadId, 
+  Athlete.athleteId, Athlete.genderId
+FROM RelayResult
+JOIN Event ON RelayResult.eventId = Event.eventId
+JOIN Squad ON RelayResult.squadId = Squad.squadId
+JOIN Competitor ON Competitor.competitorId = RelayResult.competitorId2
+JOIN Athlete ON Athlete.athleteId = Competitor.athleteId
+WHERE Athlete.athleteId = ?
+  AND RelayResult.year = Competitor.year
+
+UNION
+
+SELECT event, Event.eventId, CONCAT(firstname, ' ', lastname) AS fullName, 
+  RelayResult.time AS result1, raceTimeTypeId AS result2, 
+  grade, competitorId, RelayResult.year, squadName, Squad.squadId, 
+  Athlete.athleteId, Athlete.genderId
+FROM RelayResult
+JOIN Event ON RelayResult.eventId = Event.eventId
+JOIN Squad ON RelayResult.squadId = Squad.squadId
+JOIN Competitor ON Competitor.competitorId = RelayResult.competitorId3
+JOIN Athlete ON Athlete.athleteId = Competitor.athleteId
+WHERE Athlete.athleteId = ?
+  AND RelayResult.year = Competitor.year
+
+UNION
+
+SELECT event, Event.eventId, CONCAT(firstname, ' ', lastname) AS fullName, 
+  RelayResult.time AS result1, raceTimeTypeId AS result2, 
+  grade, competitorId, RelayResult.year, squadName, Squad.squadId, 
+  Athlete.athleteId, Athlete.genderId
+FROM RelayResult
+JOIN Event ON RelayResult.eventId = Event.eventId
+JOIN Squad ON RelayResult.squadId = Squad.squadId
+JOIN Competitor ON Competitor.competitorId = RelayResult.competitorId4
+JOIN Athlete ON Athlete.athleteId = Competitor.athleteId
+WHERE Athlete.athleteId = ?
+  AND RelayResult.year = Competitor.year
+ORDER BY result1, result2;`;
+  const [rows] = await connection.query(query, [athleteId, athleteId, athleteId, athleteId, athleteId, athleteId]);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find athlete." });
+  };
+
+  res.json(rows)
+})
 
 app.get('/track-athletes', async (req, res) => {
   const query = `SELECT
-  genderid, athleteId,
+  genderId, athleteId,
   firstName,
   lastName,
   GROUP_CONCAT(DISTINCT year ORDER BY year ASC SEPARATOR ', ') AS years

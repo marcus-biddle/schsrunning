@@ -176,11 +176,11 @@ const router = createBrowserRouter([
         element: <AthleteListPage gender={{ gender: 'all'}} />,
       },
       {
-        path: 'santa-clara-high-track-and-field/athletes',
+        path: 'santa-clara-high-track-and-field/athletes/men/:athleteId',
         element: <AthletePage />,
       },
       {
-        path: 'santa-clara-high-track-and-field/athletes',
+        path: 'santa-clara-high-track-and-field/athletes/women/:athleteId',
         element: <AthletePage />,
       },
     ],
