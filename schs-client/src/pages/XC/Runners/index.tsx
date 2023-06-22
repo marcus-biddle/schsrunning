@@ -20,12 +20,12 @@ const runnerListQuery = () => ({
     },
 })
 
-export const loader = (queryClient: any) => async () => {
-    if (!queryClient.getQueryData(runnerListQuery().queryKey)) {
-      return await queryClient.fetchQuery(runnerListQuery());
-    }
-    return queryClient.getQueryData(runnerListQuery().queryKey);
-}
+// export const loader = (queryClient: any) => async () => {
+//     if (!queryClient.getQueryData(runnerListQuery().queryKey)) {
+//       return await queryClient.fetchQuery(runnerListQuery());
+//     }
+//     return queryClient.getQueryData(runnerListQuery().queryKey);
+// }
 
 export interface GenderType {
     gender: 'men' | 'women' | 'all';

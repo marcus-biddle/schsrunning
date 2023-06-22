@@ -9,7 +9,7 @@ import { Home } from './pages/Home/index.tsx'
 import { CrossCountry } from './pages/XC/index.tsx'
 import { Track } from './pages/Track/index.tsx'
 import { XCSeason } from './pages/XC/Seasons/index.tsx';
-import { Runners, loader as runnersLoader, } from './pages/XC/Runners/index.tsx';
+import { Runners } from './pages/XC/Runners/index.tsx';
 import { SeasonInfo, loader as seasonLoader, } from './pages/XC/Season/index.tsx';
 import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
 import { CoachPage, loader as coachLoader, } from './pages/XC/Coach/index.tsx';
@@ -58,12 +58,12 @@ const router = createBrowserRouter([
       {
         path: 'santa-clara-high-cross-country/runners/men',
         element: <Runners gender={{ gender: 'men'}}/>,
-        loader: runnersLoader(queryClient),
+        // loader: runnersLoader(queryClient),
       },
       {
         path: 'santa-clara-high-cross-country/runners/women',
         element: <Runners gender={{ gender: 'women'}}/>,
-        loader: runnersLoader(queryClient),
+        // loader: runnersLoader(queryClient),
       },
       {
         path: 'santa-clara-high-cross-country/coaches',
