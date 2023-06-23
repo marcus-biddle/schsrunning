@@ -1,8 +1,5 @@
-import { useLocation } from "react-router"
-import { urlContains } from "../../../helpers"
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { XCAthlete } from "../../../api/athletes";
 import { useQuery } from '@tanstack/react-query';
 import { TrackAthlete, fetchTrackAthletes } from "../../../api/Track/athletes";
 

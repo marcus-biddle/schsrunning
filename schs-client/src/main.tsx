@@ -20,6 +20,7 @@ import { Top25 } from './pages/XC/Top25/index.tsx';
 import { ResultListPage } from './pages/Track/ResultListPage/index.tsx';
 import { AthleteListPage } from './pages/Track/AthleteListPage/index.tsx';
 import { AthletePage } from './pages/Track/AthletePage/index.tsx';
+import { EventPage } from './pages/Track/EventPage/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -176,12 +177,24 @@ const router = createBrowserRouter([
         element: <AthleteListPage gender={{ gender: 'all'}} />,
       },
       {
+        path: 'santa-clara-high-track-and-field/athletes/men',
+        element: <AthleteListPage gender={{ gender: 'men'}} />,
+      },
+      {
+        path: 'santa-clara-high-track-and-field/athletes/women',
+        element: <AthleteListPage gender={{ gender: 'women'}} />,
+      },
+      {
         path: 'santa-clara-high-track-and-field/athletes/men/:athleteId',
         element: <AthletePage />,
       },
       {
         path: 'santa-clara-high-track-and-field/athletes/women/:athleteId',
         element: <AthletePage />,
+      },
+      {
+        path: 'santa-clara-high-track-and-field/events',
+        element: <EventPage />,
       },
     ],
   },

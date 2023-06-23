@@ -23,11 +23,6 @@ export const AthletePage = () => {
   console.log(trackAthlete);
   console.log(groupEvents(trackAthlete || []));
   const events = groupEvents(trackAthlete || []);
-//   const alumniRaces = xcrunner?.filter((row) => row.grade === 0);
-//   const seniorRaces = xcrunner?.filter((row) => row.grade === 12);
-//   const juniorRaces = xcrunner?.filter((row) => row.grade === 11);
-//   const sophomoreRaces = xcrunner?.filter((row) => row.grade === 10);
-//   const freshmenRaces = xcrunner?.filter((row) => row.grade === 9);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
@@ -36,19 +31,81 @@ export const AthletePage = () => {
         <p>Insert breadcrumb</p>
       </div>
       {events && events.map((event: any) => {
+        const filteredEvents1 = event.results.filter((result: any) => result.squadId === 1);
+        const filteredEvents2 = event.results.filter((result: any) => result.squadId === 2);
+        const filteredEvents3 = event.results.filter((result: any) => result.squadId === 3);
+        const filteredEvents4 = event.results.filter((result: any) => result.squadId === 4);
         return (
           <>
-          <h4>{event.event}</h4>
-          <ol>
-            {event.results.map((result: any) => {
-              return (
-                <li className="list-item">
-                  <h4>{result.squadName} ({result.grade}th grade) - {result.result1}</h4>
-                  {/* <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span> */}
-              </li>
-              )
-            })}
-          </ol>
+          <h2>{event.event}</h2>
+          {filteredEvents2.length > 0 && 
+          <>
+            <h4>Varsity Men</h4>
+            <ol>
+                {filteredEvents2.map((result: any) => {
+                    return (
+                    <div>
+                        <li className="list-item">
+                        <h4>{parseFloat(result.result1) ? `${parseInt(result.result1)}'` : `${result.result1}`}{parseInt(result.result2) ? `${parseFloat(result.result2)}"` : ''}</h4>
+                            <h4>{result.year} ({result.grade}th Grade)</h4>
+                        </li>
+                    </div>
+                )
+                })}
+            </ol>
+          </>
+          }
+          {filteredEvents1.length > 0 && 
+          <>
+            <h4>Varsity Women</h4>
+            <ol>
+                {filteredEvents1.map((result: any) => {
+                    return (
+                    <div>
+                        <li className="list-item">
+                            <h4>{parseFloat(result.result1) ? `${parseInt(result.result1)}'` : `${result.result1}`}{parseInt(result.result2) ? `${parseFloat(result.result2)}"` : ''}</h4>
+                            <h4>{result.year} ({result.grade}th Grade)</h4>
+                        </li>
+                    </div>
+                )
+                })}
+            </ol>
+          </>
+          }
+          {filteredEvents3.length > 0 && 
+          <>
+            <h4>Frosh/Soph Women</h4>
+            <ol>
+                {filteredEvents3.map((result: any) => {
+                    return (
+                    <div>
+                        <li className="list-item">
+                        <h4>{parseFloat(result.result1) ? `${parseInt(result.result1)}'` : `${result.result1}`}{parseFloat(result.result2) ? `${parseFloat(result.result2)}"` : ''}</h4>
+                            <h4>{result.year} ({result.grade}th Grade)</h4>
+                        </li>
+                    </div>
+                )
+                })}
+            </ol>
+          </>
+          }
+          {filteredEvents4.length > 0 && 
+          <>
+            <h4>Frosh/Soph Men</h4>
+            <ol>
+                {filteredEvents4.map((result: any) => {
+                    return (
+                    <div>
+                        <li className="list-item">
+                        <h4>{parseInt(result.result1) ? `${parseFloat(result.result1)}'` : `${result.result1}`}{parseInt(result.result2) ? `${parseFloat(result.result2)}"` : ''}</h4>
+                            <h4>{result.year} ({result.grade}th Grade)</h4>
+                        </li>
+                    </div>
+                )
+                })}
+            </ol>
+          </>
+          }
           </>
         )
       })}
