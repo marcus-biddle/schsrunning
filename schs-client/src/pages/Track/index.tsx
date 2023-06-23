@@ -34,10 +34,10 @@ return (
               <div>
                   <h2>
                       <Link className='h2linkstyle' to={'events/'} >
-                          Track Results
+                          Athlete Ranking By Event
                       </Link>
                   </h2>
-                  <h4>Sprints</h4>
+                  {/* <h4>Sprints</h4>
                   <Link  to={'runners/men/'} className='spanlinkstyle'>
                       <span className='list-item'>100m, 200m, 400m</span>
                   </Link>
@@ -60,12 +60,12 @@ return (
                   <h4>Throws</h4>
                   <Link to={'runners/women/'} className='spanlinkstyle'>
                     <span className='list-item'>Shot Put, Discuss</span>
-                  </Link>
+                  </Link> */}
               </div>
               <div>
                   <h2>
                       <Link to={'coaches/'} className='h2linkstyle'>
-                          XC Coaches
+                          Track Coaches
                       </Link>
                   </h2>
                   <h4>Head Coach</h4>

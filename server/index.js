@@ -1170,6 +1170,24 @@ app.get('/field-event-athletes/:eventId', async (req, res) => {
   res.json(rows)
 });
 
+app.get('/track-coach/:coachId', async (req, res) => {
+  const { coachId } = req.params;
+
+  const query = `SELECT firstName, lastName, 
+	CoachType.coachType, CoachType.coachTypeId, year 
+FROM CoachSeason 
+JOIN CoachType ON CoachType.coachTypeId = CoachSeason.coachTypeId 
+JOIN Coach ON Coach.coachId = CoachSeason.coachId 
+WHERE Coach.coachId = 1 
+ORDER BY year DESC;`;
+  const [rows] = await connection.query(query, coachId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find field event." });
+  };
+
+  res.json(rows)
+});
 
 // --------------------------------------------------------------------------------------------------------
 

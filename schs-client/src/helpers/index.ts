@@ -127,3 +127,38 @@ export function groupEvents(results: TrackAthleteResult[]) {
   
   return Object.values(groupedEvents);
 }
+
+export function removeDuplicatesByName(data: any[]) {
+  return data.filter((row, index, self) => {
+    const duplicateIndex = self.findIndex(
+      c => c.firstname === row.firstname && c.lastname === row.lastname
+    );
+    return index === duplicateIndex;
+  });
+}
+
+export function groupByCoachTypeId(data: any[]) {
+  const groupedData: any = [];
+  const groupedMap = new Map();
+
+  data.forEach((item) => {
+    const { firstName, lastName, coachTypeId, ...rest } = item;
+    const existingGroup = groupedMap.get(coachTypeId);
+
+    if (existingGroup) {
+      existingGroup.objects.push(rest);
+    } else {
+      const newGroup = {
+        firstName,
+        lastName,
+        coachTypeId,
+        objects: [rest],
+      };
+      groupedMap.set(coachTypeId, newGroup);
+      groupedData.push(newGroup);
+    }
+  });
+
+  return groupedData;
+}
+
