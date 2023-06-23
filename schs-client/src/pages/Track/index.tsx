@@ -23,17 +23,17 @@ return (
                       </Link>
                   </h2>
                   <h4>Men</h4>
-                  <Link  to={'runners/men/'} className='spanlinkstyle'>
+                  <Link  to={'athletes/men/'} className='spanlinkstyle'>
                       <span className='list-item'>Track Athletes</span>
                   </Link>
                   <h4>Women</h4>
-                  <Link to={'runners/women/'} className='spanlinkstyle'>
+                  <Link to={'athletes/women/'} className='spanlinkstyle'>
                   <span className='list-item'>Track Athletes</span>
                   </Link>
               </div>
               <div>
                   <h2>
-                      <Link className='h2linkstyle' to={'event/'} >
+                      <Link className='h2linkstyle' to={'events/'} >
                           Track Results
                       </Link>
                   </h2>

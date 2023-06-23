@@ -15,7 +15,7 @@ export interface TrackAthleteResult {
   eventId: number;
   fullName: string;
   result1: string;
-  result2: string;
+  result2: number | string;
   grade: number;
   competitorId: number;
   year: number;

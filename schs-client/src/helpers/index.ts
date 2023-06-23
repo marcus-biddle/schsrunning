@@ -99,7 +99,7 @@ export function extractXCRaceResultData(array: any[]) {
 
 export function groupEvents(results: TrackAthleteResult[]) {
   const groupedEvents = results.reduce((groups: any, result) => {
-    const { event, eventId, fullName, grade, year, squadName, squadId, athleteId, genderId, result1 } = result;
+    const { event, eventId, fullName, grade, year, squadName, squadId, athleteId, genderId, result1, result2 } = result;
     const key = event + '-' + eventId;
     
     if (!groups[key]) {
@@ -118,7 +118,8 @@ export function groupEvents(results: TrackAthleteResult[]) {
       squadId,
       athleteId,
       genderId,
-      result1
+      result1,
+      result2
     });
     
     return groups;
