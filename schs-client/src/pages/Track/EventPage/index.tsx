@@ -1,117 +1,89 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { TFEvent, fetchAthletesByEvent } from '../../../api/Track/events';
+import { useQuery } from '@tanstack/react-query';
+import { convertGrade, urlContains } from '../../../helpers';
+
+const eventQuery = (eventType: string, athleteId: number) => ({
+    queryKey: ['athlete', eventType, athleteId],
+    queryFn: async () => {
+        const athletes = await fetchAthletesByEvent(eventType, athleteId);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+  })
 
 export const EventPage = () => {
+    const [activeButton, setActiveButton] = useState<string>('all');
+    const location = useLocation();
+    const eventType: string = urlContains(location.pathname, ['track-events', 'field-events']) || 'track';
+    const { eventId } = useParams();
+    const [filter, setFilter] = useState<string>('all');
+
+    const handleGradeFilter = (value: string) => {
+        setFilter(value === filter ? 'all' : value);
+    }
+
+    const { data: athletes } = useQuery(eventQuery(eventType, parseInt(eventId || '1')));
+    console.log(athletes);
+
+    
+
+    const filterAthletesByGrade = athletes?.filter(athlete => filter !== 'all' ? athlete.grade === convertGrade(filter) : athlete);
+    const filteredAthletesByGender = filterAthletesByGrade?.filter((athlete: TFEvent) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
+    console.log(filteredAthletesByGender?.length)
+    const handleButtonClick = (value: string) => {
+        setActiveButton(value === activeButton ? 'all' : value);
+    };
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem', minHeight: '100vh'}}>
-        <div>
-            <h2>SCHS Track & Field Events</h2>
-            <div>Insert some breadcrumbs</div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h2>{athletes && athletes[0].event} Records ({athletes && athletes.length})</h2>
+            <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
+            <button
+                className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
+                onClick={() => handleButtonClick('men')}
+            >
+                Men
+            </button>
+            <button
+                className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
+                onClick={() => handleButtonClick('women')}
+            >
+                Women
+            </button>
+            </div>
+        </div>
+        {/* Create filter for grades here */}
+        <div style={{ padding: '.5rem', marginBottom: '20px'}}>
+            <p>Filter by Grade:</p>
+            <div style={{ display: 'flex', justifyContent: 'space-around', maxWidth: '22rem'}}>
+                <div className={filter === 'senior' ? 'filter-btn-active' : 'filter-btn'} onClick={() => handleGradeFilter('senior')}>Senior</div>
+                <div className={filter === 'junior' ? 'filter-btn-active' : 'filter-btn'} onClick={() => handleGradeFilter('junior')}>Junior</div>
+                <div className={filter === 'sophomore' ? 'filter-btn-active' : 'filter-btn'} onClick={() => handleGradeFilter('sophomore')}>Sophomore</div>
+                <div className={filter === 'freshmen' ? 'filter-btn-active' : 'filter-btn'} onClick={() => handleGradeFilter('freshmen')}>Freshmen</div>
+            </div>
         </div>
         
         <div>
-            <div>
-                <h4>Sprints</h4>
-                <ol className="list">
-                    <Link to={``} className='spanlinkstyle'>
-                        <li className="list-item">
-                            <span>100m Dash</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle'>
-                        <li className="list-item">
-                            <span>200m Dash</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle'>
-                        <li className="list-item">
-                            <span>400m Dash</span>
-                        </li>
-                    </Link>
-                </ol>
-            </div>
-            <div>
-                <h4>Distance</h4>
-                <ol className="list">
-                    <Link to={``} className='spanlinkstyle' key={0}>
-                        <li className="list-item">
-                            <span>800m Run</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>1600m Run</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>3200m Run</span>
-                        </li>
-                    </Link>
-                </ol>
-            </div>
-            <div>
-                <h4>Hurdles</h4>
-                <ol className="list">
-                    <Link to={``} className='spanlinkstyle' key={0}>
-                        <li className="list-item">
-                            <span>65m Hurdles</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>110m Hurdles</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>300m Hurdles</span>
-                        </li>
-                    </Link>
-                </ol>
-            </div>
-        </div>
-        <div>
-            <div>
-                <h4>Jumps</h4>
-                <ol className="list">
-                    <Link to={``} className='spanlinkstyle' key={0}>
-                        <li className="list-item">
-                            <span>High Jump</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>Long Jump</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>Triple Jump</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>Pole Vault</span>
-                        </li>
-                    </Link>
-                </ol>
-            </div>
-            <div>
-                <h4>Throws</h4>
-                <ol className="list">
-                    <Link to={``} className='spanlinkstyle' key={0}>
-                        <li className="list-item">
-                            <span>Shot Put</span>
-                        </li>
-                    </Link>
-                    <Link to={``} className='spanlinkstyle' key={1}>
-                        <li className="list-item">
-                            <span>Discuss</span>
-                        </li>
-                    </Link>
-                </ol>
-            </div>
+            <ol className="list">
+                {filteredAthletesByGender?.map((athlete: TFEvent) => {
+                    return (
+                        <Link to={''} className="spanlinkstyle" key={athlete.competitorId}>
+                            <li className="list-item">
+                                <span>{athlete.firstName} {athlete.lastName} ({athlete.year}{athlete.grade < 13 ? `, ${athlete.grade}th grade` : ''})</span>
+                                <span>{athlete.time ? athlete.time : `${athlete.footPartOfDistance}'${athlete.inchPartOfDistance?.toString() !== '0.00'  ? `${parseInt(athlete.inchPartOfDistance?.toString() || '0').toFixed(1)}"` : ''}`}</span>
+                            </li>
+                        </Link>
+                    )
+                })}
+            </ol>
         </div>
     </div>
   )

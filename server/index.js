@@ -1127,6 +1127,52 @@ ORDER BY
   res.send(rows)
 });
 
+app.get('/track-event-athletes/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+
+  const query = `SELECT DISTINCT event, firstName, lastName, RaceResult.time, 
+  raceTimeTypeId, Competitor.year, grade, Competitor.competitorId, Athlete.genderId
+FROM RaceResult
+JOIN Event ON RaceResult.eventId = Event.eventId
+JOIN Competitor ON RaceResult.competitorId = Competitor.competitorId
+JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+WHERE Event.eventId = ? 
+  AND RaceResult.year = Competitor.year
+ORDER BY RaceResult.time, year, lastname, firstname, genderId;`;
+  const [rows] = await connection.query(query, eventId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find track event." });
+  };
+
+  res.json(rows)
+});
+
+app.get('/field-event-athletes/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+
+  const query = `
+  SELECT DISTINCT event, firstName, lastName, footPartOfDistance, 
+      inchPartOfDistance, Competitor.year, grade, Competitor.competitorId, Athlete.genderId
+  FROM FieldResult
+  JOIN Event ON FieldResult.eventId = Event.eventId
+  JOIN Competitor ON FieldResult.competitorid = Competitor.competitorId
+  JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+  WHERE Event.eventId = ?
+      AND FieldResult.year = Competitor.year
+  ORDER BY footPartOfDistance DESC, inchPartOfDistance DESC, year, lastname, firstname, genderId;`;
+  const [rows] = await connection.query(query, eventId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find field event." });
+  };
+
+  res.json(rows)
+});
+
+
+// --------------------------------------------------------------------------------------------------------
+
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello World' })
 })

@@ -86,9 +86,9 @@ export const Top25Runners = () => {
     const { data: bestMenTeams } = useQuery(bestMenTeamListQuery(convertToNum(courseId)));
     const { data: bestWomenTeams } = useQuery(bestWomenTeamListQuery(convertToNum(courseId)));
     const location = useLocation();
-    const filterType = urlContains(location.pathname, ['all-time', 'senior', 'junior', 'sophomore', 'freshmen'])
+    const filterType = urlContains(location.pathname, ['all', 'senior', 'junior', 'sophomore', 'freshmen'])
     const filter = convertGrade(filterType || '');
-    const [activeButton, setActiveButton] = useState<String>('all');
+    const [activeButton, setActiveButton] = useState<string>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
     const handleButtonClick = (value: string) => {

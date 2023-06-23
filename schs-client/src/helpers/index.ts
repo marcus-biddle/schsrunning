@@ -27,7 +27,7 @@ export function capitalizeFirstLetter(str: string): string {
 export function convertGrade(grade: string | number) {
   if (typeof grade === 'string') {
     switch (grade) {
-      case 'all-time':
+      case 'all':
         return 0;
       case 'senior':
         return 12;
@@ -43,7 +43,7 @@ export function convertGrade(grade: string | number) {
   } else if (typeof grade === 'number') {
     switch (grade) {
       case 0:
-        return 'all-time';
+        return 'all';
       case 12:
         return 'senior';
       case 11:
