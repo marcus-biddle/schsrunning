@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import { fetchTrackAthletesByYear } from "../../../api/Track/athletes";
 import { convertToNum } from "../../../helpers";
 import { useQuery } from '@tanstack/react-query';
+import { fetchCoachesByYear } from "../../../api/Track/coaches";
 
 const trackAthleteByYearQuery = (yearId: number) => ({
     queryKey: ['athlete-season', yearId],
@@ -17,14 +18,25 @@ const trackAthleteByYearQuery = (yearId: number) => ({
     },
   })
 
+const coachListByYearQuery = (yearId: number) => ({
+    queryKey: ['coaches', yearId],
+    queryFn: async () => {
+        const coaches = await fetchCoachesByYear(yearId)
+
+        return coaches;
+    },
+})
+
 export const SeasonPage = () => {
     const { yearId } = useParams();
     const { data: athletes } = useQuery(trackAthleteByYearQuery(convertToNum(yearId)));
-    console.log(athletes)
+    const { data: coaches } = useQuery(coachListByYearQuery(convertToNum(yearId)));
+    console.log(athletes);
+    console.log(coaches);
 
     return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <h1>XXXX SCHS Track & Field Season</h1>
+        <h1>{yearId} SCHS Track & Field Season</h1>
         <div style={{ display: 'flex', justifyContent: 'space-around'}}>
             {/* First Column */}
             <div>
@@ -38,15 +50,32 @@ export const SeasonPage = () => {
                     <ul className="list">
                         {athletes && athletes.filter(athlete => athlete.genderId === 2).map((athlete) => {
                             return (
-                                <li
-                                className="list-item"
-                                key={athlete.athleteId}>
-                                    {athlete.firstName} {athlete.lastName}
-                                </li>
+                                <Link
+                                className="spanlinkstyle"
+                                key={athlete.athleteId}
+                                to={`/santa-clara-high-track-and-field/athletes/men/${athlete.athleteId}`}>
+                                    <li className="list-item">
+                                        {athlete.firstName} {athlete.lastName}
+                                    </li>
+                                </Link>
                             )
                         })}
                     </ul>
                     <h4>Women</h4>
+                    <ul className="list">
+                        {athletes && athletes.filter(athlete => athlete.genderId === 3).map((athlete) => {
+                            return (
+                                <Link
+                                className="spanlinkstyle"
+                                key={athlete.athleteId}
+                                to={`/santa-clara-high-track-and-field/athletes/women/${athlete.athleteId}`}>
+                                    <li className="list-item">
+                                        {athlete.firstName} {athlete.lastName}
+                                    </li>
+                                </Link>
+                            )
+                        })}
+                    </ul>
                 </div>
             </div>
             {/* Second column */}

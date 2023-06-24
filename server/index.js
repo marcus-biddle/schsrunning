@@ -458,6 +458,19 @@ app.get('/coaches', async (req, res) => {
   res.send(rows)
 });
 
+app.get('/season-coaches/:yearId', async (req, res) => {
+  const { yearId } = req.params;
+  const query = `SELECT firstName, lastName, 
+  GROUP_CONCAT(CoachType.coachType ORDER BY CoachType.coachTypeId ASC SEPARATOR ', ') AS coachType, year 
+FROM Coach
+JOIN CoachSeason ON Coach.coachId = CoachSeason.coachId
+JOIN CoachType ON CoachSeason.coachTypeId = CoachType.coachTypeId
+WHERE CoachSeason.year = ?
+GROUP BY Coach.coachId;`;
+  const [rows] = await connection.query(query, yearId);
+  res.send(rows)
+});
+
 app.get('/coaches/:coachId', async (req, res) => {
   const { coachId } = req.params;
 
