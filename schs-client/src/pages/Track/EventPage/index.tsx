@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { TFEvent, fetchAthletesByEvent } from '../../../api/Track/events';
+import { TFEvent, fetchAthletesByEvent, fetchAthletesByEventByYear } from '../../../api/Track/events';
 import { useQuery } from '@tanstack/react-query';
 import { convertGrade, urlContains } from '../../../helpers';
 
@@ -16,20 +16,34 @@ const eventQuery = (eventType: string, athleteId: number) => ({
         }
         return athletes;
     },
-  })
+})
+
+const eventByYearQuery = (eventType: string, athleteId: number, yearId: number) => ({
+    queryKey: ['athlete', eventType, athleteId],
+    queryFn: async () => {
+        const athletes = await fetchAthletesByEventByYear(eventType, athleteId, yearId);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+})
 
 export const EventPage = () => {
     const [activeButton, setActiveButton] = useState<string>('all');
     const location = useLocation();
     const eventType: string = urlContains(location.pathname, ['track-events', 'field-events']) || 'track';
-    const { eventId } = useParams();
+    const { eventId, yearId } = useParams();
     const [filter, setFilter] = useState<string>('all');
 
     const handleGradeFilter = (value: string) => {
         setFilter(value === filter ? 'all' : value);
     }
 
-    const { data: athletes } = useQuery(eventQuery(eventType, parseInt(eventId || '1')));
+    const { data: athletes } = yearId ? useQuery(eventQuery(eventType, parseInt(eventId || '1'))) : useQuery(eventByYearQuery(eventType, parseInt(eventId || '1'), parseInt(yearId || '')));
     console.log(athletes);
 
     

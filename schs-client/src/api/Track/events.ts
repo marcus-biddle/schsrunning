@@ -25,3 +25,13 @@ export async function fetchAthletesByEvent(eventType: string, eventId: number): 
     throw new Error('Failed to fetch athletes');
   }
 }
+
+export async function fetchAthletesByEventByYear(eventType: string, eventId: number, yearId: number): Promise<TFEvent[]> {
+  try {
+    const response = eventType === 'track-events' ? await axios.get(`${BASE_URL}/track-event-athletes/${eventId}/${yearId}`) : await axios.get(`${BASE_URL}/field-event-athletes/${eventId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching athletes:', error);
+    throw new Error('Failed to fetch athletes');
+  }
+}
