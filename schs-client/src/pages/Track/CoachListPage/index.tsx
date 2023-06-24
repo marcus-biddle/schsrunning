@@ -41,7 +41,11 @@ export const CoachListPage = () => {
     
     return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
+        <div>
         <h2>All Coaches</h2>
+        <p>Insert breadcrumbs</p>
+        </div>
+        
         <ul className="list">
             {individualCoaches?.sort((a, b) => a.coachId - b.coachId).map((coach: CoachSeason) => {
                 const seasons = trackCoaches?.filter(row => row.coachId === coach.coachId);

@@ -12,7 +12,6 @@ import { XCSeason } from './pages/XC/Seasons/index.tsx';
 import { Runners } from './pages/XC/Runners/index.tsx';
 import { SeasonInfo, loader as seasonLoader, } from './pages/XC/Season/index.tsx';
 import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
-import { CoachPage, loader as coachLoader, } from './pages/XC/Coach/index.tsx';
 import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
 import { Top25Runners, loader as bestTimesLoader, } from './pages/XC/Top25Runners/index.tsx';
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
@@ -24,6 +23,7 @@ import { EventListPage} from './pages/Track/EventListPage/index.tsx';
 import { EventPage } from './pages/Track/EventPage/index.tsx';
 import { CoachListPage } from './pages/Track/CoachListPage/index.tsx';
 import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
+import { XCCoachPage } from './pages/XC/Coach/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -78,8 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'santa-clara-high-cross-country/coaches/:coachId',
-        element: <CoachPage />,
-        loader: coachLoader(queryClient),
+        element: <XCCoachPage />,
       },
       {
         path: 'santa-clara-high-cross-country/seasons',

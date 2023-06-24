@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://schs-server.onrender.com'; 
 
-export interface TFCoach {
+export interface Coach {
   firstName: string;
   lastName: string;
   coachType: string;
@@ -10,9 +10,9 @@ export interface TFCoach {
   year: number;
 }
 
-export async function fetchCoachById(coachId: number): Promise<TFCoach[]> {
+export async function fetchCoachById(coachId: number): Promise<Coach[]> {
   try {
-    const response = await axios.get(`${BASE_URL}/track-coach/${coachId}`);
+    const response = await axios.get(`${BASE_URL}/coach/${coachId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching athletes:', error);

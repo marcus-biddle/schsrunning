@@ -1170,7 +1170,7 @@ app.get('/field-event-athletes/:eventId', async (req, res) => {
   res.json(rows)
 });
 
-app.get('/track-coach/:coachId', async (req, res) => {
+app.get('/coach/:coachId', async (req, res) => {
   const { coachId } = req.params;
 
   const query = `SELECT firstName, lastName, 

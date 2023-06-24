@@ -1,14 +1,13 @@
-
+import React from 'react';
 import { Link, useParams } from 'react-router-dom'
-import { convertToNum } from '../../../helpers';
-import { fetchCoach } from '../../../api/coaches';
-import { useQuery } from '@tanstack/react-query'
-import { coachListQuery } from '../Coaches';
+import { convertToNum, groupByCoachTypeId } from '../../../helpers';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCoachById } from '../../../api/Track/coaches';
 
-const coachQuery = (coachId: number) => ({
-    queryKey: ['coaches', coachId],
+export const coachQuery = (coachId: number) => ({
+    queryKey: ['coach', coachId],
     queryFn: async () => {
-        const coach = await fetchCoach(coachId);
+        const coach = await fetchCoachById(coachId);
         if (!coach) {
             throw new Response('', {
                 status: 404,
@@ -18,53 +17,40 @@ const coachQuery = (coachId: number) => ({
         return coach;
     },
 })
-
-export const loader = (queryClient: any) => async ({ params }: any) => {
-    if (!queryClient.getQueryData(coachQuery(params.coachId).queryKey)) {
-      return await queryClient.fetchQuery(coachQuery(params.coachId));
-    }
-    return queryClient.getQueryData(coachQuery(params.coachId).queryKey);
-}
-
-export const CoachPage = () => {
+// Filter links based on tf or cx
+// Use this component for the xc coach page as well
+export const XCCoachPage = () => {
     const { coachId } = useParams();
-    const { data: coach } = useQuery(coachQuery(convertToNum(coachId)));
-    const { data: coaches } = useQuery(coachListQuery());
+    const { data: coachData } = useQuery(coachQuery(convertToNum(coachId)));
+    // const { data: coaches } = useQuery(coachListQuery());
+    const coach = groupByCoachTypeId(coachData || []);
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <h1>{coach?.firstName} {coach?.lastName} </h1>
-        { coaches && coaches?.filter((season) => season.coachTypeId === 1 && season.coachId === coach?.coachId).length > 0 &&
-        <>
-            <h4>Head XC Coach</h4>
-            <ol className="list" style={{ columnCount: '2', columnGap: '20x'}}>
-                {coaches?.filter((season) => season.coachTypeId === 1 && season.coachId === coach?.coachId).map((coach) => (
-                    <Link 
-                    to={`/santa-clara-high-cross-country/seasons/${coach.year}`} 
-                    key={`${coach.coachId}-${coach.year}`}
-                    className='spanlinkstyle'
-                    >
-                        <li className="list-item">
-                            <span>{coach.year}</span>
-                        </li>
-                    </Link>
-                ))}
-            </ol>
-        </>}
-        <h4>Assistant XC Coach</h4>
-        <ol className="list" style={{ columnCount: '2', columnGap: '20x'}}>
-        {coaches?.filter((season) => season.coachTypeId === 2 && coach?.coachId === season.coachId).map((coach) => (
-                <Link 
-                to={`/santa-clara-high-cross-country/seasons/${coach.year}`} 
-                key={`${coach.coachId}-${coach.year}`}
-                className='spanlinkstyle'
-                >
-                    <li className="list-item">
-                        <span>{coach.year}</span>
-                    </li>
-                </Link>
-            ))}
-        </ol>
+        <h1>{ coachData && `${coachData[0].firstName} ${coachData[0].lastName}`}</h1>
+        {coach && coach.map((season: any, index: number) => {
+            return (
+                <React.Fragment key={index}>
+                    <h4>{season.objects[0].coachType}</h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px'}}>
+                        {season.objects.map((obj: any) => {
+                            return (
+                                <div key={`${obj.coachType}-${obj.year}`}>
+                                    <Link 
+                                    to={`/santa-clara-high-track-and-field/seasons/${obj.year}`}
+                                    className='spanlinkstyle'
+                                    >
+                                        <li className="list-item">
+                                            <span>{obj.year}</span>
+                                        </li>
+                                    </Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </React.Fragment>
+            )
+        })}
     </div>
   )
 }
