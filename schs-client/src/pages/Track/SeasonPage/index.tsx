@@ -35,7 +35,17 @@ export const SeasonPage = () => {
                 <div>
                     <h2>Athletes</h2>
                     <h4>Men</h4>
-                    {/* insert men athletes */}
+                    <ul className="list">
+                        {athletes && athletes.filter(athlete => athlete.genderId === 2).map((athlete) => {
+                            return (
+                                <li
+                                className="list-item"
+                                key={athlete.athleteId}>
+                                    {athlete.firstName} {athlete.lastName}
+                                </li>
+                            )
+                        })}
+                    </ul>
                     <h4>Women</h4>
                 </div>
             </div>

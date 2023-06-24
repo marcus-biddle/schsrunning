@@ -1147,7 +1147,7 @@ FROM (
   JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
   JOIN Gender ON Athlete.genderId = Gender.genderId
   WHERE
-      RaceResult.year = 2016
+      RaceResult.year = ?
     
   UNION
   -- query all field results
@@ -1162,7 +1162,7 @@ FROM (
   JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
   JOIN Gender ON Athlete.genderId = Gender.genderId
   WHERE
-      FieldResult.year = 2016
+      FieldResult.year = ?
       
   UNION
   -- query 1st leg of all relay results
@@ -1177,7 +1177,7 @@ FROM (
   JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
   JOIN Gender ON Athlete.genderId = Gender.genderId
   WHERE
-      RelayResult.year = 2016
+      RelayResult.year = ?
       
   UNION
   -- query 2nd leg of all relay results
@@ -1192,7 +1192,7 @@ FROM (
   JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
   JOIN Gender ON Athlete.genderId = Gender.genderId
   WHERE
-      RelayResult.year = 2016
+      RelayResult.year = ?
       
   UNION
   -- query 3rd leg of all relay results
@@ -1207,7 +1207,7 @@ FROM (
   JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
   JOIN Gender ON Athlete.genderId = Gender.genderId
   WHERE
-      RelayResult.year = 2016
+      RelayResult.year = ?
       
   UNION
   -- query 4th leg of all relay results
@@ -1222,7 +1222,7 @@ FROM (
   JOIN Athlete ON Competitor.athleteid = Athlete.athleteid
   JOIN Gender ON Athlete.genderId = Gender.genderId
   WHERE
-      RelayResult.year = 2016
+      RelayResult.year = ?
       
 ) AS t
 GROUP BY
@@ -1233,7 +1233,7 @@ ORDER BY
   lastname,
   firstname;`
   ;
-  const [rows] = await connection.query(query, yearId);
+  const [rows] = await connection.query(query, [yearId, yearId, yearId, yearId, yearId, yearId]);
   res.send(rows)
 });
 
