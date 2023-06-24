@@ -43,14 +43,10 @@ export const EventPage = () => {
         setFilter(value === filter ? 'all' : value);
     }
 
-    const { data: athletes } = yearId ? useQuery(eventQuery(eventType, parseInt(eventId || '1'))) : useQuery(eventByYearQuery(eventType, parseInt(eventId || '1'), parseInt(yearId || '')));
-    console.log(athletes);
-
-    
-
+    const { data: athletes } = yearId ? useQuery(eventByYearQuery(eventType, parseInt(eventId || '1'), parseInt(yearId || ''))) : useQuery(eventQuery(eventType, parseInt(eventId || '1')));
+    console.log(athletes)
     const filterAthletesByGrade = athletes?.filter(athlete => filter !== 'all' ? athlete.grade === convertGrade(filter) : athlete);
     const filteredAthletesByGender = filterAthletesByGrade?.filter((athlete: TFEvent) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
-    console.log(filteredAthletesByGender?.length)
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
     };

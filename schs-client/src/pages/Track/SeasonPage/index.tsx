@@ -97,69 +97,66 @@ export const SeasonPage = () => {
                     <Link to={`/santa-clara-high-track-and-field/events/track-events/1/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">100m Dash</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/2/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">200m Dash</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/3/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">400m Dash</span>
                     </Link>
                     <h4>Distance</h4>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/7/${yearId}`} className="spanlinkstyle">
                         <span className="list-item" style={{ width: '17rem'}}>800m Run</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/8/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">1600m Run</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/9/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">3200m Run</span>
                     </Link>
                     <h4>Hurdles</h4>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/17/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">65m Hurdles (39")</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/18/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">100m Hurdles (33")</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/19/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">110m Hurdles (39")</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/20/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">300m Hurdles (30")</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/track-events/21/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">300m Hurdles (36")</span>
                     </Link>
                     <h4>Jumps</h4>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/29/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">High Jump</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/30/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Long Jump</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/31/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Triple Jump</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/32/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Pole Vault</span>
                     </Link>
                     <h4>Throws</h4>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/33/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Shot Put (4kgs)</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/34/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Shot Put (10kgs)</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/35/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Shot Put (12kgs)</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/37/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Discuss (1.6kg)</span>
                     </Link>
-                    <Link to={''} className="spanlinkstyle">
+                    <Link to={`/santa-clara-high-track-and-field/events/field-events/36/${yearId}`} className="spanlinkstyle">
                         <span className="list-item">Discuss (1kg)</span>
-                    </Link>
-                    <Link to={''} className="spanlinkstyle">
-                        <span className="list-item">Pole Vault</span>
                     </Link>
                 </div>
             </div>

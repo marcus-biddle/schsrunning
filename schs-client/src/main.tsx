@@ -223,6 +223,10 @@ const router = createBrowserRouter([
         path: 'santa-clara-high-track-and-field/events/track-events/:eventId/:yearId',
         element: <EventPage />,
       },
+      {
+        path: 'santa-clara-high-track-and-field/events/field-events/:eventId/:yearId',
+        element: <EventPage />,
+      },
     ],
   },
 ])

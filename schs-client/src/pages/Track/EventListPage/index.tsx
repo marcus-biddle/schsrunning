@@ -58,11 +58,6 @@ export const EventListPage = () => {
                             <span>65m Hurdles (39")</span>
                         </li>
                     </Link>
-                    <Link to={`track-events/22`} className='spanlinkstyle' key={22}>
-                        <li className="list-item">
-                            <span>100m Hurdles (33")</span>
-                        </li>
-                    </Link>
                     <Link to={`track-events/18`} className='spanlinkstyle' key={18}>
                         <li className="list-item">
                             <span>100m Hurdles (33")</span>

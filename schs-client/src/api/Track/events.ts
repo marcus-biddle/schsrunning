@@ -28,7 +28,7 @@ export async function fetchAthletesByEvent(eventType: string, eventId: number): 
 
 export async function fetchAthletesByEventByYear(eventType: string, eventId: number, yearId: number): Promise<TFEvent[]> {
   try {
-    const response = eventType === 'track-events' ? await axios.get(`${BASE_URL}/track-event-athletes/${eventId}/${yearId}`) : await axios.get(`${BASE_URL}/field-event-athletes/${eventId}`);
+    const response = eventType === 'track-events' ? await axios.get(`${BASE_URL}/track-event-athletes/${eventId}/${yearId}`) : await axios.get(`${BASE_URL}/field-event-athletes/${eventId}/${yearId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching athletes:', error);
