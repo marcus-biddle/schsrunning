@@ -3,6 +3,7 @@ import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
 import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
+import { formatDate } from '../../helpers/index.ts';
 
 const recentRaceListQuery = (limit: number) => ({
     queryKey: ['race-results', limit],
@@ -70,8 +71,8 @@ export const Home = () => {
         {/* Latest races */}
         <div style={{ marginBottom: '4rem'}}>
             <h2>Latest Race</h2>
-            <h4 className="race-details">Crystal Springs, 2.95M (2021-11-02)</h4>
-            <ol className="list">
+            <h4 className="race-details">{athletes && `${athletes[0].courseName}, ${athletes[0].courseDistance}M (${formatDate(athletes[0].date)}`})</h4>
+            <ol className="list" style={{ columnCount: '2'}}>
                 {athletes && athletes.map((athlete) => (
                     <li key={athlete.competitorId} className="list-item">
                     <span>{athlete.firstName} {athlete.lastName}</span>
@@ -80,7 +81,7 @@ export const Home = () => {
                 ))}
             </ol>
         </div>
-        <div>
+        {/* <div>
             <h2>Top Athletes</h2>
             <h4 className="race-details">Most recent record breaker: Name - event - time</h4>
             <div className="column-container">
@@ -99,7 +100,7 @@ export const Home = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </div> */}
         <div>
         <h2 className="latest-race-heading">Latest Updates</h2>
         <p>12/12/21 - added 2021 XC Season</p>
