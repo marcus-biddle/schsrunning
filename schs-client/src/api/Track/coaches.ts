@@ -7,6 +7,7 @@ export interface Coach {
   lastName: string;
   coachType: string;
   coachTypeId?: number;
+  coachId?: number;
   year: number;
 }
 

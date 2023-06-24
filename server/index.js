@@ -460,7 +460,7 @@ app.get('/coaches', async (req, res) => {
 
 app.get('/season-coaches/:yearId', async (req, res) => {
   const { yearId } = req.params;
-  const query = `SELECT firstName, lastName, 
+  const query = `SELECT firstName, lastName, Coach.coachId, 
   GROUP_CONCAT(CoachType.coachType ORDER BY CoachType.coachTypeId ASC SEPARATOR ', ') AS coachType, year 
 FROM Coach
 JOIN CoachSeason ON Coach.coachId = CoachSeason.coachId

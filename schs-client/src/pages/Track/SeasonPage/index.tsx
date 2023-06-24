@@ -42,7 +42,18 @@ export const SeasonPage = () => {
             <div>
                 <div>
                     <h2>Coaches</h2>
-                    {/* Insert coaches */}
+                    {coaches && coaches.map(coach => {
+                        return (
+                            <Link
+                            className="spanlinkstyle"
+                            key={coach.lastName}
+                            to={`/santa-clara-high-track-and-field/coaches/${coach.coachId}`}>
+                                <li className="list-item">
+                                    {coach.firstName} {coach.lastName}
+                                </li>
+                            </Link>
+                    )
+                    })}
                 </div>
                 <div>
                     <h2>Athletes</h2>
