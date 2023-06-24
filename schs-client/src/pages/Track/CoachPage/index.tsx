@@ -17,12 +17,10 @@ export const coachQuery = (coachId: number) => ({
         return coach;
     },
 })
-// Filter links based on tf or cx
-// Use this component for the xc coach page as well
+
 export const TrackCoachPage = () => {
     const { coachId } = useParams();
     const { data: coachData } = useQuery(coachQuery(convertToNum(coachId)));
-    // const { data: coaches } = useQuery(coachListQuery());
     const coach = groupByCoachTypeId(coachData || []);
 
   return (
