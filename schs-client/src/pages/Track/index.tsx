@@ -68,12 +68,8 @@ return (
           {/* Second column */}
           <div>
               <div>
-                <h2>
-                    <Link className='h2linkstyle' to={''} >
-                        Track Seasons
-                    </Link>
-                </h2>
-                <Link  to={'seasons/2021'} className='spanlinkstyle'>
+                <h2>Track Seasons</h2>
+                <Link  to={'seasons/2019'} className='spanlinkstyle'>
                     <span className='list-item'>Current Season</span>
                 </Link>
                   {/* <h4>Sprints</h4>

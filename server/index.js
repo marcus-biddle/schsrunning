@@ -388,7 +388,7 @@ app.get('/xc-raceresults', async (req, res) => {
   const { yearId } = req.query;
 
   const query = `
-  SELECT Result.time, Result.pace, Competitor.grade, Race.date, RaceName.raceName, Course.courseName, Course.courseDistance,
+  SELECT DISTINCT Result.time, Result.pace, Competitor.grade, Race.date, RaceName.raceName, Course.courseName, Course.courseDistance,
          RaceCondition.raceCondition, Athlete.firstName, Athlete.lastName, Competitor.competitorId, Race.raceId
   FROM Result
   JOIN Competitor ON Result.competitorId = Competitor.competitorId
@@ -403,6 +403,32 @@ app.get('/xc-raceresults', async (req, res) => {
 
   try {
     const [rows] = await connection.query(query, [yearId]);
+    res.send(rows);
+  } catch (error) {
+    console.error("Error fetching XC race results:", error);
+    res.status(500).json({ error: "Failed to fetch XC race results" });
+  }
+});
+
+app.get('/xc-raceresults/:limit', async (req, res) => {
+  const limit = parseInt(req.params.limit, 10);
+
+  const query = `
+  SELECT Result.time, Result.pace, Competitor.grade, Race.date, RaceName.raceName, Course.courseName, Course.courseDistance,
+         RaceCondition.raceCondition, Athlete.firstName, Athlete.lastName, Competitor.competitorId, Race.raceId
+  FROM Result
+  JOIN Competitor ON Result.competitorId = Competitor.competitorId
+  JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+  JOIN Race ON Result.raceId = Race.raceId
+  JOIN RaceName ON Race.raceNameId = RaceName.raceNameId
+  JOIN RaceCondition ON Race.raceConditionId = RaceCondition.raceConditionId
+  JOIN Course ON Race.courseId = Course.courseId
+  ORDER BY Race.date DESC
+LIMIT ?;   
+  `;
+
+  try {
+    const [rows] = await connection.query(query, limit);
     res.send(rows);
   } catch (error) {
     console.error("Error fetching XC race results:", error);

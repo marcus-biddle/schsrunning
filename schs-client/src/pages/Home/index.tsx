@@ -1,59 +1,26 @@
 import ImageCarousel from '../../components/Carousel/index.tsx';
 import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
+import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
+import { useQuery } from '@tanstack/react-query';
+
+const recentRaceListQuery = (limit: number) => ({
+    queryKey: ['race-results', limit],
+    queryFn: async () => {
+        const athletes = await fetchRecentXCRaceResults(limit);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+  })
 
 export const Home = () => {
-    // const images = [
-    //     img1,
-    //     img2,
-    //     img3,
-    //     img4,
-    //     img5,
-    //   ];
-
-    const athletes = [
-        {
-            name: 'Sebestion McMahon',
-            time: '16:47.09(5:41.7)'
-        },
-        {
-            name: 'James Kepner',
-            time: '17:54.7 (6:04.3)',
-        },
-        {
-            name: 'Dominic McMahon',
-            time: '18:03.2 (6:07.2)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-        {
-            name: 'Example',
-            time: '00:00.0 (0:00.0)'
-        },
-    ]
-
+    const { data: athletes } = useQuery(recentRaceListQuery(26));
+    console.log(athletes);
     const topRecords = [
         {
             type: 'Men',
@@ -105,9 +72,9 @@ export const Home = () => {
             <h2>Latest Race</h2>
             <h4 className="race-details">Crystal Springs, 2.95M (2021-11-02)</h4>
             <ol className="list">
-                {athletes.map((athlete) => (
-                    <li key={athlete.name} className="list-item">
-                    <span>{athlete.name}</span>
+                {athletes && athletes.map((athlete) => (
+                    <li key={athlete.competitorId} className="list-item">
+                    <span>{athlete.firstName} {athlete.lastName}</span>
                     <span>{athlete.time}</span>
                     </li>
                 ))}
