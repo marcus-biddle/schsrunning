@@ -37,7 +37,7 @@ export const XCCoachPage = () => {
                             return (
                                 <div key={`${obj.coachType}-${obj.year}`}>
                                     <Link 
-                                    to={`/santa-clara-high-track-and-field/seasons/${obj.year}`}
+                                    to={`/santa-clara-high-cross-country/seasons/${obj.year}`}
                                     className='spanlinkstyle'
                                     >
                                         <li className="list-item">

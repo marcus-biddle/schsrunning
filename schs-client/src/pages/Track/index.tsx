@@ -11,24 +11,17 @@ return (
       <div style={{ display: 'flex', justifyContent: 'space-around'}}>
           {/* First Column */}
           <div>
-              <h2>
-                  <Link className='h2linkstyle' to={''} >
-                      Track Seasons
-                  </Link>
-              </h2>
               <div>
                   <h2>
                       <Link className='h2linkstyle' to={'athletes/'} >
                           Track Athletes
                       </Link>
                   </h2>
-                  <h4>Men</h4>
                   <Link  to={'athletes/men/'} className='spanlinkstyle'>
-                      <span className='list-item'>Track Athletes</span>
+                      <span className='list-item'>Men</span>
                   </Link>
-                  <h4>Women</h4>
                   <Link to={'athletes/women/'} className='spanlinkstyle'>
-                  <span className='list-item'>Track Athletes</span>
+                  <span className='list-item'>Women</span>
                   </Link>
               </div>
               <div>
@@ -62,17 +55,6 @@ return (
                     <span className='list-item'>Shot Put, Discuss</span>
                   </Link> */}
               </div>
-              <div>
-                  <h2>
-                      <Link to={'coaches/'} className='h2linkstyle'>
-                          Track Coaches
-                      </Link>
-                  </h2>
-                  <h4>Head Coach</h4>
-                  <span className='list-item'>Julie L'Heureux</span>
-                  <h4>Assistant Coaches</h4>
-                  <span className='list-item'>Cal Ochoa</span>
-              </div>
               <h2>Track Special Achievements</h2>
               <span className='list-item'>State Qualifiers</span>
               <span className='list-item'>CCS Champions</span>
@@ -86,12 +68,15 @@ return (
           {/* Second column */}
           <div>
               <div>
-                  <h2>
-                      <Link to={'top-25-results/'} className='h2linkstyle'>
-                          Track Hall of Fame
-                      </Link>
-                  </h2>
-                  <h4>Sprints</h4>
+                <h2>
+                    <Link className='h2linkstyle' to={''} >
+                        Track Seasons
+                    </Link>
+                </h2>
+                <Link  to={'seasons/2021'} className='spanlinkstyle'>
+                    <span className='list-item'>Current Season</span>
+                </Link>
+                  {/* <h4>Sprints</h4>
                   <Link  to={'runners/men/'} className='spanlinkstyle'>
                       <span className='list-item'>100m, 200m, 400m</span>
                   </Link>
@@ -114,7 +99,18 @@ return (
                   <h4>Throws</h4>
                   <Link to={'runners/women/'} className='spanlinkstyle'>
                     <span className='list-item'>Shot Put, Discuss</span>
-                  </Link>
+                  </Link> */}
+              </div>
+              <div>
+                  <h2>
+                      <Link to={'coaches/'} className='h2linkstyle'>
+                          Track Coaches
+                      </Link>
+                  </h2>
+                  <h4>Head Coach</h4>
+                  <span className='list-item' style={{ width: '17rem'}}>Julie L'Heureux</span>
+                  <h4>Assistant Coaches</h4>
+                  <span className='list-item'>Cal Ochoa</span>
               </div>
               {/* <div>
                   <h2>
@@ -145,7 +141,5 @@ return (
           </div>
       </div>
   </div>
-  
-  
 )
 }

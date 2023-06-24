@@ -24,6 +24,7 @@ import { EventPage } from './pages/Track/EventPage/index.tsx';
 import { CoachListPage } from './pages/Track/CoachListPage/index.tsx';
 import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
 import { XCCoachPage } from './pages/XC/Coach/index.tsx';
+import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -213,6 +214,10 @@ const router = createBrowserRouter([
       {
         path: 'santa-clara-high-track-and-field/coaches/:coachId',
         element: <TrackCoachPage />,
+      },
+      {
+        path: 'santa-clara-high-track-and-field/seasons/:yearId',
+        element: <SeasonPage />,
       },
     ],
   },

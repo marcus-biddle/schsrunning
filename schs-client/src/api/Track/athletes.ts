@@ -35,6 +35,16 @@ export async function fetchTrackAthletes(): Promise<TrackAthlete[]> {
   }
 }
 
+export async function fetchTrackAthletesByYear(yearId: number): Promise<TrackAthlete[]> {
+    try {
+      const response = await axios.get(`${BASE_URL}/track-athletes/${yearId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching athletes:', error);
+      throw new Error('Failed to fetch athletes');
+    }
+  }
+
 export async function fetchTrackAthlete(athleteId: number): Promise<TrackAthleteResult[]> {
     try {
       const response = await axios.get(`${BASE_URL}/track-athlete/${athleteId}`);
