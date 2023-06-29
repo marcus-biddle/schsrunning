@@ -25,6 +25,7 @@ import { CoachListPage } from './pages/Track/CoachListPage/index.tsx';
 import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
 import { XCCoachPage } from './pages/XC/Coach/index.tsx';
 import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
+import Login from './components/Login/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -226,6 +227,10 @@ const router = createBrowserRouter([
       {
         path: 'santa-clara-high-track-and-field/events/field-events/:eventId/:yearId',
         element: <EventPage />,
+      },
+      {
+        path: 'admin',
+        element: <Login />,
       },
     ],
   },
