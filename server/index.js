@@ -19,14 +19,24 @@ connection.connect((error) => {
 });
 
 const app = express();
-app.use(cors({ 
-  origin: [
-    'http://localhost:5174',
-    'http://127.0.0.1:5174',
-    'https://schsrunning.vercel.app'
-  ],
-  credentials: true 
-}));
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:5174',
+      'http://127.0.0.1:5174',
+      'https://schsrunning.vercel.app',
+    ];
+    
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use((req, res, next) => {
