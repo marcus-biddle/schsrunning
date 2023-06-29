@@ -26,6 +26,8 @@ import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
 import { XCCoachPage } from './pages/XC/Coach/index.tsx';
 import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 import Login from './components/Login/index.tsx';
+import AdminDashboard from './pages/Dashboard/index.tsx';
+import { RequireAuth } from './components/RequiredAuth.tsx';
 
 const queryClient = new QueryClient();
 
@@ -231,6 +233,12 @@ const router = createBrowserRouter([
       {
         path: 'admin',
         element: <Login />,
+      },
+      {
+        path: 'dashboard/',
+        element: (<RequireAuth>
+          <AdminDashboard />
+        </RequireAuth>),
       },
     ],
   },

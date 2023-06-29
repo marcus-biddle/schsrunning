@@ -2,6 +2,16 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import './styled/index.css'
 import { AuthContext } from '../../context/authProvider';
 import { fetchUser } from '../../api/auth';
+import { useMutation} from '@tanstack/react-query';
+import { redirect, useLocation, useNavigate } from 'react-router';
+import { getAccessTokenCookie, setAccessTokenCookie } from '../../authUtils';
+
+// export const loader = () => {
+//     if (getAccessTokenCookie()) {
+//         return getAccessTokenCookie();
+//     }
+//     return null;
+// };
 
 const Login: React.FC = () => {
     const { setAuth, auth } = useContext(AuthContext);
@@ -12,6 +22,25 @@ const Login: React.FC = () => {
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState<boolean>();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const mutation = useMutation({
+    mutationFn: async ({user, pwd}: {user: string, pwd: string}) => {
+        const res = await fetchUser(user, pwd, '1234');
+        return res;
+    },
+    onSuccess: async() => {
+        navigate(state?.path || '/dashboard/');
+    }
+  })
+
+  useEffect(() => {
+    if (getAccessTokenCookie()) {
+        console.log('loader', getAccessTokenCookie());
+        // navigate("/dashboard/", {state}); // causees issues.
+    }
+  }, [])
 
   useEffect(() => {
     if (userRef.current) {
@@ -28,16 +57,16 @@ const Login: React.FC = () => {
 
     // Perform login logic here
     try {
-        console.log('clicked');
-        const response = await fetchUser(user, pwd, '1234');
-        console.log('response', response);
+        const response = await mutation.mutateAsync({user, pwd});
+        console.log(response);
         if (response) {
             const accessToken = response.accessToken;
             setAuth({ user, pwd, accessToken })
-          setUser('');
-          setPwd('');
-          setSuccess(true);
-          console.log(auth);
+            setUser('');
+            setPwd('');
+            setSuccess(true);
+            setAccessTokenCookie(accessToken, 60000);
+            console.log(auth);
         } else {
           // User not found or incorrect credentials
           console.log('Invalid username or password');
@@ -45,31 +74,13 @@ const Login: React.FC = () => {
       } catch (err: any) {
         // Handle error
         console.error('Error during login:', err);
-        if (!err.response) {
-            setErrMsg('No Server Resopnse');
-        } else if (err.response.status === 400) {
-            setErrMsg('Missing Username or Password');
-        } else if (err.response.status === 401) {
-            setErrMsg('Unauthorized');
-        } else {
-            setErrMsg('Login Failed');
-        }
+        setErrMsg('Login Failed');
         console.log(errMsg);
         errRef?.current?.focus();
       }
-      
-
-    // Example error handling
-    if (user === '' || pwd === '') {
-      setErrMsg('Please enter both username and password.');
-    } else {
-      setErrMsg('');
-      setSuccess(true);
-      // Reset form fields
-      setUser('');
-      setPwd('');
-    }
   };
+
+  console.log('cookie func', getAccessTokenCookie())
 
   return (
     <div className="Login">

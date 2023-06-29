@@ -20,7 +20,7 @@ export async function fetchUser(username: string, password: string, secretKey: s
         'Content-Type': 'application/json',
       },
     });
-    console.log('api', response);
+    
     const user = response.data;
     return user;
   } catch (error) {
