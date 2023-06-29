@@ -19,7 +19,6 @@ export async function fetchUser(username: string, password: string, secretKey: s
       headers: {
         'Content-Type': 'application/json',
       },
-      withCredentials: true, // Set to true if you need to include credentials
     });
     console.log('api', response);
     const user = response.data;
