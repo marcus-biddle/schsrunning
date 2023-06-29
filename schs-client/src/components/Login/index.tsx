@@ -1,60 +1,95 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import './styled/index.css'
+import { AuthContext } from '../../context/authProvider';
+import { fetchUser } from '../../api/auth';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isLoggedIn, setLoggedIn] = useState(false);
+const Login: React.FC = () => {
+    const { setAuth } = useContext(AuthContext);
+  const userRef = useRef<HTMLInputElement>(null);
+  const errRef = useRef<HTMLParagraphElement>(null);
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const [user, setUser] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState<boolean>();
+
+  useEffect(() => {
+    if (userRef.current) {
+      userRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Perform login validation here
-    if (username === 'admin' && password === 'password') {
-      setLoggedIn(true);
+    // Perform login logic here
+    try {
+        const response = await fetchUser(user, pwd);
+        if (response) {
+            const accessToken = response.accessToken;
+            setAuth({ user, pwd, accessToken })
+          setUser('');
+          setPwd('');
+          setSuccess(true);
+        } else {
+          // User not found or incorrect credentials
+          console.log('Invalid username or password');
+        }
+      } catch (err: any) {
+        // Handle error
+        console.error('Error during login:', err);
+        if (!err.response) {
+            setErrMsg('No Server Resopnse');
+        } else if (err.response.status === 400) {
+            setErrMsg('Missing Username or Password');
+        } else if (err.response.status === 401) {
+            setErrMsg('Unauthorized');
+        } else {
+            setErrMsg('Login Failed');
+        }
+        errRef?.current?.focus();
+      }
+      
+
+    // Example error handling
+    if (user === '' || pwd === '') {
+      setErrMsg('Please enter both username and password.');
     } else {
-      setErrorMessage('Invalid username or password');
+      setErrMsg('');
+      setSuccess(true);
+      // Reset form fields
+      setUser('');
+      setPwd('');
     }
   };
 
-  const handleLogout = () => {
-    // Perform logout logic here
-    setLoggedIn(false);
-    setUsername('');
-    setPassword('');
-    setErrorMessage('');
-  };
-
-  if (isLoggedIn) {
-    return (
-      <div className="container">
-        <h1>Welcome, {username}!</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    );
-  }
-
   return (
-    <div className="container">
+    <div className="Login">
       <h1>Login</h1>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <form onSubmit={handleLogin}>
+      {errMsg && <p className="error-message">{errMsg}</p>}
+      {success && <p className="success-message">{success}</p>}
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={user}
+            ref={userRef}
+            onChange={(e) => setUser(e.target.value)}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={pwd}
+            onChange={(e) => setPwd(e.target.value)}
           />
         </div>
         <button type="submit">Login</button>
@@ -64,4 +99,3 @@ const Login = () => {
 };
 
 export default Login;
-

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 
 export const Footer = () => {
@@ -17,6 +18,10 @@ export const Footer = () => {
     {
       header: 'Related Sites',
       links: ['Athletic Track & Field', 'XC Stats', 'Prep Cal Track', 'Runner Space', 'Lynbrook HS XC/Track']
+    },
+    {
+      header: 'Admin',
+      links: ['Login']
     }
   ]
   return (
@@ -27,7 +32,7 @@ export const Footer = () => {
             <div>
               <h5>{footer.header}</h5>
               {footer.links.map((link) => (
-                <p style={{ fontSize: '12px'}}>{link}</p>
+                <p style={{ fontSize: '12px'}}>{link === 'Login' ? <Link to={'/admin'}>{link}</Link> : link}</p>
               ))}
             </div>
           )

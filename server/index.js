@@ -1,6 +1,7 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
 // File contains all the GETs for the database
 
@@ -18,6 +19,7 @@ connection.connect((error) => {
 });
 
 const app = express();
+app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -1380,6 +1382,53 @@ ORDER BY year DESC;`;
 
   res.json(rows)
 });
+
+// ------------------------------------------------- Users ------------------------------------------------
+
+// Generate and return an access token
+function generateAccessToken(username, secretKey) {
+  return jwt.sign({ username }, secretKey, { expiresIn: '1h' });
+}
+
+// Route to retrieve users
+app.get('/users', async (req, res) => {
+  const query = 'SELECT * FROM Users';
+
+  try {
+    const [rows] = await connection.query(query);
+    res.json(rows);
+  } catch (error) {
+    console.error('Error retrieving users:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Route to validate username and password
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  const query = 'SELECT username, password, secretKey FROM Users WHERE username = ? AND password = ?';
+
+  try {
+    const [results] = await connection.query(query, [username, password]);
+
+    if (results.length === 0) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+
+    const user = results[0];
+
+    // Generate and return an access token
+    const accessToken = generateAccessToken(user.username, user.secretKey);
+    res.json({ username: user.username, password: user.password, accessToken });
+  } catch (error) {
+    console.error('Error retrieving user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 // --------------------------------------------------------------------------------------------------------
 

@@ -3,8 +3,9 @@ import './App.css';
 import { Outlet, useLocation } from 'react-router';
 import { Footer } from './components/Footer';
 import { useEffect } from 'react';
+import AuthProvider from './context/authProvider';
 
-function App() {
+export const App: React.FC = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -15,11 +16,11 @@ function App() {
     <div>
       <Navbar />
       <div style={{ marginTop: '4rem'}}>
-        <Outlet />
+        <AuthProvider>
+          <Outlet />
+        </AuthProvider>
       </div>
       <Footer />
     </div>
   )
 }
-
-export default App
