@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/authProvider';
 import { fetchUser } from '../../api/auth';
 
 const Login: React.FC = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth, auth } = useContext(AuthContext);
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -28,13 +28,15 @@ const Login: React.FC = () => {
 
     // Perform login logic here
     try {
-        const response = await fetchUser(user, pwd);
+        console.log(user, pwd)
+        const response = await fetchUser(user, pwd, '1234');
         if (response) {
             const accessToken = response.accessToken;
             setAuth({ user, pwd, accessToken })
           setUser('');
           setPwd('');
           setSuccess(true);
+          console.log(auth);
         } else {
           // User not found or incorrect credentials
           console.log('Invalid username or password');
@@ -51,6 +53,7 @@ const Login: React.FC = () => {
         } else {
             setErrMsg('Login Failed');
         }
+        console.log(errMsg);
         errRef?.current?.focus();
       }
       

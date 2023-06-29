@@ -19,6 +19,14 @@ connection.connect((error) => {
 });
 
 const app = express();
+app.use(cors({ 
+  origin: [
+    'http://localhost:5174',
+    'http://127.0.0.1:5174',
+    'https://schsrunning.vercel.app'
+  ],
+  credentials: true 
+}));
 app.use(express.json());
 
 app.use((req, res, next) => {
