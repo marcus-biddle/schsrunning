@@ -11,7 +11,7 @@ export interface User {
 
 export async function fetchUser(username: string, password: string, secretKey: string): Promise<User | null> {
   try {
-    const response = await axios.post<User>(`${BASE_URL}/login`, {
+    const response = await axios.post(`${BASE_URL}/login`, {
       username,
       password,
       secretKey,
@@ -21,7 +21,7 @@ export async function fetchUser(username: string, password: string, secretKey: s
       },
       withCredentials: true, // Set to true if you need to include credentials
     });
-
+    console.log('api', response);
     const user = response.data;
     return user;
   } catch (error) {

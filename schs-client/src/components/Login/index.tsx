@@ -28,8 +28,9 @@ const Login: React.FC = () => {
 
     // Perform login logic here
     try {
-        console.log(user, pwd)
+        console.log('clicked');
         const response = await fetchUser(user, pwd, '1234');
+        console.log('response', response);
         if (response) {
             const accessToken = response.accessToken;
             setAuth({ user, pwd, accessToken })

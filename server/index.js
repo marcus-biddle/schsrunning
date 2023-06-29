@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import cors from 'cors';
 
 // File contains all the GETs for the database
 
