@@ -3,7 +3,7 @@ import './styled/index.css'
 import { AuthContext } from '../../context/authProvider';
 import { fetchUser } from '../../api/auth';
 import { useMutation} from '@tanstack/react-query';
-import { redirect, useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { getAccessTokenCookie, setAccessTokenCookie } from '../../authUtils';
 
 // export const loader = () => {
@@ -37,10 +37,9 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (getAccessTokenCookie()) {
-        console.log('loader', getAccessTokenCookie());
-        // navigate("/dashboard/", {state}); // causees issues.
+        navigate(state?.path || '/dashboard/');
     }
-  }, [])
+  }, [navigate, state?.path])
 
   useEffect(() => {
     if (userRef.current) {
@@ -65,13 +64,13 @@ const Login: React.FC = () => {
             setUser('');
             setPwd('');
             setSuccess(true);
-            setAccessTokenCookie(accessToken, 60000);
+            setAccessTokenCookie(accessToken, 60000 * 60);
             console.log(auth);
         } else {
           // User not found or incorrect credentials
           console.log('Invalid username or password');
         }
-      } catch (err: any) {
+      } catch (err) {
         // Handle error
         console.error('Error during login:', err);
         setErrMsg('Login Failed');

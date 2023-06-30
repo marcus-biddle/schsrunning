@@ -15,4 +15,7 @@ export function isAccessTokenCookieSet() {
   return Cookies.get('accessToken') !== undefined;
 }
 
+export const deleteAccessTokenCookie = () => {
+  Cookies.remove('accessToken');
+};
   

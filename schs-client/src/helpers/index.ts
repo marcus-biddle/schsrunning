@@ -1,7 +1,4 @@
-import { useContext } from "react";
 import { TrackAthleteResult } from "../api/Track/athletes";
-import { AuthContext } from "../context/authProvider";
-import { Navigate } from "react-router-dom";
 
 export const urlContains = (url: string, searchTexts: string[]): string | null => {
   const foundText = searchTexts.find((searchText) => {

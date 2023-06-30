@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-
+// Add context to delete cookie and to logout
 
 export const Footer = () => {
   const data = [
@@ -32,7 +32,10 @@ export const Footer = () => {
             <div>
               <h5>{footer.header}</h5>
               {footer.links.map((link) => (
-                <p style={{ fontSize: '12px'}}>{link === 'Login' ? <Link to={'/admin'}>{link}</Link> : link}</p>
+                <p style={{ fontSize: '12px'}}>{link === 'Login' ? 
+                  <Link to={'/login'}>{link}</Link> 
+                  : 
+                  link}</p>
               ))}
             </div>
           )

@@ -15,6 +15,7 @@ export interface XCRunner {
   lastname: string;
   raceid: number;
   genderId: number;
+  competitorId: string;
 }
 
 export async function fetchXCRunner(athleteId: number, competitorIds: string, raceId: number): Promise<XCRunner[]> {
