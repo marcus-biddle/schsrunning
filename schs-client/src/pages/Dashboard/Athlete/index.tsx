@@ -6,7 +6,7 @@ import XCAthleteDataTable from '../../../components/DataTable/xc';
 import TrackAthleteDataTable from '../../../components/DataTable/track';
 import { useState } from 'react';
 import './style.css'
-import Form from '../../../components/Form/XCountry/xc';
+import Form from '../../../components/Form/XCountry/stepOne';
 
 const xcrunnerQuery = (athleteId: number) => ({
     queryKey: ['xcrunner', athleteId],
