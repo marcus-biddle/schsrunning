@@ -680,6 +680,26 @@ app.get('/courses/:courseId', async (req, res) => {
   
 });
 
+app.get('/courses/distance/:courseDistance', async (req, res) => {
+  const { courseDistance } = req.params;
+
+  const query = "SELECT * FROM Course WHERE Course.courseDistance=?;";
+
+  try {
+    const [rows] = await connection.query(query, courseDistance);
+  
+    if(!rows[0]) {
+      return res.json({ msg: "Could not find course." });
+    };
+  
+    res.json(rows)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
+});
+
 // Course Type
 app.get('/course-types', async (req, res) => {
   const query = "SELECT * FROM CourseType";

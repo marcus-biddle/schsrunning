@@ -39,8 +39,8 @@ const raceNameListQuery = () => ({
 // Goal is to input into Result
 // CompetitorId, raceId, time, pace (no date because that should exist with race)
 
-const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
-    console.log(athleteId)
+const StepThreeForm: React.FC<XCFormProps> = ({ athleteId }) => {
+  console.log(athleteId)
     // const [competitorId, setCompetitorId] = useState('');
     // First check this, else if unfound then do not continue.
     // const [competitorFormData, setCompetitorFormData] = useState({
@@ -72,13 +72,13 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
     
 //   });
 
-//   const handleRaceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = event.target;
-//     setRaceFormData((prevFormData) => ({
-//       ...prevFormData,
-//       [name]: value,
-//     }));
-//   };
+  // const handleRaceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setRaceFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleCourseInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -237,4 +237,4 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
   );
 };
 
-export default StepTwoForm;
+export default StepThreeForm;

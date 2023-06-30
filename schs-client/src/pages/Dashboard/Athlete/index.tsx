@@ -6,7 +6,9 @@ import XCAthleteDataTable from '../../../components/DataTable/xc';
 import TrackAthleteDataTable from '../../../components/DataTable/track';
 import { useState } from 'react';
 import './style.css'
-import Form from '../../../components/Form/XCountry/stepOne';
+import StepTwoForm from '../../../components/Form/XCountry/stepTwo';
+import StepThreeForm from '../../../components/Form/XCountry/stepThree';
+import StepOneForm from '../../../components/Form/XCountry/stepOne';
 
 const xcrunnerQuery = (athleteId: number) => ({
     queryKey: ['xcrunner', athleteId],
@@ -41,6 +43,12 @@ const EditAthlete = () => {
     const { data: trackAthlete } = useQuery(trackAthleteQuery(parseInt(athleteId || '')));
     const { data: xcrunner } = useQuery(xcrunnerQuery(parseInt(athleteId || '')));
     const [formType, setFormType] = useState<'Track' | 'Cross Country' | null>(null);
+    const [stepOneData, setStepOneData] = useState();
+
+    const handleStepOneData = (data: any) => {
+        setStepOneData(data);
+        console.log('stepOneData', stepOneData)
+    }
     console.log('track', trackAthlete);
     console.log('xc', xcrunner);
   return (
@@ -66,7 +74,9 @@ const EditAthlete = () => {
                 </div>
                 : formType === 'Cross Country' ? 
                 <div>
-                    <Form athleteId={athleteId || ''}/>
+                    <StepOneForm athleteId={athleteId || ''} onSubmitStepOneData={handleStepOneData}/>
+                    <StepTwoForm athleteId={athleteId || ''}/>
+                    <StepThreeForm athleteId={athleteId || ''} />
                 </div>
                 :
                 'track'}
