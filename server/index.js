@@ -608,18 +608,50 @@ app.get('/competitors/year/:yearId', async (req, res) => {
 }); 
 
 
-app.get('/competitors/:athleteId', async (req, res) => {
-  const { athleteId } = req.params;
+// app.get('/competitors/:athleteId', async (req, res) => {
+//   const { athleteId } = req.params;
+// // I think this is wrong. Need to look into
+//   const query = "SELECT * FROM Competitor Where Competitor.competitorId = ?;";
+//   const [rows] = await connection.query(query, athleteId);
+  
+//   if(!rows[0]) {
+//     return res.json({ msg: "Could not find competitor." });
+//   };
 
-  const query = "SELECT * FROM Competitor Where Competitor.competitorId = ?;";
-  const [rows] = await connection.query(query, athleteId);
+//   res.json(rows)
+// });
+
+app.get('/competitors/:competitorId', async (req, res) => {
+  const { competitorId } = req.params;
+
+  const query = "SELECT * FROM Competitor WHERE Competitor.competitorId=?;";
+  const [rows] = await connection.query(query, competitorId);
   
   if(!rows[0]) {
-    return res.json({ msg: "Could not find competitor." });
+    return res.json({ msg: "Could not find competitor.", competitor: competitorId });
   };
 
   res.json(rows)
 });
+
+// app.get('/competitors/:competitorId', async (req, res) => {
+//   try {
+//     const competitorId = parseInt(req.params.competitorId, 10);
+
+//     const query = "SELECT * FROM Competitor WHERE competitorId = ?;";
+//     const [rows] = await connection.query(query, competitorId);
+
+//     if (!rows[0]) {
+//       return res.json({ msg: "Could not find competitor." });
+//     }
+
+//     res.json(rows);
+//   } catch (error) {
+//     console.error("Error fetching competitor data:", error);
+//     res.status(500).json({ msg: "Internal server error" });
+//   }
+// });
+
 
 // Course
 app.get('/courses', async (req, res) => {

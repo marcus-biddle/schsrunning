@@ -28,3 +28,13 @@ export async function fetchCompetitor(athleteId: number): Promise<Competitor> {
     throw new Error('Failed to fetch competitor');
   }
 }
+
+export async function fetchCompetitorById(competitorId: number): Promise<Competitor[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/competitors/${competitorId}`);
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching competitor:', error);
+    throw new Error('Failed to fetch competitor');
+  }
+}

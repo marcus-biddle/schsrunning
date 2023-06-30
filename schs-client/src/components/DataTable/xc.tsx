@@ -95,8 +95,8 @@ const XCAthleteDataTable: React.FC<DataTableProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item: XCRunner) => (
-            <tr key={item.competitorId}>
+          {data.map((item: XCRunner, index: number) => (
+            <tr key={`${item.competitorId}-${index}`}>
               <td style={tableCellStyle}>{item.competitorId}</td>
               <td style={tableCellStyle}>{item.coursedistance}</td>
               <td style={tableCellStyle}>{item.coursename}</td>

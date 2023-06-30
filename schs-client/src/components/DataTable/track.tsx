@@ -92,8 +92,8 @@ const TrackAthleteDataTable: React.FC<DataTableProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item: TrackAthleteResult) => (
-            <tr key={item.competitorId}>
+          {data.map((item: TrackAthleteResult, index: number) => (
+            <tr key={`${item.competitorId}-${index}`}>
               <td style={tableCellStyle}>{item.competitorId}</td>
               <td style={tableCellStyle}>{item.event}</td>
               <td style={tableCellStyle}>{item.result1}</td>

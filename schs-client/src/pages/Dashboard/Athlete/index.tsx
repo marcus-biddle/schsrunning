@@ -4,6 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import XCAthleteDataTable from '../../../components/DataTable/xc';
 import TrackAthleteDataTable from '../../../components/DataTable/track';
+import { useState } from 'react';
+import './style.css'
+import Form from '../../../components/Form/XCountry/xc';
 
 const xcrunnerQuery = (athleteId: number) => ({
     queryKey: ['xcrunner', athleteId],
@@ -37,6 +40,7 @@ const EditAthlete = () => {
     const { athleteId } = useParams();
     const { data: trackAthlete } = useQuery(trackAthleteQuery(parseInt(athleteId || '')));
     const { data: xcrunner } = useQuery(xcrunnerQuery(parseInt(athleteId || '')));
+    const [formType, setFormType] = useState<'Track' | 'Cross Country' | null>(null);
     console.log('track', trackAthlete);
     console.log('xc', xcrunner);
   return (
@@ -52,7 +56,22 @@ const EditAthlete = () => {
         </div>
         <div>
             <h3>Add Record</h3>
+            <button onClick={() => setFormType(null)}>Reset</button>
             {/* We should create two separate forms (track & xc) and then which ever they choose the form will be shown */}
+            <div>
+                { !formType ? 
+                <div>
+                    <button className={'trackButtonStyle'} onClick={() => setFormType('Track')}>Track</button>
+                    <button className={'crossCountryButtonStyle'} onClick={() => setFormType('Cross Country')}>Cross Country</button>
+                </div>
+                : formType === 'Cross Country' ? 
+                <div>
+                    <Form athleteId={athleteId || ''}/>
+                </div>
+                :
+                'track'}
+            </div>
+            
         </div>
         <div>
             {/* Have the form/options to change things here */}
@@ -66,5 +85,7 @@ const EditAthlete = () => {
     </div>
   )
 }
+
+
 
 export default EditAthlete
