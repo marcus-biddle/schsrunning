@@ -827,7 +827,11 @@ app.get('/races', async (req, res) => {
   const { raceNameId, courseId, date } = req.query;
   const query = "SELECT * FROM Race WHERE courseId = ? AND raceNameId = ? AND date = ?";
   const [rows] = await connection.query(query, [courseId, raceNameId, date]);
-  res.send(rows)
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find race." });
+  };
+
+  res.json(rows[0])
 });
 
 app.get('/races/:raceId', async (req, res) => {
