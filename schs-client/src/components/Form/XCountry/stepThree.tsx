@@ -40,29 +40,16 @@ const raceNameListQuery = () => ({
 // CompetitorId, raceId, time, pace (no date because that should exist with race)
 
 const StepThreeForm: React.FC<XCFormProps> = ({ athleteId }) => {
-  console.log(athleteId)
-    // const [competitorId, setCompetitorId] = useState('');
-    // First check this, else if unfound then do not continue.
-    // const [competitorFormData, setCompetitorFormData] = useState({
-    //     competitorId: competitorId,
-    //     year: '',
-    //     grade: '', // used to create a new competitorId,
-    //     athleteId: athleteId,
-    // })
-    // const [competitorFound, setCompetitorFound] = useState<boolean | undefined>(undefined);
-    
     const { data: raceNames} = useQuery(raceNameListQuery());
     // RaceName -> Race -> Course
-    const [raceFormData, setRaceFormData] = useState({
-        racename: '', // dd make dynamic. get this then find matching race (raceId) THEN let them enter pace and time
-        raceId: ''
+    const [raceEventFormData, setRaceEventFormData] = useState({
+        raceId: '',
+        racenameId: 0,
+        courseId: 0,
+        date: ''
     })
-    const [courseFormData, setCourseFormData] = useState({
-        coursedistance: '', // dd 
-        coursename: '', // dd 
-    })
-    const { data: courses} = useQuery(courseListQuery(parseFloat(courseFormData.coursedistance)));
-    console.log('coursses', courses);
+
+    // const { data: courses} = useQuery(courseListQuery(parseFloat(courseFormData.coursedistance)));
 //   const [formData, setFormData] = useState({
 //      // used to create a new competitorId. Needs to be conditional to first find the competitor. Could make this dynamic as we type
     
@@ -95,7 +82,6 @@ const StepThreeForm: React.FC<XCFormProps> = ({ athleteId }) => {
       ...prevFormData,
       [name]: value,
     }));
-    console.log(raceFormData);
   };
 
   const handleCourseSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -109,8 +95,6 @@ const StepThreeForm: React.FC<XCFormProps> = ({ athleteId }) => {
   const handleStepTwoSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Format competitorId
-    console.log('race', raceFormData);
-    console.log('course', courseFormData);
     // Perform form submission logic here
   };
 
@@ -129,7 +113,7 @@ const StepThreeForm: React.FC<XCFormProps> = ({ athleteId }) => {
             <option value=''></option>
             {raceNames && raceNames.map((raceName) => {
                 return (
-                    <option value={raceName.raceName}>{raceName.raceName}</option>
+                    <option key={raceName.raceName} value={raceName.raceName}>{raceName.raceName}</option>
                 )
             })}
         </select>
@@ -156,7 +140,7 @@ const StepThreeForm: React.FC<XCFormProps> = ({ athleteId }) => {
         <option value=''></option>
           {courses && courses.length > 0 && courses.map((course: Course) => {
               return (
-                  <option value={course.courseName}>{course.courseName}</option>
+                  <option key={course.courseName} value={course.courseName}>{course.courseName}</option>
               )
           })}
       </select>

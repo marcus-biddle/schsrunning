@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchRaceNames } from '../../../api/raceNames';
 import { fetchCoursesByDistance, Course } from '../../../api/courses';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { fetchRace } from '../../../api/races';
 
 interface XCFormProps {
     athleteId: string;
+    onSubmitStepTwoCourseData: (data: any) => void;
+    onSubmitStepTwoRaceData: (data: any) => void;
 }
 
 const raceNameListQuery = () => ({
@@ -33,52 +38,55 @@ const raceNameListQuery = () => ({
         }
         return courses;
     },
-  })
+  });
+
+  const raceQuery = (raceNameId: number, courseId: number, date: string) => ({
+    queryKey: ['race', raceNameId, courseId, date],
+    queryFn: async () => {
+        const race = await fetchRace(raceNameId, courseId, date);
+        if (!race) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return race;
+    },
+});
 
 // Tables being used: Course, Race, Result, RaceName, RaceCondition, Competitor
 // Goal is to input into Result
 // CompetitorId, raceId, time, pace (no date because that should exist with race)
 
-const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
+const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseData, onSubmitStepTwoRaceData }) => {
     console.log(athleteId)
-    // const [competitorId, setCompetitorId] = useState('');
-    // First check this, else if unfound then do not continue.
-    // const [competitorFormData, setCompetitorFormData] = useState({
-    //     competitorId: competitorId,
-    //     year: '',
-    //     grade: '', // used to create a new competitorId,
-    //     athleteId: athleteId,
-    // })
-    // const [competitorFound, setCompetitorFound] = useState<boolean | undefined>(undefined);
     
     const { data: raceNames} = useQuery(raceNameListQuery());
     // RaceName -> Race -> Course
     const [raceFormData, setRaceFormData] = useState({
         racename: '', // dd make dynamic. get this then find matching race (raceId) THEN let them enter pace and time
-        raceId: ''
+        racenameId: 0,
+        date: ''
     })
     const [courseFormData, setCourseFormData] = useState({
         coursedistance: '', // dd 
-        coursename: '', // dd 
+        coursename: '', // dd,
+        courseId: 0
     })
     const { data: courses} = useQuery(courseListQuery(parseFloat(courseFormData.coursedistance)));
-    console.log('coursses', courses);
-//   const [formData, setFormData] = useState({
-//      // used to create a new competitorId. Needs to be conditional to first find the competitor. Could make this dynamic as we type
-    
-//      racecondition: '', // dd
-//     pace: '',
-//     time: '',
-    
-//   });
+    const { data: race} = useQuery(raceQuery(raceFormData.racenameId, courseFormData.courseId, raceFormData.date));
+    const [datePicker, setDatePicker] = useState<Date | null>();
 
-//   const handleRaceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = event.target;
-//     setRaceFormData((prevFormData) => ({
-//       ...prevFormData,
-//       [name]: value,
-//     }));
-//   };
+    const handleDateChange = (date: Date | null) => {
+      setDatePicker(date);
+      if (date) {
+        setRaceFormData((prevFormData) => ({
+          ...prevFormData,
+          ['date']: date.toISOString().substring(0, 10),
+        }));
+      }
+    
+    };
 
   const handleCourseInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -95,7 +103,15 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
       ...prevFormData,
       [name]: value,
     }));
-    console.log(raceFormData);
+    if (name === 'racename') {
+      const _racename = raceNames?.find(obj => obj['raceName'] === value);
+      if (_racename) {
+        setRaceFormData((prevFormData) => ({
+          ...prevFormData,
+          ['racenameId']: _racename.raceNameId,
+        }));
+      }
+    }
   };
 
   const handleCourseSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -104,14 +120,25 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
       ...prevFormData,
       [name]: value,
     }));
+
+    if (name === 'coursename') {
+      const _course = courses?.find(obj => obj['courseName'] === value);
+      if (_course) {
+        setCourseFormData((prevFormData) => ({
+          ...prevFormData,
+          ['courseId']: _course.courseId,
+        }));
+      }
+    }
   };
 
   const handleStepTwoSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Format competitorId
-    console.log('race', raceFormData);
-    console.log('course', courseFormData);
-    // Perform form submission logic here
+    
+    onSubmitStepTwoCourseData(courseFormData);
+    onSubmitStepTwoRaceData(raceFormData);
+
+    console.log('race', race);
   };
 
   // Split into 3 steps
@@ -129,10 +156,20 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
             <option value=''></option>
             {raceNames && raceNames.map((raceName) => {
                 return (
-                    <option value={raceName.raceName}>{raceName.raceName}</option>
+                    <option key={raceName.raceName} value={raceName.raceName}>{raceName.raceName}</option>
                 )
             })}
         </select>
+      </div>
+      <div>
+        <label>Date of event:</label>
+        <DatePicker
+          selected={datePicker}
+          onChange={handleDateChange}
+          dateFormat="MM/dd/yyyy"
+          placeholderText="click to find date"
+          locale="en"
+        />
       </div>
       <div>
         <label htmlFor="coursedistance">Course Distance:</label>
@@ -156,81 +193,11 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId }) => {
         <option value=''></option>
           {courses && courses.length > 0 && courses.map((course: Course) => {
               return (
-                  <option value={course.courseName}>{course.courseName}</option>
+                  <option key={course.courseName} value={course.courseName}>{course.courseName}</option>
               )
           })}
       </select>
     </div>}
-      {/* <div>
-        <label htmlFor="courseName">Course Name:</label>
-        <input
-          type="text"
-          id="courseName"
-          name="courseName"
-          value={formData.courseName}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="date">Date:</label>
-        <input
-          type="text"
-          id="date"
-          name="date"
-          value={formData.date}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="grade">Grade:</label>
-        <input
-          type="text"
-          id="grade"
-          name="grade"
-          value={formData.grade}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="pace">Pace:</label>
-        <input
-          type="text"
-          id="pace"
-          name="pace"
-          value={formData.pace}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="time">Time:</label>
-        <input
-          type="text"
-          id="time"
-          name="time"
-          value={formData.time}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="racename">Race Name:</label>
-        <input
-          type="text"
-          id="racename"
-          name="racename"
-          value={formData.racename}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="racecondition">Race Condition:</label>
-        <input
-          type="text"
-          id="racecondition"
-          name="racecondition"
-          value={formData.racecondition}
-          onChange={handleInputChange}
-        />
-      </div> */}
       <button type="submit">Submit</button>
       {/* {competitorFound === true ? <p>Match Found!</p> : competitorFound === false ? <p>Must create a new competitor object.</p> : ''} */}
     </form>

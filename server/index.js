@@ -824,8 +824,9 @@ app.get('/locations/:locationId', async (req, res) => {
 
 // Race
 app.get('/races', async (req, res) => {
-  const query = "SELECT * FROM Race";
-  const [rows] = await connection.query(query);
+  const { raceNameId, courseId, date } = req.query;
+  const query = "SELECT * FROM Race WHERE courseId = ? AND raceNameId = ? AND date = ?";
+  const [rows] = await connection.query(query, [courseId, raceNameId, date]);
   res.send(rows)
 });
 

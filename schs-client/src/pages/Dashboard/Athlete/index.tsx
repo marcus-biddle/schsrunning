@@ -22,7 +22,7 @@ const xcrunnerQuery = (athleteId: number) => ({
         }
         return xcrunner;
     },
-})
+});
 
 const trackAthleteQuery = (athleteId: number) => ({
     queryKey: ['trackAthlete', athleteId],
@@ -36,7 +36,7 @@ const trackAthleteQuery = (athleteId: number) => ({
         }
         return xcrunner;
     },
-})
+});
 
 const EditAthlete = () => {
     const { athleteId } = useParams();
@@ -44,13 +44,29 @@ const EditAthlete = () => {
     const { data: xcrunner } = useQuery(xcrunnerQuery(parseInt(athleteId || '')));
     const [formType, setFormType] = useState<'Track' | 'Cross Country' | null>(null);
     const [stepOneData, setStepOneData] = useState();
+    const [stepTwoCourseData, setStepTwoCourseData] = useState();
+    const [stepTwoRaceData, setStepTwoRaceData] = useState();
 
     const handleStepOneData = (data: any) => {
         setStepOneData(data);
-        console.log('stepOneData', stepOneData)
-    }
-    console.log('track', trackAthlete);
-    console.log('xc', xcrunner);
+    };
+
+    const handleStepTwoCourseData = (data: any) => {
+        setStepTwoCourseData(data);
+        // console.log('stepTwoData', stepOneData)
+    };
+
+    const handleStepTwoRaceData = (data: any) => {
+        setStepTwoRaceData(data);
+        // console.log('stepTwoData', stepOneData)
+    };
+
+    console.log('a - track', trackAthlete);
+    console.log('a - xc', xcrunner);
+    console.log('a - stepOneData', stepOneData);
+    console.log('a - course', stepTwoCourseData);
+    console.log('a - race', stepTwoRaceData);
+
   return (
     <div>
         <h2>{trackAthlete && trackAthlete[0].fullName}</h2>
@@ -75,8 +91,8 @@ const EditAthlete = () => {
                 : formType === 'Cross Country' ? 
                 <div>
                     <StepOneForm athleteId={athleteId || ''} onSubmitStepOneData={handleStepOneData}/>
-                    <StepTwoForm athleteId={athleteId || ''}/>
-                    <StepThreeForm athleteId={athleteId || ''} />
+                    <StepTwoForm athleteId={athleteId || ''} onSubmitStepTwoCourseData={handleStepTwoCourseData} onSubmitStepTwoRaceData={handleStepTwoRaceData}/>
+                    {/* <StepThreeForm athleteId={athleteId || ''} /> */}
                 </div>
                 :
                 'track'}

@@ -83,7 +83,11 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData }) 
         />
       </div>
       <button type="submit">Submit</button>
-      {competitorFound === true ? <p>Match Found!</p> : competitorFound === false ? <p>Match Not Found. Create a new Competitor.</p> : ''}
+      {competitorFound === true ? 
+      <p>Match Found! {competitor && `AthleteId: ${competitor[0].athleteId}, CompetitorId: ${competitor[0].competitorId}, Grade: ${competitor[0].grade}, Year: ${competitor[0].year}`}</p> 
+      : competitorFound === false ? 
+      <p>Match Not Found. Create a new Competitor.</p> 
+      : ''}
     </form>
   );
 };

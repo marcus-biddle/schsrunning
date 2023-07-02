@@ -20,9 +20,15 @@ export async function fetchRaces(): Promise<Race[]> {
   }
 }
 
-export async function fetchRace(raceId: number): Promise<Race> {
+export async function fetchRace(raceNameId: number, courseId: number, date: string): Promise<Race> {
   try {
-    const response = await axios.get(`${BASE_URL}/races/${raceId}`);
+    const response = await axios.get(`${BASE_URL}/races`, {
+      params: {
+        raceNameId: raceNameId,
+        courseId: courseId,
+        date: date
+      }
+    });
     return response.data;
   } catch (error) {
     console.log('Error fetching race:', error);

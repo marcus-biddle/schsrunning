@@ -29,10 +29,10 @@ export const Footer = () => {
       <footer style={{ display: 'flex', marginRight: '10rem', marginLeft: '10rem', justifyContent: 'space-evenly', marginTop: '8rem', borderTop: 'solid 1px grey'}}>
         {data.map((footer) => {
           return (
-            <div>
+            <div key={footer.header}>
               <h5>{footer.header}</h5>
               {footer.links.map((link) => (
-                <p style={{ fontSize: '12px'}}>{link === 'Login' ? 
+                <p style={{ fontSize: '12px'}} key={link}>{link === 'Login' ? 
                   <Link to={'/login'}>{link}</Link> 
                   : 
                   link}</p>
