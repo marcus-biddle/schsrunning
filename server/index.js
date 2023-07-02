@@ -26,6 +26,7 @@ const corsOptions = {
       'http://localhost:5174',
       'http://127.0.0.1:5174',
       'https://schsrunning.vercel.app',
+      'https://schs-server.onrender.com',
     ];
     
     if (!origin || allowedOrigins.includes(origin)) {
