@@ -58,7 +58,7 @@ const PORT = process.env.PORT || 3000;
     const raceId = req.query.raceId;
   
     const query = `
-    SELECT R.time, R.pace, C.grade, RA.date, RN.racename, CO.coursename, CO.coursedistance,
+    SELECT DISINCT R.time, R.pace, C.grade, RA.date, RN.racename, CO.coursename, CO.coursedistance,
     RC.racecondition, A.firstname, A.lastname, R.raceid, A.genderId, C.competitorId
     FROM Result R
     JOIN Competitor C ON R.competitorId = C.competitorId
@@ -936,6 +936,21 @@ app.get('/results', async (req, res) => {
   const query = "SELECT * FROM Result";
   const [rows] = await connection.query(query);
   res.send(rows)
+});
+
+app.post('/results', async (req, res) => {
+  const { competitorId, raceId, time, pace } = req.body;
+
+  const query = 'INSERT INTO Result (competitorId, raceId, time, pace) VALUES (?, ?, ?, ?)';
+  const values = [competitorId, raceId, time, pace];
+
+  try {
+    await connection.query(query, values);
+    res.status(201).json({ message: 'Data inserted successfully' });
+  } catch (error) {
+    console.log('Error inserting data:', error);
+    res.status(500).json({ message: 'Failed to insert data' });
+  }
 });
 
 app.get('/results/:raceId', async (req, res) => {

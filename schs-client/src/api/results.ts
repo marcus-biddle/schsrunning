@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://schs-server.onrender.com';
+const BASE_URL = 'http://localhost:3000';
 
 export interface Result {
     competitorId: number;
@@ -32,3 +32,14 @@ export async function fetchResults(raceId: string, limit: number): Promise<Resul
       throw new Error('Failed to fetch result');
     }
   }
+
+  export async function addXCResult(resultData: Result): Promise<Result> {
+    try {
+      const response = await axios.post(`${BASE_URL}/results`, resultData);
+      return response.data;
+    } catch (error) {
+      console.log('Error adding result:', error);
+      throw new Error('Failed to add result');
+    }
+  }
+  

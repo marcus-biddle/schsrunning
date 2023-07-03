@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Competitor, fetchCompetitorById } from '../../../api/competitors';
 import { useQuery } from '@tanstack/react-query';
+import './style.css'
 
 interface XCFormProps {
     athleteId: string;
@@ -61,37 +62,39 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
   // Split into 3 steps
 
   return (
-    <form onSubmit={handleStepOneSubmit}>
-      <div>
-        <label htmlFor="year">Year:</label>
-        {/* Get year because this needs to append to the athleteId to get competitorId */}
-        <input
-          type="text"
-          id="year"
-          name="year"
-          disabled={isDisabled}
-          value={competitorFormData.year}
-          onChange={handleStepOneInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="grade">Grade:</label>
-        <input
-          type="text"
-          id="grade"
-          name="grade"
-          disabled={isDisabled}
-          value={competitorFormData.grade}
-          onChange={handleStepOneInputChange}
-        />
-      </div>
-      <button type="submit" disabled={isDisabled}>Submit</button>
-      {competitorFound === true ? 
-      <p>Competitor Found!</p> 
-      : competitorFound === false ? 
-      <p>Competitor Not Found. Create a new Competitor.</p> 
-      : ''}
-    </form>
+    <form onSubmit={handleStepOneSubmit} className="form-container">
+  <div className="form-group">
+    <label htmlFor="year" className="form-label">Year:</label>
+    <input
+      type="text"
+      id="year"
+      name="year"
+      disabled={isDisabled}
+      value={competitorFormData.year}
+      onChange={handleStepOneInputChange}
+      className="form-input"
+    />
+  </div>
+  <div className="form-group">
+    <label htmlFor="grade" className="form-label">Grade:</label>
+    <input
+      type="text"
+      id="grade"
+      name="grade"
+      disabled={isDisabled}
+      value={competitorFormData.grade}
+      onChange={handleStepOneInputChange}
+      className="form-input"
+    />
+  </div>
+  <button type="submit" disabled={isDisabled} className="form-button">Submit</button>
+  {competitorFound === true ? (
+    <p className='success-message'>Competitor Found!</p>
+  ) : competitorFound === false ? (
+    <p className='error-message'>Competitor Not Found. Create a new Competitor.</p>
+  ) : null}
+</form>
+
   );
 };
 

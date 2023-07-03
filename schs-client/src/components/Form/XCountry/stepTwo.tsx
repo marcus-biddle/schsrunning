@@ -5,6 +5,7 @@ import { fetchCoursesByDistance, Course } from '../../../api/courses';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { fetchRace } from '../../../api/races';
+import './style.css'
 
 interface XCFormProps {
     onSubmitStepTwoRaceData: (data: any) => void;
@@ -147,66 +148,80 @@ const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisable
   // Split into 3 steps
 
   return (
-    <form onSubmit={handleStepTwoSubmit}>
-      <div>
-        <label htmlFor="racename">Race Name:</label>
-        <select
-          id="racename"
-          name="racename"
-          disabled={isDisabled}
-          value={raceFormData.racename}
-          onChange={handleRaceSelectChange}
-        >
-            <option value=''></option>
-            {raceNames && raceNames.map((raceName) => {
-                return (
-                    <option key={raceName.raceName} value={raceName.raceName}>{raceName.raceName}</option>
-                )
-            })}
-        </select>
-      </div>
-      <div>
-        <label>Date of event:</label>
-        <DatePicker
-          selected={datePicker}
-          onChange={handleDateChange}
-          disabled={isDisabled}
-          dateFormat="MM/dd/yyyy"
-          placeholderText=""
-          locale="en"
-        />
-      </div>
-      <div>
-        <label htmlFor="coursedistance">Course Distance:</label>
-        <input
-          type="text"
-          id="coursedistance"
-          name="coursedistance"
-          disabled={isDisabled}
-          value={courseFormData.coursedistance}
-          onChange={handleCourseInputChange}
-        />
-      </div>
-      <div>
-      <label htmlFor="coursename">Course Name:</label>
-      <select
-        id="coursename"
-        name="coursename"
-        disabled={(courseFormData.coursedistance === '' && isDisabled === false) || isDisabled}
-        value={courseFormData.coursename}
-        onChange={handleCourseSelectChange}
-      >
-        <option value=''></option>
-          {courses && courses.length > 0 && courses.map((course: Course) => {
-              return (
-                  <option key={course.courseName} value={course.courseName}>{course.courseName}</option>
-              )
-          })}
-      </select>
-    </div>
-      <button type="submit" disabled={isDisabled}>Submit</button>
-      {foundRace === true ? <p>Race Found!</p> : foundRace === false ? <p>Must create a new race object.</p> : ''}
-    </form>
+    <form onSubmit={handleStepTwoSubmit} className="form-container">
+  <div className="form-group">
+    <label htmlFor="racename" className="form-label">Race Name:</label>
+    <select
+      id="racename"
+      name="racename"
+      className="form-input"
+      disabled={isDisabled}
+      value={raceFormData.racename}
+      onChange={handleRaceSelectChange}
+    >
+      <option value=""></option>
+      {raceNames &&
+        raceNames.map((raceName) => {
+          return (
+            <option key={raceName.raceName} value={raceName.raceName}>
+              {raceName.raceName}
+            </option>
+          );
+        })}
+    </select>
+  </div>
+  <div className="form-group">
+    <label className="form-label">Date of event:</label>
+    <DatePicker
+      selected={datePicker}
+      onChange={handleDateChange}
+      disabled={isDisabled}
+      dateFormat="MM/dd/yyyy"
+      placeholderText=""
+      locale="en"
+      className='form-input'
+    />
+  </div>
+  <div className="form-group">
+    <label htmlFor="coursedistance" className="form-label">Course Distance:</label>
+    <input
+      type="text"
+      id="coursedistance"
+      name="coursedistance"
+      className="form-input"
+      disabled={isDisabled}
+      value={courseFormData.coursedistance}
+      onChange={handleCourseInputChange}
+    />
+  </div>
+  <div className="form-group">
+    <label htmlFor="coursename" className="form-label">Course Name:</label>
+    <select
+      id="coursename"
+      name="coursename"
+      className="form-input"
+      disabled={(courseFormData.coursedistance === '' && isDisabled === false) || isDisabled}
+      value={courseFormData.coursename}
+      onChange={handleCourseSelectChange}
+    >
+      <option value=""></option>
+      {courses &&
+        courses.length > 0 &&
+        courses.map((course: Course) => {
+          return (
+            <option key={course.courseName} value={course.courseName}>
+              {course.courseName}
+            </option>
+          );
+        })}
+    </select>
+  </div>
+  <button type="submit" className="form-button" disabled={isDisabled}>
+    Submit
+  </button>
+  {foundRace === true ? <p className='success-message'>Race Found!</p> : foundRace === false ? <p className='error-message'>Must create a new race object.</p> : ''}
+</form>
+
   );
 };
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ResultFormProps } from '../../../pages/Dashboard/Athlete';
 
 interface XCFormProps {
-    competitorId: string;
+    competitorId: number;
     raceId: number;
     onSubmitResult: (data: any) => void;
 }
@@ -67,29 +67,30 @@ const StepThreeForm: React.FC<XCFormProps> = ({ raceId, competitorId, onSubmitRe
   // Split into 3 steps
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="time">Competitor Time:</label>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-group">
+        <label htmlFor="time" className="form-label">Competitor Time:</label>
         <input
           type="text"
           id="time"
           name="time"
           value={resultFormData.time}
           onChange={handleInputChange}
+          className="form-input"
         />
       </div>
-      <div>
-        <label htmlFor="pace">Competitor Pace:</label>
+      <div className="form-group">
+        <label htmlFor="pace" className="form-label">Competitor Pace:</label>
         <input
           type="text"
           id="pace"
           name="pace"
           value={resultFormData.pace}
           onChange={handleInputChange}
+          className="form-input"
         />
       </div>
-      <button type="submit">Submit</button>
-      {/* {competitorFound === true ? <p>Match Found!</p> : competitorFound === false ? <p>Must create a new competitor object.</p> : ''} */}
+      <button type="submit" className="form-button">Submit</button>
     </form>
   );
 };
