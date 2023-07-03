@@ -10,8 +10,8 @@ import StepTwoForm from '../../../components/Form/XCountry/stepTwo';
 import StepThreeForm from '../../../components/Form/XCountry/stepThree';
 import StepOneForm from '../../../components/Form/XCountry/stepOne';
 import { Result, addXCResult } from '../../../api/results';
-import { athleteListQuery } from '..';
 import { fetchAthlete } from '../../../api/athletes';
+import { fetchCompetitor } from '../../../api/competitors';
 
 const xcrunnerQuery = (athleteId: number) => ({
     queryKey: ['xcrunner', athleteId],
@@ -55,6 +55,20 @@ const athleteQuery = (athleteId: number) => ({
     },
   })
 
+  const competitorQuery = (athleteId: number) => ({
+    queryKey: ['competitor', athleteId],
+    queryFn: async () => {
+        const athlete = await fetchCompetitor(athleteId);
+        if (!athlete) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athlete.map((comp) => comp.competitorId);
+    },
+  })
+
 interface CompFormProps {
     competitorId: number;
     athleteId: number;
@@ -82,6 +96,7 @@ const EditAthlete = () => {
     const { data: athlete } = useQuery(athleteQuery(parseInt(athleteId || '')));
     const { data: trackAthlete } = useQuery(trackAthleteQuery(parseInt(athleteId || '')));
     const { data: xcrunner } = useQuery(xcrunnerQuery(parseInt(athleteId || '')));
+    const { data: competitorIds } = useQuery(competitorQuery(parseInt(athleteId || '')));
     const [formType, setFormType] = useState<'Track' | 'Cross Country' | null>(null);
     const [stepOneData, setStepOneData] = useState<CompFormProps>();
     const [stepTwoRaceData, setStepTwoRaceData] = useState<RaceFormProps>();
@@ -143,6 +158,9 @@ const EditAthlete = () => {
             </div>
             <div>
                 <span>Athlete ID:</span> <span>{athlete && athlete.athleteId}</span>
+            </div>
+            <div>
+                <span>Competitor IDs:</span> <span>{competitorIds && competitorIds.map(id => <li>{id}</li>)}</span>
             </div>
             <div>
                 <div style={{ display: 'flex' }}>
@@ -234,12 +252,12 @@ const EditAthlete = () => {
                 </div>
                 
             </div>
+            <h3>XC Records</h3>
             {xcrunner && xcrunner.length > 0 ? <div>
-                <h3>XC Records</h3>
                 <XCAthleteDataTable data={xcrunner || []} />
             </div> : <XCAthleteDataTable data={[]} />}
+            <h3>Track Records</h3>
             {trackAthlete && trackAthlete.length > 0 ? <div>
-                <h3>Track Records</h3>
                 <TrackAthleteDataTable data={trackAthlete || []} />
             </div> : <TrackAthleteDataTable data={[]} />}
         </div>}

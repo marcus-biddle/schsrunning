@@ -637,7 +637,7 @@ app.get('/competitors/year/:yearId', async (req, res) => {
 app.get('/competitors', async (req, res) => {
   const { athleteId } = req.query
 
-  const query = "SELECT * FROM Competitor WHERE Competitor.athleteId= ?";
+  const query = "SELECT DISTINCT * FROM Competitor WHERE Competitor.athleteId= ?";
   const [rows] = await connection.query(query, [athleteId]);
   
   if (!rows[0]) {
