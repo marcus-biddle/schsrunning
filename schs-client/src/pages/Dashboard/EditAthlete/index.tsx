@@ -152,7 +152,7 @@ const EditAthlete = () => {
             <h2>{athlete && athlete.firstName} {athlete && athlete.lastName}</h2>
             <h3>Basic Info</h3> 
             {/* Revisit what else to add here */}
-            {/* {trackAthlete && xcrunner && trackAthlete.length < 0 && xcrunner.length < 0 ? null : <p>This is a new athlete with zero records.</p>} */}
+            {competitorIds ? null : <p>This is a new athlete with zero records.</p>}
             <div>
                 <span>Gender:</span> <span>{athlete && (athlete.genderId === 2 ? 'Male' : athlete.genderId === 3 ? 'Female' : 'Unknown')}</span>
             </div>
@@ -198,7 +198,7 @@ const EditAthlete = () => {
                     </div>
                     : formType === 'Cross Country' ? 
                     <>
-                    {!stepThreeData ? <div style={{ backgroundColor: 'rgb(211, 211, 211)', display: 'flex', justifyContent: 'space-evenly', borderRadius: '8px', marginLeft: '10rem', marginRight: '10rem'}}>
+                    {!stepThreeData ? <div style={{ backgroundColor: 'rgb(211, 211, 211)', display: 'flex', justifyContent: 'space-evenly', borderRadius: '8px'}}>
                         <div style={{ width: '100%', textAlign: 'center', opacity: `${stepOneData ? '.5' : '1'}`, backgroundColor: `${stepOneData ? 'rgb(211, 211, 211)' : '#8bc34a'}`, borderRadius: '8px'}}>
                             <h4>Find Competitor</h4>
                             <StepOneForm athleteId={athleteId || ''} onSubmitStepOneData={handleStepOneData} isDisabled={stepOneData ? true : false}/>
@@ -213,7 +213,7 @@ const EditAthlete = () => {
                         </div>
                     </div>
                     :
-                    <div style={{ backgroundColor: '#000000', height: '20rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', marginLeft: '10rem', marginRight: '10rem'}}>
+                    <div style={{ backgroundColor: '#000000', height: '20rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '8px'}}>
                         <h4 style={{ fontSize: '24px', color: 'white'}}>Are you sure you want to add this record?</h4>
                         <p style={{ color: 'red'}}>Note: You can not undo this action after submitting.</p>
                         <div>

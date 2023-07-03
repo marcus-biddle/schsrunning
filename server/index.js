@@ -621,19 +621,6 @@ app.get('/competitors/year/:yearId', async (req, res) => {
 }); 
 
 
-// app.get('/competitors/:athleteId', async (req, res) => {
-//   const { athleteId } = req.params;
-// // I think this is wrong. Need to look into
-//   const query = "SELECT * FROM Competitor Where Competitor.competitorId = ?;";
-//   const [rows] = await connection.query(query, athleteId);
-  
-//   if(!rows[0]) {
-//     return res.json({ msg: "Could not find competitor." });
-//   };
-
-//   res.json(rows)
-// });
-
 app.get('/competitors', async (req, res) => {
   const { athleteId } = req.query
 
@@ -647,8 +634,20 @@ app.get('/competitors', async (req, res) => {
   res.send(rows);
 });
 
+app.get('/competitors/:competitorId', async (req, res) => {
+  const { competitorId } = req.params;
 
-app.post('/create-competitor', async (req, res) => {
+  const query = "SELECT * FROM Competitor WHERE Competitor.competitorId=?;";
+  const [rows] = await connection.query(query, competitorId);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find competitor.", competitor: competitorId });
+  };
+
+  res.json(rows)
+});
+
+app.post('/competitors', async (req, res) => {
   const { competitorId, athleteId, year, grade } = req.body;
 
   const query = "INSERT INTO Competitor (competitorId, athleteId, year, grade) VALUES (?, ?, ?, ?);";
