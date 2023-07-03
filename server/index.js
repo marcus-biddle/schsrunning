@@ -25,6 +25,7 @@ const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
       'http://localhost:5173',
+      'http://localhost:5174',
       'https://schsrunning.vercel.app',
     ];
 
