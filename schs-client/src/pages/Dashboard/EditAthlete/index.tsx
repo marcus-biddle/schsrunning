@@ -180,7 +180,7 @@ const EditAthlete = () => {
                     </div>
                     : formType === 'Cross Country' ? 
                     <>
-                    {!stepThreeData ? <div style={{ backgroundColor: 'rgb(211, 211, 211)', display: 'flex', justifyContent: 'space-evenly', borderRadius: '8px'}}>
+                    {!stepThreeData ? <div style={{ backgroundColor: 'rgb(211, 211, 211)', display: 'flex', justifyContent: 'space-evenly', borderRadius: '8px', marginLeft: '10rem', marginRight: '10rem'}}>
                         <div style={{ width: '100%', textAlign: 'center', opacity: `${stepOneData ? '.5' : '1'}`, backgroundColor: `${stepOneData ? 'rgb(211, 211, 211)' : '#8bc34a'}`, borderRadius: '8px'}}>
                             <h4>Find Competitor</h4>
                             <StepOneForm athleteId={athleteId || ''} onSubmitStepOneData={handleStepOneData} isDisabled={stepOneData ? true : false}/>
@@ -195,7 +195,7 @@ const EditAthlete = () => {
                         </div>
                     </div>
                     :
-                    <div style={{ backgroundColor: '#000000', height: '20rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '8px'}}>
+                    <div style={{ backgroundColor: '#000000', height: '20rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', marginLeft: '10rem', marginRight: '10rem'}}>
                         <h4 style={{ fontSize: '24px', color: 'white'}}>Are you sure you want to add this record?</h4>
                         <p style={{ color: 'red'}}>Note: You can not undo this action after submitting.</p>
                         <div>

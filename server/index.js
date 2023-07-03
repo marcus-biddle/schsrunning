@@ -634,20 +634,21 @@ app.get('/competitors/year/:yearId', async (req, res) => {
 //   res.json(rows)
 // });
 
-app.get('/competitors/:competitorId', async (req, res) => {
-  const { competitorId } = req.params;
+app.get('/competitors', async (req, res) => {
+  const { athleteId } = req.query
 
-  const query = "SELECT * FROM Competitor WHERE Competitor.competitorId=?;";
-  const [rows] = await connection.query(query, competitorId);
+  const query = "SELECT * FROM Competitor WHERE Competitor.athleteId= ?";
+  const [rows] = await connection.query(query, [athleteId]);
   
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find competitor.", competitor: competitorId });
-  };
+  if (!rows[0]) {
+    return res.json({ msg: "Could not find competitor.", athlete: `${athleteId}` });
+  }
 
-  res.json(rows)
+  res.send(rows);
 });
 
-app.post('/competitors', async (req, res) => {
+
+app.post('/create-competitor', async (req, res) => {
   const { competitorId, athleteId, year, grade } = req.body;
 
   const query = "INSERT INTO Competitor (competitorId, athleteId, year, grade) VALUES (?, ?, ?, ?);";

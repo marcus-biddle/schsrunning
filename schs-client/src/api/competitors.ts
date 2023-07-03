@@ -19,13 +19,17 @@ export async function fetchCompetitors(year: number): Promise<Competitor[]> {
   }
 }
 
-export async function fetchCompetitor(athleteId: number): Promise<Competitor> {
+export async function fetchCompetitor(athleteId: number): Promise<Competitor[]> {
   try {
-    const response = await axios.get(`${BASE_URL}/competitors/${athleteId}`);
+    const response = await axios.get(`${BASE_URL}/competitors`, {
+      params: {
+        athleteId: athleteId,
+      },
+    });
     return response.data;
   } catch (error) {
-    console.log('Error fetching competitor:', error);
-    throw new Error('Failed to fetch competitor');
+    console.error('Error fetching Competitor:', error);
+    throw new Error('Failed to fetch Competitor');
   }
 }
 
@@ -41,7 +45,7 @@ export async function fetchCompetitorById(competitorId: number): Promise<Competi
 
 export async function createCompetitor(competitorData: Partial<Competitor>): Promise<void> {
   try {
-    const response = await axios.post(`${BASE_URL}/competitors`, competitorData);
+    const response = await axios.post(`${BASE_URL}/create-competitor`, competitorData);
     return response.data;
   } catch (error) {
     console.log('Error adding competitor:', error);
