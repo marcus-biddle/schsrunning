@@ -7,9 +7,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { fetchRace } from '../../../api/races';
 
 interface XCFormProps {
-    athleteId: string;
-    onSubmitStepTwoCourseData: (data: any) => void;
     onSubmitStepTwoRaceData: (data: any) => void;
+    isDisabled: boolean;
 }
 
 const raceNameListQuery = () => ({
@@ -58,34 +57,36 @@ const raceNameListQuery = () => ({
 // Goal is to input into Result
 // CompetitorId, raceId, time, pace (no date because that should exist with race)
 
-const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseData, onSubmitStepTwoRaceData }) => {
-    console.log(athleteId)
-    
+const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisabled }) => {
     const { data: raceNames} = useQuery(raceNameListQuery());
-    // RaceName -> Race -> Course
     const [raceFormData, setRaceFormData] = useState({
-        racename: '', // dd make dynamic. get this then find matching race (raceId) THEN let them enter pace and time
+        racename: '', 
         racenameId: 0,
         date: ''
     })
     const [courseFormData, setCourseFormData] = useState({
-        coursedistance: '', // dd 
-        coursename: '', // dd,
+        coursedistance: '', 
+        coursename: '', 
         courseId: 0
     })
     const { data: courses} = useQuery(courseListQuery(parseFloat(courseFormData.coursedistance)));
     const { data: race} = useQuery(raceQuery(raceFormData.racenameId, courseFormData.courseId, raceFormData.date));
     const [datePicker, setDatePicker] = useState<Date | null>();
+    const [foundRace, setFoundRace] = useState<boolean>();
 
     const handleDateChange = (date: Date | null) => {
       setDatePicker(date);
       if (date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
         setRaceFormData((prevFormData) => ({
           ...prevFormData,
-          ['date']: date.toISOString().substring(0, 10),
+          ['date']: formattedDate,
         }));
+        console.log(formattedDate);
       }
-    
     };
 
   const handleCourseInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +99,6 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseDa
 
   const handleRaceSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    console.log(name, value)
     setRaceFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -134,11 +134,14 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseDa
 
   const handleStepTwoSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    
-    onSubmitStepTwoCourseData(courseFormData);
-    onSubmitStepTwoRaceData(raceFormData);
-
     console.log('race', race);
+    if (race?.raceId) {
+      onSubmitStepTwoRaceData(race);
+      setFoundRace(true);
+    }
+    else {
+      setFoundRace(false);
+    }
   };
 
   // Split into 3 steps
@@ -150,6 +153,7 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseDa
         <select
           id="racename"
           name="racename"
+          disabled={isDisabled}
           value={raceFormData.racename}
           onChange={handleRaceSelectChange}
         >
@@ -166,8 +170,9 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseDa
         <DatePicker
           selected={datePicker}
           onChange={handleDateChange}
+          disabled={isDisabled}
           dateFormat="MM/dd/yyyy"
-          placeholderText="click to find date"
+          placeholderText=""
           locale="en"
         />
       </div>
@@ -177,16 +182,17 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseDa
           type="text"
           id="coursedistance"
           name="coursedistance"
+          disabled={isDisabled}
           value={courseFormData.coursedistance}
           onChange={handleCourseInputChange}
         />
       </div>
-      {courseFormData.coursedistance !== '' && 
       <div>
       <label htmlFor="coursename">Course Name:</label>
       <select
         id="coursename"
         name="coursename"
+        disabled={(courseFormData.coursedistance === '' && isDisabled === false) || isDisabled}
         value={courseFormData.coursename}
         onChange={handleCourseSelectChange}
       >
@@ -197,9 +203,9 @@ const StepTwoForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepTwoCourseDa
               )
           })}
       </select>
-    </div>}
-      <button type="submit">Submit</button>
-      {/* {competitorFound === true ? <p>Match Found!</p> : competitorFound === false ? <p>Must create a new competitor object.</p> : ''} */}
+    </div>
+      <button type="submit" disabled={isDisabled}>Submit</button>
+      {foundRace === true ? <p>Race Found!</p> : foundRace === false ? <p>Must create a new race object.</p> : ''}
     </form>
   );
 };

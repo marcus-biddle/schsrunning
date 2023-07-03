@@ -38,35 +38,59 @@ const trackAthleteQuery = (athleteId: number) => ({
     },
 });
 
+interface CompFormProps {
+    competitorId: string;
+    athleteId: number;
+    year: number;
+    grade: number;
+}
+
+interface RaceFormProps {
+    courseId: number;
+    date: string;
+    raceCOnditionId: number;
+    raceId: number;
+    raceNameId: number;
+}
+
+export interface ResultFormProps {
+    competitorId: string;
+    raceId: number;
+    time: string;
+    pace: string;
+}
+
 const EditAthlete = () => {
     const { athleteId } = useParams();
     const { data: trackAthlete } = useQuery(trackAthleteQuery(parseInt(athleteId || '')));
     const { data: xcrunner } = useQuery(xcrunnerQuery(parseInt(athleteId || '')));
     const [formType, setFormType] = useState<'Track' | 'Cross Country' | null>(null);
-    const [stepOneData, setStepOneData] = useState();
-    const [stepTwoCourseData, setStepTwoCourseData] = useState();
-    const [stepTwoRaceData, setStepTwoRaceData] = useState();
+    const [stepOneData, setStepOneData] = useState<CompFormProps>();
+    const [stepTwoRaceData, setStepTwoRaceData] = useState<RaceFormProps>();
+    const [stepThreeData, setStepThreeData] = useState<ResultFormProps>();
 
     const handleStepOneData = (data: any) => {
         setStepOneData(data);
     };
 
-    const handleStepTwoCourseData = (data: any) => {
-        setStepTwoCourseData(data);
-        // console.log('stepTwoData', stepOneData)
-    };
-
     const handleStepTwoRaceData = (data: any) => {
         setStepTwoRaceData(data);
-        // console.log('stepTwoData', stepOneData)
     };
 
-    console.log('a - track', trackAthlete);
-    console.log('a - xc', xcrunner);
-    console.log('a - stepOneData', stepOneData);
-    console.log('a - course', stepTwoCourseData);
-    console.log('a - race', stepTwoRaceData);
+    const handleReset = () => {
+        setFormType(null);
+        setStepOneData(undefined);
+        setStepTwoRaceData(undefined);
+        setStepThreeData(undefined);
+    };
 
+    const handleResultData = (data: any) => {
+        setStepThreeData(data);
+    };
+
+    console.log('1',stepOneData);
+    console.log('2',stepTwoRaceData);
+    console.log('3',stepThreeData);
   return (
     <div>
         <h2>{trackAthlete && trackAthlete[0].fullName}</h2>
@@ -79,8 +103,11 @@ const EditAthlete = () => {
             <span>Athlete ID:</span> <span>{trackAthlete && trackAthlete[0].athleteId}</span>
         </div>
         <div>
+            <div style={{ display: 'flex' }}>
             <h3>Add Record</h3>
-            <button onClick={() => setFormType(null)}>Reset</button>
+            {(stepOneData || stepThreeData) && <button onClick={handleReset} style={{ height: '25px', marginTop: 'auto', marginBottom: 'auto' }}>Reset</button>}
+            </div>
+            
             {/* We should create two separate forms (track & xc) and then which ever they choose the form will be shown */}
             <div>
                 { !formType ? 
@@ -89,11 +116,28 @@ const EditAthlete = () => {
                     <button className={'crossCountryButtonStyle'} onClick={() => setFormType('Cross Country')}>Cross Country</button>
                 </div>
                 : formType === 'Cross Country' ? 
-                <div>
-                    <StepOneForm athleteId={athleteId || ''} onSubmitStepOneData={handleStepOneData}/>
-                    <StepTwoForm athleteId={athleteId || ''} onSubmitStepTwoCourseData={handleStepTwoCourseData} onSubmitStepTwoRaceData={handleStepTwoRaceData}/>
-                    {/* <StepThreeForm athleteId={athleteId || ''} /> */}
+                <>
+                {!stepThreeData ? <div style={{ backgroundColor: 'rgb(211, 211, 211)', display: 'flex', justifyContent: 'space-evenly', borderRadius: '8px'}}>
+                    <div style={{ opacity: `${stepOneData ? '.5' : '1'}`, backgroundColor: `${stepOneData ? 'rgb(211, 211, 211)' : '#8bc34a'}`, borderRadius: '8px'}}>
+                        <h4>Find Competitor</h4>
+                        <StepOneForm athleteId={athleteId || ''} onSubmitStepOneData={handleStepOneData} isDisabled={stepOneData ? true : false}/>
+                    </div>
+                    <div style={{ opacity: `${stepOneData ? '1' : '.5'}`, backgroundColor: `${(stepOneData && stepTwoRaceData === undefined) ? '#8bc34a' : 'rgb(211, 211, 211)'}`, borderRadius: '8px'}}>
+                        <h4>Find Race</h4>
+                        {stepOneData && <StepTwoForm onSubmitStepTwoRaceData={handleStepTwoRaceData} isDisabled={(stepOneData && stepTwoRaceData === undefined ) ? false : true}/>}
+                    </div>
+                    <div style={{ opacity: `${stepTwoRaceData ? '1' : '.5'}`, backgroundColor: `${stepTwoRaceData ? '#8bc34a' : 'rgb(211, 211, 211)'}`, borderRadius: '8px'}}>
+                        <h4>Add Result</h4>
+                        {stepOneData && stepTwoRaceData && <StepThreeForm competitorId={stepOneData.competitorId} raceId={stepTwoRaceData?.raceId} onSubmitResult={handleResultData}/>}
+                    </div>
                 </div>
+                :
+                <div style={{ height: '12rem', backgroundColor: '#8bc34a'}}>
+                    <h4>Are you sure you want to add this record?</h4>
+                    <button>Submit Record</button>
+                </div>}
+                </>
+                
                 :
                 'track'}
             </div>

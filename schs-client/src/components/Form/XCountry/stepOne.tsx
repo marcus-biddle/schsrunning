@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 interface XCFormProps {
     athleteId: string;
     onSubmitStepOneData: (data: any) => void;
+    isDisabled: boolean;
 }
 
 const competitorQuery = (competitorId: number) => ({
@@ -25,7 +26,7 @@ const competitorQuery = (competitorId: number) => ({
 // Goal is to input into Result
 // CompetitorId, raceId, time, pace (no date because that should exist with race)
 
-const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData }) => {
+const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, isDisabled }) => {
     const [competitorId, setCompetitorId] = useState('');
     // First check this, else if unfound then do not continue.
     const [competitorFormData, setCompetitorFormData] = useState({
@@ -54,7 +55,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData }) 
 
     const _competitorFound = competitor && Object.values(competitor).some((obj) => obj.year === parseInt(competitorFormData.year));
     setCompetitorFound(_competitorFound);
-    onSubmitStepOneData(competitorFormData);
+    onSubmitStepOneData(competitor?.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
   };
 
   // Split into 3 steps
@@ -68,6 +69,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData }) 
           type="text"
           id="year"
           name="year"
+          disabled={isDisabled}
           value={competitorFormData.year}
           onChange={handleStepOneInputChange}
         />
@@ -78,15 +80,16 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData }) 
           type="text"
           id="grade"
           name="grade"
+          disabled={isDisabled}
           value={competitorFormData.grade}
           onChange={handleStepOneInputChange}
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={isDisabled}>Submit</button>
       {competitorFound === true ? 
-      <p>Match Found! {competitor && `AthleteId: ${competitor[0].athleteId}, CompetitorId: ${competitor[0].competitorId}, Grade: ${competitor[0].grade}, Year: ${competitor[0].year}`}</p> 
+      <p>Competitor Found!</p> 
       : competitorFound === false ? 
-      <p>Match Not Found. Create a new Competitor.</p> 
+      <p>Competitor Not Found. Create a new Competitor.</p> 
       : ''}
     </form>
   );
