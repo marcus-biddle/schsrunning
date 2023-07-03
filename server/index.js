@@ -58,7 +58,7 @@ const PORT = process.env.PORT || 3000;
     const raceId = req.query.raceId;
   
     const query = `
-    SELECT DISINCT R.time, R.pace, C.grade, RA.date, RN.racename, CO.coursename, CO.coursedistance,
+    SELECT DISTINCT R.time, R.pace, C.grade, RA.date, RN.racename, CO.coursename, CO.coursedistance,
     RC.racecondition, A.firstname, A.lastname, R.raceid, A.genderId, C.competitorId
     FROM Result R
     JOIN Competitor C ON R.competitorId = C.competitorId
