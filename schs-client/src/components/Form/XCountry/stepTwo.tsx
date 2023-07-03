@@ -154,7 +154,7 @@ const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisable
     <select
       id="racename"
       name="racename"
-      className="form-input"
+      className="admin-form-input"
       disabled={isDisabled}
       value={raceFormData.racename}
       onChange={handleRaceSelectChange}
@@ -179,7 +179,7 @@ const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisable
       dateFormat="MM/dd/yyyy"
       placeholderText=""
       locale="en"
-      className='form-input'
+      className='admin-form-input'
     />
   </div>
   <div className="form-group">
@@ -188,7 +188,7 @@ const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisable
       type="text"
       id="coursedistance"
       name="coursedistance"
-      className="form-input"
+      className="admin-form-input"
       disabled={isDisabled}
       value={courseFormData.coursedistance}
       onChange={handleCourseInputChange}
@@ -199,7 +199,7 @@ const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisable
     <select
       id="coursename"
       name="coursename"
-      className="form-input"
+      className="admin-form-input"
       disabled={(courseFormData.coursedistance === '' && isDisabled === false) || isDisabled}
       value={courseFormData.coursename}
       onChange={handleCourseSelectChange}
@@ -216,7 +216,7 @@ const StepTwoForm: React.FC<XCFormProps> = ({ onSubmitStepTwoRaceData, isDisable
         })}
     </select>
   </div>
-  <button type="submit" className="form-button" disabled={isDisabled}>
+  <button type="submit" className="admin-form-button" disabled={isDisabled}>
     Submit
   </button>
   {foundRace === true ? <p className='success-message'>Race Found!</p> : foundRace === false ? <p className='error-message'>Must create a new race object.</p> : ''}

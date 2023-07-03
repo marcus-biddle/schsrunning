@@ -79,7 +79,7 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
                     </div>
                 </div>
 
-                <div>
+                <div style={{ width: '12rem'}}>
                 <input
                     type="text"
                     placeholder="Search Athletes"

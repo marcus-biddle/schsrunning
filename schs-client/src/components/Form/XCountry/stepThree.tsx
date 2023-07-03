@@ -42,7 +42,7 @@ const StepThreeForm: React.FC<XCFormProps> = ({ raceId, competitorId, onSubmitRe
           name="time"
           value={resultFormData.time}
           onChange={handleInputChange}
-          className="form-input"
+          className="admin-form-input"
         />
       </div>
       <div className="form-group">
@@ -53,7 +53,7 @@ const StepThreeForm: React.FC<XCFormProps> = ({ raceId, competitorId, onSubmitRe
           name="pace"
           value={resultFormData.pace}
           onChange={handleInputChange}
-          className="form-input"
+          className="admin-form-input"
         />
       </div>
       <button type="submit" className="form-button">Submit</button>

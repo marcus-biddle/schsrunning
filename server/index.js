@@ -330,7 +330,7 @@ LIMIT
   });
 
 // Athletes
-app.post('/athletes', async (req, res) => {
+app.post('/create-athletes', async (req, res) => {
   const { firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear } = req.body;
 
   const query = `
@@ -346,6 +346,17 @@ app.post('/athletes', async (req, res) => {
     console.log('Error creating athlete:', error);
     res.status(500).json({ error: 'Failed to create athlete' });
   }
+});
+
+app.get('/athletes', async (req, res) => {
+  const query = "SELECT * FROM Athlete;";
+  const [rows] = await connection.query(query);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find athletes." });
+  };
+
+  res.json(rows)
 });
 
 

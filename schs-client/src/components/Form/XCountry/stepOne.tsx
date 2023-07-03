@@ -71,7 +71,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
   const handleStepOneSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const _competitorFound = competitor && Object.values(competitor).some((obj) => obj.year === parseInt(competitorFormData.year));
+    const _competitorFound = competitor && Object.values(competitor).filter((obj) => parseFloat(`${obj.competitorId}`) === parseFloat(competitorId)).some((obj) => parseFloat(`${obj.year}`) === parseFloat(competitorFormData.year));
     setCompetitorFound(_competitorFound);
     if (_competitorFound) {
       onSubmitStepOneData(competitor.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
@@ -91,7 +91,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
       disabled={isDisabled}
       value={competitorFormData.year}
       onChange={handleStepOneInputChange}
-      className="form-input"
+      className="admin-form-input"
       required
     />
   </div>
@@ -104,7 +104,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
       disabled={isDisabled}
       value={competitorFormData.grade}
       onChange={handleStepOneInputChange}
-      className="form-input"
+      className="admin-form-input"
       required
     />
   </div>
@@ -115,7 +115,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
     <>
       <p className='error-message'>Competitor Not Found.</p>
       <div>
-        <p>Would you like to attach <br/><strong>Competitor ID: {competitorId}</strong><br/>to this athlete?
+        <p>Would you like to attach <br/><strong>Competitor ID: {competitorId}</strong><br/><strong>Year: {competitorFormData.year}</strong><br/>to this athlete?
         <button className='small-button' onClick={handleAddCompetitor}>Add ID</button>
         </p>
       </div>
