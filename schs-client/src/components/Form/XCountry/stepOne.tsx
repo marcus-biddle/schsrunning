@@ -76,6 +76,8 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
     if (_competitorFound) {
       onSubmitStepOneData(competitor.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
     }
+
+    console.log(competitor)
   };
 
   return (
