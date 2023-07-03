@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://schs-server.onrender.com';
+const BASE_URL = 'http://localhost:3000';
 
 export interface Competitor {
   competitorId: number;
@@ -36,5 +36,15 @@ export async function fetchCompetitorById(competitorId: number): Promise<Competi
   } catch (error) {
     console.log('Error fetching competitor:', error);
     throw new Error('Failed to fetch competitor');
+  }
+}
+
+export async function createCompetitor(competitorData: Partial<Competitor>): Promise<void> {
+  try {
+    const response = await axios.post(`${BASE_URL}/competitors`, competitorData);
+    return response.data;
+  } catch (error) {
+    console.log('Error adding competitor:', error);
+    throw new Error('Failed to add competitor');
   }
 }

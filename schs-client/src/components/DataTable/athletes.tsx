@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Athlete } from '../../api/AllAthletes';
+import { useNavigate } from 'react-router';
 
 interface DataTableProps {
   data: Athlete[];
@@ -7,6 +8,7 @@ interface DataTableProps {
 }
 
 const AthletesDataTable: React.FC<DataTableProps> = ({ data, onEdit }) => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchCategory, setSearchCategory] = useState('');
   const [sortConfig, setSortConfig] = useState<{ key: keyof Athlete; direction: string } | null>(null);
@@ -26,6 +28,10 @@ const AthletesDataTable: React.FC<DataTableProps> = ({ data, onEdit }) => {
     }
     setSortConfig({ key, direction });
   };
+
+  const handleAddAthlete = () => {
+    navigate('/admin/athletes/create')
+  }
 
   // Sort the data based on the sorting configuration
   const sortedData = React.useMemo(() => {
@@ -48,20 +54,61 @@ const AthletesDataTable: React.FC<DataTableProps> = ({ data, onEdit }) => {
   );
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={handleSearchTermChange}
-      />
-      <select value={searchCategory} onChange={handleSearchCategoryChange}>
-        <option value="">No Filter</option>
-        <option value="athleteId">ID</option>
-        <option value="firstName">First Name</option>
-        <option value="lastName">Last Name</option>
-        <option value="startHsYear">Year Start</option>
-        <option value="endHsYear">Year End</option>
-      </select>
+      <div style={{ display: 'flex', justifyContent:'space-between'}}>
+        <div>
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={handleSearchTermChange}
+            style={{
+              padding: '0.5rem',
+              fontSize: '1rem',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              marginBottom: '1rem',
+              width: '200px',
+            }}
+          />
+          <select
+            value={searchCategory}
+            onChange={handleSearchCategoryChange}
+            style={{
+              padding: '0.5rem',
+              fontSize: '1rem',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              width: '200px',
+            }}
+          >
+            <option value="">No Filter</option>
+            <option value="athleteId">ID</option>
+            <option value="firstName">First Name</option>
+            <option value="lastName">Last Name</option>
+            <option value="startHsYear">Year Start</option>
+            <option value="endHsYear">Year End</option>
+            <option value="genderId">Gender ID</option>
+          </select>
+        </div>
+        <div>
+          <button
+            onClick={handleAddAthlete}
+            style={{
+              padding: '0.5rem 1rem',
+              fontSize: '1rem',
+              backgroundColor: '#4caf50',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            Add Athlete
+          </button>
+
+        </div>
+      </div>
+      
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
@@ -110,6 +157,15 @@ const AthletesDataTable: React.FC<DataTableProps> = ({ data, onEdit }) => {
                 <span>{sortConfig.direction === 'asc' ? '▲' : '▼'}</span>
               )}
             </th>
+            <th
+              style={tableHeaderStyle}
+              onClick={() => handleColumnHeaderClick('genderId')}
+            >
+              Gender
+              {sortConfig && sortConfig.key === 'genderId' && (
+                <span>{sortConfig.direction === 'asc' ? '▲' : '▼'}</span>
+              )}
+            </th>
             <th style={tableHeaderStyle}>
               Actions
             </th>
@@ -123,6 +179,7 @@ const AthletesDataTable: React.FC<DataTableProps> = ({ data, onEdit }) => {
               <td style={tableCellStyle}>{item.lastName}</td>
               <td style={tableCellStyle}>{item.startHsYear}</td>
               <td style={tableCellStyle}>{item.endHsYear}</td>
+              <td style={tableCellStyle}>{item.genderId === 2 ? 'Male' : 'Female'}</td>
               <td style={tableCellStyle}>
                 <button
                     style={editButtonStyle}
@@ -153,7 +210,7 @@ const tableCellStyle: React.CSSProperties = {
 };
 
 const editButtonStyle: React.CSSProperties = {
-    backgroundColor: '#4caf50',
+    backgroundColor: '#2196f3',
     color: 'white',
     padding: '8px 16px',
     border: 'none',

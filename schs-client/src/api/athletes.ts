@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://schs-server.onrender.com'; 
+const BASE_URL = 'http://localhost:3000'; 
 
 export interface Athlete {
   athleteId: number;
@@ -86,5 +86,15 @@ export async function fetchXCAthletesByRace(raceId: number): Promise<XCAthleteBy
   } catch (error) {
     console.error('Error fetching XC athletes:', error);
     throw new Error('Failed to fetch XC athletes');
+  }
+}
+
+export async function createAthlete(athleteData: Partial<Athlete>): Promise<Athlete> {
+  try {
+    const response = await axios.post(`${BASE_URL}/athletes`, athleteData);
+    return response.data;
+  } catch (error) {
+    console.log('Error creating athlete:', error);
+    throw new Error('Failed to create athlete');
   }
 }

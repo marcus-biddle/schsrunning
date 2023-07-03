@@ -39,7 +39,7 @@ export const Runner = () => {
       { xcrunner && xcrunner?.length > 0 ? <h1>{xcrunner[0].firstname} {xcrunner[0].lastname}</h1> : <h1>Runner</h1>}
       {alumniRaces && alumniRaces.length > 0 && 
         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-          <h2>Season {getYearFromDate(alumniRaces[0].date)}</h2>
+          <h2>Latest Season {getYearFromDate(alumniRaces[0].date)}</h2>
           <h2>Alumni Records</h2>
         </div>
       }

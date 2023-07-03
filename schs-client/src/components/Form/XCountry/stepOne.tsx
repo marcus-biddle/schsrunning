@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Competitor, fetchCompetitorById } from '../../../api/competitors';
+import React, { useEffect, useState } from 'react';
+import { Competitor, createCompetitor, fetchCompetitorById } from '../../../api/competitors';
 import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import './style.css'
 
 interface XCFormProps {
@@ -23,22 +24,24 @@ const competitorQuery = (competitorId: number) => ({
     },
   })
 
-// Tables being used: Course, Race, Result, RaceName, RaceCondition, Competitor
-// Goal is to input into Result
-// CompetitorId, raceId, time, pace (no date because that should exist with race)
-
 const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, isDisabled }) => {
     const [competitorId, setCompetitorId] = useState('');
-    // First check this, else if unfound then do not continue.
     const [competitorFormData, setCompetitorFormData] = useState({
         competitorId: competitorId,
         year: '',
-        grade: '', // used to create a new competitorId,
+        grade: '',
         athleteId: athleteId,
     })
     const [competitorFound, setCompetitorFound] = useState<boolean>();
     
     const { data: competitor } = useQuery(competitorQuery(parseFloat(competitorId)));
+    
+    const addCompetitor = useMutation({
+      mutationFn: async (athleteData: Partial<Competitor>) => await createCompetitor(athleteData),
+      onSuccess: (data, variables) => {
+          console.log('competitor added', data, variables)
+      }
+    })
 
   const handleStepOneInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -51,15 +54,29 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
     }
   };
 
+  const handleAddCompetitor = () => {
+    const id = (competitorFormData.grade === '' || competitorFormData.grade === '0') ? `${athleteId}.${competitorFormData.year}` : `${athleteId}.${competitorFormData.grade}`;
+    setCompetitorId(id);
+    addCompetitor.mutate({
+      athleteId: parseInt(competitorFormData.athleteId),
+      competitorId: parseFloat(competitorId),
+      year: parseInt(competitorFormData.year),
+      grade: parseInt(competitorFormData.grade)
+    })
+
+    setCompetitorFound(true);
+    onSubmitStepOneData(addCompetitor.variables);
+  };
+
   const handleStepOneSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const _competitorFound = competitor && Object.values(competitor).some((obj) => obj.year === parseInt(competitorFormData.year));
     setCompetitorFound(_competitorFound);
-    onSubmitStepOneData(competitor?.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
+    if (_competitorFound) {
+      onSubmitStepOneData(competitor.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
+    }
   };
-
-  // Split into 3 steps
 
   return (
     <form onSubmit={handleStepOneSubmit} className="form-container">
@@ -73,6 +90,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
       value={competitorFormData.year}
       onChange={handleStepOneInputChange}
       className="form-input"
+      required
     />
   </div>
   <div className="form-group">
@@ -85,13 +103,21 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
       value={competitorFormData.grade}
       onChange={handleStepOneInputChange}
       className="form-input"
+      required
     />
   </div>
-  <button type="submit" disabled={isDisabled} className="form-button">Submit</button>
+  <button type="submit" disabled={isDisabled} className="form-button">{'Submit'}</button>
   {competitorFound === true ? (
     <p className='success-message'>Competitor Found!</p>
   ) : competitorFound === false ? (
-    <p className='error-message'>Competitor Not Found. Create a new Competitor.</p>
+    <>
+      <p className='error-message'>Competitor Not Found.</p>
+      <div>
+        <p>Would you like to attach <br/><strong>Competitor ID: {competitorId}</strong><br/>to this athlete?
+        <button className='small-button' onClick={handleAddCompetitor}>Add ID</button>
+        </p>
+      </div>
+    </>
   ) : null}
 </form>
 

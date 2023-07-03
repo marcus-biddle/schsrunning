@@ -4,7 +4,7 @@ import { Athlete } from '../../api/athletes';
 import { useNavigate } from 'react-router';
 import AthletesDataTable from '../../components/DataTable/athletes';
 
-const athleteListQuery = () => ({
+export const athleteListQuery = () => ({
     queryKey: ['all-athletes'],
     queryFn: async () => {
         const athletes = await fetchAthletes();
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
       const handleEdit = (item: Athlete) => {
-        navigate(`/athlete/${item.athleteId}`);
+        navigate(`/admin/athletes/${item.athleteId}`);
       };
   return (
     <div>

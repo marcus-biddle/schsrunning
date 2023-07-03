@@ -22,48 +22,7 @@ const recentRaceListQuery = (limit: number) => ({
 export const Home = () => {
     const { data: athletes } = useQuery(recentRaceListQuery(26));
     console.log(athletes);
-    // const topRecords = [
-    //     {
-    //         type: 'Men',
-    //         records: [
-    //             {
-    //                 name: 'Cedric Lastname',
-    //                 event: '1600m',
-    //                 result: '4:16.7'
-    //             },
-    //             {
-    //                 name: 'Max Howell',
-    //                 event: '3200m',
-    //                 result: '9:29.2'
-    //             },
-    //             {
-    //                 name: 'Alejandro Martinez',
-    //                 event: '400m',
-    //                 result: '0:55.2'
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         type: 'Women',
-    //         records: [
-    //             {
-    //                 name: 'Jasmine',
-    //                 event: '1600m',
-    //                 result: '4:16.7'
-    //             },
-    //             {
-    //                 name: 'Julie',
-    //                 event: '3200m',
-    //                 result: '9:29.2'
-    //             },
-    //             {
-    //                 name: 'Margaret',
-    //                 event: '400m',
-    //                 result: '0:55.2'
-    //             },
-    //         ]
-    //     },
-    // ]
+
   return (
     <div style={{ marginLeft: '10rem', marginRight: '10rem'}}>
         {/* Images */}

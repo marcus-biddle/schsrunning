@@ -28,7 +28,8 @@ import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 import Login from './components/Login/index.tsx';
 import AdminDashboard from './pages/Dashboard/index.tsx';
 import { RequireAuth } from './components/RequiredAuth.tsx';
-import EditAthlete from './pages/Dashboard/Athlete/index.tsx';
+import EditAthlete from './pages/Dashboard/EditAthlete/index.tsx';
+import CreateAthleteForm from './pages/Dashboard/CreateAthlete/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -232,19 +233,25 @@ const router = createBrowserRouter([
         element: <EventPage />,
       },
       {
-        path: 'login',
+        path: 'admin/login',
         element: <Login />,
       },
       {
-        path: 'dashboard/',
+        path: 'admin/dashboard/',
         element: (<RequireAuth>
           <AdminDashboard />
         </RequireAuth>),
       },
       {
-        path: 'athlete/:athleteId',
+        path: 'admin/athletes/:athleteId',
         element: (<RequireAuth>
           <EditAthlete />
+        </RequireAuth>),
+      },
+      {
+        path: 'admin/athletes/create',
+        element: (<RequireAuth>
+          <CreateAthleteForm/>
         </RequireAuth>),
       },
     ],

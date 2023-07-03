@@ -330,11 +330,24 @@ LIMIT
   });
 
 // Athletes
-app.get('/athletes', async (req, res) => {
-  const query = "SELECT * FROM Athlete";
-  const [rows] = await connection.query(query);
-  res.send(rows)
+app.post('/athletes', async (req, res) => {
+  const { firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear } = req.body;
+
+  const query = `
+    INSERT INTO Athlete (firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+  const values = [firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear];
+
+  try {
+    await connection.query(query, values);
+    res.json({ msg: 'Athlete created successfully' });
+  } catch (error) {
+    console.log('Error creating athlete:', error);
+    res.status(500).json({ error: 'Failed to create athlete' });
+  }
 });
+
 
 app.get('/athletes/:athleteId', async (req, res) => {
   const { athleteId } = req.params;
@@ -634,23 +647,27 @@ app.get('/competitors/:competitorId', async (req, res) => {
   res.json(rows)
 });
 
-// app.get('/competitors/:competitorId', async (req, res) => {
-//   try {
-//     const competitorId = parseInt(req.params.competitorId, 10);
+app.post('/competitors', async (req, res) => {
+  const { competitorId, athleteId, year, grade } = req.body;
 
-//     const query = "SELECT * FROM Competitor WHERE competitorId = ?;";
-//     const [rows] = await connection.query(query, competitorId);
+  const query = "INSERT INTO Competitor (competitorId, athleteId, year, grade) VALUES (?, ?, ?, ?);";
+  const values = [competitorId, athleteId, year, grade];
 
-//     if (!rows[0]) {
-//       return res.json({ msg: "Could not find competitor." });
-//     }
+  try {
+    await connection.query(query, values);
+    const insertedCompetitor = {
+      competitorId,
+      athleteId,
+      year,
+      grade
+    };
+    return res.json({ msg: "Competitor added successfully.", competitor: insertedCompetitor });
+  } catch (error) {
+    console.log('Error adding competitor:', error);
+    return res.status(500).json({ error: "Failed to add competitor." });
+  }
+});
 
-//     res.json(rows);
-//   } catch (error) {
-//     console.error("Error fetching competitor data:", error);
-//     res.status(500).json({ msg: "Internal server error" });
-//   }
-// });
 
 
 // Course

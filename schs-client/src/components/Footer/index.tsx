@@ -33,7 +33,7 @@ export const Footer = () => {
               <h5>{footer.header}</h5>
               {footer.links.map((link) => (
                 <p style={{ fontSize: '12px'}} key={link}>{link === 'Login' ? 
-                  <Link to={'/login'}>{link}</Link> 
+                  <Link to={'/admin/login'}>{link}</Link> 
                   : 
                   link}</p>
               ))}

@@ -6,13 +6,6 @@ import { useMutation} from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router';
 import { getAccessTokenCookie, setAccessTokenCookie } from '../../authUtils';
 
-// export const loader = () => {
-//     if (getAccessTokenCookie()) {
-//         return getAccessTokenCookie();
-//     }
-//     return null;
-// };
-
 const Login: React.FC = () => {
     const { setAuth, auth } = useContext(AuthContext);
   const userRef = useRef<HTMLInputElement>(null);
@@ -31,13 +24,13 @@ const Login: React.FC = () => {
         return res;
     },
     onSuccess: async() => {
-        navigate(state?.path || '/dashboard/');
+        navigate(state?.path || '/admin/dashboard/');
     }
   })
 
   useEffect(() => {
     if (getAccessTokenCookie()) {
-        navigate(state?.path || '/dashboard/');
+        navigate(state?.path || '/admin/dashboard/');
     }
   }, [navigate, state?.path])
 

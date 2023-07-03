@@ -1,44 +1,12 @@
 import React, { useState } from 'react';
 // import { useQuery } from '@tanstack/react-query';
-import { ResultFormProps } from '../../../pages/Dashboard/Athlete';
+import { ResultFormProps } from '../../../pages/Dashboard/EditAthlete';
 
 interface XCFormProps {
     competitorId: number;
     raceId: number;
     onSubmitResult: (data: any) => void;
 }
-
-// const raceNameListQuery = () => ({
-//     queryKey: ['racenames'],
-//     queryFn: async () => {
-//         const raceNames = await fetchRaceNames();
-//         if (!raceNames) {
-//             throw new Response('', {
-//                 status: 404,
-//                 statusText: 'Not Found',
-//             })
-//         }
-//         return raceNames;
-//     },
-//   })
-
-  // const courseListQuery = (courseDistance: number) => ({
-  //   queryKey: ['courses', courseDistance],
-  //   queryFn: async () => {
-  //       const courses = await fetchCoursesByDistance(courseDistance);
-  //       if (!courses) {
-  //           throw new Response('', {
-  //               status: 404,
-  //               statusText: 'Not Found',
-  //           })
-  //       }
-  //       return courses;
-  //   },
-  // })
-
-// Tables being used: Course, Race, Result, RaceName, RaceCondition, Competitor
-// Goal is to input into Result
-// CompetitorId, raceId, time, pace (no date because that should exist with race)
 
 const StepThreeForm: React.FC<XCFormProps> = ({ raceId, competitorId, onSubmitResult }) => {
   console.log(raceId, competitorId);  
@@ -63,8 +31,6 @@ const StepThreeForm: React.FC<XCFormProps> = ({ raceId, competitorId, onSubmitRe
     onSubmitResult(resultFormData);
     
   };
-
-  // Split into 3 steps
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
