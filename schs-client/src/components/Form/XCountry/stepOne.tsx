@@ -70,7 +70,7 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
 
   const handleStepOneSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
+// We do want id's to be unique to the year. change below. the same id can have different years so it will appear twice
     const _competitorFound = competitor && Object.values(competitor).filter((obj) => parseFloat(`${obj.competitorId}`) === parseFloat(competitorId)).some((obj) => parseFloat(`${obj.year}`) === parseFloat(competitorFormData.year));
     setCompetitorFound(_competitorFound);
     if (_competitorFound) {
