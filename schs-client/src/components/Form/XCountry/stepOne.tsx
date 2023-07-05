@@ -10,7 +10,7 @@ interface XCFormProps {
     isDisabled: boolean;
 }
 
-const competitorQuery = (competitorId: number) => ({
+const competitorQuery = (competitorId: string) => ({
     queryKey: ['competitor', competitorId],
     queryFn: async () => {
         const xcrunner: Competitor[] = await fetchCompetitorById(competitorId);
@@ -33,8 +33,8 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
         athleteId: athleteId,
     })
     const [competitorFound, setCompetitorFound] = useState<boolean>();
-    
-    const { data: competitor } = useQuery(competitorQuery(parseFloat(competitorId)));
+    console.log('comp', competitorId)
+    const { data: competitor } = useQuery(competitorQuery(competitorId));
     
     const addCompetitor = useMutation({
       mutationFn: async (athleteData: Partial<Competitor>) => await createCompetitor(athleteData),
@@ -57,13 +57,15 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
   const handleAddCompetitor = () => {
     const id = (competitorFormData.grade === '' || competitorFormData.grade === '0') ? `${athleteId}.${competitorFormData.year}` : `${athleteId}.${competitorFormData.grade}`;
     setCompetitorId(id);
-    addCompetitor.mutate({
-      athleteId: parseInt(competitorFormData.athleteId),
-      competitorId: parseFloat(competitorId),
-      year: parseInt(competitorFormData.year),
-      grade: parseInt(competitorFormData.grade)
-    })
-
+    if (!competitor) {
+      addCompetitor.mutate({
+        athleteId: parseInt(competitorFormData.athleteId),
+        competitorId: parseFloat(competitorId),
+        year: parseInt(competitorFormData.year),
+        grade: parseInt(competitorFormData.grade)
+      })
+    }
+    
     setCompetitorFound(true);
     onSubmitStepOneData(addCompetitor.variables);
   };
