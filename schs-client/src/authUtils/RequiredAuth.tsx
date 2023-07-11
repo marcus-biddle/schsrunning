@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 // import { AuthContext } from "../context/authProvider";
-import { getAccessTokenCookie } from "../authUtils";
+import { getAccessTokenCookie } from ".";
 
 export function RequireAuth({ children }: any) {
     const location = useLocation();

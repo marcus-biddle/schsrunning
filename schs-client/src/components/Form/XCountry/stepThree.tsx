@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { useQuery } from '@tanstack/react-query';
-import { ResultFormProps } from '../../../pages/Dashboard/EditAthlete';
+import { ResultFormProps } from '../../../pages/Admin/EditAthlete';
 
 interface XCFormProps {
     competitorId: number;

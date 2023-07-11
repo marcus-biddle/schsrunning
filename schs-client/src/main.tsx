@@ -26,10 +26,10 @@ import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
 import { XCCoachPage } from './pages/XC/Coach/index.tsx';
 import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 import Login from './components/Login/index.tsx';
-import AdminDashboard from './pages/Dashboard/index.tsx';
-import { RequireAuth } from './components/RequiredAuth.tsx';
-import EditAthlete from './pages/Dashboard/EditAthlete/index.tsx';
-import CreateAthleteForm from './pages/Dashboard/CreateAthlete/index.tsx';
+import AdminDashboard from './pages/Admin/Dashboard/index.tsx';
+import { RequireAuth } from './authUtils/RequiredAuth.tsx';
+import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
+import CreateAthleteForm from './pages/Admin/CreateAthlete/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -37,9 +37,6 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    // errorElement: <ErrorPage />,
-    // loader: rootLoader(queryClient),
-    // action: rootAction(queryClient),
     children: [
       {
         index: true,
@@ -232,6 +229,7 @@ const router = createBrowserRouter([
         path: 'santa-clara-high-track-and-field/events/field-events/:eventId/:yearId',
         element: <EventPage />,
       },
+      // ----------------------------------------Admin--------------------------------------------------
       {
         path: 'admin/login',
         element: <Login />,
