@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Athlete, fetchAthletes } from '../../../api/athletes';
 import { useNavigate } from 'react-router';
 import AthletesDataTable from '../../../components/DataTable/athletes';
+import { useState } from 'react';
+import GenericTable from '../../../components/DataTable';
 
 const athleteListQuery = () => ({
     queryKey: ['all-athletes'],
@@ -30,13 +32,14 @@ const buttonStyle = {
 };
 
 const AdminDashboard = () => {
-    // const { data: athletes } = useQuery(athleteListQuery());
-    // const [editItem, setEditItem] = useState<Athlete | null>(null);
-    // const navigate = useNavigate();
+    const { data: athletes } = useQuery(athleteListQuery());
+    const [editItem, setEditItem] = useState<Athlete | null>(null);
+    const navigate = useNavigate();
 
-    // const handleEdit = (item: Athlete) => {
-    //   navigate(`/admin/athletes/${item.athleteId}`);
-    // };
+    const handleEdit = (key: string) => {
+      // navigate(`/admin/athletes/${item.athleteId}`);
+      console.log(key)
+    };
   return (
     <div>
         {/* <AthletesDataTable data={athletes || []} onEdit={handleEdit} /> */}
@@ -65,7 +68,7 @@ const AdminDashboard = () => {
             <p>Click to add an Athlete</p>
           </div>
         </div>
-        
+        {athletes && <GenericTable data={athletes || []} onEdit={handleEdit} isEditable={true} />}
     </div>
   )
 }

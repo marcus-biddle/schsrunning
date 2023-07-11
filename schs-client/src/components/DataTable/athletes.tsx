@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Athlete } from '../../api/AllAthletes';
 import { useNavigate } from 'react-router';
+import { Athlete } from '../../api/athletes';
 
 interface DataTableProps {
   data: Athlete[];
