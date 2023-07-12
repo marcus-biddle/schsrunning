@@ -43,7 +43,7 @@ export async function fetchCompetitorById(competitorId: string): Promise<Competi
   }
 }
 
-export async function fetchCompetitorsByCourse(raceNameId: number): Promise<Competitor[]> {
+export async function fetchCompetitorsByCourse(raceNameId: number): Promise<any[]> {
   try {
     const response = await axios.get(`${BASE_URL}/competitors-by-course`, {
       params: {

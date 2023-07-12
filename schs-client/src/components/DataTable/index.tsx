@@ -9,19 +9,28 @@ interface GenericDataProps {
     onEdit?: (key: any) => void;
     onView?: (key: any) => void;
     isEditable: boolean;
+    propertyRestrictions?: string[];
 }
 
-const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable, onView }) => {
+const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable, onView, propertyRestrictions }) => {
   return (
     <div>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            {Object.keys(data[0]).map((key: string) => (
+            {Object.keys(data[0]).map((key: string) => {
+              const restrictKey = propertyRestrictions?.indexOf(key) === -1 ? true : false;
+              return (propertyRestrictions ? restrictKey ?
+                  <th key={key} style={tableHeaderStyle}>
+                {key}
+                </th>
+                :
+                null
+                :
                 <th key={key} style={tableHeaderStyle}>
                 {key}
                 </th>
-            ))}
+            )})}
             {isEditable &&
             <th style={tableHeaderStyle}>Actions</th>}
           </tr>
@@ -30,9 +39,13 @@ const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable, on
           {data.map((item: GenericData, index: number) => {
             return (
                 <tr key={index}>
-                    {Object.entries(item).map(([key, value]: [string, any]) => (
+                    {Object.entries(item).map(([key, value]: [string, any]) => {
+                      const restrictKey = propertyRestrictions?.indexOf(key) === -1 ? true : false;
+                      return (
+                        propertyRestrictions ? restrictKey ? <td key={key} style={tableCellStyle}>{value}</td> : null
+                        :
                         <td key={key} style={tableCellStyle}>{value}</td>
-                    ))}
+                    )})}
                     {onEdit && 
                     <td style={tableCellStyle}>
                         <button

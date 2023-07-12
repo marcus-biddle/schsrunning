@@ -162,4 +162,41 @@ export function groupByCoachTypeId(data: any[]) {
   return groupedData;
 }
 
+export interface CompetitorByCourse {
+  courseId: number;
+  date: string;
+  competitorId: string;
+  time: string;
+  pace: string;
+  fullName: string;
+}
 
+export function displayCompetitorsByCourse(data: CompetitorByCourse[]): CompetitorByCourse[][] {
+  const competitorsByCourse: CompetitorByCourse[][] = [];
+
+  data.forEach((entry) => {
+    const { courseId, competitorId, fullName, date, time, pace,  } = entry;
+
+    const competitor: CompetitorByCourse = {
+      fullName,
+      courseId,
+      date,
+      competitorId,
+      time,
+      pace
+    };
+
+    const index = competitorsByCourse.findIndex((course) => course[0].courseId === courseId);
+    if (index !== -1) {
+      competitorsByCourse[index].push(competitor);
+    } else {
+      competitorsByCourse.push([competitor]);
+    }
+  });
+
+  competitorsByCourse.forEach((course) => {
+    course.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  });
+
+  return competitorsByCourse;
+}
