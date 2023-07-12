@@ -659,10 +659,9 @@ app.get('/competitors/:competitorId', async (req, res) => {
 });
 
 app.get('/competitors-by-course', async (req, res) => {
-  const { raceNameId } = req.body;
+  const { raceNameId } = req.query;
 
   const query = `
-  
 SELECT r.raceId, r.raceNameId, r.raceConditionId, r.courseId, r.date, res.competitorId, res.time, res.pace, CONCAT(a.firstName, ' ', a.lastName) AS fullName
 FROM Race r
 INNER JOIN Result res ON r.raceId = res.raceId
