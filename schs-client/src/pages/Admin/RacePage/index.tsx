@@ -4,8 +4,9 @@ import { raceNameListQuery } from '../RacesPage';
 import { useParams } from 'react-router';
 import { fetchCourses, fetchCoursesByRace } from '../../../api/courses';
 import { fetchCompetitorsByCourse } from '../../../api/competitors';
-import { CompetitorByCourse, displayCompetitorsByCourse } from '../../../helpers';
+import { CompetitorByCourse, displayCompetitorsByCourse, formFormatObjectArray } from '../../../helpers';
 import GenericTable from '../../../components/DataTable';
+import GenericForm, { Field } from '../../../components/Form/XCountry';
 
 const competitorByRaceListQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRace', raceNameId],
@@ -23,13 +24,29 @@ const courseQuery = () => ({
     },
 });
 
-const EditRace = () => {
+const RacePage = () => {
     const { data: raceNames } = useQuery(raceNameListQuery());
     const { raceNameId } = useParams();
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
     const { data: courseNames } = useQuery(courseQuery())
     const comp = displayCompetitorsByCourse(courses || []);
     console.log(courseNames)
+
+    const formattedData = courseNames && courseNames.map(({ courseId, courseName }) => ({
+        value: courseId.toString(),
+        label: courseName,
+      }));
+// Proof of concept
+    const fields: Field[] = [
+        { name: 'name', label: 'Name', type: 'text' },
+        { name: 'email', label: 'Email', type: 'email' },
+        { name: 'country', label: 'Country', type: 'dropdown', options: formattedData },
+      ];
+      
+      const handleSubmit = (values: { [name: string]: string }) => {
+        console.log('Form values:', values);
+        // Perform form submission logic
+      };
   return (
     <div>
         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
@@ -50,6 +67,7 @@ const EditRace = () => {
                 Add Results
             </button>
         </div>
+        <GenericForm fields={fields} onSubmit={handleSubmit} />
         
         {courses && comp.map((competitors: CompetitorByCourse[]) => {
             const sortedComp = competitors.map(item => {return {...item, date: new Date(item.date).toLocaleDateString()}});
@@ -64,4 +82,4 @@ const EditRace = () => {
   )
 }
 
-export default EditRace
+export default RacePage;

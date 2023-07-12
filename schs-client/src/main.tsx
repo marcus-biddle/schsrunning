@@ -32,7 +32,8 @@ import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
 import CreateAthleteForm from './pages/Admin/CreateAthlete/index.tsx';
 import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
 import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
-import EditRace from './pages/Admin/EditRace/index.tsx';
+import RacePage from './pages/Admin/RacePage/index.tsx';
+import AddCompetitors from './pages/Admin/AddCompetitors/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -270,7 +271,13 @@ const router = createBrowserRouter([
       {
         path: 'admin/xc/races/:raceNameId',
         element: (<RequireAuth>
-          <EditRace />
+          <RacePage />
+        </RequireAuth>),
+      },
+      {
+        path: 'admin/xc/races/add-results',
+        element: (<RequireAuth>
+          <AddCompetitors />
         </RequireAuth>),
       },
     ],

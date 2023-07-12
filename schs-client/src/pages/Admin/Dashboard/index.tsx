@@ -20,7 +20,7 @@ const AdminDashboard = () => {
             <h2>Races</h2>
             <button style={buttonStyle} onClick={() => navigate('/admin/xc/races')}>Races</button>
             <p>Click to view races. Select the year to filter the races.</p>
-            <button style={buttonStyle}>Add Competitors To Race</button>
+            <button style={buttonStyle} onClick={() => navigate('/admin/xc/races/add-results')}>Add Results</button>
             <p>Click to add competitors to a race.</p>
           </div>
           <div style={{ backgroundColor: '#CCCCCC', width: '100%', textAlign: 'center', marginLeft: '2rem', marginRight: '2rem', borderRadius: '16px'}}>

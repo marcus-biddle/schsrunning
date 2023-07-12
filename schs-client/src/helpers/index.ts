@@ -200,3 +200,18 @@ export function displayCompetitorsByCourse(data: CompetitorByCourse[]): Competit
 
   return competitorsByCourse;
 }
+
+type ObjectArray<T> = T[];
+
+export const formFormatObjectArray = <T extends { [key: string]: string | number }>(
+  arr: ObjectArray<T>,
+  valueProperty: keyof T,
+  labelProperty: keyof T
+): { value: string; label: string }[] => {
+  return arr.flatMap((obj) =>
+    Object.entries(obj).map(([key, value]) => ({
+      value: key === valueProperty ? value.toString() : key,
+      label: key === labelProperty ? value.toString() : key,
+    }))
+  );
+};
