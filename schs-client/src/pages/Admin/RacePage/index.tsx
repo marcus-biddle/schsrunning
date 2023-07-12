@@ -25,6 +25,7 @@ const competitorQuery = (competitorId: string) => ({
         const competitor = await fetchCompetitor(competitorId);
         return competitor;
     },
+    refetchInterval: 5000,
 });
 
 const coursesByRaceQuery = (raceNameId: number) => ({
@@ -37,16 +38,14 @@ const coursesByRaceQuery = (raceNameId: number) => ({
 
 const RacePage = () => {
     const [compId, setCompId] = useState('');
-
+    const [create, setCreate] = useState(false);
     const { data: raceNames } = useQuery(raceNameListQuery());
     const { raceNameId } = useParams();
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
     const { data: courseNames } = useQuery(coursesByRaceQuery(parseInt(raceNameId || '')));
     const { data: athletes } = useQuery(athleteListQuery());
-    const { data: competitor } = useQuery(competitorQuery(compId));
-    console.log(competitor)
+    const { data: competitor, refetch } = useQuery(competitorQuery(compId));
     const comp = displayCompetitorsByCourse(courses || []);
-    console.log(courses)
 
     const formattedCourseNames = courseNames && courseNames.map(({ raceId, courseName, courseDistance, date }) => ({
         value: raceId.toString(),
@@ -87,27 +86,33 @@ const RacePage = () => {
             console.log('xc competitor', data, variables)
         }
     })
-
+    console.log('get', competitor)
     const getCompetitor = (competitorId: string, athleteId: string, year: string, grade: string) => {
         setCompId(competitorId);
-        console.log('get', competitor)
+        console.log('getCom',  competitor);
         if (competitor && competitor.length > 0) {
-            //
+            setCreate(true);
+            console.log('competitor exists.')
         } else {
-            createXCCompetitor.mutate({
-                competitorId: competitorId,
-                athleteId: athleteId,
-                year: year,
-                grade: grade
-            })
+            // createXCCompetitor.mutate({
+            //     competitorId: competitorId,
+            //     athleteId: athleteId,
+            //     year: year,
+            //     grade: grade
+            // }) 
+            console.log('created');
+            setCreate(true)
         }
     }
       
-      const handleSubmit = (values: { [name: string]: string }) => {
+      const handleSubmit = async(values: { [name: string]: string }) => {
         console.log('Form values:', values);
-        
+        //idk.........................
         const competitorId: string = (parseFloat(`${values.athleteId}.${values.grade}`)).toFixed(2);
-        getCompetitor(competitorId, values.athleteId, values.year, values.grade);
+        setCompId(competitorId);
+        // getCompetitor(competitorId, values.athleteId, values.year, values.grade);
+        console.log('submit', await refetch());
+        console.log(competitor)
         // Perform form submission logic
         if ((competitor && competitor.length > 0)) {
             // createXCAthleteResult.mutate({
