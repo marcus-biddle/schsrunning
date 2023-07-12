@@ -728,6 +728,23 @@ app.get('/courses/distance/:courseDistance', async (req, res) => {
   
 });
 
+app.get('/courses-by-race', async (req, res) => {
+  const { raceNameId } = req.params;
+
+  const query =`
+  SELECT DISTINCT raceId, raceNameId, r.courseId, date, courseName, courseDistance
+  FROM Race r
+  INNER JOIN Course c ON r.courseId = c.courseId
+  WHERE r.raceNameId = ?;`;
+  const [rows] = await connection.query(query, [raceNameId]);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find race." });
+  };
+
+  res.json(rows)
+});
+
 // Course Type
 app.get('/course-types', async (req, res) => {
   const query = "SELECT * FROM CourseType";

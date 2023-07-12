@@ -30,6 +30,9 @@ import AdminDashboard from './pages/Admin/Dashboard/index.tsx';
 import { RequireAuth } from './authUtils/RequiredAuth.tsx';
 import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
 import CreateAthleteForm from './pages/Admin/CreateAthlete/index.tsx';
+import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
+import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
+import EditRace from './pages/Admin/EditRace/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -241,6 +244,12 @@ const router = createBrowserRouter([
         </RequireAuth>),
       },
       {
+        path: 'admin/athletes',
+        element: (<RequireAuth>
+          <AdminAthletesPage />
+        </RequireAuth>),
+      },
+      {
         path: 'admin/athletes/:athleteId',
         element: (<RequireAuth>
           <EditAthlete />
@@ -250,6 +259,18 @@ const router = createBrowserRouter([
         path: 'admin/athletes/create',
         element: (<RequireAuth>
           <CreateAthleteForm/>
+        </RequireAuth>),
+      },
+      {
+        path: 'admin/xc/races',
+        element: (<RequireAuth>
+          <AdminRacesPage/>
+        </RequireAuth>),
+      },
+      {
+        path: 'admin/xc/races/:raceNameId',
+        element: (<RequireAuth>
+          <EditRace />
         </RequireAuth>),
       },
     ],

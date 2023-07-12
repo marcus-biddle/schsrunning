@@ -6,11 +6,12 @@ interface GenericData {
 
 interface GenericDataProps {
     data: GenericData[];
-    onEdit: (key: any) => void;
+    onEdit?: (key: any) => void;
+    onView?: (key: any) => void;
     isEditable: boolean;
 }
 
-const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable }) => {
+const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable, onView }) => {
   return (
     <div>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -32,7 +33,7 @@ const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable }) 
                     {Object.entries(item).map(([key, value]: [string, any]) => (
                         <td key={key} style={tableCellStyle}>{value}</td>
                     ))}
-                    {isEditable && 
+                    {onEdit && 
                     <td style={tableCellStyle}>
                         <button
                             style={editButtonStyle}
@@ -41,6 +42,16 @@ const GenericTable: React.FC<GenericDataProps> = ({ data, onEdit, isEditable }) 
                         Edit
                         </button>
                     </td>
+                    }
+                    {onView &&
+                    <td style={tableCellStyle}>
+                    <button
+                        style={editButtonStyle}
+                        onClick={() => onView(item)}
+                    >
+                    View
+                    </button>
+                </td>
                     }
                 </tr>
             )

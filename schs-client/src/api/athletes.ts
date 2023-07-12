@@ -3,6 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'https://schs-server.onrender.com'; 
 
 export interface Athlete {
+  msg?: string;
   athleteId: number;
   firstName: string;
   lastName: string;
@@ -91,7 +92,7 @@ export async function fetchXCAthletesByRace(raceId: number): Promise<XCAthleteBy
 
 export async function createAthlete(athleteData: Partial<Athlete>): Promise<Athlete> {
   try {
-    const response = await axios.post(`${BASE_URL}/athletes`, athleteData);
+    const response = await axios.post(`${BASE_URL}/create-athletes`, athleteData);
     return response.data;
   } catch (error) {
     console.log('Error creating athlete:', error);
