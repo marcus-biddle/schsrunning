@@ -658,6 +658,23 @@ app.get('/competitors/:competitorId', async (req, res) => {
   res.json(rows)
 });
 
+app.get('/competitors-by-course', async (req, res) => {
+  const { courseId, raceId } = req.body;
+
+  const query = `
+  SELECT r.raceId, r.raceNameId, r.raceConditionId, r.courseId, r.date, res.competitorId, res.time, res.pace
+  FROM Race r
+  INNER JOIN Result res ON r.raceId = res.raceId
+  WHERE r.courseId = ? AND r.raceId = ?;`;
+  const [rows] = await connection.query(query, [courseId, raceId]);
+  
+  if(!rows[0]) {
+    return res.json({ msg: "Could not find competitors." });
+  };
+
+  res.json(rows)
+});
+
 app.post('/competitors', async (req, res) => {
   const { competitorId, athleteId, year, grade } = req.body;
 

@@ -43,6 +43,21 @@ export async function fetchCompetitorById(competitorId: string): Promise<Competi
   }
 }
 
+export async function fetchCompetitorsByCourse(courseId: number, raceId: number): Promise<Competitor[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/competitors-by-course`, {
+      params: {
+        courseId: courseId,
+        raceId: raceId
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching competitors:', error);
+    throw new Error('Failed to fetch competitors');
+  }
+}
+
 export async function createCompetitor(competitorData: Partial<Competitor>): Promise<void> {
   try {
     const response = await axios.post(`${BASE_URL}/create-competitor`, competitorData);
