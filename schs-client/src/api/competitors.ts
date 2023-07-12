@@ -3,10 +3,10 @@ import axios from 'axios';
 const BASE_URL = 'https://schs-server.onrender.com';
 
 export interface Competitor {
-  competitorId: number;
-  athleteId: number;
-  year: number;
-  grade: number;
+  competitorId: string;
+  athleteId: string;
+  year: string;
+  grade: string;
 }
 
 export async function fetchCompetitors(year: number): Promise<Competitor[]> {
@@ -19,14 +19,10 @@ export async function fetchCompetitors(year: number): Promise<Competitor[]> {
   }
 }
 
-export async function fetchCompetitor(athleteId: number): Promise<Competitor[]> {
+export async function fetchCompetitor(competitorId: string): Promise<Competitor[]> {
   try {
-    const response = await axios.get(`${BASE_URL}/competitors`, {
-      params: {
-        athleteId: athleteId,
-      },
-    });
-    return response.data;
+    const response = await axios.get(`${BASE_URL}/competitors/${competitorId}`);
+    return response.data.length > 1 ? response.data : [];
   } catch (error) {
     console.error('Error fetching Competitor:', error);
     throw new Error('Failed to fetch Competitor');

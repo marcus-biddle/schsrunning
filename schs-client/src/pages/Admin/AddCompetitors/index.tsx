@@ -1,5 +1,5 @@
 import React from 'react'
-import GenericForm, { Field } from '../../../components/Form/XCountry'
+import GenericForm, { Field } from '../../../components/Form';
 
 const fields: Field[] = [
     { name: 'name', label: 'Name', type: 'text' },

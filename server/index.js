@@ -678,7 +678,7 @@ GROUP BY r.date, r.raceId, r.raceNameId, r.raceConditionId, r.courseId, res.comp
   res.json(rows)
 });
 
-app.post('/competitors', async (req, res) => {
+app.post('/create-competitor', async (req, res) => {
   const { competitorId, athleteId, year, grade } = req.body;
 
   const query = "INSERT INTO Competitor (competitorId, athleteId, year, grade) VALUES (?, ?, ?, ?);";

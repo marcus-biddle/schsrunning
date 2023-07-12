@@ -1,12 +1,15 @@
-import React from 'react'
-import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react'
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { raceNameListQuery } from '../RacesPage';
 import { useParams } from 'react-router';
 import { fetchCourses, fetchCoursesByRace } from '../../../api/courses';
-import { fetchCompetitorsByCourse } from '../../../api/competitors';
+import { Competitor, createCompetitor, fetchCompetitor, fetchCompetitorsByCourse } from '../../../api/competitors';
 import { CompetitorByCourse, displayCompetitorsByCourse, formFormatObjectArray } from '../../../helpers';
 import GenericTable from '../../../components/DataTable';
-import GenericForm, { Field } from '../../../components/Form/XCountry';
+import { athleteListQuery } from '../AthletesPage';
+import { Result, addXCResult } from '../../../api/results';
+import AddCompetitors from '../AddCompetitors';
+import GenericForm, { Field } from '../../../components/Form';
 
 const competitorByRaceListQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRace', raceNameId],
@@ -16,36 +19,105 @@ const competitorByRaceListQuery = (raceNameId: number) => ({
     },
 });
 
-const courseQuery = () => ({
-    queryKey: ['courses'],
+const competitorQuery = (competitorId: string) => ({
+    queryKey: ['competitor', competitorId],
     queryFn: async () => {
-        const courses = await fetchCourses();
+        const competitor = await fetchCompetitor(competitorId);
+        return competitor;
+    },
+});
+
+const coursesByRaceQuery = (raceNameId: number) => ({
+    queryKey: ['coursesByRaceName', raceNameId],
+    queryFn: async () => {
+        const courses = await fetchCoursesByRace(raceNameId);
         return courses;
     },
 });
 
 const RacePage = () => {
+    const [compId, setCompId] = useState('');
+
     const { data: raceNames } = useQuery(raceNameListQuery());
     const { raceNameId } = useParams();
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
-    const { data: courseNames } = useQuery(courseQuery())
+    const { data: courseNames } = useQuery(coursesByRaceQuery(parseInt(raceNameId || '')));
+    const { data: athletes } = useQuery(athleteListQuery());
+    const { data: competitor } = useQuery(competitorQuery(compId));
+    console.log(competitor)
     const comp = displayCompetitorsByCourse(courses || []);
-    console.log(courseNames)
+    console.log(courses)
 
-    const formattedData = courseNames && courseNames.map(({ courseId, courseName }) => ({
-        value: courseId.toString(),
-        label: courseName,
+    const formattedCourseNames = courseNames && courseNames.map(({ raceId, courseName, courseDistance, date }) => ({
+        value: raceId.toString(),
+        label: `${courseName} | ${courseDistance}mi | ${new Date(date).toLocaleDateString()}`,
       }));
+
+    const formattedAthletes = athletes && athletes.map(({ athleteId, firstName, lastName }) => ({
+    value: athleteId.toString(),
+    label: `${firstName} ${lastName}`,
+    })).sort((a:any, b: any) => a.label.localeCompare(b.label));
+
 // Proof of concept
     const fields: Field[] = [
-        { name: 'name', label: 'Name', type: 'text' },
-        { name: 'email', label: 'Email', type: 'email' },
-        { name: 'country', label: 'Country', type: 'dropdown', options: formattedData },
+        { name: 'athleteId', label: 'Athlete', type: 'dropdown', options: formattedAthletes },
+        { name: 'year', label: 'Year', type: 'text' },
+        { name: 'grade', label: 'Grade', type: 'dropdown', options: [
+            { value: '12', label: '12th' },
+            { value: '11', label: '11th' },
+            { value: '10', label: '10th' },
+            { value: '9', label: '9th' },
+            { value: '0', label: 'Alumni' },
+        ] },
+        { name: 'raceId', label: 'Course', type: 'dropdown', options: formattedCourseNames },
+        { name: 'time', label: 'Time', type: 'text' },
+        { name: 'pace', label: 'Pace', type: 'text' },
       ];
+
+    const createXCAthleteResult = useMutation({
+        mutationFn: async (resultData: Result) => await addXCResult(resultData),
+        onSuccess: (data, variables) => {
+            console.log('xc runner results', data, variables)
+        }
+    })
+
+    const createXCCompetitor = useMutation({
+        mutationFn: async (competitorData: Competitor) => await createCompetitor(competitorData),
+        onSuccess: (data, variables) => {
+            console.log('xc competitor', data, variables)
+        }
+    })
+
+    const getCompetitor = (competitorId: string, athleteId: string, year: string, grade: string) => {
+        setCompId(competitorId);
+        console.log('get', competitor)
+        if (competitor && competitor.length > 0) {
+            //
+        } else {
+            createXCCompetitor.mutate({
+                competitorId: competitorId,
+                athleteId: athleteId,
+                year: year,
+                grade: grade
+            })
+        }
+    }
       
       const handleSubmit = (values: { [name: string]: string }) => {
         console.log('Form values:', values);
+        
+        const competitorId: string = (parseFloat(`${values.athleteId}.${values.grade}`)).toFixed(2);
+        getCompetitor(competitorId, values.athleteId, values.year, values.grade);
         // Perform form submission logic
+        if ((competitor && competitor.length > 0)) {
+            // createXCAthleteResult.mutate({
+            //     competitorId: competitorId,
+            //     raceId: values.raceId,
+            //     time: values.time,
+            //     pace: values.pace
+            // })
+            console.log('added')
+        }
       };
   return (
     <div>
@@ -73,7 +145,7 @@ const RacePage = () => {
             const sortedComp = competitors.map(item => {return {...item, date: new Date(item.date).toLocaleDateString()}});
             return (
                 <div key={competitors[0].courseId}>
-                    <h2>{courseNames && courseNames.filter(course => course.courseId === competitors[0].courseId)[0].courseName}</h2>
+                    <h2>{courseNames && courseNames.filter(course => course.courseId === competitors[0].courseId)[0].courseName} {courseNames && courseNames.filter(course => course.courseId === competitors[0].courseId)[0].courseDistance}miles</h2>
                     <GenericTable data={sortedComp} isEditable={false} propertyRestrictions={['courseId', 'competitorId']}/>
                 </div>
             )

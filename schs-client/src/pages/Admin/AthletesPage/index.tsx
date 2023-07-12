@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import GenericTable from '../../../components/DataTable';
 
-const athleteListQuery = () => ({
+export const athleteListQuery = () => ({
     queryKey: ['all-athletes'],
     queryFn: async () => {
         const athletes = await fetchAthletes();

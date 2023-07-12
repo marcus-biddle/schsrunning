@@ -38,8 +38,8 @@ const GenericForm: React.FC<Props> = ({ fields, onSubmit }) => {
 //   };
 return (
     <form onSubmit={handleSubmit}>
-      {fields.map((field) => (
-        <div key={field.name}>
+      {fields.map((field, index) => (
+        <div key={`${field.name}-${index}`}>
           <label htmlFor={field.name}>{field.label}</label>
           {field.type === 'dropdown' ? (
             <select
@@ -47,6 +47,7 @@ return (
               name={field.name}
               value={formValues[field.name] || ''}
               onChange={handleChange}
+              required
             >
               <option value="">Select an option</option>
               {field.options?.map((option) => (
@@ -62,6 +63,7 @@ return (
               name={field.name}
               value={formValues[field.name] || ''}
               onChange={handleChange}
+              required
             />
           )}
         </div>

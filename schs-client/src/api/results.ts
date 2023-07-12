@@ -3,8 +3,8 @@ import axios from 'axios';
 const BASE_URL = 'https://schs-server.onrender.com';
 
 export interface Result {
-    competitorId: number;
-    raceId: number;
+    competitorId: string;
+    raceId: string;
     time: string;
     pace: string;
 }
