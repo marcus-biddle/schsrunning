@@ -728,7 +728,7 @@ app.get('/courses/distance/:courseDistance', async (req, res) => {
   
 });
 
-app.get('/courses-by-race', async (req, res) => {
+app.get('/courses-by-race/:raceNameId', async (req, res) => {
   const { raceNameId } = req.params;
 
   const query =`

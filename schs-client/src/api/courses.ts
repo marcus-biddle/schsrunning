@@ -10,6 +10,15 @@ export interface Course {
   courseTypeId: number;
 }
 
+export interface CourseByRace {
+  raceId: number;
+  raceNameId: number;
+  courseId: number;
+  date: string;
+  courseName: string;
+  courseDistance: number;
+}
+
 export async function fetchCourses(): Promise<Course[]> {
   try {
     const response = await axios.get(`${BASE_URL}/courses`);
@@ -37,5 +46,15 @@ export async function fetchCoursesByDistance(courseDistance: number): Promise<Co
   } catch (error) {
     console.log('Error fetching course:', error);
     throw new Error('Failed to fetch course');
+  }
+}
+
+export async function fetchCoursesByRace(raceNameId: number): Promise<CourseByRace[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/courses-by-race/${raceNameId}}`);
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching courses:', error);
+    throw new Error('Failed to fetch courses');
   }
 }
