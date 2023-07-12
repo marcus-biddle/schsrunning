@@ -57,7 +57,7 @@ const AdminRacesPage = () => {
   return (
     <div style={{ marginLeft: '15rem', marginRight: '15rem'}}>
         <h1>Races</h1>
-        <GenericTable data={raceNames || []} isEditable={true} onView={handleViewClick}/>
+        {raceNames && <GenericTable data={raceNames || []} isEditable={true} onView={handleViewClick}/>}
     </div>
   )
 }

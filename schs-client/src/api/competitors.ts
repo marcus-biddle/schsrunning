@@ -43,12 +43,11 @@ export async function fetchCompetitorById(competitorId: string): Promise<Competi
   }
 }
 
-export async function fetchCompetitorsByCourse(courseId: number, raceId: number): Promise<Competitor[]> {
+export async function fetchCompetitorsByCourse(raceNameId: number): Promise<Competitor[]> {
   try {
     const response = await axios.get(`${BASE_URL}/competitors-by-course`, {
       params: {
-        courseId: courseId,
-        raceId: raceId
+        raceNameId: raceNameId
       },
     });
     return response.data;

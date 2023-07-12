@@ -8,20 +8,20 @@ import { fetchCompetitorsByCourse } from '../../../api/competitors';
 const coursesListQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRace', raceNameId],
     queryFn: async () => {
-        const courses = await fetchCoursesByRace(raceNameId);
+        const courses = await fetchCompetitorsByCourse(raceNameId);
 
         // Fetch competitors for each course
-        const coursesWithCompetitors = await Promise.all(
-        courses.map(async (course) => {
-            const competitors = await fetchCompetitorsByCourse(course.courseId, course.raceId);
-            return {
-            ...course,
-            competitors,
-            };
-        })
-        );
+        // const coursesWithCompetitors = await Promise.all(
+        // courses.map(async (course) => {
+        //     const competitors = await fetchCompetitorsByCourse(course.courseId, course.raceId);
+        //     return {
+        //     ...course,
+        //     competitors,
+        //     };
+        // })
+        // );
 
-        return coursesWithCompetitors;
+        return courses;
     },
 });
 
