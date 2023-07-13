@@ -4,6 +4,7 @@ import { teamImgs } from '../../assets/index.tsx';
 import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate } from '../../helpers/index.ts';
+import Page from '../../SEO/meta/index.tsx';
 
 const recentRaceListQuery = (limit: number) => ({
     queryKey: ['race-results', limit],
@@ -25,6 +26,8 @@ export const Home = () => {
 
   return (
     <div style={{ marginLeft: '10rem', marginRight: '10rem'}}>
+        {/* TODO: Add SEO like below to other pages */}
+        <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         {/* Images */}
         <ImageCarousel images={teamImgs} interval={12000} />
         {/* Latest races */}
