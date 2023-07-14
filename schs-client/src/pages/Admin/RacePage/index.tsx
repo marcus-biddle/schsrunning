@@ -26,8 +26,7 @@ const competitorListQuery = () => ({
     queryFn: async () => {
         const competitor = await fetchCompetitors();
         return competitor;
-    },
-    refetchInterval: 5000,
+    }
 });
 
 const coursesByRaceQuery = (raceNameId: number) => ({
