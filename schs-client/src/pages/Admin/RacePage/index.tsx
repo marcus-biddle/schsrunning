@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { raceNameListQuery } from '../RacesPage';
 import { useParams } from 'react-router';
-import { fetchCourses, fetchCoursesByRace } from '../../../api/courses';
-import { Competitor, createCompetitor, fetchCompetitor, fetchCompetitors, fetchCompetitorsByCourse } from '../../../api/competitors';
-import { CompetitorByCourse, displayCompetitorsByCourse, formFormatObjectArray } from '../../../helpers';
+import { fetchCoursesByRace } from '../../../api/courses';
+import { Competitor, createCompetitor, fetchCompetitors, fetchCompetitorsByCourse } from '../../../api/competitors';
+import { CompetitorByCourse, displayCompetitorsByCourse } from '../../../helpers';
 import GenericTable from '../../../components/DataTable';
 import { athleteListQuery } from '../AthletesPage';
 import { Result, addXCResult } from '../../../api/results';
-import AddCompetitors from '../AddCompetitors';
-import GenericForm, { Field } from '../../../components/Form/GenericForm';
+import { Field } from '../../../components/Form/GenericForm';
 import ListOfForms from '../../../components/List/Forms';
 import GenericButton from '../../../components/Button';
 import Header from '../../../components/Header';
@@ -42,6 +41,7 @@ const coursesByRaceQuery = (raceNameId: number) => ({
 const RacePage = () => {
     const { raceNameId } = useParams();
     const [formResults, setFormResults] = useState([]);
+    const [ successMsg, setSuccessMsg] = useState('');
 
     const { data: raceNames } = useQuery(raceNameListQuery());
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
@@ -59,6 +59,7 @@ const RacePage = () => {
     const formattedAthletes = athletes && athletes.map(({ athleteId, firstName, lastName }) => ({
     value: athleteId.toString(),
     label: `${firstName} ${lastName}`,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     })).sort((a:any, b: any) => a.label.localeCompare(b.label));
 
     const fields: Field[] = [
@@ -91,6 +92,7 @@ const RacePage = () => {
     })
     
     const mutateResults = async () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formResults.map((result: any) => {
             const competitorId: string = (parseFloat(`${result.athleteId}.${result.grade}`)).toFixed(2);
             console.log('mapping result', competitorId);
@@ -116,7 +118,15 @@ const RacePage = () => {
     const handleSubmit = async () => {
         console.log('clicked submit', formResults);
         await mutateResults();
+        setFormResults([]);
+        setSuccessMsg('Results Added. Please refresh if tables are not updated.')
     }
+
+    useEffect(() => {
+        if (Object.keys(formResults[0] || {}).length > 0) {
+            setSuccessMsg('');
+        }
+    }, [formResults])
       
   return (
     <div>
@@ -124,11 +134,12 @@ const RacePage = () => {
         <>
             <h2>Add Athlete Result</h2>
             <div style={{ marginLeft: '20px', marginRight: '20px'}}>
+                {successMsg != '' && Object.keys(formResults[0] || {}).length === 0 ? <p>{successMsg}</p> : null}
                 {Object.keys(formResults[0] || {}).length > 0 && 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}}>
                     {/* Add delete button, pass down the setFormResults to allow the table to remove a row */}
                     <GenericTable data={formResults} isEditable={false} />
-                    <GenericButton type='submit' onClick={handleSubmit} label={'Create All Athletes'} />
+                    <GenericButton type='submit' onClick={handleSubmit} label={'Create All Results'} />
                 </div>}
                 <ListOfForms formFields={fields} setFormResults={setFormResults} isList={false}/>
             </div>
