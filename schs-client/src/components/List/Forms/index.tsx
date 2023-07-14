@@ -13,11 +13,13 @@ const ListOfForms = () => {
   ];
 
   const [formDataList, setFormDataList] = useState<FormData[]>([]);
-  // const [formSubmission, setFormSubmission] = useState<FormData[]>([]);
-
+ 
   const handleFormSubmit = (formValues: FormData) => {
-    console.log(formValues);
-    setFormDataList((prevFormDataList) => [...prevFormDataList, formValues]);
+    setFormDataList((prevFormDataList) => {
+      const updatedList = [...prevFormDataList, formValues];
+      const filteredList = updatedList.filter((formData) => Object.keys(formData).length > 0);
+      return filteredList;
+    });
   };
 
   const handleAddForm = () => {
