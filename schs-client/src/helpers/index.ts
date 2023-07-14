@@ -215,3 +215,8 @@ export const formFormatObjectArray = <T extends { [key: string]: string | number
     }))
   );
 };
+
+
+export function formatPath(string: string) {
+  return string.replace(/-/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
+}

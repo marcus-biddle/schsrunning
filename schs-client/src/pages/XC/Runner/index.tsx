@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { convertToNum, getYearFromDate } from "../../../helpers";
 import { fetchXCRunner } from "../../../api/XCRunner";
 import { useQuery } from '@tanstack/react-query';
+import Header from "../../../components/Header";
 
 const xcrunnerQuery = (athleteId: number) => ({
   queryKey: ['xcrunner', athleteId],
@@ -35,8 +36,8 @@ export const Runner = () => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
+      <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} />
       {/* Alumni Records */}
-      { xcrunner && xcrunner?.length > 0 ? <h1>{xcrunner[0].firstname} {xcrunner[0].lastname}</h1> : <h1>Runner</h1>}
       {alumniRaces && alumniRaces.length > 0 && 
         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
           <h2>Latest Season {getYearFromDate(alumniRaces[0].date)}</h2>
