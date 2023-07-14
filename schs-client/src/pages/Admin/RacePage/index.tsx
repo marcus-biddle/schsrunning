@@ -146,6 +146,20 @@ const RacePage = () => {
         <>
             {courses && comp.map((competitors: CompetitorByCourse[]) => {
                 const sortedComp = competitors.map(item => {return {...item, date: new Date(item.date).toLocaleDateString()}});
+                sortedComp.sort((a, b) => {
+                    // Compare dates
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    if (dateA < dateB) return 1;
+                    if (dateA > dateB) return -1;
+                  
+                    // Dates are equal, compare names
+                    if (a.time < b.time) return -1;
+                    if (a.time > b.time) return 1;
+                  
+                    // Names are equal, maintain the original order
+                    return 0;
+                  });
                 return (
                     <div key={competitors[0].courseId}>
                         <h2>{courseNames && courseNames.filter(course => course.courseId === competitors[0].courseId)[0].courseName} {courseNames && courseNames.filter(course => course.courseId === competitors[0].courseId)[0].courseDistance}miles</h2>
