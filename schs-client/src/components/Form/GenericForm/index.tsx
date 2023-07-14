@@ -37,7 +37,7 @@ const GenericForm: React.FC<Props> = ({ fields, onSubmit }) => {
 //     // Perform form submission logic
 //   };
 return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-around', marginTop: '12px', marginBottom: '12px'}}>
       {fields.map((field, index) => (
         <div key={`${field.name}-${index}`}>
           <label htmlFor={field.name}>{field.label}</label>

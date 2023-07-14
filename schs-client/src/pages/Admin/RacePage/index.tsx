@@ -9,7 +9,7 @@ import GenericTable from '../../../components/DataTable';
 import { athleteListQuery } from '../AthletesPage';
 import { Result, addXCResult } from '../../../api/results';
 import AddCompetitors from '../AddCompetitors';
-import GenericForm, { Field } from '../../../components/Form';
+import GenericForm, { Field } from '../../../components/Form/GenericForm';
 
 const competitorByRaceListQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRace', raceNameId],

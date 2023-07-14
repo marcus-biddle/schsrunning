@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import GenericForm, { Field } from '../../Form';
+import React, { useState, useEffect } from 'react';
+import GenericForm, { Field } from '../../Form/GenericForm';
 
 interface FormData {
   [name: string]: string;
@@ -13,14 +13,20 @@ const ListOfForms = () => {
   ];
 
   const [formDataList, setFormDataList] = useState<FormData[]>([]);
+  // const [formSubmission, setFormSubmission] = useState<FormData[]>([]);
 
   const handleFormSubmit = (formValues: FormData) => {
+    console.log(formValues);
     setFormDataList((prevFormDataList) => [...prevFormDataList, formValues]);
   };
 
   const handleAddForm = () => {
     setFormDataList((prevFormDataList) => [...prevFormDataList, {}]);
   };
+
+  useEffect(() => {
+    console.log(formDataList);
+  }, [formDataList]);
 
   return (
     <div>

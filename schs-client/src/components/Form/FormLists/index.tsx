@@ -1,43 +1,76 @@
-import React from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 
-interface FormData {
-  // Define the shape of your form data here
-  // Example:
+export interface Field {
   name: string;
-  email: string;
+  label: string;
+  type: string;
+  options?: { value: string; label: string }[];
 }
 
-interface FormComponentProps {
-  formData: FormData;
-  onFormDataChange: (updatedData: FormData) => void;
+interface Props {
+  fields: Field[];
+  onSubmit: (formValues: { [name: string]: string }) => void;
 }
 
-const FormComponent: React.FC<FormComponentProps> = ({ formData, onFormDataChange }) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const GFv2: React.FC<Props> = ({ fields, onSubmit }) => {
+  const [formValues, setFormValues] = useState<{ [name: string]: string }>({});
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    // Update the form data with the new value
-    const updatedData: FormData = { ...formData, [name]: value };
-    onFormDataChange(updatedData);
+  
+    if (e.target.tagName === 'SELECT') {
+      setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+    } else {
+      setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+    }
+  };
+  
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onSubmit(formValues);
   };
 
-  return (
-    <form>
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleInputChange}
-        placeholder="Enter name"
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleInputChange}
-        placeholder="Enter email"
-      />
+  // In parent field use this to handleSubmit:
+//   const handleSubmit = (values: { [name: string]: string }) => {
+//     console.log('Form values:', values);
+//     // Perform form submission logic
+//   };
+return (
+    <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-around', marginTop: '12px', marginBottom: '12px'}}>
+      {fields.map((field, index) => (
+        <div key={`${field.name}-${index}`}>
+          <label htmlFor={field.name}>{field.label}</label>
+          {field.type === 'dropdown' ? (
+            <select
+              id={field.name}
+              name={field.name}
+              value={formValues[field.name] || ''}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select an option</option>
+              {field.options?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type={field.type}
+              id={field.name}
+              name={field.name}
+              value={formValues[field.name] || ''}
+              onChange={handleChange}
+              required
+            />
+          )}
+        </div>
+      ))}
+      {/* <button type="submit">Submit</button> */}
     </form>
   );
 };
 
-export default FormComponent;
+export default GFv2;
