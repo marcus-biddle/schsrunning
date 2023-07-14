@@ -16,12 +16,11 @@ const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) =
   const [formDataList, setFormDataList] = useState<FormData[]>([{}]);
  
   const handleFormSubmit = (formValues: FormData) => {
-    isList ? setFormDataList((prevFormDataList) => {
+    setFormDataList((prevFormDataList) => {
       const updatedList = [...prevFormDataList, formValues];
       const filteredList = updatedList.filter((formData) => Object.keys(formData).length > 0);
       return filteredList;
-    }) :
-    setFormDataList([formValues]);
+    });
   };
 
   const handleAddForm = () => {
@@ -32,9 +31,11 @@ const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) =
     setFormResults(formDataList)
   }, [formDataList]);
 
+  const data = isList ? formDataList : [formDataList[0]]
+
   return (
     <div style={{ borderRadius: '8px', paddingBottom: '1rem'}}>
-      {formDataList.map((formData, index) => (
+      {data.map((formData, index) => (
         <>
         <h3 style={{ fontWeight: 'lighter'}}>Athlete {isList ? index + 1 : 'Form'}</h3>
         <div style={{ textAlign: 'center', }}>

@@ -48,7 +48,7 @@ const RacePage = () => {
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
     const { data: courseNames } = useQuery(coursesByRaceQuery(parseInt(raceNameId || '')));
     const { data: athletes } = useQuery(athleteListQuery());
-    const { data: competitors } = useQuery(competitorQuery(compId));
+    const { data: competitors } = useQuery(competitorListQuery());
     const comp = displayCompetitorsByCourse(courses || []);
 
     const formattedCourseNames = courseNames && courseNames.map(({ raceId, courseName, courseDistance, date }) => ({
@@ -113,7 +113,22 @@ const RacePage = () => {
         formResults.map((result: any) => {
             const competitorId: string = (parseFloat(`${result.athleteId}.${result.grade}`)).toFixed(2);
             console.log('mapping result', competitorId);
+            const competitorFound = competitors?.some(comp => comp.competitorId === competitorId);
+            competitorFound ? 
+            null : 
+            createXCCompetitor.mutate({
+                competitorId: competitorId,
+                athleteId: result.athleteId,
+                year: result.year,
+                grade: result.grade
+            }) 
 
+            createXCAthleteResult.mutate({
+                competitorId: competitorId,
+                raceId: result.raceId,
+                time: result.time,
+                pace: result.pace
+            })
         })
     }
 
