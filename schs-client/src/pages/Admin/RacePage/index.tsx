@@ -40,15 +40,15 @@ const coursesByRaceQuery = (raceNameId: number) => ({
 });
 
 const RacePage = () => {
-    const [formResults, setFormResults] = useState([]);
-    const [compId, setCompId] = useState('');
-    const [create, setCreate] = useState(false);
-    const { data: raceNames } = useQuery(raceNameListQuery());
     const { raceNameId } = useParams();
+    const [formResults, setFormResults] = useState([]);
+
+    const { data: raceNames } = useQuery(raceNameListQuery());
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
     const { data: courseNames } = useQuery(coursesByRaceQuery(parseInt(raceNameId || '')));
     const { data: athletes } = useQuery(athleteListQuery());
     const { data: competitors } = useQuery(competitorListQuery());
+    
     const comp = displayCompetitorsByCourse(courses || []);
 
     const formattedCourseNames = courseNames && courseNames.map(({ raceId, courseName, courseDistance, date }) => ({
@@ -61,7 +61,6 @@ const RacePage = () => {
     label: `${firstName} ${lastName}`,
     })).sort((a:any, b: any) => a.label.localeCompare(b.label));
 
-// Proof of concept
     const fields: Field[] = [
         { name: 'athleteId', label: 'Athlete', type: 'dropdown', options: formattedAthletes },
         { name: 'year', label: 'Year', type: 'text' },
@@ -90,24 +89,6 @@ const RacePage = () => {
             console.log('xc competitor', data, variables)
         }
     })
-    // console.log('get', competitor)
-    // const getCompetitor = (competitorId: string, athleteId: string, year: string, grade: string) => {
-    //     setCompId(competitorId);
-    //     console.log('getCom',  competitor);
-    //     if (competitor && competitor.length > 0) {
-    //         setCreate(true);
-    //         console.log('competitor exists.')
-    //     } else {
-    //         // createXCCompetitor.mutate({
-    //         //     competitorId: competitorId,
-    //         //     athleteId: athleteId,
-    //         //     year: year,
-    //         //     grade: grade
-    //         // }) 
-    //         console.log('created');
-    //         setCreate(true)
-    //     }
-    // }
     
     const mutateResults = async () => {
         formResults.map((result: any) => {
@@ -163,7 +144,6 @@ const RacePage = () => {
                 )
             })}
         </>
-        
     </div>
   )
 }
