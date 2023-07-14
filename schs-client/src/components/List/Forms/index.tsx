@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import GenericForm, { Field } from '../../Form/GenericForm';
+import GenericButton from '../../Button';
 
 interface FormData {
   [name: string]: string;
 }
 
-const ListOfForms = () => {
-  const initialFormFields: Field[] = [
-    { name: 'firstName', label: 'First Name', type: 'text' },
-    { name: 'lastName', label: 'Last Name', type: 'text' },
-    { name: 'email', label: 'Email', type: 'email' },
-  ];
+interface ListOfFormsProps {
+    formFields: Field[];
+    setFormResults: any;
+    isList: boolean;
+}
 
-  const [formDataList, setFormDataList] = useState<FormData[]>([]);
+const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) => {
+  const [formDataList, setFormDataList] = useState<FormData[]>([{}]);
  
   const handleFormSubmit = (formValues: FormData) => {
-    setFormDataList((prevFormDataList) => {
+    isList ? setFormDataList((prevFormDataList) => {
       const updatedList = [...prevFormDataList, formValues];
       const filteredList = updatedList.filter((formData) => Object.keys(formData).length > 0);
       return filteredList;
-    });
+    }) :
+    setFormDataList([formValues]);
   };
 
   const handleAddForm = () => {
@@ -27,15 +29,22 @@ const ListOfForms = () => {
   };
 
   useEffect(() => {
-    console.log(formDataList);
+    setFormResults(formDataList)
   }, [formDataList]);
 
   return (
-    <div>
+    <div style={{ borderRadius: '8px', paddingBottom: '1rem'}}>
       {formDataList.map((formData, index) => (
-        <GenericForm key={index} fields={initialFormFields} onSubmit={handleFormSubmit} />
+        <>
+        <h3 style={{ fontWeight: 'lighter'}}>Athlete {isList ? index + 1 : 'Form'}</h3>
+        <div style={{ textAlign: 'center', }}>
+            <GenericForm key={index} fields={formFields} onSubmit={handleFormSubmit} keepValues={isList}/>
+        </div>
+        
+        </>
+        
       ))}
-      <button onClick={handleAddForm}>Add Form</button>
+      {isList && <GenericButton type='button' onClick={handleAddForm} label={'Add Row'} />}
     </div>
   );
 };

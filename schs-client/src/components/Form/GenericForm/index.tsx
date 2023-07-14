@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import GenericButton from '../../Button';
 
 export interface Field {
   name: string;
@@ -10,9 +11,10 @@ export interface Field {
 interface Props {
   fields: Field[];
   onSubmit: (formValues: { [name: string]: string }) => void;
+  keepValues: boolean;
 }
 
-const GenericForm: React.FC<Props> = ({ fields, onSubmit }) => {
+const GenericForm: React.FC<Props> = ({ fields, onSubmit, keepValues }) => {
   const [formValues, setFormValues] = useState<{ [name: string]: string }>({});
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -29,6 +31,7 @@ const GenericForm: React.FC<Props> = ({ fields, onSubmit }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSubmit(formValues);
+    keepValues ? null : setFormValues({});
   };
 
   // In parent field use this to handleSubmit:
@@ -37,7 +40,7 @@ const GenericForm: React.FC<Props> = ({ fields, onSubmit }) => {
 //     // Perform form submission logic
 //   };
 return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-around', marginTop: '12px', marginBottom: '12px'}}>
+    <form onSubmit={handleSubmit} style={{ padding: '2rem 2rem 1rem 2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr)', gap: '10px', backgroundColor: '#CCCCCC', borderRadius: '8px', margin: '.5rem 0 .5rem 0', alignItems: 'center'}}>
       {fields.map((field, index) => (
         <div key={`${field.name}-${index}`}>
           <label htmlFor={field.name}>{field.label}</label>
@@ -68,7 +71,10 @@ return (
           )}
         </div>
       ))}
-      <button type="submit">Submit</button>
+      <div style={{ fontSize: '12px', padding: '5px 10px', marginTop: '10px', display: 'flex', textAlign: 'center', alignItems: 'center' }}>
+        <GenericButton type={'submit'} label={'Add'} color='green'/>
+      </div>
+      
     </form>
   );
 };

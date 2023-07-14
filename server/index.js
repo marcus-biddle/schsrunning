@@ -633,13 +633,12 @@ app.get('/competitors/year/:yearId', async (req, res) => {
 
 
 app.get('/competitors', async (req, res) => {
-  const { athleteId } = req.query
 
-  const query = "SELECT DISTINCT * FROM Competitor WHERE Competitor.athleteId= ?";
-  const [rows] = await connection.query(query, [athleteId]);
+  const query = "SELECT DISTINCT * FROM Competitor;";
+  const [rows] = await connection.query(query, []);
   
   if (!rows[0]) {
-    return res.json({ msg: "Could not find competitor.", athlete: `${athleteId}` });
+    return res.json({ msg: "Could not find competitors." });
   }
 
   res.send(rows);

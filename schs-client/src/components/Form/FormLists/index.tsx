@@ -11,7 +11,7 @@ interface Props {
   fields: Field[];
   onSubmit: (formValues: { [name: string]: string }) => void;
 }
-
+// ------------------------NOT IN USE -----------------------------
 const GFv2: React.FC<Props> = ({ fields, onSubmit }) => {
   const [formValues, setFormValues] = useState<{ [name: string]: string }>({});
 

@@ -1,12 +1,13 @@
 import React, { ReactNode, MouseEvent } from 'react';
 
 interface ButtonProps {
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   label: ReactNode;
   color?: string;
+  type: "button" | "submit" | "reset" | undefined;
 }
 
-const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color }) => {
+const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type }) => {
   const buttonStyle: React.CSSProperties = {
     backgroundColor: color || '#333',
     color: '#fff',
@@ -17,7 +18,7 @@ const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color }) => {
   };
 
   return (
-    <button onClick={onClick} style={buttonStyle}>
+    <button type={type} onClick={onClick} style={buttonStyle}>
       {label}
     </button>
   );

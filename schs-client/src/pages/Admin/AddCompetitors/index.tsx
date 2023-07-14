@@ -19,7 +19,7 @@ const fields: Field[] = [
 const AddCompetitors = () => {
   return (
     <div>AddCompetitors
-        <GenericForm fields={fields} onSubmit={handleSubmit} />
+        {/* <GenericForm fields={fields} onSubmit={handleSubmit} /> */}
     </div>
   )
 }

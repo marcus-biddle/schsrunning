@@ -9,7 +9,17 @@ export interface Competitor {
   grade: string;
 }
 
-export async function fetchCompetitors(year: number): Promise<Competitor[]> {
+export async function fetchCompetitors(): Promise<Competitor[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/competitors`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching competitors:', error);
+    throw new Error('Failed to fetch competitors');
+  }
+}
+
+export async function fetchCompetitorsByYear(year: number): Promise<Competitor[]> {
   try {
     const response = await axios.get(`${BASE_URL}/competitors/year/${year}`);
     return response.data;
