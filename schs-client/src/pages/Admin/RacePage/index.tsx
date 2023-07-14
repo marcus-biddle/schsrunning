@@ -137,35 +137,15 @@ const RacePage = () => {
         await mutateResults();
     }
       
-    //   const handleSubmit = async(values: { [name: string]: string }) => {
-    //     console.log('Form values:', values);
-    //     //idk.........................
-    //     const competitorId: string = (parseFloat(`${values.athleteId}.${values.grade}`)).toFixed(2);
-    //     setCompId(competitorId);
-    //     // getCompetitor(competitorId, values.athleteId, values.year, values.grade);
-    //     console.log('submit', await refetch());
-    //     console.log(competitor)
-    //     // Perform form submission logic
-    //     if ((competitor && competitor.length > 0)) {
-    //         // createXCAthleteResult.mutate({
-    //         //     competitorId: competitorId,
-    //         //     raceId: values.raceId,
-    //         //     time: values.time,
-    //         //     pace: values.pace
-    //         // })
-    //         console.log('added')
-    //     }
-    //   };
-      
   return (
     <div>
         <Header title={`Race: ${raceNames && raceNames.filter(race => race.raceNameId === parseInt(raceNameId || '0'))[0].raceName}`} />
         <>
             <h2>Add Athlete Result</h2>
             <div style={{ marginLeft: '20px', marginRight: '20px'}}>
-                {/* Create a function to loop through the data and mutate for comp and result */}
                 {Object.keys(formResults[0] || {}).length > 0 && 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                    {/* Add delete button, pass down the setFormResults to allow the table to remove a row */}
                     <GenericTable data={formResults} isEditable={false} />
                     <GenericButton type='submit' onClick={handleSubmit} label={'Create All Athletes'} />
                 </div>}
