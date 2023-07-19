@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GenericForm, { Field } from '../../Form/GenericForm';
-import GenericButton from '../../Button';
+import {GenericButton} from '../../Button';
 
 interface FormData {
   [name: string]: string;

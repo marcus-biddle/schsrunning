@@ -103,3 +103,29 @@ h4 {
   padding: 6px;
   cursor: pointer;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 10px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.grid-item {
+  background-color: #b0e0e6;
+  padding: 10px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.page-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 59rem;
+  height: 100vh;
+}

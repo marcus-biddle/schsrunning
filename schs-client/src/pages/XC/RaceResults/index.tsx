@@ -5,6 +5,9 @@ import { XCAthleteByRace, fetchXCAthletesByRace } from '../../../api/athletes';
 import { useParams } from 'react-router';
 import { convertToNum, formatDate } from '../../../helpers';
 import { Link } from 'react-router-dom';
+import { Header } from '../../../components/Header';
+import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
+import { Pill } from '../../../components/SearchFeatures/Pill';
 
 const raceResultByRaceListQuery = (raceId: number) => ({
   queryKey: ['race-results', raceId],
@@ -52,37 +55,13 @@ export const RaceResult = ({ gender }: { gender: GenderType }) => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem', minHeight: '100vh'}}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h2>{raceResultsByRace && `${raceResultsByRace[0].raceName}: ${raceResultsByRace[0].courseName}, ${raceResultsByRace[0].courseDistance}M (${formatDate(raceResultsByRace[0].date)})`}</h2>
-          <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
-          <button
-              className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
-              onClick={() => handleButtonClick('men')}
-          >
-              Men
-          </button>
-          <button
-              className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
-              onClick={() => handleButtonClick('women')}
-          >
-              Women
-          </button>
-          </div>
-      </div>
-
-      <div>
-      <input
-          type="text"
-          placeholder="Search Athletes"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="input"
-      />
-      <button id="resetButton" type="reset" onClick={() => setSearchTerm('')}>
-          Reset
-      </button>
-      <span className="search-text">{searchTerm !== '' && `Found ${filteredAthletesByName?.length} runners...`}</span>
-      </div>
+        {raceResultsByRace && <Header title={`${raceResultsByRace[0].raceName}: ${raceResultsByRace[0].courseName}, ${raceResultsByRace[0].courseDistance}M (${formatDate(raceResultsByRace[0].date)})`} />}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+            <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
+        </div>
+        <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
+        
       
       <ol className="list">
       {filteredAthletesByName?.map((athlete: XCAthleteByRace) => (

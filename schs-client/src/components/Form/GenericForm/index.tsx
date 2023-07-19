@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import GenericButton from '../../Button';
+import {GenericButton} from '../../Button';
 
 export interface Field {
   name: string;

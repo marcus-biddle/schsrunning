@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { convertToNum, groupByCoachTypeId } from '../../../helpers';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCoachById } from '../../../api/Track/coaches';
+import {Header} from '../../../components/Header';
 
 export const coachQuery = (coachId: number) => ({
     queryKey: ['coach', coachId],
@@ -27,7 +28,7 @@ export const XCCoachPage = () => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <h1>{ coachData && `${coachData[0].firstName} ${coachData[0].lastName}`}</h1>
+        <Header title={`${ coachData && `${coachData[0].firstName} ${coachData[0].lastName}`}`} />
         {coach && coach.map((season: any, index: number) => {
             return (
                 <React.Fragment key={index}>

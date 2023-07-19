@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { fetchCoaches } from '../../../api/coaches';
 import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
 import { useQuery } from '@tanstack/react-query';
+import {Header} from '../../../components/Header';
 
 export const coachListQuery = () => ({
     queryKey: ['coaches'],
@@ -45,7 +46,7 @@ export const Coaches = () => {
 
     return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <h2>All Coaches</h2>
+        <Header title={'Coaches'} />
         <ul className="list">
             {coaches?.filter((object, index) => {
                 const currentIndex = coaches?.findIndex(obj => obj.coachId === object.coachId);

@@ -1,9 +1,6 @@
 
 import { useNavigate } from 'react-router';
-import GenericButton from '../../../components/Button';
-import GenericList from '../../../components/List/Generic';
-import GenericForm, { Field } from '../../../components/Form/GenericForm';
-import ListOfForms from '../../../components/List/Forms';
+import {GenericButton} from '../../../components/Button';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();

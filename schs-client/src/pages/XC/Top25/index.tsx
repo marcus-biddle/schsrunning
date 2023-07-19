@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { urlContains } from '../../../helpers';
+import { Header } from '../../../components/Header';
 
 export enum CourseID {
     CRYSTAL_SPRING = 1,
@@ -21,7 +22,7 @@ export const Top25 = () => {
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem', minHeight: '100vh'}}>
-        <h2>{pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'}</h2>
+        <Header title={pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'} />
         <div>
             <div>
                 <h4>{pageType === 25 ? 'Top 25 - All Time' : 'Top 15 - All Time' }</h4>

@@ -10,8 +10,8 @@ import { athleteListQuery } from '../AthletesPage';
 import { Result, addXCResult } from '../../../api/results';
 import { Field } from '../../../components/Form/GenericForm';
 import ListOfForms from '../../../components/List/Forms';
-import GenericButton from '../../../components/Button';
-import Header from '../../../components/Header';
+import {GenericButton} from '../../../components/Button';
+import {Header} from '../../../components/Header';
 
 const competitorByRaceListQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRace', raceNameId],
