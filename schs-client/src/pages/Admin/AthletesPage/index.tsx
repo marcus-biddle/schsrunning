@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { Athlete, fetchAthletes } from '../../../api/athletes';
+import { fetchAthletes } from '../../../api/athletes';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
 import GenericTable from '../../../components/DataTable';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const athleteListQuery = () => ({
     queryKey: ['all-athletes'],
     queryFn: async () => {
@@ -30,6 +30,7 @@ const AdminAthletesPage = () => {
       
     const navigate = useNavigate();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleEdit = (key: any) => {
         if (key.athleteId) {
             navigate(`/admin/athletes/${key.athleteId}`);

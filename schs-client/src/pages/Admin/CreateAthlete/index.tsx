@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import './style.css';
 import { Athlete, createAthlete } from '../../../api/athletes';

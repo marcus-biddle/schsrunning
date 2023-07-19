@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
 import { useLocation, useParams } from 'react-router';
@@ -6,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenTopTeams, fetchWomenTopTeams } from '../../../api/TopTeams';
 import { fetchXCRunner } from '../../../api/XCRunner';
-import { GenericButton } from '../../../components/Button';
 import { Header } from '../../../components/Header';
 import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
 import { Pill } from '../../../components/SearchFeatures/Pill';
@@ -31,7 +31,7 @@ const bestMenTeamListQuery = (courseId: number) => ({
     queryFn: async () => {
         const teams = await fetchMenTopTeams(courseId)
             .then(async (data) => {
-                const fetchedTeamResults: any = await Promise.all(data.map(async (team) => {
+                const fetchedTeamResults = await Promise.all(data.map(async (team) => {
                     try {
                       const runners = await fetchXCRunner(-1, team.competitors, team.raceId);
                       return { ...team, runners };
@@ -56,7 +56,7 @@ const bestWomenTeamListQuery = (courseId: number) => ({
     queryFn: async () => {
         const teams = await fetchWomenTopTeams(courseId)
             .then(async (data) => {
-                const fetchedTeamResults: any = await Promise.all(data.map(async (team) => {
+                const fetchedTeamResults = await Promise.all(data.map(async (team) => {
                     try {
                       const runners = await fetchXCRunner(-1, team.competitors, team.raceId);
                       return { ...team, runners };
@@ -76,23 +76,24 @@ const bestWomenTeamListQuery = (courseId: number) => ({
     },
 })
 
-export const loader = (queryClient: any) => async ({ params }: any) => {
-    if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey) && !queryClient.getQueryData(bestWomenTeamListQuery(params.courseId).queryKey)) {
-        await queryClient.fetchQuery(bestMenTeamListQuery(params.courseId))
-        await queryClient.fetchQuery(bestWomenTeamListQuery(params.courseId))
-        return await queryClient.fetchQuery(bestTimeListQuery(params.courseId));
-    }
-    return queryClient.getQueriesData(bestTimeListQuery(params.courseId).queryKey, bestMenTeamListQuery(params.courseId).queryKey, bestWomenTeamListQuery(params.courseId).queryKey);
-}
+// export const loader = (queryClient: any) => async ({ params }: any) => {
+//     if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey) && !queryClient.getQueryData(bestWomenTeamListQuery(params.courseId).queryKey)) {
+//         await queryClient.fetchQuery(bestMenTeamListQuery(params.courseId))
+//         await queryClient.fetchQuery(bestWomenTeamListQuery(params.courseId))
+//         return await queryClient.fetchQuery(bestTimeListQuery(params.courseId));
+//     }
+//     return queryClient.getQueriesData(bestTimeListQuery(params.courseId).queryKey, bestMenTeamListQuery(params.courseId).queryKey, bestWomenTeamListQuery(params.courseId).queryKey);
+// }
 
 export const Top25Runners = () => {
+    const [filter, setFilter] = useState('');
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
     const { data: bestMenTeams } = useQuery(bestMenTeamListQuery(convertToNum(courseId)));
     const { data: bestWomenTeams } = useQuery(bestWomenTeamListQuery(convertToNum(courseId)));
     const location = useLocation();
-    const filterType = urlContains(location.pathname, ['all', 'senior', 'junior', 'sophomore', 'freshmen'])
-    const filter = convertGrade(filterType || '');
+    // const filterType = urlContains(location.pathname, ['all', 'senior', 'junior', 'sophomore', 'freshmen'])
+    // const filter = convertGrade(filterType || '');
     const [activeButton, setActiveButton] = useState<string>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
@@ -104,13 +105,7 @@ export const Top25Runners = () => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredAthletesByGender = bestTimes?.filter(row => {
-        if (filter != 0 && row.grade === filter) {
-            return row;
-        } else if (filter === 0) {
-            return row;
-        }
-    }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
+    const filteredAthletesByGender = bestTimes?.filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
 
     const filterTeamsByGender = activeButton === 'women' ? bestWomenTeams : bestMenTeams;
 
@@ -120,6 +115,11 @@ export const Top25Runners = () => {
         return fullName.includes(searchTermLowerCase);
       });
 
+    const handleFilter = (option: string) => {
+        setFilter(option);
+        console.log(filter);
+    };
+
   return (
     <div className='page-container'>
         <Header title={`Top ${pageType === 25 ? '25 Runners' : 'Teams'} - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
@@ -127,7 +127,7 @@ export const Top25Runners = () => {
             <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
             <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
         </div>
-        <Filters />
+        <Filters onClick={handleFilter}/>
         <ul className='num-list'>
             {pageType === 25 ? filteredAthletesByName?.map((runner, index) => {
                 return (
@@ -149,6 +149,7 @@ export const Top25Runners = () => {
                 )
             })
             :
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             filterTeamsByGender?.map((team: any, index: number) => {
                 return (
                     <Link 

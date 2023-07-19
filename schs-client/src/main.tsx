@@ -12,8 +12,8 @@ import { XCSeason } from './pages/XC/Seasons/index.tsx';
 import { Runners } from './pages/XC/Runners/index.tsx';
 import { SeasonInfo, loader as seasonLoader, } from './pages/XC/Season/index.tsx';
 import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
-import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
-import { Top25Runners, loader as bestTimesLoader, } from './pages/XC/Top25Runners/index.tsx';
+import { Runner,  } from './pages/XC/Runner/index.tsx';
+import { Top25Runners,  } from './pages/XC/Top25Runners/index.tsx';
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
 import { Top25 } from './pages/XC/Top25/index.tsx';
 import { ResultListPage } from './pages/Track/ResultListPage/index.tsx';
@@ -28,7 +28,6 @@ import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 import Login from './components/Login/index.tsx';
 import AdminDashboard from './pages/Admin/Dashboard/index.tsx';
 import { RequireAuth } from './authUtils/RequiredAuth.tsx';
-import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
 import CreateAthleteForm from './pages/Admin/CreateAthlete/index.tsx';
 import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
 import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
@@ -56,17 +55,17 @@ const router = createBrowserRouter([
       {
         path: 'santa-clara-high-cross-country/runners',
         element: <Runners  gender={{ gender: 'all'}} />,
-        loader: runnerLoader(queryClient),
+
       },
       {
         path: 'santa-clara-high-cross-country/runners/men/:athleteId',
         element: <Runner />,
-        loader: runnerLoader(queryClient),
+
       },
       {
         path: 'santa-clara-high-cross-country/runners/women/:athleteId',
         element: <Runner />,
-        loader: runnerLoader(queryClient),
+
       },
       {
         path: 'santa-clara-high-cross-country/runners/men',
@@ -120,57 +119,57 @@ const router = createBrowserRouter([
       {
         path: 'santa-clara-high-cross-country/top-25-results/all-time/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-25-results/senior/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+
       },
       {
         path: 'santa-clara-high-cross-country/top-25-results/junior/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-25-results/sophomore/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-25-results/freshmen/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-team',
         element: <Top25/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-team/all-time/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-team/senior/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-team/junior/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-team/sophomore/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       {
         path: 'santa-clara-high-cross-country/top-team/freshmen/:courseId',
         element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        
       },
       // Track pages
       {
@@ -250,12 +249,12 @@ const router = createBrowserRouter([
           <AdminAthletesPage />
         </RequireAuth>),
       },
-      {
-        path: 'admin/athletes/:athleteId',
-        element: (<RequireAuth>
-          <EditAthlete />
-        </RequireAuth>),
-      },
+      // {
+      //   path: 'admin/athletes/:athleteId',
+      //   element: (<RequireAuth>
+      //     <EditAthlete />
+      //   </RequireAuth>),
+      // },
       {
         path: 'admin/athletes/create',
         element: (<RequireAuth>

@@ -8,6 +8,7 @@ interface FormData {
 
 interface ListOfFormsProps {
     formFields: Field[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setFormResults: any;
     isList: boolean;
 }
@@ -29,13 +30,13 @@ const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) =
 
   useEffect(() => {
     setFormResults(formDataList)
-  }, [formDataList]);
+  }, [formDataList, setFormResults]);
 
   const data = isList ? formDataList : [formDataList[0]]
 
   return (
     <div style={{ borderRadius: '8px', paddingBottom: '1rem'}}>
-      {data.map((formData, index) => (
+      {data.map((_formData, index) => (
         <React.Fragment key={index}>
         <h3 style={{ fontWeight: 'lighter'}}>Athlete {isList ? index + 1 : 'Form'}</h3>
         <div style={{ textAlign: 'center', }}>

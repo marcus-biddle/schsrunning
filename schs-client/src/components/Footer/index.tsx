@@ -26,7 +26,7 @@ export const Footer = () => {
   ]
   return (
     <>
-      <footer style={{ display: 'flex', marginRight: '10rem', marginLeft: '10rem', justifyContent: 'space-evenly', marginTop: '8rem', borderTop: 'solid 1px grey'}}>
+      <footer style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '8rem', borderTop: 'solid 1px grey'}}>
         {data.map((footer) => {
           return (
             <div key={footer.header}>

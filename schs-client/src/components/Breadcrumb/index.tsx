@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useLocation, Link } from 'react-router-dom';
 import { formatPath } from '../../helpers';
 

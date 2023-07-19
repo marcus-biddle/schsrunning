@@ -1,7 +1,7 @@
-import React from 'react'
+/* eslint-disable react-refresh/only-export-components */
+
 import { useQuery } from '@tanstack/react-query';
 import { fetchRaceNames } from '../../../api/raceNames';
-import { fetchCoursesByDistance, Course } from '../../../api/courses';
 import GenericTable from '../../../components/DataTable';
 import { useNavigate } from 'react-router';
 
@@ -50,6 +50,7 @@ export const raceNameListQuery = () => ({
 const AdminRacesPage = () => {
     const { data: raceNames } = useQuery(raceNameListQuery());
     const navigate = useNavigate();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleViewClick = (key: any) => {
         navigate(`/admin/xc/races/${key.raceNameId}`)
     };

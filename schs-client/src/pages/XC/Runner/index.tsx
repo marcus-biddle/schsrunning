@@ -18,12 +18,12 @@ const xcrunnerQuery = (athleteId: number) => ({
   },
 })
 
-export const loader = (queryClient: any) => async ({ params }: any) => {
-  if (!queryClient.getQueryData(xcrunnerQuery(params.athleteId).queryKey)) {
-    return await queryClient.fetchQuery(xcrunnerQuery(params.athleteId));
-  }
-  return queryClient.getQueryData(xcrunnerQuery(params.athleteId).queryKey);
-}
+// export const loader = (queryClient: any) => async ({ params }: any) => {
+//   if (!queryClient.getQueryData(xcrunnerQuery(params.athleteId).queryKey)) {
+//     return await queryClient.fetchQuery(xcrunnerQuery(params.athleteId));
+//   }
+//   return queryClient.getQueryData(xcrunnerQuery(params.athleteId).queryKey);
+// }
 
 export const Runner = () => {
   const { athleteId } = useParams();

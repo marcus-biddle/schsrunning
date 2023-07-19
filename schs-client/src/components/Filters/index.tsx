@@ -1,23 +1,39 @@
-import React from 'react'
+import { useState } from 'react'
 import { GenericButton } from '../Button'
 
-const Filters = () => {
+interface FilterProps {
+    onClick: (option: string) => void;
+}
+
+const Filters = ({ onClick }: FilterProps) => {
+    const [active, setActive] = useState('');
+
+    const handleClick = (option: string): void => {
+        if (active === option) {
+            setActive('');
+        } else {
+            setActive(option);
+        }
+        console.log('filter', option)
+        onClick(active);
+    };
+
   return (
-    <div style={{ marginTop: '1rem', marginBottom: '-8rem'}}>
-        <div style={{ height: '2rem', position: 'relative'}}>
-            <GenericButton type='button' label="All Time" />
+    <div style={{ marginTop: '1rem', display: 'flex', width: '100%'}}>
+        <div >
+            <GenericButton type='button' label="All Time" pos='static' color={active === 'All Time' ? '#CCCCCC' : 'black'} onClick={() => handleClick('All Time')} />
         </div>
-        <div style={{ height: '2rem', position: 'relative', left: '6rem', bottom: '2rem'}}>
-            <GenericButton type='button' label="Senior" />
+        <div >
+            <GenericButton type='button' label="Senior" pos='static' color={active === 'All Time' ? '#CCCCCC' : 'black'} onClick={() => handleClick('Senior')}/>
         </div>
-        <div style={{ height: '2rem', position: 'relative', left: '11.5rem', bottom: '4rem'}}>
-            <GenericButton type='button' label="Junior" />
+        <div>
+            <GenericButton type='button' label="Junior" pos='static' color={active === 'All Time' ? '#CCCCCC' : 'black'} onClick={() => handleClick('Junior')}/>
         </div>
-        <div style={{ height: '2rem', position: 'relative', left: '16.8rem', bottom: '6rem'}}>
-            <GenericButton type='button' label="Sophomore" />
+        <div>
+            <GenericButton type='button' label="Sophomore" pos='static' color={active === 'All Time' ? '#CCCCCC' : 'black'} onClick={() => handleClick('Sophomore')}/>
         </div>
-        <div style={{ height: '2rem', position: 'relative', left: '24.25rem', bottom: '8rem'}}>
-            <GenericButton type='button' label="Freshman" />
+        <div>
+            <GenericButton type='button' label="Freshmen" pos='static' color={active === 'All Time' ? '#CCCCCC' : 'black'} onClick={() => handleClick('Freshmen')}/>
         </div>
     </div>
     

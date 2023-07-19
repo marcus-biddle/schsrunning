@@ -2,6 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 // import { AuthContext } from "../context/authProvider";
 import { getAccessTokenCookie } from ".";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function RequireAuth({ children }: any) {
     const location = useLocation();
 

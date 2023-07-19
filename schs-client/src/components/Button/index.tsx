@@ -1,15 +1,16 @@
 import React, { ReactNode, MouseEvent } from 'react';
 
 interface ButtonProps {
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement> | string) => void;
   label: ReactNode;
   color?: string;
   type: "button" | "submit" | "reset" | undefined;
+  pos?: 'relative' | 'static';
 }
 
-export const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type }) => {
+export const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type, pos }) => {
   const buttonStyle: React.CSSProperties = {
-    position: 'absolute',
+    position: pos ? pos : 'absolute',
     backgroundColor: color || '#333',
     color: '#fff',
     padding: '10px 20px',
