@@ -10,6 +10,7 @@ import { GenericButton } from '../../../components/Button';
 import { Header } from '../../../components/Header';
 import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
 import { Pill } from '../../../components/SearchFeatures/Pill';
+import Filters from '../../../components/Filters';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
@@ -120,13 +121,13 @@ export const Top25Runners = () => {
       });
 
   return (
-    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <Header title={`Top ${pageType === 25 ? '25 Runners' : 'Teams'} - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} />
+    <div className='page-container'>
+        <Header title={`Top ${pageType === 25 ? '25 Runners' : 'Teams'} - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
             <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
         </div>
-        
+        <Filters />
         <ul className='num-list'>
             {pageType === 25 ? filteredAthletesByName?.map((runner, index) => {
                 return (

@@ -36,7 +36,7 @@ export const Runner = () => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-      <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} />
+      <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} color="transparent" />
       {/* Alumni Records */}
       {alumniRaces && alumniRaces.length > 0 && 
         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
