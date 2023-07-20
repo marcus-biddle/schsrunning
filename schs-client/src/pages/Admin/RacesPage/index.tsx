@@ -1,7 +1,6 @@
-import React from 'react'
+
 import { useQuery } from '@tanstack/react-query';
 import { fetchRaceNames } from '../../../api/raceNames';
-import { fetchCoursesByDistance, Course } from '../../../api/courses';
 import GenericTable from '../../../components/DataTable';
 import { useNavigate } from 'react-router';
 

@@ -1,6 +1,6 @@
 import { fetchXCRunner } from '../../../api/XCRunner';
 import { fetchTrackAthlete } from '../../../api/Track/athletes';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery,} from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import XCAthleteDataTable from '../../../components/DataTable/xc';
 import TrackAthleteDataTable from '../../../components/DataTable/track';
@@ -9,7 +9,6 @@ import './style.css'
 import StepTwoForm from '../../../components/Form/XCountry/stepTwo';
 import StepThreeForm from '../../../components/Form/XCountry/stepThree';
 import StepOneForm from '../../../components/Form/XCountry/stepOne';
-import { Result, addXCResult } from '../../../api/results';
 import { fetchAthlete } from '../../../api/athletes';
 import { fetchCompetitor } from '../../../api/competitors';
 
@@ -58,7 +57,7 @@ const athleteQuery = (athleteId: number) => ({
   const competitorQuery = (athleteId: number) => ({
     queryKey: ['competitor', athleteId],
     queryFn: async () => {
-        const athlete = await fetchCompetitor(athleteId);
+        const athlete = await fetchCompetitor('0');
         if (!athlete) {
             throw new Response('', {
                 status: 404,
@@ -102,12 +101,12 @@ const EditAthlete = () => {
     const [stepTwoRaceData, setStepTwoRaceData] = useState<RaceFormProps>();
     const [stepThreeData, setStepThreeData] = useState<ResultFormProps>();
 
-    const createXCResultData = useMutation({
-        mutationFn: async (resultData: Result) => await addXCResult(resultData),
-        onSuccess: (data, variables) => {
-            console.log('xc runner results', data, variables)
-        }
-    })
+    // const createXCResultData = useMutation({
+    //     mutationFn: async (resultData: Result) => await addXCResult(resultData),
+    //     onSuccess: (data, variables) => {
+    //         console.log('xc runner results', data, variables)
+    //     }
+    // })
 
     const handleStepOneData = (data: any) => {
         setStepOneData(data);
@@ -129,15 +128,15 @@ const EditAthlete = () => {
     };
 
     const handleSubmit = () => {
-        if (stepThreeData) {
-            console.log('step3data is defined')
-            createXCResultData.mutate({
-                competitorId: stepThreeData.competitorId,
-                raceId: stepThreeData.raceId,
-                time: stepThreeData.time,
-                pace: stepThreeData.pace
-            })
-        }
+        // if (stepThreeData) {
+        //     console.log('step3data is defined')
+        //     createXCResultData.mutate({
+        //         competitorId: stepThreeData.competitorId,
+        //         raceId: stepThreeData.raceId,
+        //         time: stepThreeData.time,
+        //         pace: stepThreeData.pace
+        //     })
+        // }
         handleReset();
     };
 

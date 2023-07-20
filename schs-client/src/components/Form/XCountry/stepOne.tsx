@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Competitor, createCompetitor, fetchCompetitorById } from '../../../api/competitors';
 import { useQuery } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
@@ -55,16 +55,16 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
   };
 
   const handleAddCompetitor = () => {
-    const id = (competitorFormData.grade === '' || competitorFormData.grade === '0') ? `${athleteId}.${competitorFormData.year}` : `${athleteId}.${competitorFormData.grade}`;
-    setCompetitorId(id);
-    if (!competitor) {
-      addCompetitor.mutate({
-        athleteId: parseInt(competitorFormData.athleteId),
-        competitorId: parseFloat(competitorId),
-        year: parseInt(competitorFormData.year),
-        grade: parseInt(competitorFormData.grade)
-      })
-    }
+    // const id = (competitorFormData.grade === '' || competitorFormData.grade === '0') ? `${athleteId}.${competitorFormData.year}` : `${athleteId}.${competitorFormData.grade}`;
+    // setCompetitorId(id);
+    // if (!competitor) {
+    //   addCompetitor.mutate({
+    //     athleteId: parseInt(competitorFormData.athleteId),
+    //     competitorId: parseFloat(competitorId),
+    //     year: parseInt(competitorFormData.year),
+    //     grade: parseInt(competitorFormData.grade)
+    //   })
+    // }
     
     setCompetitorFound(true);
     onSubmitStepOneData(addCompetitor.variables);
@@ -75,9 +75,9 @@ const StepOneForm: React.FC<XCFormProps> = ({ athleteId, onSubmitStepOneData, is
 // We do want id's to be unique to the year. change below. the same id can have different years so it will appear twice
     const _competitorFound = competitor && Object.values(competitor).filter((obj) => parseFloat(`${obj.competitorId}`) === parseFloat(competitorId)).some((obj) => parseFloat(`${obj.year}`) === parseFloat(competitorFormData.year));
     setCompetitorFound(_competitorFound);
-    if (_competitorFound) {
-      onSubmitStepOneData(competitor.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
-    }
+    // if (_competitorFound) {
+    //   onSubmitStepOneData(competitor.filter(comp => comp.year === parseInt(competitorFormData.year))[0]);
+    // }
 
     console.log(competitor)
   };

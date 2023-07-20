@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ImageCarousel from '../../components/Carousel';
 import { teamImgs } from '../../assets';
 import './styles/index.css';
-import { CourseID } from './Top25';
 import { GiRunningShoe, GiWhistle } from 'react-icons/gi';
 import { MdOutlineTimer } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenTopTeams, fetchWomenTopTeams } from '../../../api/TopTeams';
 import { fetchXCRunner } from '../../../api/XCRunner';
-import { GenericButton } from '../../../components/Button';
 import { Header } from '../../../components/Header';
 import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
 import { Pill } from '../../../components/SearchFeatures/Pill';

@@ -35,7 +35,7 @@ const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) =
 
   return (
     <div style={{ borderRadius: '8px', paddingBottom: '1rem'}}>
-      {data.map((formData, index) => (
+      {data.map((_formData, index) => (
         <React.Fragment key={index}>
         <h3 style={{ fontWeight: 'lighter'}}>Athlete {isList ? index + 1 : 'Form'}</h3>
         <div style={{ textAlign: 'center', }}>

@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Athlete, fetchAthletes } from '../../../api/athletes';
+import {  fetchAthletes } from '../../../api/athletes';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
 import GenericTable from '../../../components/DataTable';
 
 export const athleteListQuery = () => ({
