@@ -7,14 +7,17 @@ interface ButtonProps {
   type: "button" | "submit" | "reset" | undefined;
 }
 
-const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type }) => {
+export const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type }) => {
   const buttonStyle: React.CSSProperties = {
+    position: 'absolute',
     backgroundColor: color || '#333',
     color: '#fff',
     padding: '10px 20px',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
+    height: '100%',
+    margin: '0 5px '
   };
 
   return (
@@ -23,6 +26,4 @@ const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type }) =
     </button>
   );
 };
-
-export default GenericButton;
 

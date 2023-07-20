@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { urlContains } from '../../../helpers';
+import { Header } from '../../../components/Header';
 
 export enum CourseID {
     CRYSTAL_SPRING = 1,
@@ -20,8 +21,41 @@ export const Top25 = () => {
     const location = useLocation();
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
   return (
-    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem', minHeight: '100vh'}}>
-        <h2>{pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'}</h2>
+    <div className='page-container'>
+        <Header title={pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'} color='transparent' />
+        <div className="grid-container">
+            <Link to={'runners/'} style={{ color: 'black'}}>
+                <div className="grid-item">
+                    {/* <GiRunningShoe style={{ height: '3rem', width: '3rem'}} /> */}
+                    <p>Crystal Springs</p>
+                </div>
+            </Link>
+            <Link to={'coaches/'} style={{ color: 'black'}}>
+                <div className="grid-item">
+                    {/* <GiWhistle style={{ height: '3rem', width: '3rem'}} /> */}
+                    <p>Toro Park</p>
+                </div>
+            </Link>
+            <Link to={'top-25-results/'} style={{ color: 'black'}}>
+                <div className="grid-item">
+                    {/* <MdOutlineTimer style={{ height: '3rem', width: '3rem'}} /> */}
+                    <p>Central Park</p>
+                </div>
+            </Link>
+            <Link to={'top-team/'} style={{ color: 'black'}}>
+                <div className="grid-item">
+                    {/* <FaShieldAlt style={{ height: '3rem', width: '3rem'}} /> */}
+                    <p>Baylands Park</p>
+                </div>
+            </Link>
+            <Link to={'top-team/'} style={{ color: 'black'}}>
+                <div className="grid-item">
+                    {/* <FaShieldAlt style={{ height: '3rem', width: '3rem'}} /> */}
+                    <p>Lynbrook High School</p>
+                </div>
+            </Link>
+            
+        </div>
         <div>
             <div>
                 <h4>{pageType === 25 ? 'Top 25 - All Time' : 'Top 15 - All Time' }</h4>

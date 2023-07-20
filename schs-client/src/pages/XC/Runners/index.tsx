@@ -3,8 +3,10 @@ import { urlContains } from "../../../helpers"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
-import './styled/index.css';
 import { useQuery } from '@tanstack/react-query';
+import { Header } from "../../../components/Header";
+import {Pill} from "../../../components/SearchFeatures/Pill";
+import { SearchInput } from "../../../components/SearchFeatures/SearchInput";
 
 const runnerListQuery = () => ({
     queryKey: ['runners'],
@@ -32,9 +34,6 @@ export interface GenderType {
 }
 
 export const Runners = ({ gender }: { gender: GenderType }) => {
-    // get the url, check if xc or not then use correct data for page
-    const location = useLocation();
-    const XCPage: string | null = urlContains(location.pathname, ['cross-country']);
     const [activeButton, setActiveButton] = useState<string>(gender.gender);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -59,57 +58,27 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        { XCPage ?
-            <>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <h2>SCHS Cross Country Runners (<span>{filteredAthletesByGender?.length}</span>)</h2>
-                    <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
-                    <button
-                        className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
-                        onClick={() => handleButtonClick('men')}
-                    >
-                        Men
-                    </button>
-                    <button
-                        className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
-                        onClick={() => handleButtonClick('women')}
-                    >
-                        Women
-                    </button>
-                    </div>
-                </div>
-
-                <div style={{ width: '12rem'}}>
-                <input
-                    type="text"
-                    placeholder="Search Athletes"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    className="input"
-                />
-                <button id="resetButton" type="reset" onClick={() => setSearchTerm('')}>
-                    Reset
-                </button>
-                <span className="search-text">{searchTerm !== '' && `Found ${filteredAthletesByName?.length} runners...`}</span>
-                </div>
-                
-                <ol className="list" style={{ columnCount: '2', columnGap: '20px'}}>
-                {filteredAthletesByName?.map((athlete: XCAthlete) => (
-                    <Link 
-                    to={`${gender.gender === 'all' ? athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` : `${athlete.athleteId}`}`}
-                    className="spanlinkstyle"
-                    key={athlete.athleteId}
-                    >
-                        <li className="list-item">
-                            <span>{athlete.firstName} {athlete.lastName}</span>
-                        </li>
-                    </Link>
-                    
-                ))}
-                </ol>
-            </>
-        : 
-            ''}
+        <Header title={`SCHS Cross Country Runners (${filteredAthletesByGender?.length})`} color="transparent" />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+            <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
+        </div>
+        <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
+        
+        <ol className="list" style={{ columnCount: '2', columnGap: '20px'}}>
+        {filteredAthletesByName?.map((athlete: XCAthlete) => (
+            <Link 
+            to={`${gender.gender === 'all' ? athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` : `${athlete.athleteId}`}`}
+            className="spanlinkstyle"
+            key={athlete.athleteId}
+            >
+                <li className="list-item">
+                    <span>{athlete.firstName} {athlete.lastName}</span>
+                </li>
+            </Link>
+            
+        ))}
+        </ol>
     </div>
   )
 }

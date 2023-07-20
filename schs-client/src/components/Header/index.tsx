@@ -1,17 +1,15 @@
-import React from 'react'
-import Breadcrumb from '../Breadcrumb';
+import {Breadcrumb} from '../Breadcrumb';
 
 interface HeaderProps {
     title: string;
+    color?: string;
   }
 
-const Header = ({ title }: HeaderProps) => {
+export const Header = ({ title, color }: HeaderProps) => {
   return (
-    <header>
+    <header style={{ backgroundColor: `${color ? color : '#b0e0e6' }`, borderRadius: '8px', padding: '0 1rem 0 1rem', letterSpacing: '2px'}}>
         <h1>{title}</h1>
         <Breadcrumb />
     </header>
   )
 }
-
-export default Header

@@ -27,13 +27,13 @@
   height: auto;
 }
 
-.input {
+/* .input {
   width: 93.5%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
-}
+} */
 
 .athleteList {
   list-style-type: none;

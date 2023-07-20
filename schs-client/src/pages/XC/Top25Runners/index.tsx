@@ -6,6 +6,11 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenTopTeams, fetchWomenTopTeams } from '../../../api/TopTeams';
 import { fetchXCRunner } from '../../../api/XCRunner';
+import { GenericButton } from '../../../components/Button';
+import { Header } from '../../../components/Header';
+import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
+import { Pill } from '../../../components/SearchFeatures/Pill';
+import Filters from '../../../components/Filters';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
@@ -116,43 +121,13 @@ export const Top25Runners = () => {
       });
 
   return (
-    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
+    <div className='page-container'>
+        <Header title={`Top ${pageType === 25 ? '25 Runners' : 'Teams'} - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>
-                <h1>Top 25 - {bestTimes && bestTimes[0].courseName}</h1>
-                <h4>Distance: {bestTimes && bestTimes[0].courseDistance} miles</h4>
-            </div>
-        
-                    <div style={{ borderRadius: '8px', marginTop: 'auto', overflow: 'hidden', height: '35px'}}>
-                    <button
-                        className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
-                        onClick={() => handleButtonClick('men')}
-                    >
-                        Men
-                    </button>
-                    <button
-                        className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
-                        onClick={() => handleButtonClick('women')}
-                    >
-                        Women
-                    </button>
-                    </div>
-                </div>
-
-                {pageType === 25 && <div>
-                <input
-                    type="text"
-                    placeholder="Search Athletes"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    className="input"
-                />
-                <button id="resetButton" type="reset" onClick={() => setSearchTerm('')}>
-                    Reset
-                </button>
-                <span className="search-text">{searchTerm !== '' && `Found ${filteredAthletesByName?.length} runners...`}</span>
-                </div>}
-        
+            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+            <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
+        </div>
+        <Filters />
         <ul className='num-list'>
             {pageType === 25 ? filteredAthletesByName?.map((runner, index) => {
                 return (
