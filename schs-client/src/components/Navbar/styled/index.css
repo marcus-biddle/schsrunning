@@ -1,15 +1,11 @@
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    max-width: 100%;
     height: 56px;
     z-index: 100;
     margin-left: 32px;
     margin-right: 32px;
     display: flex;
     justify-content: space-between;
-    background-color: thistle;
   }
   
   .nav-container-left {

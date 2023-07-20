@@ -16,29 +16,10 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="navbar">
-      {/* {isAdminPage ? 
-      <div className="nav-container">
-      <Link to="/admin/dashboard" className="navbar__link">
-        Athletes
-      </Link>
-      <Link to="/admin/athletes" className="navbar__link">
-        Athletes
-      </Link>
-      <Link to="/admin/xc-races" className="navbar__link">
-        XC Races
-      </Link>
-      <Link to="/admin/track-events" className="navbar__link">
-        Track Events
-      </Link>
-      <Link to="/" onClick={handleLogout} className="navbar__link">
-        Logout
-      </Link>
-    </div>
-      : */}
         {/* left side of navbar */}
-        {/* <div className="nav-container-left" >
-          <div style={{ position: 'relative', height: '32px', width: '56px', overflow: 'hidden', display: 'flex', justifyContent: 'start'}}>
-            <img src={logo} alt='schs logo' style={{ height: '4.5rem', width: '4rem', position: 'absolute', top: '-18px', right: '-4px'}}/>
+        <div className="nav-container-left" >
+          <div style={{ position: 'relative', height: '32px', width: '64px', overflow: 'hidden', display: 'flex', justifyContent: 'start'}}>
+            <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/>
           </div>
           <div>
             <Link to="/" className="navbar__link">
@@ -54,22 +35,25 @@ export const Navbar: React.FC = () => {
               Workouts
             </Link>
           </div>
-        </div> */}
+        </div>
         {/* Right side of navbar */}
-        {/* <div style={{ display: 'flex', backgroundColor: 'gray'}}>
-          
-          <input
-              type="text"
-              placeholder="Search Athletes"
-              value={''}
-              onChange={() => null}
-              className="search-input"
-          />
-          <button>Search</button>
-
-        </div> */}
-      
-      {/* } */}
+        <div style={{ display: 'flex', height: '100%', alignItems: 'center'}}>
+          <div>
+            <input
+                type="text"
+                placeholder="Search Athletes"
+                value={''}
+                onChange={() => null}
+                style={{ height: '24px', borderRadius: '4px', border: '1px solid #ccc', width: '240px', fontFamily: 'Lato'}}
+            />
+            <button style={{ height: '24px', borderRadius: '4px', border: '1px solid #36CDE0', backgroundColor: '#36CDE0', fontFamily: 'Roboto', padding: '0 6px 0 6px', marginLeft: '2px'}}>Search</button>
+          </div>
+          <div style={{ padding: '8px'}}>
+            <Link to="/login" className="navbar__link">
+              Login
+            </Link>
+          </div>
+        </div>
     </nav>
   );
 };
