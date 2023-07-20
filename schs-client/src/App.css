@@ -1,18 +1,65 @@
-h2 {
-  font-size: 24px;
+
+:root {
+  --primary-color: #36CDE0;
+  --secondary-color: #2D72ED;
+  --gradient-color: linear-gradient(to right, #2D72ED, #36CDE0);
+  --error-color: #E05841;
+  --black: #1F2627;
+  --black-75: rgba(31, 38, 39, 0.75);
+  --black-50: rgba(31, 38, 39, 0.5);
+  --black-25: rgba(31, 38, 39, 0.25);
+  --black-10: rgba(31, 38, 39, 0.10);
+  --black-5: rgba(31, 38, 39, 0.05);
+  --font-family-header: 'Roboto', sans-serif;
+  --font-family-paragraph: 'Lato', sans-serif;
+}
+
+h1 {
+  font-family: var(--font-family-header);
+  font-size: 68px;
   font-weight: bold;
-  color: #000000;
-  margin-bottom: 10px;
-  margin-top: 4rem;
+  color: var(--black);
+  line-height: 80px;
+}
+
+h2 {
+  font-family: var(--font-family-header);
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--black-75);
+  line-height: 56px;
+}
+
+h3 {
+  font-family: var(--font-family-header);
+  font-size: 34px;
+  font-weight: lighter;
+  color: var(--black-50);
+  line-height: 40px;
 }
 
 h4 {
-  font-size: 1.20rem;
+  font-family: var(--font-family-header);
+  font-size: 24px;
   font-weight: bold;
-  color: #000000c0;
-  margin: 0;
-  margin-bottom: 16px;
-  margin-top: 16px;
+  color: var(--black-25);
+  line-height: 28px;
+}
+
+h5 {
+  font-family: var(--font-family-header);
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--black-10);
+  line-height: 20px;
+}
+
+h6 {
+  font-family: var(--font-family-header);
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--black-5);
+  line-height: 14px;
 }
 
 .list-item {
@@ -67,7 +114,7 @@ h4 {
 }
 
 .h2linkstyle {
-  text-decoration-line: none;
+  decoration-line: none;
   color: black;
 }
 
@@ -76,7 +123,7 @@ h4 {
 }
 
 .spanlinkstyle {
-  text-decoration-line: none;
+  decoration-line: none;
   color: black;
 }
 
