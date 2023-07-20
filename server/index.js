@@ -1527,9 +1527,9 @@ app.get('/coach/:coachId', async (req, res) => {
 FROM CoachSeason 
 JOIN CoachType ON CoachType.coachTypeId = CoachSeason.coachTypeId 
 JOIN Coach ON Coach.coachId = CoachSeason.coachId 
-WHERE Coach.coachId = 1 
+WHERE Coach.coachId = ?
 ORDER BY year DESC;`;
-  const [rows] = await connection.query(query, coachId);
+  const [rows] = await connection.query(query, [coachId]);
   
   if(!rows[0]) {
     return res.json({ msg: "Could not find field event." });

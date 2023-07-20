@@ -14,7 +14,7 @@ export const CrossCountry = () => {
   return (
     <div className='page-container'>
         <Page title="Cross Country Page" description="Records for Cross Country." />
-        <Header title='Cross Country' color="transparent"/>
+        <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/>
         <ImageCarousel images={teamImgs} interval={15000}/>
         <div className="grid-container">
             <Link to={'runners/'} style={{ color: 'black'}}>

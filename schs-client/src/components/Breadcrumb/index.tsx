@@ -5,6 +5,7 @@ import { formatPath } from '../../helpers';
 export const Breadcrumb = () => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/').filter(segment => segment !== '');
+  pathSegments.pop();
 
   return (
     <nav >

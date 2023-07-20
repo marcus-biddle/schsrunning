@@ -22,7 +22,9 @@ export const coachQuery = (coachId: number) => ({
 // Use this component for the xc coach page as well
 export const XCCoachPage = () => {
     const { coachId } = useParams();
+    console.log(coachId)
     const { data: coachData } = useQuery(coachQuery(convertToNum(coachId)));
+    console.log(coachData);
     // const { data: coaches } = useQuery(coachListQuery());
     const coach = groupByCoachTypeId(coachData || []);
 

@@ -131,7 +131,7 @@ const router = createBrowserRouter([
         path: 'santa-clara-high-cross-country/top-teams-menu/:courseId',
         element: <TopTeams/>,
       },
-      
+
       // Track pages
       {
         path: 'santa-clara-high-track-and-field',
