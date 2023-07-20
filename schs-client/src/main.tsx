@@ -13,9 +13,7 @@ import { Runners } from './pages/XC/Runners/index.tsx';
 import { SeasonInfo, loader as seasonLoader, } from './pages/XC/Season/index.tsx';
 import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
 import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
-import { Top25Runners, loader as bestTimesLoader, } from './pages/XC/Top25Runners/index.tsx';
 import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
-import { Top25 } from './pages/XC/Top25/index.tsx';
 import { ResultListPage } from './pages/Track/ResultListPage/index.tsx';
 import { AthleteListPage } from './pages/Track/AthleteListPage/index.tsx';
 import { AthletePage } from './pages/Track/AthletePage/index.tsx';
@@ -34,6 +32,10 @@ import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
 import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
 import RacePage from './pages/Admin/RacePage/index.tsx';
 import AddCompetitors from './pages/Admin/AddCompetitors/index.tsx';
+import { TopRunnerMenu } from './pages/XC/TopRunnerMenu/index.tsx';
+import { TopRunners } from './pages/XC/TopRunners/index.tsx';
+import { TopTeamMenu } from './pages/XC/TopTeamMenu/index.tsx';
+import { TopTeams } from './pages/XC/TopTeams/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -113,65 +115,23 @@ const router = createBrowserRouter([
         loader: raceResultLoader(queryClient),
       },
       {
-        path: 'santa-clara-high-cross-country/top-25-results',
-        element: <Top25/>,
+        path: 'santa-clara-high-cross-country/top-runners-menu',
+        element: <TopRunnerMenu/>,
         // loader: raceResultLoader(queryClient),
       },
       {
-        path: 'santa-clara-high-cross-country/top-25-results/all-time/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        path: 'santa-clara-high-cross-country/top-runners-menu/:courseId',
+        element: <TopRunners/>,
       },
       {
-        path: 'santa-clara-high-cross-country/top-25-results/senior/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        path: 'santa-clara-high-cross-country/top-teams-menu',
+        element: <TopTeamMenu/>,
       },
       {
-        path: 'santa-clara-high-cross-country/top-25-results/junior/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
+        path: 'santa-clara-high-cross-country/top-teams-menu/:courseId',
+        element: <TopTeams/>,
       },
-      {
-        path: 'santa-clara-high-cross-country/top-25-results/sophomore/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-25-results/freshmen/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-team',
-        element: <Top25/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-team/all-time/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-team/senior/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-team/junior/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-team/sophomore/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
-      {
-        path: 'santa-clara-high-cross-country/top-team/freshmen/:courseId',
-        element: <Top25Runners/>,
-        loader: bestTimesLoader(queryClient),
-      },
+      
       // Track pages
       {
         path: 'santa-clara-high-track-and-field',

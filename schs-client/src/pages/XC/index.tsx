@@ -8,13 +8,6 @@ import { MdOutlineTimer } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
 import Page from '../../SEO/meta';
 import { Header } from '../../components/Header';
-// import { useQueryClient, useQuery } from '@tanstack/react-query';
-// import { fetchXCAthletes } from '../../api/athletes';
-
-// export const runnerListQuery = useQuery({
-//     queryKey: ['runners'],
-//     queryFn: async () => await fetchXCAthletes()
-// });
 
 export const CrossCountry = () => {
 
@@ -36,13 +29,13 @@ export const CrossCountry = () => {
                     <p>Cross Country Coaches</p>
                 </div>
             </Link>
-            <Link to={'top-25-results/'} style={{ color: 'black'}}>
+            <Link to={'top-runners-menu/'} style={{ color: 'black'}}>
                 <div className="grid-item">
                     <MdOutlineTimer style={{ height: '3rem', width: '3rem'}} />
                     <p>Top Runners</p>
                 </div>
             </Link>
-            <Link to={'top-team/'} style={{ color: 'black'}}>
+            <Link to={'top-teams-menu/'} style={{ color: 'black'}}>
                 <div className="grid-item">
                     <FaShieldAlt style={{ height: '3rem', width: '3rem'}} />
                     <p>Top Teams</p>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
 import { useLocation, useParams } from 'react-router';
 import { convertGrade, convertToNum, urlContains } from '../../../helpers';
@@ -9,7 +9,7 @@ import { fetchXCRunner } from '../../../api/XCRunner';
 import { Header } from '../../../components/Header';
 import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
 import { Pill } from '../../../components/SearchFeatures/Pill';
-import Filters from '../../../components/Filters';
+import { Filters } from '../../../components/Filters';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
@@ -75,23 +75,13 @@ const bestWomenTeamListQuery = (courseId: number) => ({
     },
 })
 
-export const loader = (queryClient: any) => async ({ params }: any) => {
-    if (!queryClient.getQueryData(bestTimeListQuery(params.courseId).queryKey) && !queryClient.getQueryData(bestWomenTeamListQuery(params.courseId).queryKey)) {
-        await queryClient.fetchQuery(bestMenTeamListQuery(params.courseId))
-        await queryClient.fetchQuery(bestWomenTeamListQuery(params.courseId))
-        return await queryClient.fetchQuery(bestTimeListQuery(params.courseId));
-    }
-    return queryClient.getQueriesData(bestTimeListQuery(params.courseId).queryKey, bestMenTeamListQuery(params.courseId).queryKey, bestWomenTeamListQuery(params.courseId).queryKey);
-}
-
-export const Top25Runners = () => {
+export const TopTeams = () => {
+    const [ gradeFilter, setGradeFilter ] = useState(0);
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
     const { data: bestMenTeams } = useQuery(bestMenTeamListQuery(convertToNum(courseId)));
     const { data: bestWomenTeams } = useQuery(bestWomenTeamListQuery(convertToNum(courseId)));
     const location = useLocation();
-    const filterType = urlContains(location.pathname, ['all', 'senior', 'junior', 'sophomore', 'freshmen'])
-    const filter = convertGrade(filterType || '');
     const [activeButton, setActiveButton] = useState<string>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
@@ -103,13 +93,15 @@ export const Top25Runners = () => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredAthletesByGender = bestTimes?.filter(row => {
-        if (filter != 0 && row.grade === filter) {
-            return row;
-        } else if (filter === 0) {
-            return row;
+    const filteredAthletesByGender = bestTimes?.filter(athlete => {
+        if (athlete.grade === gradeFilter) {
+            return athlete;
+            // redundant else ? 
+        } else if (gradeFilter === 0) {
+            return athlete;
         }
-    }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete).slice(0, 25);
+    }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete)
+    .slice(0, 25);
 
     const filterTeamsByGender = activeButton === 'women' ? bestWomenTeams : bestMenTeams;
 
@@ -119,6 +111,11 @@ export const Top25Runners = () => {
         return fullName.includes(searchTermLowerCase);
       });
 
+    const handleGradeClick = (grade: number) => {
+        setGradeFilter(grade);
+        console.log(grade);
+    }
+
   return (
     <div className='page-container'>
         <Header title={`Top ${pageType === 25 ? '25 Runners' : 'Teams'} - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
@@ -126,7 +123,7 @@ export const Top25Runners = () => {
             <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
             <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
         </div>
-        <Filters />
+        <Filters handleClick={handleGradeClick}/>
         <ul className='num-list'>
             {pageType === 25 ? filteredAthletesByName?.map((runner, index) => {
                 return (
@@ -136,12 +133,16 @@ export const Top25Runners = () => {
                     key={`${runner.athleteId}-${index}`}
                     >
                         <div className='num-list-item'>
-                            <li>
+                            <li style={{ lineHeight: '1'}}>
                                 <span>
-                                    {runner.firstName} {runner.lastName} ({runner.year})
+                                    <h2 style={{ margin: '0', padding: '6px 0 0 10px' }}>{runner.firstName} {runner.lastName}</h2>
+                                    <p style={{ margin: '0', padding: '6px 10px 0 20px', color: 'grey' }}>({runner.year}) {runner.grade}th grade</p>
                                 </span>
                             </li>
-                            <span>{runner.time} ({runner.pace}) - {runner.grade}th grade</span>
+                            <span style={{ display: 'flex', flexDirection: 'column', justifyItems:'center', textAlign: 'center', justifyContent: 'end'}}>
+                                <h4 style={{ margin: '0' }}>Time: {runner.time}</h4> 
+                                <h4 style={{ margin: '0' }}>Pace: {runner.pace}</h4>
+                            </span>
                         </div>
                     </Link>
                     

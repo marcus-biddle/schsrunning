@@ -10,7 +10,7 @@ export enum CourseID {
     LYNBRROK = 25
 }
 
-export const Top25 = () => {
+export const TopTeamMenu = () => {
     const data = [
         { name: 'Crystal Springs', path: CourseID.CRYSTAL_SPRING},
         { name: 'Toro Park', path: CourseID.TORO_PARK},
@@ -119,5 +119,4 @@ export const Top25 = () => {
             </div></>}
         </div>
     </div>
-  )
-}
+  )}

@@ -1,27 +1,30 @@
 
+import { useEffect, useState } from 'react';
 import { GenericButton } from '../Button'
 
-const Filters = () => {
+interface FilterProps {
+    handleClick: (option: number) => void;
+}
+
+export const Filters = ({ handleClick }: FilterProps) => {
+    const [active, setActive] = useState(0);
+
+    const handleFilter = (option: number) => {
+        setActive(option === active ? 0 : option);
+    };
+
+    useEffect(() => {
+        handleClick(active);
+      }, [active]);
+      
+
   return (
-    <div style={{ marginTop: '1rem', marginBottom: '-8rem'}}>
-        <div style={{ height: '2rem', position: 'relative'}}>
-            <GenericButton type='button' label="All Time" />
-        </div>
-        <div style={{ height: '2rem', position: 'relative', left: '6rem', bottom: '2rem'}}>
-            <GenericButton type='button' label="Senior" />
-        </div>
-        <div style={{ height: '2rem', position: 'relative', left: '11.5rem', bottom: '4rem'}}>
-            <GenericButton type='button' label="Junior" />
-        </div>
-        <div style={{ height: '2rem', position: 'relative', left: '16.8rem', bottom: '6rem'}}>
-            <GenericButton type='button' label="Sophomore" />
-        </div>
-        <div style={{ height: '2rem', position: 'relative', left: '24.25rem', bottom: '8rem'}}>
-            <GenericButton type='button' label="Freshman" />
-        </div>
+    <div style={{ marginTop: '1rem', height: '2rem'}}>
+        <GenericButton type='button' label="Senior" pos='static' color={active === 12 ? '#CCCCCC' : 'black'} onClick={() => handleFilter(12)}/>
+        <GenericButton type='button' label="Junior" pos='static' color={active === 11 ? '#CCCCCC' : 'black'} onClick={() => handleFilter(11)}/>
+        <GenericButton type='button' label="Sophomore" pos='static' color={active === 10 ? '#CCCCCC' : 'black'} onClick={() => handleFilter(10)}/>
+        <GenericButton type='button' label="Freshmen" pos='static' color={active === 9 ? '#CCCCCC' : 'black'} onClick={() => handleFilter(9)}/>
     </div>
     
   )
 }
-
-export default Filters

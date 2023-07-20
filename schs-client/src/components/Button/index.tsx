@@ -5,11 +5,12 @@ interface ButtonProps {
   label: ReactNode;
   color?: string;
   type: "button" | "submit" | "reset" | undefined;
+  pos?: "static" | "relative";
 }
 
-export const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type }) => {
+export const GenericButton: React.FC<ButtonProps> = ({ onClick, label, color, type, pos }) => {
   const buttonStyle: React.CSSProperties = {
-    position: 'absolute',
+    position: pos ? pos : 'absolute',
     backgroundColor: color || '#333',
     color: '#fff',
     padding: '10px 20px',

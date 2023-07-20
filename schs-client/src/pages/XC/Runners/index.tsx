@@ -56,7 +56,7 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
       
 
   return (
-    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
+    <div className="page-container">
         <Header title={`SCHS Cross Country Runners (${filteredAthletesByGender?.length})`} color="transparent" />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
