@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react'
-import { BestTime, fetchBestTimes } from '../../../api/best-times';
-import { useLocation, useParams } from 'react-router';
-import { convertGrade, convertToNum, urlContains } from '../../../helpers';
+import { useState,  } from 'react'
+import { fetchBestTimes } from '../../../api/best-times';
+import { useParams } from 'react-router';
+import { convertGrade, convertToNum, } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenTopTeams, fetchWomenTopTeams } from '../../../api/TopTeams';
 import { fetchXCRunner } from '../../../api/XCRunner';
 import { Header } from '../../../components/Header';
-import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
 import { Pill } from '../../../components/SearchFeatures/Pill';
-import { Filters } from '../../../components/Filters';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
@@ -76,40 +74,16 @@ const bestWomenTeamListQuery = (courseId: number) => ({
 })
 
 export const TopTeams = () => {
-    const [ gradeFilter, setGradeFilter ] = useState(0);
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
     const { data: bestMenTeams } = useQuery(bestMenTeamListQuery(convertToNum(courseId)));
     const { data: bestWomenTeams } = useQuery(bestWomenTeamListQuery(convertToNum(courseId)));
-    const location = useLocation();
     const [activeButton, setActiveButton] = useState<string>('all');
-    const [searchTerm, setSearchTerm] = useState('');
-    const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
     };
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
-
-    const filteredAthletesByGender = bestTimes?.filter(athlete => {
-        if (athlete.grade === gradeFilter) {
-            return athlete;
-            // redundant else ? 
-        } else if (gradeFilter === 0) {
-            return athlete;
-        }
-    }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete)
-    .slice(0, 25);
-
     const filterTeamsByGender = activeButton === 'women' ? bestWomenTeams : bestMenTeams;
-
-    const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
-        const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
-        const searchTermLowerCase = searchTerm.toLowerCase();
-        return fullName.includes(searchTermLowerCase);
-      });
 
   return (
     <div className='page-container'>

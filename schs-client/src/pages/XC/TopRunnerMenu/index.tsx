@@ -11,13 +11,13 @@ export enum CourseID {
 }
 
 export const TopRunnerMenu = () => {
-    const data = [
-        { name: 'Crystal Springs', path: CourseID.CRYSTAL_SPRING},
-        { name: 'Toro Park', path: CourseID.TORO_PARK},
-        { name: 'Central Park', path: CourseID.CENTRAL_PARK},
-        { name: 'Baylands Park', path: CourseID.BAYLANDS_PARK},
-        { name: 'Lynbrook High School', path: CourseID.LYNBRROK},
-    ]
+    // const data = [
+    //     { name: 'Crystal Springs', path: CourseID.CRYSTAL_SPRING},
+    //     { name: 'Toro Park', path: CourseID.TORO_PARK},
+    //     { name: 'Central Park', path: CourseID.CENTRAL_PARK},
+    //     { name: 'Baylands Park', path: CourseID.BAYLANDS_PARK},
+    //     { name: 'Lynbrook High School', path: CourseID.LYNBRROK},
+    // ]
     const location = useLocation();
     const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
  

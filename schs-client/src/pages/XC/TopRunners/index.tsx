@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
-import { useLocation, useParams } from 'react-router';
-import { convertToNum, urlContains } from '../../../helpers';
+import { useParams } from 'react-router';
+import { convertToNum, } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '../../../components/Header';
@@ -27,10 +27,8 @@ export const TopRunners = () => {
     const [ gradeFilter, setGradeFilter ] = useState(0);
     const { courseId }= useParams();
     const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
-    const location = useLocation();
     const [activeButton, setActiveButton] = useState<string>('all');
     const [searchTerm, setSearchTerm] = useState('');
-    const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
     const handleButtonClick = (value: string) => {
         setActiveButton(value === activeButton ? 'all' : value);
     };
