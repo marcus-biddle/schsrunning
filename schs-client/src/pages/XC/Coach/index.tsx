@@ -30,7 +30,7 @@ export const XCCoachPage = () => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <Header title={`${ coachData && `${coachData[0].firstName} ${coachData[0].lastName}`}`} />
+        <Header title={`${ coachData && `${coachData[0].firstName} ${coachData[0].lastName}`}`} color='transparent'/>
         {coach && coach.map((season: any, index: number) => {
             return (
                 <React.Fragment key={index}>
