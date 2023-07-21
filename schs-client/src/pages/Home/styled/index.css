@@ -58,21 +58,25 @@ margin-bottom: 10px;
 .main-block {
   border: 2px var(--black) solid;
   border-radius: 8px;
-  display: inline-block;
   text-align: left;
-  padding: 64px 16px 64px 16px;
   background-color: var(--black);
+  height: 396px;
+  width: 336px;
+  padding: 24px;
+  align-items: center;
+  margin-right: 56px;
+  margin-left: 56px;
 }
 
 .secondary-block {
   border-radius: 8px;
-  display: inline-block;
   text-align: left;
   padding: 32px 80px 32px 80px;
   background: var(--gradient-color);
+  max-height: 136px;
 }
 
-.hero-button {
+.hero-button-secondary {
   border: none;
   background-color: transparent;
   text-transform: uppercase;
@@ -82,4 +86,18 @@ margin-bottom: 10px;
   align-items: center;
   text-align: center;
   padding-top: 32px;
+  color: var(--black);
+}
+
+.hero-button-primary {
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-family: var(--font-family-paragraph);
+  font-size: 12px;
+  font-weight: lighter;
+  align-items: center;
+  text-align: center;
+  padding-top: 80px;
+  color: hsl(189, 100%, 96%);
 }

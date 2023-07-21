@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styled/index.css';
 import { Images } from '../../assets';
+import { Link } from 'react-router-dom';
 
 interface ImageCarouselProps {
   images: Images[];
@@ -25,16 +26,22 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, interval }) => {
   }, [images.length, interval]);
 
   return (
-    <div className="image-carousel">
-      {images.map((image, index) => (
-        <img
-          key={index}
-          className={`carousel-image ${index === currentImageIndex ? 'active' : ''}`}
-          src={image.img}
-          alt={`Image ${index + 1}`}
-        />
-      ))}
+    <div style={{ position: 'relative'}}>
+      <Link to={'/b'} className='image-drape'>
+        View All
+      </Link>
+      <div className="image-carousel">
+        {images.map((image, index) => (
+          <img
+            key={index}
+            className={`carousel-image ${index === currentImageIndex ? 'active' : ''}`}
+            src={image.img}
+            alt={`Image ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
+    
   );
 };
 

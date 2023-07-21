@@ -30,24 +30,37 @@ export const Home = () => {
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className='home-hero'>
+        <ImageCarousel images={teamImgs} interval={12000} />
             <div className='main-block'>
                 <h1 className='h1-white'>749</h1>
                 <h3 className='h3-white'>Athletes in our Database</h3>
-            </div>
-            <div>
-                <div className='secondary-block'>
-                    <h2 className='h2-black'>328</h2>
-                    <h4 className='h4-black-75-lighter'>Track Athletes</h4>
-                    <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
-                        <button type='button' className='hero-button' onClick={() => console.log('clicked')}>
+                <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
+                        <button type='button' className='hero-button-primary' onClick={() => console.log('clicked')}>
                             View All
                             <BsArrowRight style={{ width: '16px', height: '16px', position: 'absolute'}} />
                         </button>
                     </div>
-                    
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '400px', gap: '56px'}}>
+                <div className='secondary-block'>
+                    <h2 className='h2-black'>328</h2>
+                    <h4 className='h4-black-75-lighter'>Track Athletes</h4>
+                    <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
+                        <button type='button' className='hero-button-secondary' onClick={() => console.log('clicked')}>
+                            View All
+                            <BsArrowRight style={{ width: '16px', height: '16px', position: 'absolute'}} />
+                        </button>
+                    </div>
                 </div>
-                <div>
-
+                <div className='secondary-block'>
+                    <h2 className='h2-black'>328</h2>
+                    <h4 className='h4-black-75-lighter'>Track Athletes</h4>
+                    <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
+                        <button type='button' className='hero-button-secondary' onClick={() => console.log('clicked')}>
+                            View All
+                            <BsArrowRight style={{ width: '16px', height: '16px', position: 'absolute'}} />
+                        </button>
+                    </div>
                 </div>
             </div>
             
