@@ -3,7 +3,6 @@ import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
 import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
-import { formatDate } from '../../helpers/index.ts';
 import Page from '../../SEO/meta/index.tsx';
 import { BsArrowRight } from 'react-icons/bs';
 

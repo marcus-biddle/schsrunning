@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './styled/index.css';
-import { urlContains } from '../../helpers';
-import { deleteAccessTokenCookie } from '../../authUtils';
 import logo from '../../assets/logo.png';
-import { SearchInput } from '../SearchFeatures/SearchInput';
-import { GenericButton } from '../Button';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const athleteListQuery = () => ({
   queryKey: ['all-athletes'],
   queryFn: async () => {
@@ -47,10 +44,6 @@ export const Navbar: React.FC = () => {
     // this will simplify the pages and reduce overhead
     navigate(`/athlete/${athleteId}`);
   };
-  // const isAdminPage = urlContains(location.pathname, ['admin'])
-  // const handleLogout = () => {
-  //   deleteAccessTokenCookie();
-  // };
 
   return (
     <nav className="navbar">
