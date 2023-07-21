@@ -220,3 +220,17 @@ export const formFormatObjectArray = <T extends { [key: string]: string | number
 export function formatPath(string: string) {
   return string.replace(/-/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
 }
+
+export function checkIfMobile(screenWidth: number) {
+  // Set the threshold width for mobile devices (example: 992px)
+  const mobileWidthThreshold = 768;
+
+  // Get the width of the window screen
+  const windowWidth = screenWidth;
+
+  // Check if the window width is smaller than the threshold
+  const isMobile = windowWidth < mobileWidthThreshold;
+
+  // Return the result (true for mobile, false for regular computer screen)
+  return isMobile;
+}

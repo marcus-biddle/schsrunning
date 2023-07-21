@@ -101,3 +101,31 @@ export const Navbar: React.FC = () => {
     </nav>
   );
 };
+
+export const MobileNavbar: React.FC = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <div className="navbar-mobile">
+      <div className="hamburger-mobile" onClick={toggleMenu}>
+        <div className="bar-mobile"></div>
+        <div className="bar-mobile"></div>
+        <div className="bar-mobile"></div>
+      </div>
+      <div style={{ position: 'relative', height: '32px', width: '64px', overflow: 'hidden', display: 'flex', justifyContent: 'start'}}>
+            <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/>
+        </div>
+      <ul className={`menu-mobile ${isMenuOpen ? 'active' : ''}`}>
+        {/* fix links */}
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">Cross Country</a></li>
+        <li><a href="#services">Track</a></li>
+        <li><a href="#contact">Admin</a></li>
+      </ul>
+    </div>
+  );
+}
