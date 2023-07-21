@@ -27,3 +27,27 @@
     color: var(--secondary-color);
   }
   
+  /* AthleteSearch.css */
+.dropdown {
+  position: absolute;
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #e1e1e1;
+}

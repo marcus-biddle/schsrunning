@@ -48,12 +48,14 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: 'athlete/:athleteId',
+        element: <CrossCountry />,
+      },
       // Cross Country Pages
       {
         path: 'santa-clara-high-cross-country/',
         element: <CrossCountry />,
-        // loader: contactLoader(queryClient),
-        // action: contactAction(queryClient),
       },
       {
         path: 'santa-clara-high-cross-country/runners',

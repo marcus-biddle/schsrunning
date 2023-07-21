@@ -29,7 +29,7 @@ export const Home = () => {
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         {/* Images */}
-        <ImageCarousel images={teamImgs} interval={12000} />
+        {/* <ImageCarousel images={teamImgs} interval={12000} /> */}
         {/* Latest races */}
         <div style={{ marginBottom: '4rem'}}>
             <h2>Latest Race</h2>
