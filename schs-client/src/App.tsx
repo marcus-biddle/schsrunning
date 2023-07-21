@@ -15,7 +15,7 @@ export const App: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div style={{ marginTop: '4rem'}}>
+      <div>
         <AuthProvider>
           <Outlet />
         </AuthProvider>

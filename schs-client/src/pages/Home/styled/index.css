@@ -46,3 +46,40 @@ color: #333333;
 margin-bottom: 10px;
 }
 
+.home-hero {
+  background: #eafcff;
+  height: 100vh;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.main-block {
+  border: 2px var(--black) solid;
+  border-radius: 8px;
+  display: inline-block;
+  text-align: left;
+  padding: 64px 16px 64px 16px;
+  background-color: var(--black);
+}
+
+.secondary-block {
+  border-radius: 8px;
+  display: inline-block;
+  text-align: left;
+  padding: 32px 80px 32px 80px;
+  background: var(--gradient-color);
+}
+
+.hero-button {
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-family: var(--font-family-paragraph);
+  font-size: 12px;
+  font-weight: lighter;
+  align-items: center;
+  text-align: center;
+  padding-top: 32px;
+}
