@@ -44,7 +44,7 @@ export const Home = () => {
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '400px', gap: '56px'}}>
                 <div className='secondary-block'>
                     <h2 className='h2-black'>328</h2>
-                    <h4 className='h4-black-75-lighter'>Track Athletes</h4>
+                    <h4 className='h4-black-75-lighter'>Cross Country Athletes</h4>
                     <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
                         <button type='button' className='hero-button-secondary' onClick={() => console.log('clicked')}>
                             View All
@@ -53,7 +53,7 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className='secondary-block'>
-                    <h2 className='h2-black'>328</h2>
+                    <h2 className='h2-black'>482</h2>
                     <h4 className='h4-black-75-lighter'>Track Athletes</h4>
                     <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
                         <button type='button' className='hero-button-secondary' onClick={() => console.log('clicked')}>
