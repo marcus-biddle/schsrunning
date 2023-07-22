@@ -25,22 +25,26 @@ export const Home = () => {
     console.log(athletes);
 
   return (
-    <div>
+    <div style={{ position: 'relative', height: '100vh'}}>
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className='home-hero'>
-        <ImageCarousel images={teamImgs} interval={12000} />
+            <div className='carousel-container'>
+                <ImageCarousel images={teamImgs} interval={12000} />
+            </div>
             <div className='main-block'>
-                <h1 className='h1-white'>749</h1>
-                <h3 className='h3-white'>Athletes in our Database</h3>
-                <div style={{ width: '100%', textAlign: 'center', alignItems: 'center'}}>
+                <div className='main-text-container'>
+                    <h1 className='h1-white'>749</h1>
+                    <h3 className='h3-white'>Athletes in our Database</h3>
+                </div>
+                <div className='main-cta-container'>
                         <button type='button' className='hero-button-primary' onClick={() => console.log('clicked')}>
                             View All
-                            <BsArrowRight style={{ width: '16px', height: '16px', position: 'absolute'}} />
+                            <BsArrowRight className="arrow-icon"/>
                         </button>
-                    </div>
+                </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '400px', gap: '56px'}}>
+            <div className='secondary-block-container'>
                 <div className='secondary-block'>
                     <h2 className='h2-black'>328</h2>
                     <h4 className='h4-black-75-lighter'>Cross Country Athletes</h4>

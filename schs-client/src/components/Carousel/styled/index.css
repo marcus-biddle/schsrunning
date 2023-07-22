@@ -10,6 +10,17 @@
     overflow: hidden;
   }
 
+  @media (max-width: 768px) {
+    .image-carousel {
+      width: 336px;
+      height: 336px;
+      overflow: hidden;
+      background-color: #33333324;
+      border-radius: 12px;
+      margin-top: 23rem;
+    }
+  }
+
 .image-drape {
     position: absolute;
     width: 440px;

@@ -33,6 +33,7 @@
   font-weight: bold;
   color: #eafcff;
   line-height: 80px;
+  padding: 24px;
 }
 
 .h2-black {
@@ -83,12 +84,20 @@
   line-height: 28px;
 }
 
-.h4-white {
+.h4-white-25 {
   font-family: var(--font-family-header);
   font-size: 24px;
   font-weight: bold;
   color: hsl(189, 100%, 96%, 0.25);
   line-height: 28px;
+}
+
+.h4-white {
+  font-family: var(--font-family-header);
+  font-size: 24px;
+  font-weight: bold;
+  color: hsl(189, 100%, 96%);
+  line-height: 16px;
 }
 
 .h4-black-light {
@@ -107,11 +116,19 @@
   line-height: 28px;
 }
 
-h5 {
+.h5 {
   font-family: var(--font-family-header);
   font-size: 17px;
   font-weight: bold;
   color: var(--black-10);
+  line-height: 20px;
+}
+
+.h5-white-75 {
+  font-family: var(--font-family-header);
+  font-size: 17px;
+  font-weight: bold;
+  color: hsl(189, 100%, 96%, 0.75);
   line-height: 20px;
 }
 

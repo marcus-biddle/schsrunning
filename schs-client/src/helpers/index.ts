@@ -234,3 +234,9 @@ export function checkIfMobile(screenWidth: number) {
   // Return the result (true for mobile, false for regular computer screen)
   return isMobile;
 }
+
+export function getScreenSize() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  return { width, height };
+}

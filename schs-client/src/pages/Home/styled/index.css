@@ -55,6 +55,59 @@ margin-bottom: 10px;
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .home-hero {
+    flex-direction: column;
+    background: #eafcff;
+    gap: 32px;
+    overflow: hidden;
+  }
+
+    .main-block {
+      display: none;
+    }
+  
+  .main-block-mobile {
+    background-color: var(--black);
+    width: 100%;
+    margin-right: 80px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    display: flex;
+    text-align: center;
+    align-items: baseline;
+    justify-content: baseline;
+    padding: 16px;
+  }
+
+  .arrow-icon-mobile {
+    color: #eafcff;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.secondary-block-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 400px;
+  gap: 56px;
+}
+
+.main-cta-container {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  padding-left: 8px;
+}
+
 .main-block {
   border: 2px var(--black) solid;
   border-radius: 8px;
