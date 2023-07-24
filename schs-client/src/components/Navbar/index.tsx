@@ -103,11 +103,6 @@ export const Navbar: React.FC = () => {
 };
 
 export const MobileNavbar: React.FC = () => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
 
   return (
     <div className="navbar-mobile">

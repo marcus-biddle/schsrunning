@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import './styled.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai'
 
 const BottomNavbar = () => {
-    const [active, setActive] = useState('home');
+    const location = useLocation();
+    const [active, setActive] = useState(location.pathname.includes('search') ? 'search' : location.pathname.includes('profile') ? 'profile' : 'home');
   return (
     <div className="navbar-bottom">
         <Link to={'/'} onClick={() => setActive('home')} >
