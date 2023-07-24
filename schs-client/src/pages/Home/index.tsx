@@ -5,7 +5,10 @@ import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../SEO/meta/index.tsx';
 import { BsArrowRight } from 'react-icons/bs';
-import SportFilter from '../../components/Filters/pill.tsx';
+import SportFilter from '../../components/Filters/buttonGroup.tsx';
+import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
+import MobileGrid from '../../components/Grid/index.tsx';
+import MobileSlider from '../../components/MobileSLider/index.tsx';
 
 const recentRaceListQuery = (limit: number) => ({
     queryKey: ['race-results', limit],
@@ -24,12 +27,30 @@ const recentRaceListQuery = (limit: number) => ({
 export const Home = () => {
     const { data: athletes } = useQuery(recentRaceListQuery(26));
     console.log(athletes);
+    const items = ['Athletes', 'Coaches', 'Seasons', 'Gallery'];
 
   return (
     <div style={{ position: 'relative', height: '100vh', backgroundColor: '#1F2627'}}>
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
-        <SportFilter />
+        <MobileButtonGroup />
+        <MobileGrid items={items} />
+        <div style={{ padding: '10px'}}>
+            <h3 style={{ paddingBottom: '16px'}}>Recent Races</h3>
+            {/* get top 4-5 recent events/meets to display here */}
+            <MobileSlider items={items} />
+        </div>
+        <div style={{ padding: '10px', marginTop: '32px'}}>
+            <h3 style={{ paddingBottom: '16px'}}>Courses</h3>
+            {/* get top 4-5 recent events/meets to display here */}
+            <MobileSlider items={items} />
+        </div>
+        <div style={{ padding: '10px', marginTop: '32px'}}>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>CSS Competitors</h5>
+            <h3 style={{ paddingBottom: '16px'}}>Road Runners</h3>
+            {/* get top 4-5 recent events/meets to display here */}
+            <MobileSlider items={items} />
+        </div>
         {/* <div className='home-hero'>
             <div className='carousel-container'>
                 <ImageCarousel images={teamImgs} interval={12000} />

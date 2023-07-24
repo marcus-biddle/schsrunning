@@ -1,0 +1,36 @@
+/* MobileSlider.css */
+.slider-container {
+    overflow-x: hidden; /* Hide the horizontal scrollbar */
+    width: 100%;
+  }
+  
+  .slider-content {
+    display: flex;
+    scroll-snap-type: x mandatory; /* Snap to each slider item */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+    scrollbar-width: none; /* Hide the scrollbar on Firefox */
+    -ms-overflow-style: none; /* Hide the scrollbar on IE/Edge */
+  }
+  
+  .slider-item {
+    flex: 0 0 70%; /* Each slider item takes 80% width */
+    padding: 20px;
+    margin: 0 10px; /* Add margin between slider items */
+    background-color: var(--black-50);
+    border: 1px grey solid;
+    color: white;
+    border-radius: 10px;
+    scroll-snap-align: center; /* Center the slider items when snapping */
+  }
+  
+  .slider-item:first-child {
+    margin-left: 0; /* Remove margin for the first item */
+  }
+  
+  .slider-item:last-child {
+    margin-right: 0; /* Remove margin for the last item */
+  }
+  
+  /* Add more custom styles as needed */
+  
