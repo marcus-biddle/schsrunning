@@ -13,7 +13,7 @@ const BottomNavbar = () => {
             </div>
             <h5>Home</h5>
         </Link>
-        <Link to={'/'} onClick={() => setActive('search')}>
+        <Link to={'/search'} onClick={() => setActive('search')}>
             <div className={active === 'search' ? 'navbar-bottom-icon-container-active' : 'navbar-bottom-icon-container'}>
                 <AiOutlineSearch id='search' className="navbar-bottom-icon"/>
             </div>

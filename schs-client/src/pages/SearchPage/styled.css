@@ -1,0 +1,41 @@
+/* List.css */
+.search-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+  }
+  
+  .list-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: transparent;
+    border: none;
+    color: white; 
+  }
+  
+  .item-info {
+    flex: 1;
+    margin-left: 16px;
+  }
+  
+  .item-title {
+    font-weight: bold;
+    color: grey;
+    font-family: var(--font-family-paragraph);
+    font-size: 13px;
+    padding-left: 8px;
+  }
+  
+  .item-artist {
+    font-family: var(--font-family-paragraph);
+    font-size: 18px;
+  }
+
+  .navbar-bottom-icon {
+    color: white;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  

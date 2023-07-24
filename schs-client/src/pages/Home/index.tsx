@@ -35,12 +35,16 @@ export const Home = () => {
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <MobileButtonGroup />
         <MobileGrid items={items} />
+        {/* Cross Country Home */}
+        <>
         <div style={{ padding: '10px'}}>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Check out 2020</h5>
             <h3 style={{ paddingBottom: '16px'}}>Recent Races</h3>
             {/* get top 4-5 recent events/meets to display here */}
             <MobileSlider items={items} />
         </div>
         <div style={{ padding: '10px', marginTop: '32px'}}>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Most visited</h5>
             <h3 style={{ paddingBottom: '16px'}}>Courses</h3>
             {/* get top 4-5 recent events/meets to display here */}
             <MobileSlider items={items} />
@@ -51,6 +55,8 @@ export const Home = () => {
             {/* get top 4-5 recent events/meets to display here */}
             <MobileSlider items={items} />
         </div>
+        </>
+        
         {/* <div className='home-hero'>
             <div className='carousel-container'>
                 <ImageCarousel images={teamImgs} interval={12000} />
