@@ -5,6 +5,7 @@ import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../SEO/meta/index.tsx';
 import { BsArrowRight } from 'react-icons/bs';
+import SportFilter from '../../components/Filters/pill.tsx';
 
 const recentRaceListQuery = (limit: number) => ({
     queryKey: ['race-results', limit],
@@ -25,10 +26,11 @@ export const Home = () => {
     console.log(athletes);
 
   return (
-    <div style={{ position: 'relative', height: '100vh'}}>
+    <div style={{ position: 'relative', height: '100vh', backgroundColor: '#1F2627'}}>
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
-        <div className='home-hero'>
+        <SportFilter />
+        {/* <div className='home-hero'>
             <div className='carousel-container'>
                 <ImageCarousel images={teamImgs} interval={12000} />
             </div>
@@ -67,7 +69,7 @@ export const Home = () => {
                 </div>
             </div>
             
-        </div>
+        </div> */}
         {/* Images */}
         {/* <ImageCarousel images={teamImgs} interval={12000} /> */}
         {/* Latest races */}
@@ -103,11 +105,11 @@ export const Home = () => {
                 ))}
             </div>
         </div> */}
-        <div>
+        {/* <div>
             <h4 className="latest-race-heading">Latest Updates</h4>
             <p>12/12/21 - added 2021 XC Season</p>
             <p>12/01/21 added 2019 XC Season</p>
-        </div>
+        </div> */}
     </div>
   )
 }

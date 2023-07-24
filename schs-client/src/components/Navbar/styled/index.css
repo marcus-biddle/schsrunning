@@ -59,6 +59,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--black);
+}
+
+.navbar-icon-container {
+  position: relative;
+  height: 32px;
+  width: 32px;
+}
+
+.navbar-icon {
+  color: white;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .hamburger-mobile {
@@ -69,7 +83,7 @@
 .bar-mobile {
   width: 30px;
   height: 3px;
-  background-color: black;
+  background-color: var(--primary-color);
   margin: 5px 0;
 }
 

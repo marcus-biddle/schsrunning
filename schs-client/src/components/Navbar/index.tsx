@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
-
+import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const athleteListQuery = () => ({
@@ -111,7 +111,16 @@ export const MobileNavbar: React.FC = () => {
 
   return (
     <div className="navbar-mobile">
-      <div className="hamburger-mobile" onClick={toggleMenu}>
+      <h3>Good Morning</h3>
+      <div style={{ display: 'flex', width: '88px', justifyContent: 'space-around'}}>
+        <div className='navbar-icon-container'>
+          <IoNotificationsOutline className='navbar-icon' />
+        </div>
+        <div className='navbar-icon-container'>
+          <IoSettingsOutline className='navbar-icon' />
+        </div>
+      </div>
+      {/* <div className="hamburger-mobile" onClick={toggleMenu}>
         <div className="bar-mobile"></div>
         <div className="bar-mobile"></div>
         <div className="bar-mobile"></div>
@@ -120,12 +129,11 @@ export const MobileNavbar: React.FC = () => {
             <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/>
         </div>
       <ul className={`menu-mobile ${isMenuOpen ? 'active' : ''}`}>
-        {/* fix links */}
         <li><a href="#home">Home</a></li>
         <li><a href="#about">Cross Country</a></li>
         <li><a href="#services">Track</a></li>
         <li><a href="#contact">Admin</a></li>
-      </ul>
+      </ul> */}
     </div>
   );
 }

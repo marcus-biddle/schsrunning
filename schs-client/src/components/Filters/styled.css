@@ -1,0 +1,13 @@
+.pill-filter {
+    font-family: var(--font-family-paragraph);
+    font-size: 21px;
+    font-weight: lighter;
+    color: white;
+
+    border-radius: 8px;
+    background-color: #545d5e;
+    display: inline-block;
+    text-align: center;
+    height: 32px;
+    padding: 0 8px;
+}

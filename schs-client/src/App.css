@@ -60,6 +60,14 @@
   line-height: 40px;
 }
 
+h3 {
+  font-family: var(--font-family-header);
+  font-size: 28px;
+  font-weight: bold;
+  color: hsl(187, 73%, 55%);
+  line-height: 40px;
+}
+
 .h3-white {
   font-family: var(--font-family-header);
   font-size: 34px;
@@ -116,11 +124,11 @@
   line-height: 28px;
 }
 
-.h5 {
-  font-family: var(--font-family-header);
-  font-size: 17px;
+h5 {
+  font-family: var(--font-family-paragraph);
+  font-size: 18px;
   font-weight: bold;
-  color: var(--black-10);
+  color: white;
   line-height: 20px;
 }
 
