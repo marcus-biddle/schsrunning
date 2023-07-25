@@ -1,7 +1,7 @@
 import ImageCarousel from '../../components/Carousel/index.tsx';
 import './styled/index.css';
 import { teamImgs } from '../../assets/index.tsx';
-import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
+import { XCRaceResult, fetchRecentXCRaceResults, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../SEO/meta/index.tsx';
 import { BsArrowRight } from 'react-icons/bs';
@@ -9,6 +9,36 @@ import SportFilter from '../../components/Filters/buttonGroup.tsx';
 import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
 import MobileGrid from '../../components/Grid/index.tsx';
 import MobileSlider from '../../components/MobileSLider/index.tsx';
+import { getYearFromDate } from '../../helpers/index.ts';
+
+
+const topCompRacesMenListQuery = () => ({
+    queryKey: ['top-comp-races-men'],
+    queryFn: async () => {
+        const athletes = await fetchTop4RaceResults(2);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+  })
+
+  const topCompRacesWomenListQuery = () => ({
+    queryKey: ['top-comp-races-women'],
+    queryFn: async () => {
+        const athletes = await fetchTop4RaceResults(3);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+  })
 
 const recentRaceListQuery = (limit: number) => ({
     queryKey: ['race-results', limit],
@@ -26,8 +56,22 @@ const recentRaceListQuery = (limit: number) => ({
 
 export const Home = () => {
     const { data: athletes } = useQuery(recentRaceListQuery(26));
-    console.log(athletes);
+    const { data: topMen } = useQuery(topCompRacesMenListQuery());
+    const { data: topWomen } = useQuery(topCompRacesWomenListQuery());
+    const combinedData = topMen?.concat(topWomen || []);
+    console.log(topMen, topWomen);
     const items = ['Athletes', 'Coaches', 'Seasons', 'Gallery'];
+
+    const groupedData: { [key: string]: XCRaceResult[] } = {};
+    combinedData?.forEach((item) => {
+    const date = new Date(item.date).toLocaleDateString();
+    if (!groupedData[date]) {
+      groupedData[date] = [];
+    }
+    groupedData[date].push(item);
+    });
+
+    const latestYear = getYearFromDate(Object.keys(groupedData)[0])
 
   return (
     <div style={{ position: 'relative', height: '100vh', backgroundColor: '#1F2627'}}>
@@ -38,22 +82,22 @@ export const Home = () => {
         {/* Cross Country Home */}
         <>
         <div style={{ padding: '10px'}}>
-            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Check out 2020</h5>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Check out {latestYear}</h5>
             <h3 style={{ paddingBottom: '16px'}}>Recent Races</h3>
             {/* get top 4-5 recent events/meets to display here */}
-            <MobileSlider items={items} />
+            <MobileSlider items={groupedData} />
         </div>
         <div style={{ padding: '10px', marginTop: '32px'}}>
             <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Most visited</h5>
             <h3 style={{ paddingBottom: '16px'}}>Courses</h3>
             {/* get top 4-5 recent events/meets to display here */}
-            <MobileSlider items={items} />
+            {/* <MobileSlider items={items} /> */}
         </div>
         <div style={{ padding: '10px', marginTop: '32px'}}>
             <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>CSS Competitors</h5>
             <h3 style={{ paddingBottom: '16px'}}>Road Runners</h3>
             {/* get top 4-5 recent events/meets to display here */}
-            <MobileSlider items={items} />
+            {/* <MobileSlider items={items} /> */}
         </div>
         </>
         

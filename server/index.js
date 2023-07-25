@@ -481,6 +481,42 @@ LIMIT ?;
   }
 });
 
+app.get('/xc-top-race-results/:genderId', async (req, res) => {
+  const { genderId } = req.params;
+
+  const query = `
+  SELECT Result.time, Result.pace, Competitor.grade, Race.date, RaceName.raceName, Course.courseName, Course.courseDistance,
+       RaceCondition.raceCondition, Athlete.firstName, Athlete.lastName, Competitor.competitorId, Race.raceId
+FROM Result
+JOIN Competitor ON Result.competitorId = Competitor.competitorId
+JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+JOIN Race ON Result.raceId = Race.raceId
+JOIN RaceName ON Race.raceNameId = RaceName.raceNameId
+JOIN RaceCondition ON Race.raceConditionId = RaceCondition.raceConditionId
+JOIN Course ON Race.courseId = Course.courseId
+JOIN (
+    SELECT Race.date, MIN(Result.time) AS best_time
+    FROM Result
+    JOIN Race ON Result.raceId = Race.raceId
+    JOIN Competitor ON Result.competitorId = Competitor.competitorId
+    JOIN Athlete ON Competitor.athleteId = Athlete.athleteId
+    WHERE Athlete.genderId = ?
+    GROUP BY Race.date
+) AS BestTimes ON Race.date = BestTimes.date AND Result.time = BestTimes.best_time
+WHERE Athlete.genderId = ?
+ORDER BY Race.date DESC
+LIMIT 4;   
+  `;
+
+  try {
+    const [rows] = await connection.query(query, [genderId, genderId]);
+    res.send(rows);
+  } catch (error) {
+    console.error("Error fetching XC race results:", error);
+    res.status(500).json({ error: "Failed to fetch XC race results" });
+  }
+});
+
 
 // Award
 app.get('/awards', async (req, res) => {
