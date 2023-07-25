@@ -1,15 +1,18 @@
-import ImageCarousel from '../../components/Carousel/index.tsx';
+
 import './styled/index.css';
-import { teamImgs } from '../../assets/index.tsx';
-import { fetchRecentXCRaceResults } from '../../api/XCRaceResults.ts';
+import { XCRaceResult, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../SEO/meta/index.tsx';
-import { BsArrowRight } from 'react-icons/bs';
+import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
+import MobileGrid from '../../components/Grid/index.tsx';
+import MobileSlider from '../../components/MobileSLider/index.tsx';
+import { getYearFromDate } from '../../helpers/index.ts';
 
-const recentRaceListQuery = (limit: number) => ({
-    queryKey: ['race-results', limit],
+
+const topCompRacesMenListQuery = () => ({
+    queryKey: ['top-comp-races-men'],
     queryFn: async () => {
-        const athletes = await fetchRecentXCRaceResults(limit);
+        const athletes = await fetchTop4RaceResults(2);
         if (!athletes) {
             throw new Response('', {
                 status: 404,
@@ -20,15 +23,81 @@ const recentRaceListQuery = (limit: number) => ({
     },
   })
 
+  const topCompRacesWomenListQuery = () => ({
+    queryKey: ['top-comp-races-women'],
+    queryFn: async () => {
+        const athletes = await fetchTop4RaceResults(3);
+        if (!athletes) {
+            throw new Response('', {
+                status: 404,
+                statusText: 'Not Found',
+            })
+        }
+        return athletes;
+    },
+  })
+
+// const recentRaceListQuery = (limit: number) => ({
+//     queryKey: ['race-results', limit],
+//     queryFn: async () => {
+//         const athletes = await fetchRecentXCRaceResults(limit);
+//         if (!athletes) {
+//             throw new Response('', {
+//                 status: 404,
+//                 statusText: 'Not Found',
+//             })
+//         }
+//         return athletes;
+//     },
+//   })
+
 export const Home = () => {
-    const { data: athletes } = useQuery(recentRaceListQuery(26));
-    console.log(athletes);
+    const { data: topMen } = useQuery(topCompRacesMenListQuery());
+    const { data: topWomen } = useQuery(topCompRacesWomenListQuery());
+    const combinedData = topMen?.concat(topWomen || []);
+    console.log(topMen, topWomen);
+    const items = ['Athletes', 'Coaches', 'Seasons', 'Gallery'];
+
+    const groupedData: { [key: string]: XCRaceResult[] } = {};
+    combinedData?.forEach((item) => {
+    const date = new Date(item.date).toLocaleDateString();
+    if (!groupedData[date]) {
+      groupedData[date] = [];
+    }
+    groupedData[date].push(item);
+    });
+
+    const latestYear = getYearFromDate(Object.keys(groupedData)[0])
 
   return (
-    <div style={{ position: 'relative', height: '100vh'}}>
+    <div style={{ position: 'relative', height: '100vh', backgroundColor: '#1F2627'}}>
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
-        <div className='home-hero'>
+        <MobileButtonGroup />
+        <MobileGrid items={items} />
+        {/* Cross Country Home */}
+        <>
+        <div style={{ padding: '10px'}}>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Check out {latestYear}</h5>
+            <h3 style={{ paddingBottom: '16px'}}>Recent Races</h3>
+            {/* get top 4-5 recent events/meets to display here */}
+            <MobileSlider items={groupedData} />
+        </div>
+        <div style={{ padding: '10px', marginTop: '32px'}}>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Most visited</h5>
+            <h3 style={{ paddingBottom: '16px'}}>Courses</h3>
+            {/* get top 4-5 recent events/meets to display here */}
+            {/* <MobileSlider items={items} /> */}
+        </div>
+        <div style={{ padding: '10px', marginTop: '32px'}}>
+            <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>CSS Competitors</h5>
+            <h3 style={{ paddingBottom: '16px'}}>Road Runners</h3>
+            {/* get top 4-5 recent events/meets to display here */}
+            {/* <MobileSlider items={items} /> */}
+        </div>
+        </>
+        
+        {/* <div className='home-hero'>
             <div className='carousel-container'>
                 <ImageCarousel images={teamImgs} interval={12000} />
             </div>
@@ -67,7 +136,7 @@ export const Home = () => {
                 </div>
             </div>
             
-        </div>
+        </div> */}
         {/* Images */}
         {/* <ImageCarousel images={teamImgs} interval={12000} /> */}
         {/* Latest races */}
@@ -103,11 +172,11 @@ export const Home = () => {
                 ))}
             </div>
         </div> */}
-        <div>
+        {/* <div>
             <h4 className="latest-race-heading">Latest Updates</h4>
             <p>12/12/21 - added 2021 XC Season</p>
             <p>12/01/21 added 2019 XC Season</p>
-        </div>
+        </div> */}
     </div>
   )
 }

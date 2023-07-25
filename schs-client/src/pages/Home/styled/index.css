@@ -47,7 +47,7 @@ margin-bottom: 10px;
 }
 
 .home-hero {
-  background: #eafcff;
+  /* background: #eafcff; */
   height: 100vh;
   align-items: center;
   text-align: center;
@@ -58,7 +58,7 @@ margin-bottom: 10px;
 @media (max-width: 768px) {
   .home-hero {
     flex-direction: column;
-    background: #eafcff;
+    /* background: #eafcff; */
     gap: 32px;
     overflow: hidden;
   }

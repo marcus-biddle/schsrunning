@@ -1,10 +1,10 @@
 import { MobileNavbar, Navbar } from './components/Navbar'
 import './App.css';
 import { Outlet, useLocation } from 'react-router';
-import { Footer } from './components/Footer';
 import { useEffect, useState } from 'react';
 import AuthProvider from './context/authProvider';
 import { checkIfMobile } from './helpers';
+import BottomNavbar from './components/BottomNav';
 
 export const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -34,7 +34,8 @@ export const App: React.FC = () => {
           <Outlet />
         </AuthProvider>
       </div>
-      <Footer />
+      {checkIfMobile(screenWidth) ? <BottomNavbar /> : null }
+      {/* <Footer /> */}
     </div>
   )
 }

@@ -36,6 +36,7 @@ import { TopRunnerMenu } from './pages/XC/TopRunnerMenu/index.tsx';
 import { TopRunners } from './pages/XC/TopRunners/index.tsx';
 import { TopTeamMenu } from './pages/XC/TopTeamMenu/index.tsx';
 import { TopTeams } from './pages/XC/TopTeams/index.tsx';
+import {SearchPage} from './pages/SearchPage/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: 'athlete/:athleteId',
         element: <CrossCountry />,
+      },
+      {
+        path: 'search/',
+        element: <SearchPage/>,
       },
       // Cross Country Pages
       {

@@ -39,3 +39,13 @@ export async function fetchRecentXCRaceResults(limit: number): Promise<XCRaceRes
     throw new Error('Failed to fetch XC race results');
   }
 }
+
+export async function fetchTop4RaceResults(genderId: number): Promise<XCRaceResult[]> {
+  try {
+    const response: AxiosResponse<XCRaceResult[]> = await axios.get(`${BASE_URL}/xc-top-race-results/${genderId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching XC race results:', error);
+    throw new Error('Failed to fetch XC race results');
+  }
+}
