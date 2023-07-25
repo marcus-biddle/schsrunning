@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './styled.css'
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai'

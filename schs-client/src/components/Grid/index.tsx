@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './styled.css';
 
 const MobileGrid = ({ items }: { items: string[]}) => {

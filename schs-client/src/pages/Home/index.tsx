@@ -1,11 +1,8 @@
-import ImageCarousel from '../../components/Carousel/index.tsx';
+
 import './styled/index.css';
-import { teamImgs } from '../../assets/index.tsx';
-import { XCRaceResult, fetchRecentXCRaceResults, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
+import { XCRaceResult, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../SEO/meta/index.tsx';
-import { BsArrowRight } from 'react-icons/bs';
-import SportFilter from '../../components/Filters/buttonGroup.tsx';
 import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
 import MobileGrid from '../../components/Grid/index.tsx';
 import MobileSlider from '../../components/MobileSLider/index.tsx';
@@ -40,22 +37,21 @@ const topCompRacesMenListQuery = () => ({
     },
   })
 
-const recentRaceListQuery = (limit: number) => ({
-    queryKey: ['race-results', limit],
-    queryFn: async () => {
-        const athletes = await fetchRecentXCRaceResults(limit);
-        if (!athletes) {
-            throw new Response('', {
-                status: 404,
-                statusText: 'Not Found',
-            })
-        }
-        return athletes;
-    },
-  })
+// const recentRaceListQuery = (limit: number) => ({
+//     queryKey: ['race-results', limit],
+//     queryFn: async () => {
+//         const athletes = await fetchRecentXCRaceResults(limit);
+//         if (!athletes) {
+//             throw new Response('', {
+//                 status: 404,
+//                 statusText: 'Not Found',
+//             })
+//         }
+//         return athletes;
+//     },
+//   })
 
 export const Home = () => {
-    const { data: athletes } = useQuery(recentRaceListQuery(26));
     const { data: topMen } = useQuery(topCompRacesMenListQuery());
     const { data: topWomen } = useQuery(topCompRacesWomenListQuery());
     const combinedData = topMen?.concat(topWomen || []);

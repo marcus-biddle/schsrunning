@@ -1,7 +1,6 @@
 import { MobileNavbar, Navbar } from './components/Navbar'
 import './App.css';
 import { Outlet, useLocation } from 'react-router';
-import { Footer } from './components/Footer';
 import { useEffect, useState } from 'react';
 import AuthProvider from './context/authProvider';
 import { checkIfMobile } from './helpers';

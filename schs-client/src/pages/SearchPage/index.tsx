@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { SearchInput } from '../../components/SearchFeatures/SearchInput'
 import { fetchAthletes } from '../../api/athletes';
 import { useNavigate } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
