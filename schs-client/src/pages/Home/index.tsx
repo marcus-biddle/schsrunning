@@ -3,10 +3,10 @@ import './styled/index.css';
 import { XCRaceResult, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../SEO/meta/index.tsx';
-import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
-import MobileGrid from '../../components/Grid/index.tsx';
-import MobileSlider from '../../components/MobileSLider/index.tsx';
-import { getYearFromDate } from '../../helpers/index.ts';
+// import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
+// import MobileGrid from '../../components/Grid/index.tsx';
+// import MobileSlider from '../../components/MobileSLider/index.tsx';
+// import { getYearFromDate } from '../../helpers/index.ts';
 import img from '../../assets/scott.jpg'
 
 
@@ -57,7 +57,7 @@ export const Home = () => {
     const { data: topWomen } = useQuery(topCompRacesWomenListQuery());
     const combinedData = topMen?.concat(topWomen || []);
     console.log(topMen, topWomen);
-    const items = ['Athletes', 'Coaches', 'Seasons', 'Gallery'];
+    // const items = ['Athletes', 'Coaches', 'Seasons', 'Gallery'];
 
     const groupedData: { [key: string]: XCRaceResult[] } = {};
     combinedData?.forEach((item) => {
@@ -68,7 +68,7 @@ export const Home = () => {
     groupedData[date].push(item);
     });
 
-    const latestYear = getYearFromDate(Object.keys(groupedData)[0])
+    // const latestYear = getYearFromDate(Object.keys(groupedData)[0])
 
   return (
     <div className='home-page'>
