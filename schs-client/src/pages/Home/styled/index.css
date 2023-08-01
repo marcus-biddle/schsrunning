@@ -2,6 +2,12 @@
     Gold: #ffd700 (a bright gold)
 */
 
+.home-page {
+  position: relative;
+  height: 100vh;
+  background-color: var(--black);
+}
+
   .top-athlete-list {
     list-style-type: none;
   }
@@ -153,4 +159,76 @@ margin-bottom: 10px;
   text-align: center;
   padding-top: 80px;
   color: hsl(189, 100%, 96%);
+}
+
+/* Set the height of the container to 80vh */
+.container {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end; /* Align the children at the bottom */
+  margin: 0 1rem 0 1rem;
+  background-color: rgb(33, 38, 41);
+  border-radius: 12px;
+}
+
+/* Create the gradient background */
+.fading-top {
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgb(33, 38, 41, 0), rgb(33, 38, 41, 1));
+  pointer-events: none;
+}
+
+/* Center the image at the bottom */
+.image-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Style the image */
+.image {
+  max-height: 100%; /* Set the max height to prevent image overflow */ /* Set the max width to maintain aspect ratio */
+  height: 50vh;
+  width: 30rem;
+}
+
+.hero-text {
+  color: white;
+  position: absolute;
+  top: 50px;
+  font-family: var(--font-family-header);
+  font-weight: bolder;
+  font-size: 52px;
+  text-align: center;
+}
+
+.hero-cta-container {
+  position: absolute;
+  top: 16.25rem;
+  text-align: center;
+  color: white;
+  width: 100%;
+  z-index: 100;
+}
+
+.hero-cta {
+  padding: 8px 40px 8px 40px;
+  border-radius: 6px;
+  border-color: white;
+  background-color: transparent;
+  border: solid 0.5px gold;
+  color: white;
+  font-family: var(--font-family-header);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.hero-cta:hover {
+  opacity: .85;
 }

@@ -7,6 +7,7 @@ import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
 import MobileGrid from '../../components/Grid/index.tsx';
 import MobileSlider from '../../components/MobileSLider/index.tsx';
 import { getYearFromDate } from '../../helpers/index.ts';
+import img from '../../assets/scott.jpg'
 
 
 const topCompRacesMenListQuery = () => ({
@@ -70,32 +71,47 @@ export const Home = () => {
     const latestYear = getYearFromDate(Object.keys(groupedData)[0])
 
   return (
-    <div style={{ position: 'relative', height: '100vh', backgroundColor: '#1F2627'}}>
+    <div className='home-page'>
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
-        <MobileButtonGroup />
-        <MobileGrid items={items} />
+        <div className="container">
+            <div className='hero-text'>Unlock Your <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textDecorationThickness: '4px', textDecorationStyle: 'double', textUnderlineOffset: '12px',}}>Potential</span></div>
+            <div className='hero-cta-container'>
+                <button className='hero-cta'>Explore</button>
+            </div>
+            <div className="fading-top" />
+            <div className="image-container">
+                <img
+                className="image"
+                src={img} // Replace with your actual image URL
+                alt="Your Image"
+                />
+            </div>
+        </div>
+        <div style={{ margin: '56px 1rem 0 1rem'}}>
+            <p style={{ color: 'gold', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.05px'}}>Spotlight</p>
+            <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Coaches</p>
+        </div>
+        {/* <MobileButtonGroup />
+        <MobileGrid items={items} /> */}
         {/* Cross Country Home */}
-        <>
+        {/* <>
         <div style={{ padding: '10px'}}>
             <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Check out {latestYear}</h5>
             <h3 style={{ paddingBottom: '16px'}}>Recent Races</h3>
-            {/* get top 4-5 recent events/meets to display here */}
             <MobileSlider items={groupedData} />
         </div>
         <div style={{ padding: '10px', marginTop: '32px'}}>
             <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>Most visited</h5>
             <h3 style={{ paddingBottom: '16px'}}>Courses</h3>
-            {/* get top 4-5 recent events/meets to display here */}
-            {/* <MobileSlider items={items} /> */}
+
         </div>
         <div style={{ padding: '10px', marginTop: '32px'}}>
             <h5 style={{ textTransform: 'uppercase', fontSize: '13.5px', color: 'gainsboro'}}>CSS Competitors</h5>
             <h3 style={{ paddingBottom: '16px'}}>Road Runners</h3>
-            {/* get top 4-5 recent events/meets to display here */}
-            {/* <MobileSlider items={items} /> */}
+
         </div>
-        </>
+        </> */}
         
         {/* <div className='home-hero'>
             <div className='carousel-container'>
