@@ -93,7 +93,7 @@ export const Home = () => {
                 />
             </div>
         </div>
-        <div style={{ margin: '56px 1rem 56px 1rem'}}>
+        <div style={{ margin: '56px 1rem 32px 1rem'}}>
             <p style={{ color: 'gold', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.05px'}}>Spotlight</p>
             <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Coaches</p>
             <div style={{ display: 'flex' ,width: '100%', height: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0'}}>
@@ -105,6 +105,35 @@ export const Home = () => {
                 </div>
             </div>
         </div>
+        <div style={{ margin: '0 1rem 1rem 1rem' }}>
+            <p style={{ color: 'gold', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.05px'}}>2023 update</p>
+            <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Daily Schedule</p>
+            <div style={{ display: 'flex' ,width: '100%', height: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0'}}>
+                <ul style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', color: 'white'}}>
+                    <li style={{ display: 'flex', justifyContent: 'space-around', width: '100%'}}>
+                        <span>Monday</span>
+                        <span>3pm - 5pm</span>
+                    </li>
+                    <li style={{ display: 'flex', justifyContent: 'space-around', width: '100%'}}>
+                        <span>Tuesday</span>
+                        <span>3pm - 5pm</span>
+                    </li>
+                    <li style={{ display: 'flex', justifyContent: 'space-around', width: '100%'}}>
+                        <span>Wednesday</span>
+                        <span>3pm - 5pm</span>
+                    </li>
+                    <li style={{ display: 'flex', justifyContent: 'space-around', width: '100%'}}>
+                        <span>Thursday</span>
+                        <span>3pm - 5pm</span>
+                    </li>
+                    <li style={{ display: 'flex', justifyContent: 'space-around', width: '100%'}}>
+                        <span>Friday</span>
+                        <span>3pm - 5pm</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>All Rights Reserved.</div>
         {/* <MobileButtonGroup />
         <MobileGrid items={items} /> */}
         {/* Cross Country Home */}
