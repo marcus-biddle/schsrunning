@@ -108,7 +108,7 @@ export const MobileNavbar: React.FC = () => {
     <div className="navbar-mobile">
       <div style={{ display: 'flex'}}>
       <img src={logo} alt='logo' style={{ height: '38px' }}/>
-      <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '6px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
+      <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
       </div>
       
       <div style={{ display: 'flex', width: '88px', justifyContent: 'space-around'}}>
