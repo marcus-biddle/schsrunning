@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './styled/index.css';
 import logo from '../../assets/logo2.png';
-import { BiSearchAlt2 } from 'react-icons/bi';
+import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
-import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
+// import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const athleteListQuery = () => ({
@@ -111,12 +111,9 @@ export const MobileNavbar: React.FC = () => {
       <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
       </div>
       
-      <div style={{ display: 'flex', width: '88px', justifyContent: 'space-around'}}>
+      <div style={{ display: 'flex', justifyContent: 'space-around'}}>
         <div className='navbar-icon-container'>
-          <IoNotificationsOutline className='navbar-icon' />
-        </div>
-        <div className='navbar-icon-container'>
-          <IoSettingsOutline className='navbar-icon' />
+          <BiMenu className='navbar-icon' />
         </div>
       </div>
       {/* <div className="hamburger-mobile" onClick={toggleMenu}>
