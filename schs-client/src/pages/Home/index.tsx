@@ -110,14 +110,14 @@ export const Home = () => {
             <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Daily Schedule</p>
             <div style={{ display: 'flex', color: 'white', width: '100%', minHeight: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0', justifyContent: 'space-around'}}>
                 <ul style={{ listStyle: 'none', padding: '0 0 4px 0'}}>
-                    <li style={{ padding: '0 0 4px 0'}}>Monday</li>
+                    <li style={{ padding: '4px 0 4px 0'}}>Monday</li>
                     <li style={{ padding: '0 0 4px 0'}}>Tuesday</li>
                     <li style={{ padding: '0 0 4px 0'}}>Wednesday</li>
                     <li style={{ padding: '0 0 4px 0'}}>Thursday</li>
                     <li style={{ padding: '0 0 4px 0'}}>Friday</li>
                 </ul>
                 <ul style={{ listStyle: 'none'}}>
-                    <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
+                    <li style={{ padding: '4px 0 4px 0'}}>3pm - 5pm</li>
                     <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
                     <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
                     <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
