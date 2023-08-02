@@ -75,7 +75,11 @@ export const Home = () => {
         {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
-            <div className='hero-text'>Unlock Your <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textDecorationThickness: '4px', textDecorationStyle: 'double', textUnderlineOffset: '12px',}}>Potential</span></div>
+            <div className='hero-text'>
+            <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textUnderlineOffset: '10px', textDecorationThickness: '1.5px'}}>Find</span>
+                {' '}Your Passion 
+                <p style={{ color: 'grey', fontSize: '16px', fontWeight: 'lighter', paddingTop: '24px'}}>Join the team to discover new possibilities</p>
+            </div>    
             <div className='hero-cta-container'>
                 <button className='hero-cta'>Explore</button>
             </div>

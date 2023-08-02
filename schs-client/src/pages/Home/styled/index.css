@@ -195,7 +195,7 @@ margin-bottom: 10px;
 .image {
   max-height: 100%; /* Set the max height to prevent image overflow */ /* Set the max width to maintain aspect ratio */
   height: 50vh;
-  width: 30rem;
+  width: 38rem;
 }
 
 .hero-text {
