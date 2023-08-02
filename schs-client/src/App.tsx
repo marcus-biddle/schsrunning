@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 import AuthProvider from './context/authProvider';
 import { checkIfMobile } from './helpers';
-import BottomNavbar from './components/BottomNav';
+// import BottomNavbar from './components/BottomNav';
 
 export const App: React.FC = () => {
   const { pathname } = useLocation();
