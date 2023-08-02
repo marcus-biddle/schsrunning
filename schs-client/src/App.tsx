@@ -34,7 +34,7 @@ export const App: React.FC = () => {
           <Outlet />
         </AuthProvider>
       </div>
-      {checkIfMobile(screenWidth) ? <BottomNavbar /> : null }
+      {/* {checkIfMobile(screenWidth) ? <BottomNavbar /> : null } */}
       {/* <Footer /> */}
     </div>
   )

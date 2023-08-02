@@ -8,6 +8,7 @@ import Page from '../../SEO/meta/index.tsx';
 // import MobileSlider from '../../components/MobileSLider/index.tsx';
 // import { getYearFromDate } from '../../helpers/index.ts';
 import img from '../../assets/scott.jpg'
+import img2 from '../../assets/coaches.jpg'
 
 
 const topCompRacesMenListQuery = () => ({
@@ -72,13 +73,12 @@ export const Home = () => {
 
   return (
     <div className='home-page'>
-        {/* TODO: Add SEO like below to other pages */}
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
             <div className='hero-text'>
-            <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textUnderlineOffset: '10px', textDecorationThickness: '1.5px'}}>Find</span>
+            <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textUnderlineOffset: '10px', textDecorationThickness: '1.5px'}}>Unleash</span>
                 {' '}Your Passion 
-                <p style={{ color: 'grey', fontSize: '16px', fontWeight: 'lighter', paddingTop: '24px'}}>Join the team to discover new possibilities</p>
+                <p style={{ color: 'grey', fontSize: '16px', fontWeight: 'lighter', paddingTop: '24px'}}>Join the team and discover new possibilities</p>
             </div>    
             <div className='hero-cta-container'>
                 <button className='hero-cta'>Explore</button>
@@ -92,9 +92,17 @@ export const Home = () => {
                 />
             </div>
         </div>
-        <div style={{ margin: '56px 1rem 0 1rem'}}>
+        <div style={{ margin: '56px 1rem 56px 1rem'}}>
             <p style={{ color: 'gold', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.05px'}}>Spotlight</p>
             <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Coaches</p>
+            <div style={{ display: 'flex' ,width: '100%', height: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0'}}>
+                <img src={img2} alt="coach julie" style={{ objectFit: 'cover', height: '100%', width: '33%'}}/>
+                <div style={{ padding: '8px'}}>
+                    <p style={{ color: 'white'}}>Head Coach</p>
+                    <p style={{ color: '#87CEFA', fontSize: '24px', paddingTop: '2px'}}>Julie L'Heureux</p>
+                    
+                </div>
+            </div>
         </div>
         {/* <MobileButtonGroup />
         <MobileGrid items={items} /> */}
