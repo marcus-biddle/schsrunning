@@ -4,7 +4,7 @@
 
 .home-page {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--black);
 }
 
@@ -176,7 +176,7 @@ margin-bottom: 10px;
 /* Create the gradient background */
 .fading-top {
   position: absolute;
-  top: 230px;
+  top: 54%;
   left: 0;
   right: 0;
   bottom: 0;
@@ -195,14 +195,14 @@ margin-bottom: 10px;
 /* Style the image */
 .image {
   max-height: 100%; /* Set the max height to prevent image overflow */ /* Set the max width to maintain aspect ratio */
-  height: 42vh;
+  height: 32vh;
   width: 38rem;
 }
 
 .hero-text {
   color: white;
   position: absolute;
-  top: 50px;
+  top: 35px;
   font-family: var(--font-family-header);
   font-weight: bolder;
   font-size: 52px;
