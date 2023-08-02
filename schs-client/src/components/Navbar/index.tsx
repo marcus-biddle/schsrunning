@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './styled/index.css';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo2.png';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
@@ -106,7 +106,7 @@ export const MobileNavbar: React.FC = () => {
 
   return (
     <div className="navbar-mobile">
-      <p className='navbar-logo'>SCHS Running</p>
+      <img src={logo} alt='logo' />
       <div style={{ display: 'flex', width: '88px', justifyContent: 'space-around'}}>
         <div className='navbar-icon-container'>
           <IoNotificationsOutline className='navbar-icon' />
