@@ -76,9 +76,10 @@ export const Home = () => {
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
             <div className='hero-text'>
+                <p style={{ fontSize: '12px', textTransform: 'uppercase', fontWeight: 'lighter', letterSpacing: '1.5px', opacity: '.65', paddingBottom: '12px', color: '#87CEFA'}}>Cross Country | Track & Field</p>
             <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textUnderlineOffset: '10px', textDecorationThickness: '1.5px'}}>Unleash</span>
                 {' '}Your Passion 
-                <p style={{ color: 'grey', fontSize: '16px', fontWeight: 'lighter', paddingTop: '24px'}}>Join the team and discover new possibilities</p>
+                <p style={{ color: 'grey', fontSize: '16px', fontWeight: 'lighter', paddingTop: '16px'}}>Join the team and discover new possibilities</p>
             </div>    
             <div className='hero-cta-container'>
                 <button className='hero-cta'>Explore</button>

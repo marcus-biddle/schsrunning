@@ -169,7 +169,7 @@ margin-bottom: 10px;
   display: flex;
   align-items: flex-end; /* Align the children at the bottom */
   margin: 0 1rem 0 1rem;
-  background-color: rgb(33, 38, 41);
+  background-color: #212629;
   border-radius: 12px;
 }
 
