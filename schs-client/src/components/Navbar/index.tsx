@@ -112,7 +112,7 @@ export const MobileNavbar: React.FC = () => {
       <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
       </div>
       
-      <div style={{ display: 'flex', justifyContent: 'space-around'}}>
+      <div style={{ display: 'flex', justifyContent: 'space-around', gap: '8px'}}>
       <div className='navbar-icon-container-search'>
           <AiOutlineSearch className='navbar-icon' />
         </div>
