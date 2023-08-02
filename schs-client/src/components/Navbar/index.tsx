@@ -106,7 +106,7 @@ export const MobileNavbar: React.FC = () => {
 
   return (
     <div className="navbar-mobile">
-      <p style={{ color: 'white'}}>SCHS</p>
+      <p className='navbar-logo'>SCHS</p>
       <div style={{ display: 'flex', width: '88px', justifyContent: 'space-around'}}>
         <div className='navbar-icon-container'>
           <IoNotificationsOutline className='navbar-icon' />

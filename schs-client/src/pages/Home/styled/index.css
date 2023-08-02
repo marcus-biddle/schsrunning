@@ -164,7 +164,7 @@ margin-bottom: 10px;
 /* Set the height of the container to 80vh */
 .container {
   position: relative;
-  height: 80vh;
+  height: 70vh;
   overflow: hidden;
   display: flex;
   align-items: flex-end; /* Align the children at the bottom */
@@ -176,12 +176,13 @@ margin-bottom: 10px;
 /* Create the gradient background */
 .fading-top {
   position: absolute;
-  top: 250px;
+  top: 230px;
   left: 0;
   right: 0;
   bottom: 0;
   background: linear-gradient(to top, rgb(33, 38, 41, 0), rgb(33, 38, 41, 1));
   pointer-events: none;
+  z-index: 80;
 }
 
 /* Center the image at the bottom */
@@ -194,7 +195,7 @@ margin-bottom: 10px;
 /* Style the image */
 .image {
   max-height: 100%; /* Set the max height to prevent image overflow */ /* Set the max width to maintain aspect ratio */
-  height: 50vh;
+  height: 42vh;
   width: 38rem;
 }
 
@@ -206,6 +207,7 @@ margin-bottom: 10px;
   font-weight: bolder;
   font-size: 52px;
   text-align: center;
+  z-index: 100;
 }
 
 .hero-cta-container {
