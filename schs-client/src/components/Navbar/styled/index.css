@@ -76,6 +76,12 @@
   width: 42px;
 }
 
+.navbar-icon-container-search {
+  position: relative;
+  height: 56px;
+  width: 38px;
+}
+
 .navbar-icon {
   color: white;
   position: absolute;

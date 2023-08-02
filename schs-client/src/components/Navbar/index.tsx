@@ -5,6 +5,7 @@ import logo from '../../assets/logo2.png';
 import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
+import { AiOutlineSearch } from 'react-icons/ai'
 // import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -112,6 +113,9 @@ export const MobileNavbar: React.FC = () => {
       </div>
       
       <div style={{ display: 'flex', justifyContent: 'space-around'}}>
+      <div className='navbar-icon-container-search'>
+          <AiOutlineSearch className='navbar-icon' />
+        </div>
         <div className='navbar-icon-container'>
           <BiMenu className='navbar-icon' />
         </div>
