@@ -104,10 +104,15 @@ export const Navbar: React.FC = () => {
 };
 
 export const MobileNavbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div className="navbar-mobile">
-      <div style={{ display: 'flex'}}>
+    <div className={isOpen ? 'navbar-mobile-fullscreen' : 'navbar-mobile'}>
+      <div style={{ display: 'flex', paddingTop: `${isOpen ? '8.5px' : ''}`}}>
       <img src={logo} alt='logo' style={{ height: '38px' }}/>
       <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
       </div>
@@ -116,10 +121,19 @@ export const MobileNavbar: React.FC = () => {
       <div className='navbar-icon-container-search'>
           <AiOutlineSearch className='navbar-icon' />
         </div>
-        <div className='navbar-icon-container'>
-          <BiMenu className='navbar-icon' />
+        <div className='navbar-icon-container-menu'>
+          <BiMenu className='navbar-icon' onClick={() => handleMenuToggle()}/>
         </div>
       </div>
+      {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
+        {/* Your menu items go here */}
+        <ul>
+          <li>Menu Item 1</li>
+          <li>Menu Item 2</li>
+          <li>Menu Item 3</li>
+          {/* Add more menu items as needed */}
+        </ul>
+      </div>}
       {/* <div className="hamburger-mobile" onClick={toggleMenu}>
         <div className="bar-mobile"></div>
         <div className="bar-mobile"></div>

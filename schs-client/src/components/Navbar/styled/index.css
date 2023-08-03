@@ -61,6 +61,17 @@
   justify-content: space-between;
   background-color: var(--black);
   border: none;
+  position: relative;
+}
+
+.navbar-mobile-fullscreen {
+  padding: 14px 16px 18px 16px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--black);
+  border: none;
+  position: relative;
+  height: 100vh;
 }
 
 .navbar-logo {
@@ -70,16 +81,18 @@
   font-size: 28px;
 }
 
-.navbar-icon-container {
+.navbar-icon-container-menu {
   position: relative;
   height: 56px;
   width: 42px;
+  cursor: pointer;
 }
 
 .navbar-icon-container-search {
   position: relative;
   height: 56px;
   width: 38px;
+  cursor: pointer;
 }
 
 .navbar-icon {
@@ -92,6 +105,42 @@
 .hamburger-mobile {
   cursor: pointer;
   display: none;
+}
+
+.menu-content {
+  position: absolute;
+  top: 70px; /* Adjust the top position as needed */
+  right: 0;
+  width: 100%;
+  min-height: 100vh; /* Adjust the height as needed */
+  background-color: rgb(240, 240, 240); /* Adjust the background color as needed */
+  transform: translateX(100%);
+}
+
+@keyframes openMenu {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes closeMenu {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.menu-content.open {
+  animation: openMenu 0.64s forwards;
+}
+
+.menu-content.closed {
+  animation: closeMenu 0.64s forwards;
 }
 
 .bar-mobile {
