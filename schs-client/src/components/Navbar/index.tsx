@@ -149,7 +149,10 @@ export const MobileNavbar: React.FC = () => {
           <li>Coaches</li>
           <li>Team Records</li>
         </ul>
-        <h4>Search Athlete</h4>
+        <div className='lineStyle'>
+          <div className='line-break'></div>
+        </div>
+        <h4>Search</h4>
         <h4>Gallery</h4>
         <h4>Sites</h4>
       </div>}

@@ -184,6 +184,8 @@
 
 .menu-content h4 {
   padding: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
 }
 
 .menu-content ul {
@@ -197,6 +199,8 @@
 
 .menu-content li {
   padding: 4px;
+  text-transform: capitalize;
+  letter-spacing: 1.08px;
 }
 
 .menu-content a {
@@ -228,4 +232,18 @@
   to {
     transform: translateX(100%);
   }
+}
+
+.lineStyle {
+  position: relative;
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+
+.line-break {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid rgb(0, 0, 0, .9);
 }
