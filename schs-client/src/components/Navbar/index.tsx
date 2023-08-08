@@ -128,19 +128,22 @@ export const MobileNavbar: React.FC = () => {
 
       {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
         {/* Your menu items go here */}
-        <h4 style={{ padding: '8px' }}>Home</h4>
-        <h4 style={{ padding: '8px' }}>Cross Country</h4>
-        <ul style={{ width: '100%', textAlign: 'left', listStyle: 'none', paddingLeft: '24px', fontWeight: 'lighter', fontFamily: 'Roboto, sans-serif'}}>
-          <li style={{ padding: '4px' }}>Athletes</li>
-          <li style={{ padding: '4px' }}>Coaches</li>
-          <li style={{ padding: '4px' }}>Team Records</li>
+        <h4>Home</h4>
+        <h4>Cross Country</h4>
+        <ul>
+          <li>Athletes</li>
+          <li>Coaches</li>
+          <li>Team Records</li>
         </ul>
-        <h4 style={{ padding: '8px' }}>Track & Field</h4>
-        <ul style={{ width: '100%', textAlign: 'left', listStyle: 'none', paddingLeft: '24px', fontWeight: 'lighter', fontFamily: 'Roboto, sans-serif'}}>
-          <li style={{ padding: '4px' }}>Athletes</li>
-          <li style={{ padding: '4px' }}>Coaches</li>
-          <li style={{ padding: '4px' }}>Team Records</li>
+        <h4>Track & Field</h4>
+        <ul>
+          <li>Athletes</li>
+          <li>Coaches</li>
+          <li>Team Records</li>
         </ul>
+        <h4>Search Athlete</h4>
+        <h4>Gallery</h4>
+        <h4>Sites</h4>
       </div>}
       {/* <div className="hamburger-mobile" onClick={toggleMenu}>
         <div className="bar-mobile"></div>
