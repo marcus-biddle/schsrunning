@@ -42,6 +42,12 @@ export const CrossCountry = () => {
                 </div>
             </Link>
         </div>
+        <div>
+            Number of active athletes on the team 20
+        </div>
+        <div>
+            
+        </div>
         {/* <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/>
         <ImageCarousel images={teamImgs} interval={15000}/>
         <div className="grid-container">
