@@ -125,13 +125,21 @@ export const MobileNavbar: React.FC = () => {
           <BiMenu className='navbar-icon' onClick={() => handleMenuToggle()}/>
         </div>
       </div>
+
       {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
         {/* Your menu items go here */}
-        <ul style={{ width: '100%', textAlign: 'center'}}>
-          <li>Menu Item 1</li>
-          <li>Menu Item 2</li>
-          <li>Menu Item 3</li>
-          {/* Add more menu items as needed */}
+        <h4 style={{ padding: '8px' }}>Home</h4>
+        <h4 style={{ padding: '8px' }}>Cross Country</h4>
+        <ul style={{ width: '100%', textAlign: 'left', listStyle: 'none', paddingLeft: '24px', fontWeight: 'lighter', fontFamily: 'Roboto, sans-serif'}}>
+          <li style={{ padding: '4px' }}>Athletes</li>
+          <li style={{ padding: '4px' }}>Coaches</li>
+          <li style={{ padding: '4px' }}>Team Records</li>
+        </ul>
+        <h4 style={{ padding: '8px' }}>Track & Field</h4>
+        <ul style={{ width: '100%', textAlign: 'left', listStyle: 'none', paddingLeft: '24px', fontWeight: 'lighter', fontFamily: 'Roboto, sans-serif'}}>
+          <li style={{ padding: '4px' }}>Athletes</li>
+          <li style={{ padding: '4px' }}>Coaches</li>
+          <li style={{ padding: '4px' }}>Team Records</li>
         </ul>
       </div>}
       {/* <div className="hamburger-mobile" onClick={toggleMenu}>
