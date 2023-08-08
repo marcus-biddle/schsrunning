@@ -4,8 +4,6 @@
 
 .home-page {
   position: relative;
-  min-height: 100vh;
-  height: 100%;
   background-color: var(--black);
   z-index: 90;
 }
