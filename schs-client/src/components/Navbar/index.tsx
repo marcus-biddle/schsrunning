@@ -128,11 +128,19 @@ export const MobileNavbar: React.FC = () => {
 
       {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
         {/* Your menu items go here */}
-        <h4>Home</h4>
-        <h4>Cross Country</h4>
+        <h4>
+          <Link to={'/'}>Home</Link>
+        </h4>
+        <h4>
+          <Link to={'/cross-country'}>Cross Country</Link>
+        </h4>
         <ul>
-          <li>Athletes</li>
-          <li>Coaches</li>
+          <li>
+            <Link to={'/athletes/cross-country'}>Athletes</Link>
+          </li>
+          <li>
+            <Link to={'/coaches/cross-country'}>Coaches</Link>
+          </li>
           <li>Team Records</li>
         </ul>
         <h4>Track & Field</h4>

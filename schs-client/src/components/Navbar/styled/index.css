@@ -199,6 +199,11 @@
   padding: 4px;
 }
 
+.menu-content a {
+  text-decoration: none;
+  color: var(--black)
+}
+
 .menu-content.open {
   animation: openMenu 0.64s forwards;
 }
