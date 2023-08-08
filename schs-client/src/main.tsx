@@ -63,6 +63,10 @@ const router = createBrowserRouter([
         element: <CrossCountry />,
       },
       {
+        path: 'cross-country/',
+        element: <CrossCountry />,
+      },
+      {
         path: 'santa-clara-high-cross-country/runners',
         element: <Runners  gender={{ gender: 'all'}} />,
         loader: runnerLoader(queryClient),

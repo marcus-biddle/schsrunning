@@ -129,10 +129,10 @@ export const MobileNavbar: React.FC = () => {
       {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
         {/* Your menu items go here */}
         <h4>
-          <Link to={'/'}>Home</Link>
+          <Link to={'/'} onClick={() => setIsOpen(false)}>Home</Link>
         </h4>
         <h4>
-          <Link to={'/cross-country'}>Cross Country</Link>
+          <Link to={'/cross-country'} onClick={() => setIsOpen(false)}>Cross Country</Link>
         </h4>
         <ul>
           <li>

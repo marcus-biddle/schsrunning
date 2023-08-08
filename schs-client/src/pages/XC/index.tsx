@@ -7,14 +7,42 @@ import { GiRunningShoe, GiWhistle } from 'react-icons/gi';
 import { MdOutlineTimer } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
 import Page from '../../SEO/meta';
-import { Header } from '../../components/Header';
+// import { Header } from '../../components/Header';
+import './styled.css';
 
 export const CrossCountry = () => {
 
   return (
-    <div className='page-container'>
+    <div>
         <Page title="Cross Country Page" description="Records for Cross Country." />
-        <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/>
+        <h1 style={{ color: 'white'}}>Cross Country</h1>
+        <div className="grid-container">
+            <Link to={'runners/'} style={{ color: 'white'}}>
+                <div className="grid-item">
+                    <GiRunningShoe style={{ height: '3rem', width: '3rem'}} />
+                    <p>Athletes</p>
+                </div>
+            </Link>
+            <Link to={'coaches/'} style={{ color: 'white'}}>
+                <div className="grid-item">
+                    <GiWhistle style={{ height: '3rem', width: '3rem'}} />
+                    <p>Coaches</p>
+                </div>
+            </Link>
+            <Link to={'top-runners-menu/'} style={{ color: 'white'}}>
+                <div className="grid-item">
+                    <MdOutlineTimer style={{ height: '3rem', width: '3rem'}} />
+                    <p>Rankings</p>
+                </div>
+            </Link>
+            <Link to={'top-teams-menu/'} style={{ color: 'white'}}>
+                <div className="grid-item">
+                    <FaShieldAlt style={{ height: '3rem', width: '3rem'}} />
+                    <p>Top Teams</p>
+                </div>
+            </Link>
+        </div>
+        {/* <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/>
         <ImageCarousel images={teamImgs} interval={15000}/>
         <div className="grid-container">
             <Link to={'runners/'} style={{ color: 'black'}}>
@@ -42,7 +70,7 @@ export const CrossCountry = () => {
                 </div>
             </Link>
             
-        </div>
+        </div> */}
     </div>
     // <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
     //     <ImageCarousel images={teamImgs} interval={15000}/>
