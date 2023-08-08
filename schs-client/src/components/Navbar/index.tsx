@@ -127,7 +127,7 @@ export const MobileNavbar: React.FC = () => {
       </div>
       {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
         {/* Your menu items go here */}
-        <ul>
+        <ul style={{ width: '100%', textAlign: 'center'}}>
           <li>Menu Item 1</li>
           <li>Menu Item 2</li>
           <li>Menu Item 3</li>
