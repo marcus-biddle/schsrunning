@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import ImageCarousel from '../../components/Carousel';
-import { teamImgs } from '../../assets';
+// import ImageCarousel from '../../components/Carousel';
+// import { teamImgs } from '../../assets';
 import './styles/index.css';
 import { GiRunningShoe, GiWhistle } from 'react-icons/gi';
 import { MdOutlineTimer } from 'react-icons/md';
@@ -46,7 +46,7 @@ export const CrossCountry = () => {
             Number of active athletes on the team 20
         </div>
         <div>
-            
+
         </div>
         {/* <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/>
         <ImageCarousel images={teamImgs} interval={15000}/>
