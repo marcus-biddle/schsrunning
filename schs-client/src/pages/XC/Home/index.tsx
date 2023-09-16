@@ -1,11 +1,5 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import ImageCarousel from '../../../components/Carousel';
-import { teamImgs } from '../../../assets';
-import { GiRunningShoe, GiWhistle } from 'react-icons/gi';
-import { MdOutlineTimer } from 'react-icons/md';
-import { FaShieldAlt } from 'react-icons/fa';
 import Page from '../../../SEO/meta';
 import { Header } from '../../../components/Header';
 import './styled.css';
@@ -34,7 +28,7 @@ const MENU = [
     },
 ]
 export const CrossCountry = () => {
-    const [ pageView, setPageView ] = useState('');
+    // const [ pageView, setPageView ] = useState('');
     const [ component, setComponent ] = useState<any>(undefined);
 
     const handleMenuClick = (index: number) => {

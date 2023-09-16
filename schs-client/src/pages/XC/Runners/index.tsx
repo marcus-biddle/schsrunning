@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
 import { useQuery } from '@tanstack/react-query';
-import { Header, SubHeader } from "../../../components/Header";
+import { SubHeader } from "../../../components/Header";
 import {Pill} from "../../../components/SearchFeatures/Pill";
 import { SearchInput } from "../../../components/SearchFeatures/SearchInput";
 import './styled.css';
