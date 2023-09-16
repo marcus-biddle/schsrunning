@@ -28,12 +28,17 @@ const MENU = [
     },
 ]
 export const CrossCountry = () => {
-    // const [ pageView, setPageView ] = useState('');
+    const [ openDir, setOpenDir ] = useState(false);
     const [ component, setComponent ] = useState<any>(MENU[0].link);
 
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;
         setComponent(page);
+        setOpenDir(false);
+    }
+
+    const handleDir = () => {
+        setOpenDir(!openDir);
     }
 
   return (
@@ -55,6 +60,18 @@ export const CrossCountry = () => {
                         )
                     })}
                 </ul>
+            </div>
+            <div className='sidemenu-grid'>
+                <h4 onClick={() => handleDir()}>Directory</h4>
+                {openDir && <ul>
+                    {MENU.map((menu, index) => {
+                        return (
+                            <li key={menu.text} onClick={() => handleMenuClick(index)}>
+                                {menu.text}
+                            </li>
+                        )
+                    })}
+                </ul>}
             </div>
             <div className='info-container'>
                 {component}

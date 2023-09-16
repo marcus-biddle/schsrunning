@@ -56,4 +56,33 @@
     .page-container .sidemenu {
         display: none;
     }
+
+    .sidemenu-grid ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); /* Create a responsive grid */
+        gap: 6px; /* Adjust the gap between grid items */
+        list-style: none; /* Remove list bullets */
+        padding: 0; /* Remove default list padding */
+    }
+
+    .sidemenu-grid h4 {
+        font-size: 24px;
+    }
+
+    .sidemenu-grid li {
+        padding: 1rem 16px 1rem 16px;
+    }
+
+    .sidemenu-grid li:hover {
+        background-color: #1f6eb0;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .sidemenu-grid {
+        background-color: #212629;
+        margin: 16px;
+        padding: 16px;
+        border-radius: 12px;
+    }
 }
