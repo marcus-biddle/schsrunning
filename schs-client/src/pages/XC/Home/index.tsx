@@ -29,7 +29,7 @@ const MENU = [
 ]
 export const CrossCountry = () => {
     // const [ pageView, setPageView ] = useState('');
-    const [ component, setComponent ] = useState<any>(undefined);
+    const [ component, setComponent ] = useState<any>(MENU[0].link);
 
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;
