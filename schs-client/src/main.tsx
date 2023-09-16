@@ -33,7 +33,6 @@ import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
 import RacePage from './pages/Admin/RacePage/index.tsx';
 import AddCompetitors from './pages/Admin/AddCompetitors/index.tsx';
 import { TopRunnerMenu } from './pages/XC/TopRunnerMenu/index.tsx';
-import { TopRunners } from './pages/XC/TopRunners/index.tsx';
 import { TopTeamMenu } from './pages/XC/TopTeamMenu/index.tsx';
 import { TopTeams } from './pages/XC/TopTeams/index.tsx';
 import {SearchPage} from './pages/SearchPage/index.tsx';
@@ -130,10 +129,10 @@ const router = createBrowserRouter([
         element: <TopRunnerMenu/>,
         // loader: raceResultLoader(queryClient),
       },
-      {
-        path: 'santa-clara-high-cross-country/top-runners-menu/:courseId',
-        element: <TopRunners/>,
-      },
+      // {
+      //   path: 'santa-clara-high-cross-country/top-runners-menu/:courseId',
+      //   element: <TopRunners/>,
+      // },
       {
         path: 'santa-clara-high-cross-country/top-teams-menu',
         element: <TopTeamMenu/>,

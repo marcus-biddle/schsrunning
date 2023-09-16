@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { fetchCoaches } from '../../../api/coaches';
 import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
 import { useQuery } from '@tanstack/react-query';
-import {Header, SubHeader} from '../../../components/Header';
+import { SubHeader } from '../../../components/Header';
 
 export const coachListQuery = () => ({
     queryKey: ['coaches'],
