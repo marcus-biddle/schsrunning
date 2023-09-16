@@ -7,7 +7,7 @@ interface HeaderProps {
     hideBreadcrumb?: boolean;
   }
 
-export const Header = ({ title, color, hideBreadcrumb }: HeaderProps) => {
+export const Header = ({ title, hideBreadcrumb }: HeaderProps) => {
   return (
     <header className='header-container'>
         <h1>{title}</h1>
@@ -16,7 +16,7 @@ export const Header = ({ title, color, hideBreadcrumb }: HeaderProps) => {
   )
 }
 
-export const SubHeader = ({ title, color, hideBreadcrumb }: HeaderProps) => {
+export const SubHeader = ({ title }: HeaderProps) => {
   return (
     <header className='subheader-container'>
         <h1>{title}</h1>

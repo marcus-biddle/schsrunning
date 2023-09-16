@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './styled/index.css';
-import logo from '../../assets/logo.png';
-import { BiSearchAlt2 } from 'react-icons/bi';
+import logo from '../../assets/logo2.png';
+import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
-import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
+import { AiOutlineSearch } from 'react-icons/ai'
+// import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const athleteListQuery = () => ({
@@ -104,18 +105,58 @@ export const Navbar: React.FC = () => {
 };
 
 export const MobileNavbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div className="navbar-mobile">
-      <p className='navbar-logo'>SCHS Running</p>
-      <div style={{ display: 'flex', width: '88px', justifyContent: 'space-around'}}>
-        <div className='navbar-icon-container'>
-          <IoNotificationsOutline className='navbar-icon' />
+    <div className={isOpen ? 'navbar-mobile-fullscreen' : 'navbar-mobile'}>
+      <div style={{ display: 'flex', paddingTop: `${isOpen ? '8.5px' : ''}`}}>
+      <img src={logo} alt='logo' style={{ height: '38px' }}/>
+      <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
+      </div>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-around', gap: '8px'}}>
+      <div className='navbar-icon-container-search'>
+          <AiOutlineSearch className='navbar-icon' />
         </div>
-        <div className='navbar-icon-container'>
-          <IoSettingsOutline className='navbar-icon' />
+        <div className='navbar-icon-container-menu'>
+          <BiMenu className='navbar-icon' onClick={() => handleMenuToggle()}/>
         </div>
       </div>
+
+      {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
+        {/* Your menu items go here */}
+        <h4>
+          <Link to={'/'} onClick={() => setIsOpen(false)}>Home</Link>
+        </h4>
+        <h4>
+          <Link to={'/cross-country'} onClick={() => setIsOpen(false)}>Cross Country</Link>
+        </h4>
+        <ul>
+          <li>
+            <Link to={'/athletes/cross-country'}>Athletes</Link>
+          </li>
+          <li>
+            <Link to={'/coaches/cross-country'}>Coaches</Link>
+          </li>
+          <li>Team Records</li>
+        </ul>
+        <h4>Track & Field</h4>
+        <ul>
+          <li>Athletes</li>
+          <li>Coaches</li>
+          <li>Team Records</li>
+        </ul>
+        <div className='lineStyle'>
+          <div className='line-break'></div>
+        </div>
+        <h4>Search</h4>
+        <h4>Gallery</h4>
+        <h4>Sites</h4>
+      </div>}
       {/* <div className="hamburger-mobile" onClick={toggleMenu}>
         <div className="bar-mobile"></div>
         <div className="bar-mobile"></div>

@@ -55,12 +55,24 @@
 
 /* NavbarMobile.css */
 .navbar-mobile {
-  padding: 12px 16px 12px 16px;
+  padding: 14px 16px 18px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--black);
   border: none;
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-mobile-fullscreen {
+  padding: 14px 16px 18px 16px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--black);
+  border: none;
+  position: relative;
+  z-index: 100;
 }
 
 .navbar-logo {
@@ -70,10 +82,18 @@
   font-size: 28px;
 }
 
-.navbar-icon-container {
+.navbar-icon-container-menu {
   position: relative;
-  height: 32px;
-  width: 32px;
+  height: 56px;
+  width: 42px;
+  cursor: pointer;
+}
+
+.navbar-icon-container-search {
+  position: relative;
+  height: 56px;
+  width: 38px;
+  cursor: pointer;
 }
 
 .navbar-icon {
@@ -83,10 +103,7 @@
   width: 100%;
 }
 
-.hamburger-mobile {
-  cursor: pointer;
-  display: none;
-}
+
 
 .bar-mobile {
   width: 30px;
@@ -149,4 +166,82 @@
   .menu-mobile.active {
     display: flex;
   }
+}
+
+/***                       Mobile Menu                                   ***/
+.menu-content {
+  position: absolute;
+  top: 88px;
+  width: 45%;
+  min-height: 100%;
+  background-color: white; /* TODO: Change color? */
+  z-index: 100;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+
+.menu-content h4 {
+  padding: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.menu-content ul {
+  width: 100%;
+  text-align: left;
+  list-style: none;
+  padding-left: 24px;
+  font-weight: lighter;
+  font-family: 'Roboto', sans-serif;
+}
+
+.menu-content li {
+  padding: 4px;
+  text-transform: capitalize;
+  letter-spacing: 1.08px;
+}
+
+.menu-content a {
+  text-decoration: none;
+  color: var(--black)
+}
+
+.menu-content.open {
+  animation: openMenu 0.64s forwards;
+}
+
+.menu-content.closed {
+  animation: closeMenu 0.64s forwards;
+}
+
+@keyframes openMenu {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 46.5%;
+  }
+}
+
+@keyframes closeMenu {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.lineStyle {
+  position: relative;
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+
+.line-break {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid rgb(0, 0, 0, .9);
 }

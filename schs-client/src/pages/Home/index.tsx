@@ -139,8 +139,22 @@ export const Home = () => {
         <div style={{ margin: '0 1rem 1rem 1rem' }}>
             <p style={{ color: 'gold', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.05px'}}>2023 update</p>
             <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Daily Schedule</p>
-            <div style={{ display: 'flex' ,width: '100%', height: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0'}}>
-                <ul style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', color: 'white'}}>
+            <div style={{ display: 'flex', color: 'white', width: '100%', minHeight: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0', justifyContent: 'space-around'}}>
+                <ul style={{ listStyle: 'none', padding: '0 0 4px 0'}}>
+                    <li style={{ padding: '4px 0 4px 0'}}>Monday</li>
+                    <li style={{ padding: '0 0 4px 0'}}>Tuesday</li>
+                    <li style={{ padding: '0 0 4px 0'}}>Wednesday</li>
+                    <li style={{ padding: '0 0 4px 0'}}>Thursday</li>
+                    <li style={{ padding: '0 0 4px 0'}}>Friday</li>
+                </ul>
+                <ul style={{ listStyle: 'none'}}>
+                    <li style={{ padding: '4px 0 4px 0'}}>3pm - 5pm</li>
+                    <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
+                    <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
+                    <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
+                    <li style={{ padding: '0 0 4px 0'}}>3pm - 5pm</li>
+                </ul>
+                {/* <ul style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', color: 'white'}}>
                     <li style={{ display: 'flex', justifyContent: 'space-around', width: '100%'}}>
                         <span>Monday</span>
                         <span>3pm - 5pm</span>
@@ -161,10 +175,7 @@ export const Home = () => {
                         <span>Friday</span>
                         <span>3pm - 5pm</span>
                     </li>
-                </ul>
-            </div>
-        </div>
-        <div>All Rights Reserved.</div> */}
+                </ul> */}
         {/* <MobileButtonGroup />
         <MobileGrid items={items} /> */}
         {/* Cross Country Home */}

@@ -4,9 +4,8 @@
 
 .home-page {
   position: relative;
-  min-height: 100vh;
   background-color: var(--black);
-  padding-top: 24px;
+  z-index: 90;
 }
 
 .container {
