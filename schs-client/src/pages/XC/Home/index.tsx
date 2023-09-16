@@ -4,6 +4,8 @@ import Page from '../../../SEO/meta';
 import { Header } from '../../../components/Header';
 import './styled.css';
 import { Runners } from '../Runners';
+import { Coaches } from '../Coaches';
+import { TopRunnerMenu } from '../TopRunnerMenu';
 
 const MENU = [
     {
@@ -12,11 +14,11 @@ const MENU = [
     },
     {
         text: 'Coaches',
-        link: ''
+        link: <Coaches />
     },
     {
-        text: 'Teams',
-        link: ''
+        text: 'Top Runners',
+        link: <TopRunnerMenu />
     },
     {
         text: 'Team Photos',
@@ -29,12 +31,16 @@ const MENU = [
 ]
 export const CrossCountry = () => {
     const [ openDir, setOpenDir ] = useState(false);
-    const [ component, setComponent ] = useState<any>(MENU[0].link);
+    const [ component, setComponent ] = useState<any>(MENU[2].link);
+    const [ activeDir, setActiveDir ] = useState(MENU[2].text);
 
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;
+        const name = MENU[index].text;
+
         setComponent(page);
         setOpenDir(false);
+        setActiveDir(name);
     }
 
     const handleDir = () => {
@@ -54,7 +60,10 @@ export const CrossCountry = () => {
                 <ul>
                     {MENU.map((menu, index) => {
                         return (
-                            <li key={menu.text} onClick={() => handleMenuClick(index)}>
+                            <li 
+                            key={menu.text}
+                            className={activeDir === menu.text ? 'active-link' : ''}
+                            onClick={() => handleMenuClick(index)}>
                                 {menu.text}
                             </li>
                         )

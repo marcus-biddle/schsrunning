@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { fetchCoaches } from '../../../api/coaches';
 import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
 import { useQuery } from '@tanstack/react-query';
-import {Header} from '../../../components/Header';
+import {Header, SubHeader} from '../../../components/Header';
 
 export const coachListQuery = () => ({
     queryKey: ['coaches'],
@@ -28,13 +28,12 @@ export const loader = (queryClient: any) => async () => {
     return queryClient.getQueryData(coachListQuery().queryKey);
 }
 
-export const CoachItem: React.FC<{ coach: CoachSeason, seasons: number }> = React.memo(({ coach, seasons }) => (
+export const CoachItem: React.FC<{ coach: CoachSeason }> = React.memo(({ coach }) => (
         <>
         {coach &&
             <Link to={`${coach.coachId}/`} className='spanlinkstyle'>
                 <li className="list-item">
                     <span>{coach.firstname} {coach.lastname}</span>
-                    <span>{seasons} seasons</span>
                 </li>
             </Link>}
         </>
@@ -44,20 +43,20 @@ export const CoachItem: React.FC<{ coach: CoachSeason, seasons: number }> = Reac
 export const Coaches = () => {
     const { data: coaches } = useQuery(coachListQuery());
 
+    const FILTERED_COACHES = coaches?.filter((object, index) => {
+        const currentIndex = coaches?.findIndex(obj => obj.coachId === object.coachId);
+        return currentIndex === index;
+    }).filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2).sort((a, b) => a.coachId - b.coachId);
+
     return (
-    <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-        <Header title={'Coaches'} />
+    <div className='sub-page-container'>
+        <SubHeader title={'Coaches'} />
         <ul className="list">
-            {coaches?.filter((object, index) => {
-                const currentIndex = coaches?.findIndex(obj => obj.coachId === object.coachId);
-                return currentIndex === index;
-            }).filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2).sort((a, b) => a.coachId - b.coachId).map((coach: CoachSeason) => {
-                const seasons = coaches.filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2).filter(row => row.coachId === coach.coachId);
+            {coaches && FILTERED_COACHES && FILTERED_COACHES.map((coach: CoachSeason) => {
                 return (
                     <CoachItem
                     key={coach.coachId}
                     coach={coach}
-                    seasons={seasons.length}
                     />
             )})}
         </ul>
