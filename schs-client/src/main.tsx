@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Home } from './pages/Home/index.tsx'
-import { CrossCountry } from './pages/XC/index.tsx'
+import { CrossCountry } from './pages/XC/Home/index.tsx'
 import { Track } from './pages/Track/index.tsx'
 import { XCSeason } from './pages/XC/Seasons/index.tsx';
 import { Runners } from './pages/XC/Runners/index.tsx';

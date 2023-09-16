@@ -47,9 +47,33 @@
   }
   
 .search-input {
-  width: 75%;
+  min-width: 72%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+}
+
+.pill-container {
+  border-radius:  8px;
+  width: 20rem;
+  height: 33px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .pill-container {
+    border-radius: 8px;
+    height: 33px;
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    margin: 32px 0 32px 0;
+  }
+
+  .pill {
+    width: 100%;
+    align-items: center;
+  }
 }

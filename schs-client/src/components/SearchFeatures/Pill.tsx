@@ -7,22 +7,25 @@ interface PillProps {
 
 export const Pill = ({ handleButtonClick, activeButton}: PillProps) => {
   return (
-    <div style={{ borderRadius: '8px', width: '10rem', height: '33px', position: 'relative', overflow: 'hidden'}}>
-        <div style={{ position: 'absolute', height: '100%', width: '100%', display: 'flex'}}>
-            <button
-                className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
-                onClick={() => handleButtonClick('men')}
-            >
-                Men
-            </button>
-            <button
-                className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
-                onClick={() => handleButtonClick('women')}
-            >
-                Women
-            </button>
+    <div className='pill'>
+        <div className='pill-container'>
+            <div style={{ position: 'absolute', height: '100%', width: '100%', display: 'flex', flexDirection: 'row'}}>
+                <button
+                    className={`toggle-button ${activeButton === 'men' ? 'active' : ''}`}
+                    onClick={() => handleButtonClick('men')}
+                    style={{ borderRight: '1.5px solid'}}
+                >
+                    Men
+                </button>
+                <button
+                    className={`toggle-button ${activeButton === 'women' ? 'active' : ''}`}
+                    onClick={() => handleButtonClick('women')}
+                >
+                    Women
+                </button>
+            </div> 
         </div>
-        
     </div>
+    
   )
 }

@@ -8,7 +8,9 @@ import Page from '../../SEO/meta/index.tsx';
 // import MobileSlider from '../../components/MobileSLider/index.tsx';
 // import { getYearFromDate } from '../../helpers/index.ts';
 import img from '../../assets/scott.jpg'
-import img2 from '../../assets/coaches.jpg'
+import { BsCalendarEvent } from 'react-icons/bs';
+import { BiTimeFive } from 'react-icons/bi';
+import { MdGroups } from 'react-icons/md';
 
 
 const topCompRacesMenListQuery = () => ({
@@ -75,7 +77,19 @@ export const Home = () => {
     <div className='home-page'>
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
-            <div className='hero-text'>
+            <div className="overlay">
+                <h1>Santa Clara High School</h1>
+                <h3>Records</h3>
+                <div>
+                    <button>Track</button>
+                    <button>Cross Country</button>
+                </div>
+            </div>
+                <img
+                src={img} // Replace with your actual image URL
+                alt="Your Image"
+                />
+            {/* <div className='hero-text'>
                 <p style={{ fontSize: '12px', textTransform: 'uppercase', fontWeight: 'lighter', letterSpacing: '1.5px', opacity: '.65', paddingBottom: '12px', color: '#87CEFA'}}>Cross Country | Track & Field</p>
                 <span style={{ textDecorationLine: 'underline', textDecorationColor: 'gold', textUnderlineOffset: '10px', textDecorationThickness: '1.5px'}}>Unleash</span>
                 {' '}Your Passion 
@@ -91,9 +105,26 @@ export const Home = () => {
                 src={img} // Replace with your actual image URL
                 alt="Your Image"
                 />
+            </div> */}
+        </div>
+        <div className='icon-container'>
+            <div>
+                <BsCalendarEvent className='home-icon' />
+                <h1>50+</h1>
+                <p>Seasons</p>
+            </div>
+            <div>
+                <BiTimeFive className='home-icon' />
+                <h1>100+</h1>
+                <p>Events</p>
+            </div>
+            <div className='center-icon-container'>
+                <MdGroups className='home-icon' />
+                <h1>700+</h1>
+                <p>Athletes</p>
             </div>
         </div>
-        <div style={{ margin: '56px 1rem 32px 1rem'}}>
+        {/* <div style={{ margin: '56px 1rem 32px 1rem'}}>
             <p style={{ color: 'gold', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.05px'}}>Spotlight</p>
             <p style={{ color: 'white', fontSize: '32px', fontFamily: "'Roboto', sans-serif", fontWeight: 'lighter'}}>Coaches</p>
             <div style={{ display: 'flex' ,width: '100%', height: '96px', backgroundColor: '#212629', borderRadius: '8px', overflow: 'hidden', margin: '8px 0 8px 0'}}>
@@ -133,7 +164,7 @@ export const Home = () => {
                 </ul>
             </div>
         </div>
-        <div>All Rights Reserved.</div>
+        <div>All Rights Reserved.</div> */}
         {/* <MobileButtonGroup />
         <MobileGrid items={items} /> */}
         {/* Cross Country Home */}

@@ -50,7 +50,8 @@ export const Navbar: React.FC = () => {
         {/* left side of navbar */}
         <div className="nav-container-left" >
           <div style={{ position: 'relative', height: '32px', width: '64px', overflow: 'hidden', display: 'flex', justifyContent: 'start'}}>
-            <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/>
+            {/* <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/> */}
+            SCHS
           </div>
           <div>
             <Link to="/" className="navbar__link">

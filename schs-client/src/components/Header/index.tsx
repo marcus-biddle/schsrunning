@@ -1,4 +1,5 @@
 import {Breadcrumb} from '../Breadcrumb';
+import './styled.css'
 
 interface HeaderProps {
     title: string;
@@ -8,9 +9,17 @@ interface HeaderProps {
 
 export const Header = ({ title, color, hideBreadcrumb }: HeaderProps) => {
   return (
-    <header style={{ backgroundColor: `${color ? color : '#b0e0e6' }`, borderRadius: '8px', padding: '0 1rem 0 1rem', letterSpacing: '2px'}}>
+    <header className='header-container'>
         <h1>{title}</h1>
         {!hideBreadcrumb ? <Breadcrumb /> : null}
+    </header>
+  )
+}
+
+export const SubHeader = ({ title, color, hideBreadcrumb }: HeaderProps) => {
+  return (
+    <header className='subheader-container'>
+        <h1>{title}</h1>
     </header>
   )
 }

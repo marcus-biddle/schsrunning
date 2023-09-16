@@ -2,10 +2,10 @@
     max-width: 100%;
     height: 56px;
     z-index: 100;
-    margin-left: 32px;
-    margin-right: 32px;
+    padding: 0 56px 0 56px;
     display: flex;
     justify-content: space-between;
+    background-color: var(--black);
   }
   
   .nav-container-left {
@@ -20,7 +20,7 @@
     text-decoration: none;
     padding-right: 16px;
     font-family: var(--font-family-header);
-    color: var(--black);
+    color: white;
   }
   
   .navbar__link:hover {

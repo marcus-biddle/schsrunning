@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
 import { useQuery } from '@tanstack/react-query';
-import { Header } from "../../../components/Header";
+import { Header, SubHeader } from "../../../components/Header";
 import {Pill} from "../../../components/SearchFeatures/Pill";
 import { SearchInput } from "../../../components/SearchFeatures/SearchInput";
+import './styled.css';
 
 const runnerListQuery = () => ({
     queryKey: ['runners'],
@@ -56,27 +57,28 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
       
 
   return (
-    <div className="page-container">
-        <Header title={`SCHS Cross Country Runners (${filteredAthletesByGender?.length})`} color="transparent" />
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-            <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
+    <div className="sub-page-container">
+        <div>
+        <SubHeader title={`SCHS Cross Country Runners (${filteredAthletesByGender?.length})`} color="transparent" />
+        <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
         </div>
-        <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
         
-        <ol className="list" style={{ columnCount: '2', columnGap: '20px'}}>
-        {filteredAthletesByName?.map((athlete: XCAthlete) => (
-            <Link 
-            to={`${gender.gender === 'all' ? athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` : `${athlete.athleteId}`}`}
-            className="spanlinkstyle"
-            key={athlete.athleteId}
-            >
-                <li className="list-item">
-                    <span>{athlete.firstName} {athlete.lastName}</span>
-                </li>
-            </Link>
-            
-        ))}
+        <div className="search-container">
+            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+            <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
+        </div>
+        <ol className="list">
+            {filteredAthletesByName?.map((athlete: XCAthlete) => (
+                <Link 
+                to={`${gender.gender === 'all' ? athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` : `${athlete.athleteId}`}`}
+                key={athlete.athleteId}
+                >
+                    <li>
+                        <span>{athlete.firstName} {athlete.lastName}</span>
+                    </li>
+                </Link>
+                
+            ))}
         </ol>
     </div>
   )

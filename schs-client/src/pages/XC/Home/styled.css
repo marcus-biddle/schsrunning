@@ -1,0 +1,59 @@
+.page-container div {
+    display: flex;
+    color: white;
+}
+
+.sidemenu {
+    position: relative;
+    width: 21%;
+    min-width: 180px;
+    background-color: #212629;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidemenu h4 {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.12px;
+    padding: 1rem 0 1rem 0;
+}
+
+.sidemenu ul {
+    list-style-type: none;
+    width: 100%;
+    text-align: left;
+}
+
+.sidemenu ul {
+    margin: 0;
+    height: 40rem;
+    
+}
+
+.sidemenu li {
+    padding: 1rem 16px 1rem 16px;
+}
+
+.sidemenu li:hover {
+    background-color: #1f6eb0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.info-container {
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .page-container div {
+        display: flex;
+        flex-direction: column;
+        color: white;
+    }
+
+    .page-container .sidemenu {
+        display: none;
+    }
+}
