@@ -19,7 +19,7 @@
     display: flex;
 }
 
-.subheader-container h1 {
+.subheader-container h2 {
     font-size: 40px;
     letter-spacing: 1.12px;
     color: rgb(147, 174, 205);
@@ -34,7 +34,7 @@
         padding-left: 24px;
     }
 
-    .subheader-container h1 {
+    .subheader-container h2 {
         font-size: 32px;
         letter-spacing: 1.12px;
         color: rgb(147, 174, 205);

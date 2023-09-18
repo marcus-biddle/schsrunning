@@ -19,7 +19,7 @@ export const Header = ({ title, hideBreadcrumb }: HeaderProps) => {
 export const SubHeader = ({ title }: HeaderProps) => {
   return (
     <header className='subheader-container'>
-        <h1>{title}</h1>
+        <h2>{title}</h2>
     </header>
   )
 }

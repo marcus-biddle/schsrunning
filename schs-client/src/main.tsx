@@ -71,14 +71,14 @@ const router = createBrowserRouter([
         loader: runnerLoader(queryClient),
       },
       {
-        path: 'santa-clara-high-cross-country/runners/men/:athleteId',
+        path: 'santa-clara-high-cross-country/runners/:athleteId',
         element: <Runner />,
         loader: runnerLoader(queryClient),
       },
       {
-        path: 'santa-clara-high-cross-country/runners/women/:athleteId',
-        element: <Runner />,
-        loader: runnerLoader(queryClient),
+        // path: 'santa-clara-high-cross-country/runners/women/:athleteId',
+        // element: <Runner />,
+        // loader: runnerLoader(queryClient),
       },
       {
         path: 'santa-clara-high-cross-country/runners/men',

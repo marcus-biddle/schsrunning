@@ -70,7 +70,7 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
         <ol className="list">
             {filteredAthletesByName?.map((athlete: XCAthlete) => (
                 <Link 
-                to={`${gender.gender === 'all' ? athlete.genderId === 2 ? `men/${athlete.athleteId}` : `women/${athlete.athleteId}` : `${athlete.athleteId}`}`}
+                to={`runners/${athlete.athleteId}`}
                 key={athlete.athleteId}
                 >
                     <li>

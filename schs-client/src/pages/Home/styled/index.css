@@ -133,6 +133,17 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end; /* Align the children at the bottom */
+    margin: 0 32px 0 32px;
+    background-color: #212629;
+    border-radius: 12px;
+  }
+
   .container img {
     width: 130%; 
     height: 100%;
