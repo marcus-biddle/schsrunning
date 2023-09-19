@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SubHeader } from '../../../components/Header';
-import { TopRunners } from '../TopRunners';
+import { TopRunners } from '../../../pages/Xcountry/TopRunners';
 
 const COURSES = [
     {

@@ -2,7 +2,7 @@
 import './styled/index.css';
 import { XCRaceResult, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
-import Page from '../../SEO/meta/index.tsx';
+import Page from '../../Meta/index.tsx';
 // import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
 // import MobileGrid from '../../components/Grid/index.tsx';
 // import MobileSlider from '../../components/MobileSLider/index.tsx';

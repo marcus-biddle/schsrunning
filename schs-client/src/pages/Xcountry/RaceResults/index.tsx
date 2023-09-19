@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GenderType } from '../Runners';
+import { GenderType } from '../../../layouts/Xcountry/Runners';
 import { useQuery } from '@tanstack/react-query';
 import { XCAthleteByRace, fetchXCAthletesByRace } from '../../../api/athletes';
 import { useParams } from 'react-router';

@@ -3,7 +3,7 @@ import { convertToNum, extractXCRaceResultData, formatDate } from '../../../help
 import { fetchXCAthletesByYear } from '../../../api/athletes';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { coachListQuery } from '../Coaches';
+import { coachListQuery } from '../../../layouts/Xcountry/Coaches';
 import { fetchXCRaceResults } from '../../../api/XCRaceResults';
 
 const competitorListQuery = (yearId: number) => ({
@@ -32,7 +32,7 @@ const raceResultListQuery = (yearId: number) => ({
         }
         return raceResults;
     },
-})
+}) 
 
 export const loader = (queryClient: any) => async ({ params }: any) => {
     if (!queryClient.getQueryData(competitorListQuery(params.yearId).queryKey) && !queryClient.getQueryData(raceResultListQuery(params.yearId).queryKey)) {

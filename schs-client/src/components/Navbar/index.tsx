@@ -23,6 +23,17 @@ export const athleteListQuery = () => ({
   },
 })
 
+const LEFT_NAV_LINKS = [
+  {
+    text: 'Home',
+    link: '/'
+  },
+  {
+    text: 'XCountry',
+    link: 'santa-clara-high-cross-country/'
+  },
+]
+
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { data: athletes } = useQuery(athleteListQuery());
@@ -40,9 +51,6 @@ export const Navbar: React.FC = () => {
   });
 
   const handleViewProfile = (athleteId: number) => {
-    // create an athlete page that holds both track and cross country
-    // use a pill to show either one
-    // this will simplify the pages and reduce overhead
     navigate(`/athlete/${athleteId}`);
   };
 
@@ -54,20 +62,15 @@ export const Navbar: React.FC = () => {
             {/* <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/> */}
             SCHS
           </div>
-          <div>
-            <Link to="/" className="navbar__link">
-              Home
-            </Link>
-            <Link to="santa-clara-high-cross-country/" className="navbar__link">
-              XC
-            </Link>
-            <Link to="santa-clara-high-track-and-field/" className="navbar__link">
-              Track
-            </Link>
-            <Link to="/workouts" className="navbar__link">
-              Workouts
-            </Link>
-          </div>
+          {LEFT_NAV_LINKS.map((link) => {
+            return (
+              <>
+                <Link to={link.link} key={link.text} className="navbar__link">
+                  {link.text}
+                </Link>
+              </>
+            )
+          })}
         </div>
         {/* Right side of navbar */}
         <div style={{ display: 'flex', height: '100%', alignItems: 'center', width: '400px', justifyContent: 'space-between'}}>
@@ -95,7 +98,7 @@ export const Navbar: React.FC = () => {
             )}
           </div>
           <div>
-            <Link to="/login" className="navbar__link" style={{ paddingRight: '0'}}>
+            <Link to="login/" className="navbar__link" style={{ paddingRight: '0'}}>
               Login
             </Link>
           </div>

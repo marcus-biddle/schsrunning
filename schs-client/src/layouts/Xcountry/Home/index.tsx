@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import Page from '../../../SEO/meta';
+import Page from '../../../Meta';
 import { Header } from '../../../components/Header';
 import './styled.css';
 import { Runners } from '../Runners';

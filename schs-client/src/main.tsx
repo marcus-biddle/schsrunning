@@ -6,14 +6,14 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Home } from './pages/Home/index.tsx'
-import { CrossCountry } from './pages/XC/Home/index.tsx'
+import { CrossCountry } from './layouts/Xcountry/Home/index.tsx'
 import { Track } from './pages/Track/index.tsx'
-import { XCSeason } from './pages/XC/Seasons/index.tsx';
-import { Runners } from './pages/XC/Runners/index.tsx';
-import { SeasonInfo, loader as seasonLoader, } from './pages/XC/Season/index.tsx';
-import { Coaches, loader as coachesLoader } from './pages/XC/Coaches/index.tsx';
-import { Runner, loader as runnerLoader, } from './pages/XC/Runner/index.tsx';
-import {RaceResult, loader as raceResultLoader}  from './pages/XC/RaceResults/index.tsx';
+import { XCSeason } from './layouts/Xcountry/Seasons/index.tsx';
+import { Runners } from './layouts/Xcountry/Runners/index.tsx';
+import { SeasonInfo, loader as seasonLoader, } from './pages/Xcountry/Season/index.tsx';
+import { Coaches, loader as coachesLoader } from './layouts/Xcountry/Coaches/index.tsx';
+import { Runner, loader as runnerLoader, } from './pages/Xcountry/Runner/index.tsx';
+import {RaceResult, loader as raceResultLoader}  from './pages/Xcountry/RaceResults/index.tsx';
 import { ResultListPage } from './pages/Track/ResultListPage/index.tsx';
 import { AthleteListPage } from './pages/Track/AthleteListPage/index.tsx';
 import { AthletePage } from './pages/Track/AthletePage/index.tsx';
@@ -21,9 +21,8 @@ import { EventListPage} from './pages/Track/EventListPage/index.tsx';
 import { EventPage } from './pages/Track/EventPage/index.tsx';
 import { CoachListPage } from './pages/Track/CoachListPage/index.tsx';
 import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
-import { XCCoachPage } from './pages/XC/Coach/index.tsx';
+import { XCCoachPage } from './pages/Xcountry/Coach/index.tsx';
 import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
-import Login from './components/Login/index.tsx';
 import AdminDashboard from './pages/Admin/Dashboard/index.tsx';
 import { RequireAuth } from './authUtils/RequiredAuth.tsx';
 import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
@@ -32,10 +31,11 @@ import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
 import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
 import RacePage from './pages/Admin/RacePage/index.tsx';
 import AddCompetitors from './pages/Admin/AddCompetitors/index.tsx';
-import { TopRunnerMenu } from './pages/XC/TopRunnerMenu/index.tsx';
-import { TopTeamMenu } from './pages/XC/TopTeamMenu/index.tsx';
-import { TopTeams } from './pages/XC/TopTeams/index.tsx';
+import { TopRunnerMenu } from './layouts/Xcountry/TopRunnerMenu/index.tsx';
+import { TopTeamMenu } from './layouts/Xcountry/TopTeamMenu/index.tsx';
+import { TopTeams } from './pages/Xcountry/TopTeams/index.tsx';
 import {SearchPage} from './pages/SearchPage/index.tsx';
+import LoginPage from './pages/Login/index.tsx';
 
 const queryClient = new QueryClient();
 
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'athlete/:athleteId',
-        element: <CrossCountry />,
+        element: <Runner />,
       },
       {
         path: 'search/',
@@ -205,8 +205,8 @@ const router = createBrowserRouter([
       },
       // ----------------------------------------Admin--------------------------------------------------
       {
-        path: 'admin/login',
-        element: <Login />,
+        path: 'login',
+        element: <LoginPage />,
       },
       {
         path: 'admin/dashboard/',
