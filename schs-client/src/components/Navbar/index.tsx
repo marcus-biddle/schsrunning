@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './styled/index.css';
-import logo from '../../assets/logo2.png';
+// import logo from '../../assets/index';
 import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
@@ -117,7 +117,7 @@ export const MobileNavbar: React.FC = () => {
   return (
     <div className={isOpen ? 'navbar-mobile-fullscreen' : 'navbar-mobile'}>
       <div style={{ display: 'flex', paddingTop: `${isOpen ? '8.5px' : ''}`}}>
-      <img src={logo} alt='logo' style={{ height: '38px' }}/>
+      {/* <img src={logo} alt='logo' style={{ height: '38px' }}/> */}
       <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
       </div>
       

@@ -62,6 +62,14 @@ const router = createBrowserRouter([
         element: <CrossCountry />,
       },
       {
+        path: 'santa-clara-high-cross-country/athlete/:athleteId',
+        element: <CrossCountry />,
+      },
+      {
+        path: 'santa-clara-high-cross-country/runners/:athleteId',
+        element: <CrossCountry />,
+      },
+      {
         path: 'cross-country/',
         element: <CrossCountry />,
       },
