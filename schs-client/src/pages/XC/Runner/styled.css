@@ -53,6 +53,7 @@
 .seasons-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .user-header {
@@ -76,4 +77,27 @@
     letter-spacing: 1.05px;
     color: rgba(145, 141, 141, 0.582);
     margin-top: 32px;
+}
+
+.seasons-container ul {
+    list-style: none;
+    background-color: #212629;
+    border-radius: 8px;
+}
+
+.seasons-container li {
+    display: flex;
+    /* background-color: #212629; */
+    padding: 16px;
+    justify-content: space-between;
+}
+
+.seasons-container li:nth-child(even) {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.seasons-container li:nth-child(odd) {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }

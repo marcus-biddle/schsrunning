@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { convertToNum, getYearFromDate } from "../../../helpers";
 import { fetchXCRunner } from "../../../api/XCRunner";
 import { useQuery } from '@tanstack/react-query';
-import {Header, SubHeader} from "../../../components/Header";
+import {Header } from "../../../components/Header";
 import './styled.css';
 import img from '../../../assets/schs_logo.jpeg'
 
@@ -67,7 +67,7 @@ export const Runner = () => {
             <h3>Alumni Seasons</h3>
           </div>
         }
-        <ul className="list">
+        <ul>
           {alumniRaces && alumniRaces.length > 0 && alumniRaces.map((row) => {
             return (
               <li>
@@ -82,13 +82,13 @@ export const Runner = () => {
         {seniorRaces && seniorRaces.length > 0 && 
           <div className="season">
             <h4>{seniorRaces[0].grade}th Grade</h4>
-            <h3>Season {getYearFromDate(seniorRaces[0].date)}</h3>
+            <h3>{getYearFromDate(seniorRaces[0].date)} Season </h3>
           </div>
         }
-        <ul className="list">
+        <ul >
           {seniorRaces && seniorRaces.length > 0 && seniorRaces.map((row) => {
             return (
-              <li className="list-item">
+              <li>
                 <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
                 <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
               </li>
@@ -100,13 +100,13 @@ export const Runner = () => {
         {juniorRaces && juniorRaces.length > 0 && 
           <div className="season">
             <h4>{juniorRaces[0].grade}th Grade</h4>
-            <h3>Season {getYearFromDate(juniorRaces[0].date)}</h3>
-        </div>
+            <h3>{getYearFromDate(juniorRaces[0].date)} Season </h3>
+          </div>
         }
-        <ul className="list">
+        <ul >
           {juniorRaces && juniorRaces.length > 0 && juniorRaces.map((row) => {
             return (
-              <li className="list-item">
+              <li>
                 <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
                 <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
               </li>
@@ -116,15 +116,15 @@ export const Runner = () => {
 
         {/* 0th grade records */}
         {sophomoreRaces && sophomoreRaces.length > 0 && 
-          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-            <h2>Season {getYearFromDate(sophomoreRaces[0].date)}</h2>
-            <h2>{sophomoreRaces[0].grade}th Grade Records</h2>
+          <div className="season">
+            <h4>{sophomoreRaces[0].grade}th Grade</h4>
+            <h3>{getYearFromDate(sophomoreRaces[0].date)} Season </h3>
           </div>
         }
-        <ul className="list">
+        <ul >
           {sophomoreRaces && sophomoreRaces.length > 0 && sophomoreRaces.map((row) => {
             return (
-              <li className="list-item">
+              <li>
                 <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
                 <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
               </li>
@@ -134,15 +134,15 @@ export const Runner = () => {
         
         {/* 9th grade records */}
         {freshmenRaces && freshmenRaces.length > 0 && 
-          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-            <h2>Season {getYearFromDate(freshmenRaces[0].date)}</h2>
-            <h2>{freshmenRaces[0].grade}th Grade Records</h2>
+          <div className="season">
+            <h4>{freshmenRaces[0].grade}th Grade</h4>
+            <h3>{getYearFromDate(freshmenRaces[0].date)} Season </h3>
           </div>
         }
-        <ul className="list">
+        <ul >
           {freshmenRaces && freshmenRaces.length > 0 && freshmenRaces.map((row) => {
             return (
-              <li className="list-item">
+              <li>
                 <h4>{getYearFromDate(row.date)} {row.racename}: {row.coursename}, {row.coursedistance}miles</h4>
                 <span style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: '18px'}}>{row.time} ({row.pace})</span>
               </li>
