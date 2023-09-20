@@ -218,9 +218,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'admin/dashboard/',
-        element: (<RequireAuth>
+        element: (
           <AdminDashboard />
-        </RequireAuth>),
+        ),
       },
       {
         path: 'admin/athletes',

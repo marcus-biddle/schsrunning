@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,  } from 'react-router-dom';
 import './styled/index.css';
 // import logo from '../../assets/index';
 import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
@@ -34,7 +34,7 @@ const LEFT_NAV_LINKS = [
   },
 ]
 
-export const Navbar: React.FC = () => {
+export const Navbar = () => {
   const navigate = useNavigate();
   const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');

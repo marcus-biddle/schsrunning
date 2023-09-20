@@ -28,7 +28,7 @@ export const App: React.FC = () => {
   
   return (
     <div>
-      {checkIfMobile(screenWidth) ? <MobileNavbar /> : <Navbar /> }
+      {pathname.includes('admin') ? null : checkIfMobile(screenWidth) ? <MobileNavbar /> : <Navbar /> }
       <div>
         <AuthProvider>
           <Outlet />
