@@ -19,12 +19,16 @@
     padding: 24px 0 24px 0;
 }
 
-.sidemenu-container div {
+.actions-container h4 {
     width: 100%;
-    text-align: center;
+    padding-left: 16px;
 }
 
-.sidemenu-container ul {
+.actions-container ul {
+    list-style: none;
+}
+
+.sidemenu-container div, .sidemenu-container ul {
     width: 100%;
     text-align: center;
 }

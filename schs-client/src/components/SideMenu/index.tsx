@@ -10,6 +10,14 @@ const SideMenu = ({ list }: SideMenuProps) => {
     <div className='sidemenu-container'>
         <div>
             <h1>XCountry</h1>
+            <div className='actions-container'>
+                <h4>Actions</h4>
+                <ul>
+                    <li>Import CSV</li>
+                    {/* This link will be for emailing team, storing phone#'s, emergency contacts, etc */}
+                    <li>Active Roster</li>
+                </ul>
+            </div>
         </div>
         <ul>
             {list.map((link: any) => {
