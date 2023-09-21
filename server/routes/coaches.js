@@ -2,6 +2,7 @@
  * between the endpoints and what they do.
  * Some of it seems redundant and unnecessary.
  */
+/** I should split this up again [ handlers, routes, ] */
 import express from 'express';
 
 const router = express.Router();
