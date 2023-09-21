@@ -12,6 +12,10 @@ import competitorsRouter from './routes/competitors.js;'
 // Load environment variables from .env file
 dotenv.config();
 
+const app = express();
+app.use(express.json());
+
+// This uses a url from render.com to create the connection
 const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
 connection.connect((error) => {
@@ -22,8 +26,7 @@ connection.connect((error) => {
   }
 });
 
-const app = express();
-app.use(express.json());
+
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
