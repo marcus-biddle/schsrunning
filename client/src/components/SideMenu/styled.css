@@ -48,8 +48,9 @@
     padding: 8px;
 }
 
-.sidemenu-container ul > li > ul > li:hover {
+.active, .sidemenu-container ul > li > ul > li:hover {
     background-color: aliceblue;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    cursor: pointer;
 }

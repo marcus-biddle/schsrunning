@@ -24,7 +24,6 @@ import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
 import { XCCoachPage } from './pages/Xcountry/Coach/index.tsx';
 import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 import AdminDashboard from './pages/Admin/Dashboard/index.tsx';
-import { RequireAuth } from './authUtils/RequiredAuth.tsx';
 import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
 import CreateAthleteForm from './pages/Admin/CreateAthlete/index.tsx';
 import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
@@ -224,39 +223,39 @@ const router = createBrowserRouter([
       },
       {
         path: 'admin/athletes',
-        element: (<RequireAuth>
+        element: (
           <AdminAthletesPage />
-        </RequireAuth>),
+        ),
       },
       {
         path: 'admin/athletes/:athleteId',
-        element: (<RequireAuth>
+        element: (
           <EditAthlete />
-        </RequireAuth>),
+        ),
       },
       {
         path: 'admin/athletes/create',
-        element: (<RequireAuth>
+        element: (
           <CreateAthleteForm/>
-        </RequireAuth>),
+        ),
       },
       {
         path: 'admin/xc/races',
-        element: (<RequireAuth>
+        element: (
           <AdminRacesPage/>
-        </RequireAuth>),
+        ),
       },
       {
         path: 'admin/xc/races/:raceNameId',
-        element: (<RequireAuth>
+        element: (
           <RacePage />
-        </RequireAuth>),
+        ),
       },
       {
         path: 'admin/xc/races/add-results',
-        element: (<RequireAuth>
+        element: (
           <AddCompetitors />
-        </RequireAuth>),
+        ),
       },
     ],
   },

@@ -1,11 +1,13 @@
 import './styled.css';
+import useActiveLink from '../../helpers/hooks/useActiveLink.js'
 
 interface SideMenuProps {
     list: any[];
 }
 
 const SideMenu = ({ list }: SideMenuProps) => {
-    // Add active links, etc
+    const { isActive, toggleActive } = useActiveLink(null);
+
   return (
     <div className='sidemenu-container'>
         <div>
@@ -25,9 +27,12 @@ const SideMenu = ({ list }: SideMenuProps) => {
                     <li key={link.text}>
                         <h4>{link.text}</h4>
                         <ul>
-                            {link?.sublinks.map((sublink: any) => {
+                            {link?.sublinks.map((sublink: any, index: number) => {
                                 return (
-                                    <li key={sublink.text}>
+                                    <li 
+                                    className={isActive(`${sublink.text}-${index}`) ? 'active' : ''}
+                                    onClick={() => toggleActive(`${sublink.text}-${index}`)}
+                                    key={sublink.text}>
                                         {sublink.text}
                                     </li>
                                 )

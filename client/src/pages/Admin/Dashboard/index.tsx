@@ -1,6 +1,4 @@
 
-import { useNavigate } from 'react-router';
-import {GenericButton} from '../../../components/Button';
 import SideMenu from '../../../components/SideMenu';
 
 const SIDEMENU_LINKS = [
@@ -79,7 +77,6 @@ const SIDEMENU_LINKS = [
 ]
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -118,13 +115,13 @@ const AdminDashboard = () => {
   )
 }
 
-const buttonStyle = {
-  backgroundColor: '#4E9CAF',
-    color: '#FFFFFF',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '4px',
-    fontSize: '16px',
-};
+// const buttonStyle = {
+//   backgroundColor: '#4E9CAF',
+//     color: '#FFFFFF',
+//     padding: '10px 20px',
+//     border: 'none',
+//     borderRadius: '4px',
+//     fontSize: '16px',
+// };
 
 export default AdminDashboard
