@@ -4,15 +4,12 @@
  */
 /** I should split this up again [ handlers, routes, ] */
 import express from 'express';
+import { getAllCoachesHandler, getCoachByIdHandler } from '../controllers/coaches.controller';
 
 const router = express.Router();
 
 // GET all coaches
-router.get('/coaches', async (req, res) => {
-  const query = "SELECT * FROM Coach";
-  const [rows] = await connection.query(query);
-  res.send(rows)
-});
+router.get('/coaches', getAllCoachesHandler);
 
 // GET Coach by year
 router.get('/season-coaches/:yearId', async (req, res) => {
@@ -29,18 +26,7 @@ router.get('/season-coaches/:yearId', async (req, res) => {
   });
 
   // GET individual Coach
-  router.get('/coaches/:coachId', async (req, res) => {
-    const { coachId } = req.params;
-  
-    const query = "SELECT * FROM Coach WHERE Coach.coachId=?;";
-    const [rows] = await connection.query(query, coachId);
-    
-    if(!rows[0]) {
-      return res.json({ msg: "Could not find coach." });
-    };
-  
-    res.json(rows[0])
-  });
+  router.get('/coaches/:coachId', getCoachByIdHandler);
 
   app.get('/coach-seasons', async (req, res) => {
     const { coachIds } = req.query;
