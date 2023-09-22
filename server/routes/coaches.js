@@ -4,7 +4,7 @@
  */
 /** I should split this up again [ handlers, routes, ] */
 import express from 'express';
-import { getAllCoachesHandler, getCoachByIdHandler } from '../controllers/coaches.controller';
+import { getAllCoachesHandler, getCoachByIdHandler } from '../controllers/coaches.controller.js';
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.get('/season-coaches/:yearId', async (req, res) => {
   // GET individual Coach
   router.get('/coaches/:coachId', getCoachByIdHandler);
 
-  app.get('/coach-seasons', async (req, res) => {
+  router.get('/coach-seasons', async (req, res) => {
     const { coachIds } = req.query;
   
     // Convert comma-separated string of coach IDs to an array
@@ -53,7 +53,7 @@ router.get('/season-coaches/:yearId', async (req, res) => {
     }
   });
 
-  app.get('/coach-seasons/:coachId', async (req, res) => {
+  router.get('/coach-seasons/:coachId', async (req, res) => {
     const { coachId } = req.params;
   
     const query = `SELECT CoachSeason.*, Coach.firstname, Coach.lastname
@@ -71,14 +71,14 @@ router.get('/season-coaches/:yearId', async (req, res) => {
   });
 
   // This might be unused.
-  app.get('/coach-types', async (req, res) => {
+  router.get('/coach-types', async (req, res) => {
     const query = "SELECT * FROM CoachType";
     const [rows] = await connection.query(query);
     res.send(rows)
   });
 
   // GET coach type based on Coach
-  app.get('/coach-types/:coachTypeId', async (req, res) => {
+  router.get('/coach-types/:coachTypeId', async (req, res) => {
     const { coachTypeId } = req.params;
   
     const query = "SELECT * FROM CoachType WHERE CoachType.coachTypeId=?;";

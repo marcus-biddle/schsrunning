@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 
 import coachesRouter from './routes/coaches.js';
-import competitorsRouter from './routes/competitors.js;'
+import competitorsRouter from './routes/competitors.js';
 
 // File contains all the GETs for the database
 
@@ -14,17 +14,6 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-
-// This uses a url from render.com to create the connection
-const connection = await mysql.createConnection(process.env.DATABASE_URL);
-
-connection.connect((error) => {
-  if (error) {
-    console.error('Error connecting to the database:', error);
-  } else {
-    console.log('Connected to the database');
-  }
-});
 
 
 const corsOptions = {

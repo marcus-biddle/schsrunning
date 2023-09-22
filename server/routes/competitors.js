@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { connection } from '../utility/database.js';
 const router = express.Router();
 
 // GET all competitors
@@ -43,7 +43,7 @@ router.get('/competitors', async (req, res) => {
   }); 
 
   // GET Competitor by race name
-  app.get('/competitors-by-course', async (req, res) => {
+  router.get('/competitors-by-course', async (req, res) => {
     const { raceNameId } = req.query;
   
     const query = `

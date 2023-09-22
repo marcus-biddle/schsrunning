@@ -1,3 +1,5 @@
+import { connection } from '../utility/database.js';
+
 export const getAllCoachesHandler = async (req, res) => {
     const query = "SELECT * FROM Coach";
     const [rows] = await connection.query(query);
