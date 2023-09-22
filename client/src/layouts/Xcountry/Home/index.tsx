@@ -6,6 +6,7 @@ import './styled.css';
 import { Runners } from '../Runners';
 import { Coaches } from '../Coaches';
 import { TopRunnerMenu } from '../TopRunnerMenu';
+import useActiveLink from '../../../helpers/hooks/useActiveLink';
 
 const MENU = [
     {
@@ -30,17 +31,16 @@ const MENU = [
     },
 ]
 export const CrossCountry = () => {
+    const { isActive, toggleActive } = useActiveLink('1');
     const [ openDir, setOpenDir ] = useState(false);
     const [ component, setComponent ] = useState<any>(MENU[2].link);
-    const [ activeDir, setActiveDir ] = useState(MENU[2].text);
 
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;
-        const name = MENU[index].text;
 
         setComponent(page);
         setOpenDir(false);
-        setActiveDir(name);
+        toggleActive(`${index}`)
     }
 
     const handleDir = () => {
@@ -61,9 +61,10 @@ export const CrossCountry = () => {
                     {MENU.map((menu, index) => {
                         return (
                             <li 
-                            key={menu.text}
-                            className={activeDir === menu.text ? 'active-link' : ''}
-                            onClick={() => handleMenuClick(index)}>
+                                key={menu.text}
+                                className={isActive(`${index}`) ? 'active-link' : ''}
+                                onClick={() => handleMenuClick(index)}
+                            >
                                 {menu.text}
                             </li>
                         )
