@@ -25,6 +25,8 @@ app.post('/token', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
+    const user = users.find(user => user.name = req.body.name)
+    if (user != null) return res.status(400).send('Username already exists.')
     try {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
