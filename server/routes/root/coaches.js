@@ -4,12 +4,24 @@
  */
 /** I should split this up again [ handlers, routes, ] */
 import express from 'express';
-import { getAllCoachesHandler, getCoachByIdHandler } from '../controllers/coaches.controller.js';
+import { getAllCoachesHandler, getCoachByIdHandler } from '../../controllers/coaches.controller.js';
+import { authenticateToken } from '../../middleware/verifyJWT.js';
+import { authenticateRoles } from '../../middleware/verifyRoles.js';
+import { ROLES_LIST } from '../../config/_roles.js';
 
 const router = express.Router();
 
 // GET all coaches
-router.get('/coaches', getAllCoachesHandler);
+// This is how to protect a select route
+// router.route('/coaches')
+//   .get(authenticateToken, getAllCoachesHandler);
+
+router.route('/coaches')
+  .get(getAllCoachesHandler);
+
+// This is how to authenticate roles for a route
+// router.route('/coaches')
+// .post(authenticateRoles(ROLES_LIST.admin, ROLES_LIST.editor),getAllCoachesHandler);
 
 // GET Coach by year
 router.get('/season-coaches/:yearId', async (req, res) => {

@@ -3,6 +3,7 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
+import { handleLogin } from './controllers/auth.controller';
 
 const app = express();
 dotenv.config();
@@ -45,50 +46,10 @@ app.delete('/logout', (req, res) => {
 })
 
 
-app.post('/login', async (req, res) => {
-    // {username, password}
-
-    const user = users.find(user => user.name = req.body.name)
-    if (user == null) {
-        return res.status(400).send('Cannot find user.')
-    }
-
-    try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            const username = { name: user.username };
-            const accessToken = generateAccessToken(username);
-            const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-            refreshTokens.push(refreshToken);
-            res.json({ accessToken: accessToken, refreshToken: refreshToken });
-
-            res.send('Success');
-        } else {
-            res.send('Not Allowed.');
-        }
-    } catch {
-        res.send(500).send();
-    }
-
-    
-})
-
-// Middleware function
-// function authenticateToken(req, res, next) {
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-
-//     if (token === null) return res.sendStatus(401);
-
-//     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-//         if (err) return res.sendStatus(403);
-
-//         req.user = user;
-//         next();
-//     })
-// }
+app.post('/login', handleLogin);
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' });
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
 }
 
-app.listen(3000);
+app.listen(3500);

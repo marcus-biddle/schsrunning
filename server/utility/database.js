@@ -11,6 +11,8 @@ dotenv.config(); // Load environment variables from .env file
 //   database: process.env.DB_DATABASE,
 // };
 
+
+
 // Create a MySQL connection
 // This comes from planetscale.
 const connection = await mysql.createConnection(process.env.DATABASE_URL);

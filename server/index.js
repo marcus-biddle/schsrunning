@@ -3,50 +3,56 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import coachesRouter from './routes/root/coaches.js';
+import competitorsRouter from './routes/root/competitors.js';
+import { corsOptions } from './utility/database.js';
+import { authenticateToken } from './middleware/verifyJWT.js';
 
-import coachesRouter from './routes/coaches.js';
-import competitorsRouter from './routes/competitors.js';
+import { credentials } from './middleware/credentials.js';
 
-// File contains all the GETs for the database
+import handleLogout from './routes/api/logout.route.js';
+import handleLogin from './routes/api/auth.route.js';
+import handleRefreshToken from './routes/api/refresh.routes.js';
+import handleRegister from './routes/api/register.routes.js';
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
-app.use(express.json());
 
+// Must be before CORS
+// Handle cookie creds req if fetching
+app.use(credentials);
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'https://schsrunning.vercel.app',
-    ];
-
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-};
-
+// Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// Form data
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// cookies
+app.json(cookieParser());
+
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   next();
+// });
 
 const PORT = process.env.PORT || 3000;
 
 app.use('/', coachesRouter);
 app.use('/', competitorsRouter);
 
+app.use('/register', handleRegister);
+app.use('/auth', handleLogin);
+app.use('/refresh', handleRefreshToken);
+app.use('logout', handleLogout);
+
+// Anything below this line will be protected with JWT
+app.use(authenticateToken);
 
 // PROCEDURES
   // Get XC Runner Results

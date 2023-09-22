@@ -1,5 +1,5 @@
 import express from 'express';
-import { connection } from '../utility/database.js';
+import { connection } from '../../utility/database.js';
 const router = express.Router();
 
 // GET all Courses
