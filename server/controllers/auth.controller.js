@@ -2,7 +2,15 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 let refreshTokens = []
-const users = [];
+const users = [
+    {
+        "username": "ky2",
+        "password": "password",
+        "roles": {
+            "admin": 5150
+        }
+      }
+];
 
 export const handleLogin = async (req, res) => {
     const { username, password } = req.body;
@@ -13,7 +21,13 @@ export const handleLogin = async (req, res) => {
     if (!foundUser) return res.status(401).json({ "message" : "Cannot find user."})
 
     try {
-        const match = await bcrypt.compare(password, username.password);
+        console.log(password);
+        console.log(foundUser.password);
+        // test purposes
+        const hash = await bcrypt.hash(foundUser.password, 10);
+        console.log(hash);
+        const match = await bcrypt.compare(password, hash);
+        console.log(match);
         if (match) {
             const roles = Object.values(foundUser.roles);
             // create JWT
@@ -31,13 +45,13 @@ export const handleLogin = async (req, res) => {
             const otherUsers = users.filter(person => person.username !== foundUser.username);
             const currentUser = { ...foundUser, refreshToken };
             /** Need to set Users to [...otherUsers, currentUser] in the database */
-            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
             res.json({ accessToken: accessToken });
         } else {
-            res.send('Not Allowed.');
+            res.json('Not Allowed.');
         }
     } catch {
-        res.send(500).send();
+        res.sendStatus(500);
     }
 }
 

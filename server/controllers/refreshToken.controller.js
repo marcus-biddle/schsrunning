@@ -1,7 +1,15 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-const users = [];
+const users = [
+    {
+        "username": "ky2",
+        "password": "password",
+        "roles": {
+            "admin": 5150
+        }
+      }
+];
 
 dotenv.config();
 
@@ -40,5 +48,5 @@ export const handleRefreshToken = (req, res) => {
 }
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7m' });
 }

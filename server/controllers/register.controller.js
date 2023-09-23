@@ -16,7 +16,7 @@ export const handleRegister = async (req, res) => {
         // Add to db [...users, user]
         const user = { "username": username, "roles": { "User": 2001, }, "password": hashedPassword };
         users.push(user);
-        res.status(201).json({ "success": `New user ${user} created!` });
+        res.status(201).json({ "success": `New user ${user.username} created!` });
     } catch {
         res.status(500).json({ "message": error.message });
     }

@@ -6,7 +6,6 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import coachesRouter from './routes/root/coaches.js';
 import competitorsRouter from './routes/root/competitors.js';
-import { corsOptions } from './utility/database.js';
 import { authenticateToken } from './middleware/verifyJWT.js';
 
 import { credentials } from './middleware/credentials.js';
@@ -15,8 +14,14 @@ import handleLogout from './routes/api/logout.route.js';
 import handleLogin from './routes/api/auth.route.js';
 import handleRefreshToken from './routes/api/refresh.routes.js';
 import handleRegister from './routes/api/register.routes.js';
+import { corsOptions } from './config/corsOptions.js';
+
+import { connectMongoDb } from './config/mongoDbConn.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
+
+connectMongoDb();
 
 const app = express();
 
@@ -32,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // cookies
-app.json(cookieParser());
+app.use(cookieParser());
 
 // app.use((req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -43,13 +48,15 @@ app.json(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
+app.use('/users', usersRouter)
+
 app.use('/', coachesRouter);
 app.use('/', competitorsRouter);
 
 app.use('/register', handleRegister);
 app.use('/auth', handleLogin);
 app.use('/refresh', handleRefreshToken);
-app.use('logout', handleLogout);
+app.use('/logout', handleLogout);
 
 // Anything below this line will be protected with JWT
 app.use(authenticateToken);
@@ -1462,8 +1469,17 @@ app.post('/login', async (req, res) => {
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello World' })
 })
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB')
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+})
+
+mongoose.connection.on('error', err => {
+  console.log(err);
+})
+
 
 // await connection.end();
