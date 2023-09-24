@@ -1,20 +1,18 @@
-// import { Navigate, useLocation } from 'react-router-dom'
-// import { AuthContext } from "../context/authProvider";
-// import { getAccessTokenCookie } from ".";
+import {useAuth} from '../helpers/hooks/useAuth'
+import { Navigate, Outlet, useLocation } from 'react-router';
 
-export function RequireAuth() {
-    // const location = useLocation();
+export const RequiredAuth = ({ allowedRoles }: { allowedRoles: string[] }) => {
+  const { auth } = useAuth();
+  const location = useLocation();
 
-    // This has auth, but nothing is being stored so when I refresh I am returned to login
-    // The endless loop could be from this as well.
-  
-    return (
-      <></>
-    )
-    // return getAccessTokenCookie() ? (
-    //   children
-    // ) : (
-    //   <Navigate to="/login" replace state={{ path: location.pathname }} />
-    // );
-  }
+  console.log('requiredAuth', auth)
+
+  return (
+    auth?.roles?.find(role => allowedRoles?.includes(role))
+      ? <Outlet />
+      : auth?.username
+        ? <Navigate to={'/unauthorized'} state={{ from: location }} replace />
+        : <Navigate to={'/login'} state={{ from: location }} replace />
+  );
+}
   

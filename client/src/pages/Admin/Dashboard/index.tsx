@@ -1,5 +1,6 @@
 
 import SideMenu from '../../../components/SideMenu';
+import UsersPage from '../Users';
 
 const SIDEMENU_LINKS = [
   {
@@ -79,8 +80,9 @@ const SIDEMENU_LINKS = [
 const AdminDashboard = () => {
 
   return (
-    <div>
+    <div style={{ display: 'flex'}}>
       <SideMenu list={SIDEMENU_LINKS}/>
+      <UsersPage />
       {/* <div>
         <h1>List Component Example</h1> */}
         {/* <GenericList items={initialItems} renderItem={renderItem} /> */}

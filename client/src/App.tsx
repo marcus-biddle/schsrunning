@@ -2,7 +2,6 @@ import { MobileNavbar, Navbar } from './components/Navbar'
 import './App.css';
 import { Outlet, useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
-import AuthProvider from './context/authProvider';
 import { checkIfMobile } from './helpers';
 // import BottomNavbar from './components/BottomNav';
 
@@ -30,9 +29,7 @@ export const App: React.FC = () => {
     <div>
       {pathname.includes('admin') ? null : checkIfMobile(screenWidth) ? <MobileNavbar /> : <Navbar /> }
       <div>
-        <AuthProvider>
           <Outlet />
-        </AuthProvider>
       </div>
       {/* {checkIfMobile(screenWidth) ? <BottomNavbar /> : null } */}
       {/* <Footer /> */}

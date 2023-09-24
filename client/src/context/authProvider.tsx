@@ -1,41 +1,39 @@
-import { Dispatch, PropsWithChildren, SetStateAction, createContext, useState } from 'react';
+import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
 
-type AuthContextType = {
-  auth: object,
-  setAuth: Dispatch<SetStateAction<object>>,
+// Define the type for the auth object
+type AuthType = {
+  username: string;
+  password: string;
+  roles: string[];
+  accessToken: string;
 };
 
-// type UserProps = {
-//   username: string,
-//   password: string,
-//   secretKey: string
-// }
+// Define the type for the context
+type AuthContextType = {
+  auth: AuthType;
+  setAuth: Dispatch<SetStateAction<AuthType>>;
+};
 
-// export const useAuth = () => {
-//   const [authed, setAuthed] = useState<UserProps | undefined>();
+// Create the initial auth state
+const initialAuth: AuthType = {
+  username: '',
+  password: '',
+  roles: [''],
+  accessToken: '',
+};
 
-//   return {
-//     authed,
-//     login(user: UserProps) {
-//       return new Promise(() => {
-//         setAuthed(user);
-//       })
-//     },
-//     logout(user: UserProps) {
-//       return new Promise(() => {
-//         setAuthed(undefined);
-//       })
-//     }
-//   }
-// }
-
+// Create the AuthContext with initial values
 export const AuthContext = createContext<AuthContextType>({
-  auth: {},
-  setAuth: () => null,
+  auth: initialAuth,
+  setAuth: () => {},
 });
 
-const AuthProvider= ({ children }: PropsWithChildren) => {
-  const [auth, setAuth] = useState({});
+// AuthProvider component
+export const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+  const [auth, setAuth] = useState<AuthType>(initialAuth);
+
+  // Log auth for debugging
+  console.log('auth', auth);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
@@ -44,4 +42,3 @@ const AuthProvider= ({ children }: PropsWithChildren) => {
   );
 };
 
-export default AuthProvider;

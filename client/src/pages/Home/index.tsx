@@ -11,6 +11,7 @@ import img from '../../assets/scott.jpg'
 import { BsCalendarEvent } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdGroups } from 'react-icons/md';
+import { useUsersData } from '../../helpers/hooks/data/useUserData.tsx';
 
 
 const topCompRacesMenListQuery = () => ({
@@ -60,7 +61,10 @@ export const Home = () => {
     const { data: topWomen } = useQuery(topCompRacesWomenListQuery());
     const combinedData = topMen?.concat(topWomen || []);
     console.log(topMen, topWomen);
-    // const items = ['Athletes', 'Coaches', 'Seasons', 'Gallery'];
+
+    
+
+    
 
     const groupedData: { [key: string]: XCRaceResult[] } = {};
     combinedData?.forEach((item) => {
@@ -90,6 +94,7 @@ export const Home = () => {
                 alt="Image"
                 />
         </div>
+
         <div className='icon-container'>
             <div>
                 <BsCalendarEvent className='home-icon' />

@@ -11,13 +11,14 @@ import { authenticateToken } from './middleware/verifyJWT.js';
 import { credentials } from './middleware/credentials.js';
 
 import handleLogout from './routes/api/logout.route.js';
-import handleLogin from './routes/api/auth.route.js';
+import handleLogin from './routes/mongo/auth.route.js';
 import handleRefreshToken from './routes/api/refresh.routes.js';
 import handleRegister from './routes/api/register.routes.js';
 import { corsOptions } from './config/corsOptions.js';
 
 import { connectMongoDb } from './config/mongoDbConn.js';
 import mongoose from 'mongoose';
+import handleUsers from './routes/mongo/users.routes.js';
 
 dotenv.config();
 
@@ -32,33 +33,26 @@ app.use(credentials);
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
-// Form data
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
 // cookies
 app.use(cookieParser());
 
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//   next();
-// });
-
 const PORT = process.env.PORT || 3000;
 
-app.use('/users', usersRouter)
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/users', handleUsers)
 
 app.use('/', coachesRouter);
 app.use('/', competitorsRouter);
 
 app.use('/register', handleRegister);
-app.use('/auth', handleLogin);
+app.use('/login', handleLogin);
 app.use('/refresh', handleRefreshToken);
 app.use('/logout', handleLogout);
 
 // Anything below this line will be protected with JWT
+// change this to specific endpoints
 app.use(authenticateToken);
 
 // PROCEDURES

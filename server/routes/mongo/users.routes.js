@@ -1,5 +1,5 @@
 import express from 'express';
-import usersController from '../../controllers/mongo/users.controller';
+import usersController from '../../controllers/mongo/users.controller.js';
 
 const router = express.Router();
 

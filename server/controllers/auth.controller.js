@@ -1,33 +1,23 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import expressAsyncHandler from 'express-async-handler';
+import User from '../models/User.js';
 
 let refreshTokens = []
-const users = [
-    {
-        "username": "ky2",
-        "password": "password",
-        "roles": {
-            "admin": 5150
-        }
-      }
-];
 
-export const handleLogin = async (req, res) => {
+export const handleLogin = expressAsyncHandler(async (req, res) => {
     const { username, password } = req.body;
 
     // Validate req.body
     if (!username || !password) return res.status(400).json({ "message" : "Username and password is required."})
-    const foundUser = users.find(person => person.username = username)
+
+    const foundUser = await User.findOne({ username }).lean().exec();
     if (!foundUser) return res.status(401).json({ "message" : "Cannot find user."})
 
     try {
-        console.log(password);
-        console.log(foundUser.password);
-        // test purposes
-        const hash = await bcrypt.hash(foundUser.password, 10);
-        console.log(hash);
-        const match = await bcrypt.compare(password, hash);
+        const match = await bcrypt.compare(password, foundUser.password);
         console.log(match);
+
         if (match) {
             const roles = Object.values(foundUser.roles);
             // create JWT
@@ -42,18 +32,20 @@ export const handleLogin = async (req, res) => {
             refreshTokens.push(refreshToken);
 
             // Saving refreshToken with current user
-            const otherUsers = users.filter(person => person.username !== foundUser.username);
-            const currentUser = { ...foundUser, refreshToken };
-            /** Need to set Users to [...otherUsers, currentUser] in the database */
+            await User.findOneAndUpdate(
+                { username: foundUser.username },
+                { refreshToken: refreshToken},
+                { new: true }
+            );
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
-            res.json({ accessToken: accessToken });
+            res.json({ accessToken: accessToken, roles: roles });
         } else {
             res.json('Not Allowed.');
         }
     } catch {
         res.sendStatus(500);
     }
-}
+})
 
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });

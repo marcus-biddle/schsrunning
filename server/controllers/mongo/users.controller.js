@@ -1,4 +1,4 @@
-import User from "../../models/User";
+import User from "../../models/User.js";
 import asyncHandler from 'express-async-handler';
 import bcrypt from 'bcrypt';
 
@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find().select('-password').lean();
     if (!users?.length) return res.status(400).json({ "message": "No users found." });
-
+    console.log('getAllUsers', users);
     res.json(users);
 });
 
@@ -17,7 +17,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
     const { username, password, roles } = req.body;
-
+    console.log('createNewUser');
     // Confirm data
     if (!username || !password || !Array.isArray(roles) || !roles.length) {
         return res.status(400).json({ "message": "All fields are required." });
@@ -34,6 +34,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 
     //Create and store new user
     const user = await User.create(userObject);
+    console.log('createNewUser, user', user);
 
     if (user) {
         res.status(201).json({ "message": `New user ${username} created!` });

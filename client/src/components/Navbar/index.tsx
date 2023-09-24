@@ -64,11 +64,9 @@ export const Navbar = () => {
           </div>
           {LEFT_NAV_LINKS.map((link) => {
             return (
-              <>
                 <Link to={link.link} key={link.text} className="navbar__link">
                   {link.text}
                 </Link>
-              </>
             )
           })}
         </div>
