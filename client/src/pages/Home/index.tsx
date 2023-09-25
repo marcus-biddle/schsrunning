@@ -3,15 +3,10 @@ import './styled/index.css';
 import { XCRaceResult, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../Meta/index.tsx';
-// import MobileButtonGroup from '../../components/Filters/buttonGroup.tsx';
-// import MobileGrid from '../../components/Grid/index.tsx';
-// import MobileSlider from '../../components/MobileSLider/index.tsx';
-// import { getYearFromDate } from '../../helpers/index.ts';
 import img from '../../assets/scott.jpg'
 import { BsCalendarEvent } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdGroups } from 'react-icons/md';
-import { useUsersData } from '../../helpers/hooks/data/useUserData.tsx';
 
 
 const topCompRacesMenListQuery = () => ({
@@ -82,10 +77,16 @@ export const Home = () => {
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
             <div className="overlay">
-                <h1>Santa Clara High School</h1>
-                <h3>Records</h3>
+                {/* <div>
+                <h4>Cross Country | Track</h4>
+                <h4>|</h4>
+                <h4>Track</h4>
+                </div> */}
+                
+                <h1>SCHS Records</h1>
+                {/* <h3>Records</h3> */}
                 <div>
-                    <button>Track</button>
+                    <button>Track & Field</button>
                     <button>Cross Country</button>
                 </div>
             </div>
