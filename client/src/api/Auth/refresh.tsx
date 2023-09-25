@@ -1,8 +1,7 @@
-import { usePrivateApi } from "../../helpers/hooks/usePrivateAPI";
+import { privateApiClient } from "../config/axios";
 
 const findRefreshToken = async () => {
-    const privateApi = usePrivateApi();
-    const { data } = await privateApi.get('/refresh');
+    const { data } = await privateApiClient.get('/refresh');
     return data;
 }
 

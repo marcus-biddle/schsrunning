@@ -1,7 +1,7 @@
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
 
 // Define the type for the auth object
-type AuthType = {
+export type AuthType = {
   username: string;
   password: string;
   roles: string[];

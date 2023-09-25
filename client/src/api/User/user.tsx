@@ -1,16 +1,20 @@
+import { AxiosInstance } from "axios";
+import { useAuth } from "../../helpers/hooks/useAuth";
 import { usePrivateApi } from "../../helpers/hooks/usePrivateAPI";
 import { UserData } from "../../types";
 import { apiClient, privateApiClient } from "../config/axios";
 
+interface UserApiProps {
+    privateApi: AxiosInstance;
+}
 
-
-const findAll = async () => {
-    const privateApi = usePrivateApi();
+const findAll = async ({ privateApi }: UserApiProps) => {
     const controller = new AbortController();
-
+    console.log('privateApi', privateApi);
     const response = await privateApi.get('/users', {
         signal: controller.signal
     });
+
     return response.data;
 }
 

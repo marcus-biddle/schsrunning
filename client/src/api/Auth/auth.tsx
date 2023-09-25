@@ -1,5 +1,5 @@
 import { UserData } from "../../types";
-import { apiClient } from "../config/axios";
+import { apiClient, privateApiClient } from "../config/axios";
 
 const handleLogin = async ({ username, password }: UserData) => {
   
@@ -34,6 +34,12 @@ const handleLogin = async ({ username, password }: UserData) => {
       }
 };
 
+const handleLogout = async () => {
+  const response = await privateApiClient.get(`/logout`);
+  return response.data;
+}
+
 export const AuthActions = {
-    handleLogin
+    handleLogin,
+    handleLogout
 }

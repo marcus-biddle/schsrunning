@@ -34,9 +34,10 @@ import { TopRunnerMenu } from './layouts/Xcountry/TopRunnerMenu/index.tsx';
 import { TopTeamMenu } from './layouts/Xcountry/TopTeamMenu/index.tsx';
 import { TopTeams } from './pages/Xcountry/TopTeams/index.tsx';
 import {SearchPage} from './pages/SearchPage/index.tsx';
-import LoginPage from './pages/Login/index.tsx';
+import LoginPage from './pages/Login/LoginPage.tsx';
 import { AuthProvider } from './context/authProvider.tsx';
 import { RequiredAuth } from './authUtils/RequiredAuth.tsx';
+import { PersistLoginPage } from './pages/Login/PersistLoginPage.tsx';
 
 const queryClient = new QueryClient();
 
@@ -263,10 +264,10 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <RequiredAuth allowedRoles={[ 'admin' ]} />,
+    element: <PersistLoginPage />,
     children: [
       {
-        path: '',
+        path: 'home',
         element: <AdminDashboard />,
       },
     ]
@@ -275,12 +276,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <AuthProvider>
+    
     <QueryClientProvider client={queryClient}>
-      
+    <AuthProvider>
        <RouterProvider router={router} />
-      
+       </AuthProvider>
     </QueryClientProvider>
-    </AuthProvider>
+    
   </React.StrictMode>,
 )

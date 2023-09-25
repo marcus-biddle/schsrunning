@@ -39,7 +39,7 @@ export const handleRefreshToken = (req, res) => {
                         }
                     }
                 );
-                res.json({ accessToken: accessToken })
+                res.json({ accessToken: accessToken, roles: roles })
             }
         )
     } catch {
