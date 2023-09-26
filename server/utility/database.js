@@ -4,36 +4,26 @@ import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables from .env file
 
 // MySQL database configuration
-const dbConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-};
+// const dbConfig = {
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_DATABASE,
+// };
 
-// Create a MySQL pool
-const pool = mysql.createPool(dbConfig);
 
-// Query function to execute MySQL queries
-function query(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      if (err) {
-        reject(err);
-        return;
-      }
 
-      connection.query(sql, params, (error, results) => {
-        connection.release(); // Release the connection
+// Create a MySQL connection
+// This comes from planetscale.
+const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
-        }
-      });
-    });
-  });
-}
+connection.connect((error) => {
+  if (error) {
+    console.error('Error connecting to the database:', error);
+  } else {
+    console.log('Connected to the database');
+  }
+});
 
-export { query };
+
+export { connection };

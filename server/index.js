@@ -3,52 +3,57 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import coachesRouter from './routes/root/coaches.js';
+import competitorsRouter from './routes/root/competitors.js';
+import { authenticateToken } from './middleware/verifyJWT.js';
 
-// File contains all the GETs for the database
+import { credentials } from './middleware/credentials.js';
 
-// Load environment variables from .env file
+import handleLogout from './routes/api/logout.route.js';
+import handleLogin from './routes/mongo/auth.route.js';
+import handleRefreshToken from './routes/api/refresh.routes.js';
+import handleRegister from './routes/api/register.routes.js';
+import { corsOptions } from './config/corsOptions.js';
+
+import { connectMongoDb } from './config/mongoDbConn.js';
+import mongoose from 'mongoose';
+import handleUsers from './routes/mongo/users.routes.js';
+
 dotenv.config();
 
-const connection = await mysql.createConnection(process.env.DATABASE_URL);
-
-connection.connect((error) => {
-  if (error) {
-    console.error('Error connecting to the database:', error);
-  } else {
-    console.log('Connected to the database');
-  }
-});
+connectMongoDb();
 
 const app = express();
-app.use(express.json());
-const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'https://schsrunning.vercel.app',
-    ];
 
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-};
+// Must be before CORS
+// Handle cookie creds req if fetching
+app.use(credentials);
 
+// Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// cookies
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/users', handleUsers)
+
+app.use('/', coachesRouter);
+app.use('/', competitorsRouter);
+
+app.use('/register', handleRegister);
+app.use('/login', handleLogin);
+app.use('/refresh', handleRefreshToken);
+app.use('/logout', handleLogout);
+
+// Anything below this line will be protected with JWT
+// change this to specific endpoints
+app.use(authenticateToken);
 
 // PROCEDURES
   // Get XC Runner Results
@@ -559,159 +564,31 @@ app.get('/awardees/:athleteId', async (req, res) => {
 });
 
 // Coach
-app.get('/coaches', async (req, res) => {
-  const query = "SELECT * FROM Coach";
-  const [rows] = await connection.query(query);
-  res.send(rows)
-});
 
-app.get('/season-coaches/:yearId', async (req, res) => {
-  const { yearId } = req.params;
-  const query = `SELECT firstName, lastName, Coach.coachId, 
-  GROUP_CONCAT(CoachType.coachType ORDER BY CoachType.coachTypeId ASC SEPARATOR ', ') AS coachType, year 
-FROM Coach
-JOIN CoachSeason ON Coach.coachId = CoachSeason.coachId
-JOIN CoachType ON CoachSeason.coachTypeId = CoachType.coachTypeId
-WHERE CoachSeason.year = ?
-GROUP BY Coach.coachId;`;
-  const [rows] = await connection.query(query, yearId);
-  res.send(rows)
-});
 
-app.get('/coaches/:coachId', async (req, res) => {
-  const { coachId } = req.params;
 
-  const query = "SELECT * FROM Coach WHERE Coach.coachId=?;";
-  const [rows] = await connection.query(query, coachId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find coach." });
-  };
 
-  res.json(rows[0])
-});
+
 
 // Coach Season
-app.get('/coach-seasons', async (req, res) => {
-  const { coachIds } = req.query;
 
-  // Convert comma-separated string of coach IDs to an array
-  const coachIdArray = coachIds.split(',').map(Number);
 
-  // Prepare the MySQL query with placeholders for the coach IDs
-  const query = `
-    SELECT Coach.firstname, Coach.lastname, CoachSeason.*
-    FROM CoachSeason
-    INNER JOIN Coach ON CoachSeason.coachId = Coach.coachId
-    WHERE CoachSeason.coachId IN (?)
-  `;
 
-  try {
-    // Execute the query with the coach IDs array as a parameter
-    const [rows] = await connection.query(query, [coachIdArray]);
-
-    res.json(rows);
-  } catch (error) {
-    console.error("Error fetching coach seasons:", error);
-    res.status(500).json({ error: "Failed to fetch coach seasons" });
-  }
-});
-
-app.get('/coach-seasons/:coachId', async (req, res) => {
-  const { coachId } = req.params;
-
-  const query = `SELECT CoachSeason.*, Coach.firstname, Coach.lastname
-  FROM CoachSeason
-  JOIN Coach ON CoachSeason.coachId = Coach.coachId
-  WHERE CoachSeason.coachId IN (?);
-  `;
-  const [rows] = await connection.query(query, coachId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find coach's seasons." });
-  };
-
-  res.json(rows)
-});
 
 // Coach Type
-app.get('/coach-types', async (req, res) => {
-  const query = "SELECT * FROM CoachType";
-  const [rows] = await connection.query(query);
-  res.send(rows)
-});
 
-app.get('/coach-types/:coachTypeId', async (req, res) => {
-  const { coachTypeId } = req.params;
 
-  const query = "SELECT * FROM CoachType WHERE CoachType.coachTypeId=?;";
-  const [rows] = await connection.query(query, coachTypeId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find coach type." });
-  };
 
-  res.json(rows[0])
-});
 
 // Competitor
-app.get('/competitors/year/:yearId', async (req, res) => {
-  const { yearId } = req.params;
-  const query = "SELECT * FROM Competitor WHERE Competitor.year = ?";
-  const [rows] = await connection.query(query, [yearId]);
-
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find competitors." });
-  };
-
-  res.send(rows);
-}); 
 
 
-app.get('/competitors', async (req, res) => {
 
-  const query = "SELECT DISTINCT * FROM Competitor;";
-  const [rows] = await connection.query(query, []);
-  
-  if (!rows[0]) {
-    return res.json({ msg: "Could not find competitors." });
-  }
 
-  res.send(rows);
-});
 
-app.get('/competitors/:competitorId', async (req, res) => {
-  const { competitorId } = req.params;
 
-  const query = "SELECT * FROM Competitor WHERE Competitor.competitorId=?;";
-  const [rows] = await connection.query(query, competitorId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find competitor.", competitor: competitorId });
-  };
 
-  res.json(rows)
-});
 
-app.get('/competitors-by-course', async (req, res) => {
-  const { raceNameId } = req.query;
-
-  const query = `
-SELECT r.raceId, r.raceNameId, r.raceConditionId, r.courseId, r.date, res.competitorId, res.time, res.pace, CONCAT(a.firstName, ' ', a.lastName) AS fullName
-FROM Race r
-INNER JOIN Result res ON r.raceId = res.raceId
-INNER JOIN Competitor c ON res.competitorId = c.competitorId
-INNER JOIN Athlete a ON c.athleteId = a.athleteId
-WHERE r.raceNameId = ?
-GROUP BY r.date, r.raceId, r.raceNameId, r.raceConditionId, r.courseId, res.competitorId, res.time, res.pace, CONCAT(a.firstName, ' ', a.lastName);`;
-  const [rows] = await connection.query(query, [raceNameId]);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find competitors." });
-  };
-
-  res.json(rows)
-});
 
 app.post('/create-competitor', async (req, res) => {
   const { competitorId, athleteId, year, grade } = req.body;
@@ -737,51 +614,11 @@ app.post('/create-competitor', async (req, res) => {
 
 
 // Course
-app.get('/courses', async (req, res) => {
-  const query = "SELECT * FROM Course";
-  const [rows] = await connection.query(query);
-  res.send(rows)
-});
 
-app.get('/courses/:courseId', async (req, res) => {
-  const { courseId } = req.params;
 
-  const query = "SELECT * FROM Course WHERE Course.courseId=?;";
 
-  try {
-    const [rows] = await connection.query(query, courseId);
-  
-    if(!rows[0]) {
-      return res.json({ msg: "Could not find course." });
-    };
-  
-    res.json(rows[0])
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-  
-});
 
-app.get('/courses/distance/:courseDistance', async (req, res) => {
-  const { courseDistance } = req.params;
 
-  const query = "SELECT * FROM Course WHERE Course.courseDistance=?;";
-
-  try {
-    const [rows] = await connection.query(query, courseDistance);
-  
-    if(!rows[0]) {
-      return res.json({ msg: "Could not find course." });
-    };
-  
-    res.json(rows)
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-  
-});
 
 app.get('/courses-by-race/:raceNameId', async (req, res) => {
   const { raceNameId } = req.params;
@@ -1626,8 +1463,17 @@ app.post('/login', async (req, res) => {
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello World' })
 })
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB')
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+})
+
+mongoose.connection.on('error', err => {
+  console.log(err);
+})
+
 
 // await connection.end();

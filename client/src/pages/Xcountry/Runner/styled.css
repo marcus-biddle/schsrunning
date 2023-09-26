@@ -1,0 +1,145 @@
+.athlete-page-container {
+    padding: 0 56px 0 56px;
+    background-color: var(--black);
+    min-height: 95vh;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+}
+
+.user-container {
+    position: relative;
+    height: 20vh;
+    max-width: 50vh;
+    min-width: 20vh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end; /* Align the children at the bottom */
+    margin: 0 32px 0 32px;
+    background-color: #212629;
+    border-radius: 12px;
+}
+
+.user-container img {
+    width: 100%; 
+    height: 100%;
+    display: block; 
+    margin: 0 auto;
+    image-rendering: optimizeQuality;
+}
+
+.stats-container {
+    background-color: #212629;
+    margin: 32px 32px;
+    height: 45vh;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats-container h4 {
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #2980b9;
+}
+
+.seasons-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user-header {
+    margin-top: 24px;
+    margin-bottom: 80px;
+}
+
+.seasons-container h1 {
+    font-size: 64px;
+}
+
+.seasons-container h3 {
+    min-width: 220px;
+    color: #FFFFFF;
+    letter-spacing: 1.12px;
+}
+
+.season h4 {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1.05px;
+    color: #8890a0;
+    margin-top: 32px;
+}
+
+.seasons-container ul {
+    list-style: none;
+    background-color: #16181D;
+    border-radius: 8px;
+    box-shadow: 8px 5px 8px 1px rgba(0, 0, 0, 0.629);
+}
+
+.seasons-container li {
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+}
+
+.seasons-container li:hover {
+    background-color: #373D4A;
+}
+
+.img-header {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .left-container {
+        display: none;
+    }
+
+    .img-header {
+        position: relative;
+        height: 20vh;
+        width: 20vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        background-color: #212629;
+        border-radius: 12px;
+    }
+
+    .user-header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 32px;
+    }
+
+    .user-header header {
+        height: 100%;
+        width: 65%;
+    }
+    
+    .user-container img {
+        max-width: 100%; 
+        max-height: 100%;
+    }
+
+    .athlete-page-container {
+        padding: 0 24px 0 24px;
+        background-color: var(--black);
+        min-height: 95vh;
+        display: flex;
+        flex-direction: row;
+        color: white;
+    }
+}

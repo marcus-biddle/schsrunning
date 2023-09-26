@@ -1,0 +1,38 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - admin-sidemenu # Adjust the branch as needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Choose an appropriate runner environment
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14 # Adjust the Node.js version as needed
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build # Replace with your build command
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }} # Set SSH_HOST as a secret in your repository settings
+          username: ${{ secrets.SSH_USERNAME }} # Set SSH_USERNAME as a secret
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Set SSH_PRIVATE_KEY as a secret
+          port: ${{ secrets.SSH_PORT }} # Set SSH_PORT as a secret (typically 22)
+        #   script: |
+        #     cd /path/to/your/app  # Replace with the path to your application on the server
+        #     git pull origin main  # Pull the latest code from your repository
+        #     npm install --production  # Install production dependencies (if needed)
+        #     pm2 restart your-app-name  # Restart your Node.js application using a process manager like pm2
