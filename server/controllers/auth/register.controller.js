@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import AsyncHandler from 'express-async-handler';
-import User from '../models/User.js';
+import User from '../../models/User.js';
 
 export const handleRegister = AsyncHandler(async (req, res) => {
     const { username, password } = req.body;

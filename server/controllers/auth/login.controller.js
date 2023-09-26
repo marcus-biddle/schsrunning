@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import expressAsyncHandler from 'express-async-handler';
-import User from '../models/User.js';
+import User from '../../models/User.js';
 
 let refreshTokens = []
 

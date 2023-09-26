@@ -4,16 +4,20 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import coachesRouter from './routes/root/coaches.js';
-import competitorsRouter from './routes/root/competitors.js';
+
+import coachesRouter from './routes/root/coaches.route.js';
+import competitorsRouter from './routes/root/competitors.route.js';
+import coursesRouter from './routes/root/courses.route.js';
+import athletesRouter from './routes/root/athletes.route.js';
+
 import { authenticateToken } from './middleware/verifyJWT.js';
 
 import { credentials } from './middleware/credentials.js';
 
 import handleLogout from './routes/api/logout.route.js';
-import handleLogin from './routes/mongo/auth.route.js';
-import handleRefreshToken from './routes/api/refresh.routes.js';
-import handleRegister from './routes/api/register.routes.js';
+import handleLogin from './routes/api/login.route.js';
+import handleRefreshToken from './routes/api/refresh.route.js';
+import handleRegister from './routes/api/register.route.js';
 import { corsOptions } from './config/corsOptions.js';
 
 import { connectMongoDb } from './config/mongoDbConn.js';
@@ -41,10 +45,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/users', handleUsers)
-
 app.use('/', coachesRouter);
 app.use('/', competitorsRouter);
+app.use('/', coursesRouter);
+app.use('/', athletesRouter);
 
 app.use('/register', handleRegister);
 app.use('/login', handleLogin);
@@ -54,6 +58,10 @@ app.use('/logout', handleLogout);
 // Anything below this line will be protected with JWT
 // change this to specific endpoints
 app.use(authenticateToken);
+
+app.use('/users', handleUsers);
+
+// TODO: Move below queries to correct folders.
 
 // PROCEDURES
   // Get XC Runner Results
@@ -334,49 +342,8 @@ LIMIT
       }
   });
 
-// Athletes
-app.post('/create-athletes', async (req, res) => {
-  const { firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear } = req.body;
-
-  const query = `
-    INSERT INTO Athlete (firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `;
-  const values = [firstName, lastName, startHsYear, endHsYear, genderId, confidentHsYear];
-
-  try {
-    await connection.query(query, values);
-    res.json({ msg: 'Athlete created successfully' });
-  } catch (error) {
-    console.log('Error creating athlete:', error);
-    res.status(500).json({ error: 'Failed to create athlete' });
-  }
-});
-
-app.get('/athletes', async (req, res) => {
-  const query = "SELECT * FROM Athlete;";
-  const [rows] = await connection.query(query);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find athletes." });
-  };
-
-  res.json(rows)
-});
 
 
-app.get('/athletes/:athleteId', async (req, res) => {
-  const { athleteId } = req.params;
-
-  const query = "SELECT * FROM Athlete WHERE Athlete.athleteId=?;";
-  const [rows] = await connection.query(query, athleteId);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find athlete." });
-  };
-
-  res.json(rows[0])
-});
 
 // Athlete Procedures
 //     Get XC Runners
@@ -590,26 +557,7 @@ app.get('/awardees/:athleteId', async (req, res) => {
 
 
 
-app.post('/create-competitor', async (req, res) => {
-  const { competitorId, athleteId, year, grade } = req.body;
 
-  const query = "INSERT INTO Competitor (competitorId, athleteId, year, grade) VALUES (?, ?, ?, ?);";
-  const values = [competitorId, athleteId, year, grade];
-
-  try {
-    await connection.query(query, values);
-    const insertedCompetitor = {
-      competitorId,
-      athleteId,
-      year,
-      grade
-    };
-    return res.json({ msg: "Competitor added successfully.", competitor: insertedCompetitor });
-  } catch (error) {
-    console.log('Error adding competitor:', error);
-    return res.status(500).json({ error: "Failed to add competitor." });
-  }
-});
 
 
 
@@ -620,22 +568,7 @@ app.post('/create-competitor', async (req, res) => {
 
 
 
-app.get('/courses-by-race/:raceNameId', async (req, res) => {
-  const { raceNameId } = req.params;
 
-  const query =`
-  SELECT DISTINCT raceId, raceNameId, r.courseId, date, courseName, courseDistance
-  FROM Race r
-  INNER JOIN Course c ON r.courseId = c.courseId
-  WHERE r.raceNameId = ?;`;
-  const [rows] = await connection.query(query, [raceNameId]);
-  
-  if(!rows[0]) {
-    return res.json({ msg: "Could not find race." });
-  };
-
-  res.json(rows)
-});
 
 // Course Type
 app.get('/course-types', async (req, res) => {

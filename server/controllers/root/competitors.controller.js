@@ -1,9 +1,4 @@
-import express from 'express';
-import { connection } from '../../utility/database.js';
-const router = express.Router();
-
-// GET all competitors
-router.get('/competitors', async (req, res) => {
+export const getAllCompetitorsHandler = async (req, res) => {
 
     const query = "SELECT DISTINCT * FROM Competitor;";
     const [rows] = await connection.query(query, []);
@@ -13,10 +8,9 @@ router.get('/competitors', async (req, res) => {
     }
   
     res.send(rows);
-  });
+  }
 
-  // GET individual Competitor
-  router.get('/competitors/:competitorId', async (req, res) => {
+export const getCompetitorByIdHandler = async (req, res) => {
     const { competitorId } = req.params;
   
     const query = "SELECT * FROM Competitor WHERE Competitor.competitorId=?;";
@@ -27,10 +21,9 @@ router.get('/competitors', async (req, res) => {
     };
   
     res.json(rows)
-  });
+  }
 
-  // GET all competitors by specific year
-  router.get('/competitors/year/:yearId', async (req, res) => {
+export const getCompetitorByYearIdHandler = async (req, res) => {
     const { yearId } = req.params;
     const query = "SELECT * FROM Competitor WHERE Competitor.year = ?";
     const [rows] = await connection.query(query, [yearId]);
@@ -40,10 +33,9 @@ router.get('/competitors', async (req, res) => {
     };
   
     res.send(rows);
-  }); 
+  }
 
-  // GET Competitor by race name
-  router.get('/competitors-by-course', async (req, res) => {
+export const getCompetitorByRaceIdHandler = async (req, res) => {
     const { raceNameId } = req.query;
   
     const query = `
@@ -61,6 +53,25 @@ router.get('/competitors', async (req, res) => {
     };
   
     res.json(rows)
-  });
+  }
 
-  export default router;
+export const createNewCompetitorHandler = async (req, res) => {
+  const { competitorId, athleteId, year, grade } = req.body;
+
+  const query = "INSERT INTO Competitor (competitorId, athleteId, year, grade) VALUES (?, ?, ?, ?);";
+  const values = [competitorId, athleteId, year, grade];
+
+  try {
+    await connection.query(query, values);
+    const insertedCompetitor = {
+      competitorId,
+      athleteId,
+      year,
+      grade
+    };
+    return res.json({ msg: "Competitor added successfully.", competitor: insertedCompetitor });
+  } catch (error) {
+    console.log('Error adding competitor:', error);
+    return res.status(500).json({ error: "Failed to add competitor." });
+  }
+}

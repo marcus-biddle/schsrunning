@@ -1,16 +1,10 @@
-import express from 'express';
-import { connection } from '../../utility/database.js';
-const router = express.Router();
-
-// GET all Courses
-router.get('/courses', async (req, res) => {
+export const getAllCoursesHandler = async (req, res) => {
     const query = "SELECT * FROM Course";
     const [rows] = await connection.query(query);
     res.send(rows)
-  });
+  }
 
-  // GET Courses by id
-router.get('/courses/:courseId', async (req, res) => {
+export const getCourseByIdHandler = async (req, res) => {
     const { courseId } = req.params;
   
     const query = "SELECT * FROM Course WHERE Course.courseId=?;";
@@ -27,10 +21,9 @@ router.get('/courses/:courseId', async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-});
+}
 
-// GET courses by distance
-router.get('/courses/distance/:courseDistance', async (req, res) => {
+export const getCourseByDistanceHandler = async (req, res) => {
     const { courseDistance } = req.params;
   
     const query = "SELECT * FROM Course WHERE Course.courseDistance=?;";
@@ -48,6 +41,21 @@ router.get('/courses/distance/:courseDistance', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
     
-  });
+  }
 
-export default router;
+export const getCourseByRaceIdHandler = async (req, res) => {
+    const { raceNameId } = req.params;
+  
+    const query =`
+    SELECT DISTINCT raceId, raceNameId, r.courseId, date, courseName, courseDistance
+    FROM Race r
+    INNER JOIN Course c ON r.courseId = c.courseId
+    WHERE r.raceNameId = ?;`;
+    const [rows] = await connection.query(query, [raceNameId]);
+    
+    if(!rows[0]) {
+      return res.json({ msg: "Could not find race." });
+    };
+  
+    res.json(rows)
+  }
