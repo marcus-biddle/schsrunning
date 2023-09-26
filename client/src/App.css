@@ -21,7 +21,7 @@ body {
   --secondary-color: #2D72ED;
   --gradient-color: linear-gradient(to right, #2D72ED, #36CDE0);
   --error-color: #E05841;
-  --black: #0e181e;
+  --black: #232730 ;
   --black-75: rgba(31, 38, 39, 0.75);
   --black-50: rgba(31, 38, 39, 0.5);
   --black-25: rgba(31, 38, 39, 0.25);

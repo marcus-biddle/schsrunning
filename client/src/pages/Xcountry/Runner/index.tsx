@@ -58,7 +58,12 @@ export const Runner = () => {
       </div>
       <div className="seasons-container">
         <div className="user-header">
-          <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} color="transparent" hideBreadcrumb={true} />
+          <div className="img-header">
+            <img 
+            src={img}
+            alt="image unavailable"/>
+          </div>
+          <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} hideBreadcrumb={true} />
         </div>
         
         {/* Alumni Records */}

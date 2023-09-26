@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate,  } from 'react-router-dom';
+import { Link, useLocation, useNavigate,  } from 'react-router-dom';
 import './styled/index.css';
 // import logo from '../../assets/index';
 import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineSearch } from 'react-icons/ai'
+import useActiveLink from '../../helpers/hooks/useActiveLink';
 // import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -30,12 +31,18 @@ const LEFT_NAV_LINKS = [
   },
   {
     text: 'XCountry',
-    link: 'santa-clara-high-cross-country/'
+    link: '/santa-clara-high-cross-country/'
+  },
+  {
+    text: 'Login',
+    link: '/login'
   },
 ]
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isActive, toggleActive } = useActiveLink(location.pathname);
   const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -56,10 +63,35 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar">
-        {/* left side of navbar */}
-        <div className="nav-container-left" >
+      <div className='logo'>
+        SCHS
+      </div>
+      <div className='search-container'>
+        <input
+            type="text"
+            placeholder={athletes ? "Search Athletes" : "Loading..."}
+            value={searchTerm}
+            onChange={handleSearchChange}
+        />
+      </div>
+      <div className='link-container'>
+        {LEFT_NAV_LINKS.map((link) => {
+              return (
+                  <Link 
+                    to={link.link} 
+                    key={link.text}
+                    className={isActive(`${link.link}`) ? 'active' : ''}
+                    onClick={() => toggleActive(`${link.link}`)}
+                    >
+                    {link.text}
+                  </Link>
+              )
+          })}
+      </div>
+      
+        {/* <div className="nav-container-left" >
           <div style={{ position: 'relative', height: '32px', width: '64px', overflow: 'hidden', display: 'flex', justifyContent: 'start'}}>
-            {/* <img src={logo} alt='schs logo' style={{ height: '2.5rem', width: '3.75rem', position: 'absolute', top: '-4px', right: '-4px'}}/> */}
+        
             SCHS
           </div>
           {LEFT_NAV_LINKS.map((link) => {
@@ -70,7 +102,6 @@ export const Navbar = () => {
             )
           })}
         </div>
-        {/* Right side of navbar */}
         <div style={{ display: 'flex', height: '100%', alignItems: 'center', width: '400px', justifyContent: 'space-between'}}>
           <div style={{ height: '25px'}}>
             <input
@@ -100,7 +131,7 @@ export const Navbar = () => {
               Login
             </Link>
           </div>
-        </div>
+        </div> */}
     </nav>
   );
 };

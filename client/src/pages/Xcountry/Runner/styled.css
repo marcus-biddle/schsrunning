@@ -15,8 +15,9 @@
 
 .user-container {
     position: relative;
-    height: 40vh;
-    width: 40vh;
+    height: 20vh;
+    max-width: 50vh;
+    min-width: 20vh;
     overflow: hidden;
     display: flex;
     align-items: flex-end; /* Align the children at the bottom */
@@ -58,7 +59,7 @@
 
 .user-header {
     margin-top: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 80px;
 }
 
 .seasons-container h1 {
@@ -67,7 +68,7 @@
 
 .seasons-container h3 {
     min-width: 220px;
-    color: rgb(189, 157, 30);
+    color: #FFFFFF;
     letter-spacing: 1.12px;
 }
 
@@ -75,29 +76,70 @@
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1.05px;
-    color: rgba(145, 141, 141, 0.582);
+    color: #8890a0;
     margin-top: 32px;
 }
 
 .seasons-container ul {
     list-style: none;
-    background-color: #212629;
+    background-color: #16181D;
     border-radius: 8px;
+    box-shadow: 8px 5px 8px 1px rgba(0, 0, 0, 0.629);
 }
 
 .seasons-container li {
     display: flex;
-    /* background-color: #212629; */
     padding: 16px;
     justify-content: space-between;
 }
 
-.seasons-container li:nth-child(even) {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+.seasons-container li:hover {
+    background-color: #373D4A;
 }
 
-.seasons-container li:nth-child(odd) {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+.img-header {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .left-container {
+        display: none;
+    }
+
+    .img-header {
+        position: relative;
+        height: 20vh;
+        width: 20vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        background-color: #212629;
+        border-radius: 12px;
+    }
+
+    .user-header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 32px;
+    }
+
+    .user-header header {
+        height: 100%;
+        width: 65%;
+    }
+    
+    .user-container img {
+        max-width: 100%; 
+        max-height: 100%;
+    }
+
+    .athlete-page-container {
+        padding: 0 24px 0 24px;
+        background-color: var(--black);
+        min-height: 95vh;
+        display: flex;
+        flex-direction: row;
+        color: white;
+    }
 }

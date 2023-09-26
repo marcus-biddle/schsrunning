@@ -29,7 +29,7 @@ const SideMenu = ({ list }: SideMenuProps) => {
                         <ul>
                             {link?.sublinks.map((sublink: any, index: number) => {
                                 return (
-                                    <li 
+                                    <li
                                     className={isActive(`${sublink.text}-${index}`) ? 'active' : ''}
                                     onClick={() => toggleActive(`${sublink.text}-${index}`)}
                                     key={sublink.text}>
