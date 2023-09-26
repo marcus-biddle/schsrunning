@@ -15,6 +15,7 @@ const useLogout = () => {
         //     // const response = await 
         //   }
     }
+    console.log(logout)
   return (
     <div>useLogout</div>
   )

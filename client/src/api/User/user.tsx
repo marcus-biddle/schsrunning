@@ -1,8 +1,6 @@
 import { AxiosInstance } from "axios";
-import { useAuth } from "../../helpers/hooks/useAuth";
-import { usePrivateApi } from "../../helpers/hooks/usePrivateAPI";
 import { UserData } from "../../types";
-import { apiClient, privateApiClient } from "../config/axios";
+import { apiClient } from "../config/axios";
 
 interface UserApiProps {
     privateApi: AxiosInstance;

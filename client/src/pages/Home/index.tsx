@@ -3,7 +3,6 @@ import './styled/index.css';
 import { XCRaceResult, fetchTop4RaceResults } from '../../api/XCRaceResults.ts';
 import { useQuery } from '@tanstack/react-query';
 import Page from '../../Meta/index.tsx';
-import img from '../../assets/scott.jpg'
 import { BsCalendarEvent } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdGroups } from 'react-icons/md';

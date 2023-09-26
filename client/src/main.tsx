@@ -36,7 +36,6 @@ import { TopTeams } from './pages/Xcountry/TopTeams/index.tsx';
 import {SearchPage} from './pages/SearchPage/index.tsx';
 import LoginPage from './pages/Login/LoginPage.tsx';
 import { AuthProvider } from './context/authProvider.tsx';
-import { RequiredAuth } from './authUtils/RequiredAuth.tsx';
 import { PersistLoginPage } from './pages/Login/PersistLoginPage.tsx';
 
 const queryClient = new QueryClient();

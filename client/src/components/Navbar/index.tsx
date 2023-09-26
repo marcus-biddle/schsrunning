@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate,  } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './styled/index.css';
 // import logo from '../../assets/index';
-import { BiSearchAlt2, BiMenu } from 'react-icons/bi';
+import { BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -40,7 +40,7 @@ const LEFT_NAV_LINKS = [
 ]
 
 export const Navbar = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
   const { isActive, toggleActive } = useActiveLink(location.pathname);
   const { data: athletes } = useQuery(athleteListQuery());
@@ -50,16 +50,17 @@ export const Navbar = () => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setShowDropdown(event.target.value !== '');
+    console.log(showDropdown)
   };
 
-  const filteredData = athletes && athletes.filter((athlete) => {
-    const fullName = `${athlete.firstName} ${athlete.lastName}`;
-    return fullName.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  // const filteredData = athletes && athletes.filter((athlete) => {
+  //   const fullName = `${athlete.firstName} ${athlete.lastName}`;
+  //   return fullName.toLowerCase().includes(searchTerm.toLowerCase());
+  // });
 
-  const handleViewProfile = (athleteId: number) => {
-    navigate(`/athlete/${athleteId}`);
-  };
+  // const handleViewProfile = (athleteId: number) => {
+  //   navigate(`/athlete/${athleteId}`);
+  // };
 
   return (
     <nav className="navbar">

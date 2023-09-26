@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { UserData, useUsersData } from '../../../helpers/hooks/data/useUserData';
 
