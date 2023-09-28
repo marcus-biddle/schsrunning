@@ -8,7 +8,7 @@ const router = express.Router();
 // GET all competitors
 router.route('/competitors')
   .get(getAllCompetitorsHandler)
-  .post(authenticateRoles(ROLES_LIST.admin),createNewCompetitorHandler);
+  .post(authenticateRoles(ROLES_LIST.admin), createNewCompetitorHandler);
 
   // GET individual Competitor
   router.get('/competitors/:competitorId', getAllCompetitorsHandler);

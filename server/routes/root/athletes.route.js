@@ -1,6 +1,7 @@
 import express from 'express';
 import { createNewAthleteHandler, getAllAthletesHandler, getAthleteByAthleteIdHandler } from '../../controllers/root/athletes.controller.js';
 import { authenticateRoles } from '../../middleware/verifyRoles.js';
+import { ROLES_LIST } from '../../config/_roles.js';
 
 const router = express.Router();
 
