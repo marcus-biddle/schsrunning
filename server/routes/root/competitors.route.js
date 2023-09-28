@@ -1,6 +1,7 @@
 import express from 'express';
 import { createNewCompetitorHandler, getAllCompetitorsHandler, getCompetitorByRaceIdHandler, getCompetitorByYearIdHandler } from '../../controllers/root/competitors.controller.js';
 import { authenticateRoles } from '../../middleware/verifyRoles.js';
+import { ROLES_LIST } from '../../config/_roles.js';
 
 const router = express.Router();
 
