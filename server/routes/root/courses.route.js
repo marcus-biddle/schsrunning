@@ -12,6 +12,6 @@ router.get('/courses/:courseId', getCourseByIdHandler);
 router.get('/courses/distance/:courseDistance', getCourseByDistanceHandler);
 
 // GET course by race Id
-app.get('/courses-by-race/:raceNameId', getCourseByRaceIdHandler);
+router.get('/courses-by-race/:raceNameId', getCourseByRaceIdHandler);
 
 export default router;
