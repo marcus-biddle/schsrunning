@@ -1,5 +1,5 @@
 export const getAllAthletesHandler = async (req, res) => {
-    const query = "SELECT * FROM Athlete;";
+    const query = "SELECT * FROM Athlete";
     try {
       const [rows] = await connection.query(query);
     
