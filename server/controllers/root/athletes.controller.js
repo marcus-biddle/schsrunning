@@ -1,12 +1,17 @@
 export const getAllAthletesHandler = async (req, res) => {
     const query = "SELECT * FROM Athlete;";
-    const [rows] = await connection.query(query);
+    try {
+      const [rows] = await connection.query(query);
     
-    if(!rows[0]) {
-      return res.json({ msg: "Could not find athletes." });
-    };
-  
-    res.json(rows)
+      if(!rows[0]) {
+        return res.json({ msg: "Could not find athletes." });
+      };
+    
+      res.json(rows)
+    } catch (err) {
+      console.error(err);
+    }
+    
   }
 
 export const getAthleteByAthleteIdHandler = async (req, res) => {

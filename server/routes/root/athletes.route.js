@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.route('/athletes')
 // GET all Athletes
-.get(getAllAthletesHandler)
+.get(getAllAthletesHandler);
 // Create New Athlete
 // .post(authenticateRoles(ROLES_LIST.admin), createNewAthleteHandler);
 
