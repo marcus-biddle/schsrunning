@@ -25,11 +25,11 @@ const initialAuth: AuthType = {
 // Create the AuthContext with initial values
 export const AuthContext = createContext<AuthContextType>({
   auth: initialAuth,
-  setAuth: () => {},
+  setAuth: () => null,
 });
 
 // AuthProvider component
-export const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+export const AuthProvider = ({ children }: PropsWithChildren<null>) => {
   const [auth, setAuth] = useState<AuthType>(initialAuth);
 
   // Log auth for debugging

@@ -1,3 +1,4 @@
+import { privateApiClient } from "../../api/config/axios";
 import { useAuth } from "./useAuth";
 
 const useLogout = () => {
@@ -11,14 +12,14 @@ const useLogout = () => {
             accessToken: '',
           });
         
-        //   try {
-        //     // const response = await 
-        //   }
+          try {
+            const response = await privateApiClient('/logout')
+          } catch (err) {
+            console.error(err)
+          }
     }
     console.log(logout)
-  return (
-    <div>useLogout</div>
-  )
+  return logout
 }
 
 export default useLogout

@@ -7,6 +7,8 @@ import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineSearch } from 'react-icons/ai'
 import useActiveLink from '../../helpers/hooks/useActiveLink';
+import { useAuth } from '../../helpers/hooks/useAuth';
+import useLogout from '../../helpers/hooks/useLogout';
 // import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -32,11 +34,7 @@ const LEFT_NAV_LINKS = [
   {
     text: 'XCountry',
     link: '/santa-clara-high-cross-country/'
-  },
-  {
-    text: 'Login',
-    link: '/login'
-  },
+  }
 ]
 
 export const Navbar = () => {
@@ -46,12 +44,21 @@ export const Navbar = () => {
   const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const { auth } = useAuth();
+  const logout = useLogout();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setShowDropdown(event.target.value !== '');
     console.log(showDropdown)
   };
+
+  const handleAuth = async (link: string) => {
+    if (auth.accessToken) {
+      await logout();
+      toggleActive(link)
+    }
+  }
 
   // const filteredData = athletes && athletes.filter((athlete) => {
   //   const fullName = `${athlete.firstName} ${athlete.lastName}`;
@@ -88,6 +95,13 @@ export const Navbar = () => {
                   </Link>
               )
           })}
+          <Link
+          to={auth.accessToken != "" ? '/' : '/login'}
+          className={isActive('/login') ? 'active' : ''}
+          onClick={() => handleAuth(auth.accessToken != "" ? '/' : '/login')}
+          >{
+            auth.accessToken != "" ? 'Logout' : 'Login'}
+          </Link>
       </div>
       
         {/* <div className="nav-container-left" >
