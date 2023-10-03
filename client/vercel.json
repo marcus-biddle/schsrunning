@@ -2,7 +2,7 @@
     "rewrites": [{ "source": "/(.*)", "destination": "/" }],
     "crons": [
         {
-            "path": "/client/src/api/cron/cronjob.tsx",
+            "path": "/src/api/cron/cronjob.tsx",
             "schedule": "*/11 * * * *"
         }
     ]
