@@ -1,5 +1,7 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/index.html" }
+      ],
     "crons": [
         {
             "path": "/src/api/cron/cronjob.tsx",
