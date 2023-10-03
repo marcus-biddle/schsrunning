@@ -1,4 +1,4 @@
-import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from 'react';
+import { createContext, Dispatch, PropsWithChildren, ReactNode, SetStateAction, useState } from 'react';
 
 // Define the type for the auth object
 export type AuthType = {
@@ -28,8 +28,12 @@ export const AuthContext = createContext<AuthContextType>({
   setAuth: () => null,
 });
 
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
 // AuthProvider component
-export const AuthProvider = ({ children }: PropsWithChildren<null>) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [auth, setAuth] = useState<AuthType>(initialAuth);
 
   // Log auth for debugging

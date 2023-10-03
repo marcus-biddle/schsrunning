@@ -277,9 +277,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     
     <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-       <RouterProvider router={router} />
-       </AuthProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
     
   </React.StrictMode>,

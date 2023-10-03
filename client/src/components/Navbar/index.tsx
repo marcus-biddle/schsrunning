@@ -56,8 +56,8 @@ export const Navbar = () => {
   const handleAuth = async (link: string) => {
     if (auth.accessToken) {
       await logout();
-      toggleActive(link)
     }
+    toggleActive(link);
   }
 
   // const filteredData = athletes && athletes.filter((athlete) => {

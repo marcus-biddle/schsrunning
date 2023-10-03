@@ -65,17 +65,10 @@ const LoginForm: React.FC = () => {
           accessToken: user.accessToken
         });
         navigate(from, { replace: true });
-        console.log('login auth',auth)
+        console.log('login auth', auth)
       } else {
         console.log('User not authenticated.')
       }
-
-      // setUserData({
-      //   username: '',
-      //   password: '',
-      // })
-
-      
     }
   };
 

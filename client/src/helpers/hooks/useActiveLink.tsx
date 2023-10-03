@@ -13,7 +13,9 @@ function useActiveLink(defaultActive: string | null) {
     setActiveLinks((prevActiveLinks) => {
       if (prevActiveLinks.includes(buttonId)) {
         // Link is already active, deactivate it
-        return prevActiveLinks.filter((id) => id !== buttonId);
+        console.log(prevActiveLinks);
+        return [buttonId];
+        // return prevActiveLinks.filter((id) => id !== buttonId);
       } else {
         // Link is not active, activate it and deactivate others
         return [buttonId];
