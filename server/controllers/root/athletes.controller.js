@@ -1,3 +1,5 @@
+import { connection } from "../../config/mysqlDbConn.js";
+
 export const getAllAthletesHandler = async (req, res) => {
     const query = "SELECT * FROM Athlete";
     try {
