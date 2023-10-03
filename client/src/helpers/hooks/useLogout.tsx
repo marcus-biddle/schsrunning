@@ -13,7 +13,7 @@ const useLogout = () => {
           });
         
           try {
-            const response = await privateApiClient('/logout')
+            await privateApiClient('/logout')
           } catch (err) {
             console.error(err)
           }

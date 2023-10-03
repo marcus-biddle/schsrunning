@@ -1,4 +1,4 @@
-import { createContext, Dispatch, PropsWithChildren, ReactNode, SetStateAction, useState } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
 // Define the type for the auth object
 export type AuthType = {
