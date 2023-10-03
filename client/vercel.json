@@ -1,11 +1,5 @@
 {
     "rewrites": [
         { "source": "/(.*)", "destination": "/index.html" }
-      ],
-    "crons": [
-        {
-            "path": "/src/api/cron/cronjob.tsx",
-            "schedule": "*/11 * * * *"
-        }
-    ]
+      ]
 }
