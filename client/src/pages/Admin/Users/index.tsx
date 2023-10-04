@@ -11,6 +11,7 @@ const UsersPage = () => {
     }
 
     if (isError) {
+        console.log('User page error', error)
         navigate('/login', { state: { from: location}, replace: true });
         return <h1>{error ? <>{error}</> : 'error'}</h1>
     }
