@@ -10,7 +10,7 @@ export interface UserData {
     __v: number;
     roles: string[];
     active: boolean;
-};
+}
 
 export const useUsersData = () => {
     const { auth } = useAuth();
