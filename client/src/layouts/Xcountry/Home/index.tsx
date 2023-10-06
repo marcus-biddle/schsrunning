@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import Page from '../../../Meta';
-import { Header } from '../../../components/Header';
 import './styled.css';
 import { Runners } from '../Runners';
 import { Coaches } from '../Coaches';
@@ -32,20 +31,20 @@ const MENU = [
 ]
 export const CrossCountry = () => {
     const { isActive, toggleActive } = useActiveLink('1');
-    const [ openDir, setOpenDir ] = useState(false);
-    const [ component, setComponent ] = useState<any>(MENU[2].link);
+    // const [ openDir, setOpenDir ] = useState(false);
+    const [ component, setComponent ] = useState<string | JSX.Element>(MENU[2].link);
 
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;
 
         setComponent(page);
-        setOpenDir(false);
+        // setOpenDir(false);
         toggleActive(`${index}`)
     }
 
-    const handleDir = () => {
-        setOpenDir(!openDir);
-    }
+    // const handleDir = () => {
+    //     setOpenDir(!openDir);
+    // }
 
   return (
     
@@ -71,7 +70,7 @@ export const CrossCountry = () => {
                     })}
                 </ul>
             </div>
-            <div>
+            <div style={{ width: '100%'}}>
                 {component}
             </div>
             {/* <div className='sidemenu-grid'>

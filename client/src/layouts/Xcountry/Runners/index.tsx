@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
 import { useQuery } from '@tanstack/react-query';
-import { SubHeader } from "../../../components/Header";
-import {Pill} from "../../../components/SearchFeatures/Pill";
 import { SearchInput } from "../../../components/SearchFeatures/SearchInput";
 import './styled.css';
 
@@ -43,6 +41,8 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
         setActiveButton(value === gender.gender ? activeButton === value ? 'all' : gender.gender : activeButton === value ? 'all' : value);
     };
 
+    console.log(handleButtonClick(''));
+
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
@@ -57,15 +57,22 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
       
 
   return (
-    <div className="sub-page-container">
-        <div>
-        <SubHeader title={`Runners (${filteredAthletesByGender?.length})`} color="transparent" />
-        {/* <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} /> */}
-        </div>
-        
-        <div className="search-container">
-            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-            <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
+    <div className="xc-athlete-page">
+        <div className="top-container">
+            <div className="xc-athlete-header">
+                <p>Cross Country <span>{'>'}</span> Athletes <span>{'>'}</span></p>
+                <h1>Find a Cross Country Athlete</h1>
+            {/* <SubHeader title={`Runners (${filteredAthletesByGender?.length})`} color="transparent" /> */}
+            {/* <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} /> */}
+            </div>
+            <div className="xc-athlete-desc">
+                <p>Below is every cross country athlete that is on record. If you have a specific athlete you want to find, you can use the search bar below. If a record is missing, <span>please contact admin</span>.</p>
+            </div>
+            
+            <div className="search-container">
+                <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
+            </div>
         </div>
         <ol className="list">
             {filteredAthletesByName?.map((athlete: XCAthlete) => (

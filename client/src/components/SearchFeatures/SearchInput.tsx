@@ -1,6 +1,5 @@
 import React from 'react'
 import './index.css'
-import { GenericButton } from '../Button';
 
 interface SearchInputProps {
     searchTerm: string;
@@ -8,9 +7,9 @@ interface SearchInputProps {
     setSearchTerm: (value: string) => void;
 }
 
-export const SearchInput = ({ searchTerm, handleSearchChange, setSearchTerm}: SearchInputProps) => {
+export const SearchInput = ({ searchTerm, handleSearchChange, }: SearchInputProps) => {
   return (
-    <div style={{position: 'relative', display: 'inline-block', height: '33px', width: '90%' }}>
+    <div style={{position: 'relative', display: 'inline-block', height: '100%', width: '100%' }}>
         <input
             type="text"
             placeholder="Search Athletes"
@@ -18,7 +17,6 @@ export const SearchInput = ({ searchTerm, handleSearchChange, setSearchTerm}: Se
             onChange={handleSearchChange}
             className="search-input"
         />
-        <GenericButton type='reset' onClick={() => setSearchTerm('')} label="Reset" />
     </div>
   )
 }

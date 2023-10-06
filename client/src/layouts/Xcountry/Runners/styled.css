@@ -24,11 +24,7 @@
     column-gap: 20px;
 }
 
-.search-container {
-    width: 100%;
-    align-items: center;
-    margin-top: 16px
-}
+
 
 @media (max-width: 900px) {
     .list {
@@ -46,4 +42,50 @@
         align-items: center;
         margin-top: 0;
     }
+}
+
+/* ----------------------------------------- */
+
+.xc-athlete-page {
+    padding: 8px 32px;
+    margin-right: 80px;
+}
+
+.xc-athlete-page .top-container {
+    border-bottom: 1px solid #363a47;
+}
+
+.xc-athlete-header p {
+    color: #179BC6;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: .75px;
+}
+
+.xc-athlete-header span {
+    padding: 0 8px;
+    font-size: 16px;
+}
+
+.xc-athlete-header h1 {
+    color: #FFFFFF;
+    text-transform: capitalize;
+    padding: 16px 0;
+}
+
+.search-container {
+    max-width: 120vh;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.xc-athlete-desc {
+    max-width: 120vh;
+    padding-bottom: 16px;
+    letter-spacing: .45px;
+}
+
+.xc-athlete-desc span {
+    font-style: italic;
 }
