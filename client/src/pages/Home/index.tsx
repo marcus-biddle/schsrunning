@@ -82,13 +82,13 @@ export const Home = () => {
                 </div> */}
                 <div>
                     <h1>SCHS Running Records</h1>
-                    <h3>Stay up to date on your favorite team</h3>
+                    <h3>Stay up to date on your <span>favorite team</span></h3>
                 </div>
                 
                 {/* <h3>Records</h3> */}
                 <div className='hero-btn'>
-                    <button>Track & Field</button>
-                    <button>Cross Country</button>
+                    {/* <button>Track & Field</button> */}
+                    <button>Cross Country Competitors</button>
                 </div>
                 {/* <img
                 src={img}
@@ -97,7 +97,7 @@ export const Home = () => {
         </div>
 
 <div className='data-section'>
-    <h2>Explore Every Athlete that has ever competed</h2>
+    <h2>Explore Every <span>Athlete</span> that has ever competed</h2>
     <p>...with new data added each year!</p>
     <div className='icon-container'>
         

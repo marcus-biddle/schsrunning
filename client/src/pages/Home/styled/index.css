@@ -22,6 +22,12 @@
 
 .container h3 {
   font-size: 28px;
+  color: #8890a0;
+  font-weight: lighter;
+}
+
+.container h3 > span {
+  font-size: 28px;
   color: #2089AF;
   font-weight: lighter;
 }
@@ -30,57 +36,24 @@
   text-align: center;
 }
 
-.hero-btn button:first-child {
-  display: inline-block;
-  padding: 12px;
-  width: 168px;
-  letter-spacing: 1.05px;
-  font-size: 18px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 24px;
+.hero-btn button {
   background-color: transparent;
-  color: #2980b9;
-  border: 2px solid #373D4A;
+  border: 2px solid #1692ba;
+  padding: 8px 24px;
+  font-size: 20px;
+  margin: 24px;
   color: #FFFFFF;
-  font-weight: bold;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.5);
-}
-
-.hero-btn button:last-child {
-  display: inline-block;
-  padding: 12px;
-  width: 168px;
-  letter-spacing: 1.05px;
-  font-size: 18px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 24px;
-  background-color: transparent;
-  color: #2980b9;
-  border: 2px solid #373D4A;
-  color: #FFFFFF;
-  font-weight: bold;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.5);
-}
-
-.hero-btn button:hover {
-  background-color: #2980b9;
-  color: #23272F;
-  border: 2px solid #2980b9;
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
-.hero-btn {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 56px
+.hero-btn button:hover {
+  opacity: .5;
 }
 
 .icon-container {
   position: relative;
-  height: 40vh;
   overflow: hidden;
   display: flex;
   justify-content: space-around;
@@ -95,14 +68,14 @@
   justify-content: center;
   gap: 2px;
   text-align: center;
-  background-color: #343A46;
+  background-color: #343a4662;
   padding: 10px 40px;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 .icon-container h1, p {
-  color: white;
+  color: #FFFFFF;
 }
 
 .icon-container h1 {
@@ -116,7 +89,7 @@
 }
 
 .home-icon {
-  color: white;
+  color: #FFFFFF;
   height: 6rem;
   width: 6rem;
 }
@@ -133,6 +106,10 @@
   color: #FFFFFF;
   font-size: 36px;
   text-transform: capitalize;
+}
+
+.data-section h2 > span {
+  color: #2089AF;
 }
 
 .data-section > p {
