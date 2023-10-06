@@ -60,7 +60,7 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
     <div className="sub-page-container">
         <div>
         <SubHeader title={`Runners (${filteredAthletesByGender?.length})`} color="transparent" />
-        <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
+        {/* <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} /> */}
         </div>
         
         <div className="search-container">

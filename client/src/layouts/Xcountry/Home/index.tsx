@@ -49,14 +49,14 @@ export const CrossCountry = () => {
 
   return (
     
-    <div className='page-container'>
+    <div className='xc-page'>
         <Page title="Cross Country Page" description="Records for Cross Country." />
 
-        <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/>
+        {/* <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/> */}
         {/* <ImageCarousel images={teamImgs} interval={15000}/> */}
-        <div>
-            <div className='sidemenu'>
-                <h4>Directory</h4>
+            <div className='sidemenu-section'>
+                {/* SHould be dynamic */}
+                <p>Cross Country</p>
                 <ul>
                     {MENU.map((menu, index) => {
                         return (
@@ -71,7 +71,10 @@ export const CrossCountry = () => {
                     })}
                 </ul>
             </div>
-            <div className='sidemenu-grid'>
+            <div>
+                {component}
+            </div>
+            {/* <div className='sidemenu-grid'>
                 <h4 onClick={() => handleDir()}>Directory</h4>
                 {openDir && <ul>
                     {MENU.map((menu, index) => {
@@ -85,8 +88,7 @@ export const CrossCountry = () => {
             </div>
             <div className='info-container'>
                 {component}
-            </div>
+            </div> */}
         </div>
-    </div>
   )
 }

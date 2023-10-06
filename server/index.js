@@ -55,11 +55,7 @@ app.use('/login', handleLogin);
 app.use('/refresh', handleRefreshToken);
 app.use('/logout', handleLogout);
 
-// Anything below this line will be protected with JWT
-// change this to specific endpoints
-app.use(authenticateToken);
 
-app.use('/users', handleUsers);
 
 // TODO: Move below queries to correct folders.
 
@@ -1396,6 +1392,12 @@ app.post('/login', async (req, res) => {
 app.get('/', (req, res) => {
   res.json({ msg: 'Hello World' })
 })
+
+// Anything below this line will be protected with JWT
+// change this to specific endpoints
+app.use(authenticateToken);
+
+app.use('/users', handleUsers);
 
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB')
