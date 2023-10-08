@@ -6,8 +6,8 @@ export interface Coach {
   coachId: number;
   coachTypeId: number;
   year: number;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   genderId: number;
 }
 

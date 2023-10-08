@@ -30,9 +30,9 @@ const MENU = [
     },
 ]
 export const CrossCountry = () => {
-    const { isActive, toggleActive } = useActiveLink('1');
+    const { isActive, toggleActive } = useActiveLink('0');
     // const [ openDir, setOpenDir ] = useState(false);
-    const [ component, setComponent ] = useState<string | JSX.Element>(MENU[2].link);
+    const [ component, setComponent ] = useState<string | JSX.Element>(MENU[0].link);
 
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;

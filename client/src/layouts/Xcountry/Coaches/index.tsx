@@ -20,17 +20,17 @@ export const loader = (queryClient: any) => async () => {
     return queryClient.getQueryData(coachListQuery().queryKey);
 }
 
-export const CoachItem: React.FC<{ coach: Coach }> = React.memo(({ coach }) => (
-        <>
-        {coach &&
-            <Link to={`${coach.coachId}/`} className='spanlinkstyle'>
-                <li className="list-item">
-                    <span>{coach.firstname} {coach.lastname}</span>
-                </li>
-            </Link>}
-        </>
-    )
-)
+// export const CoachItem: React.FC<{ coach: Coach }> = React.memo(({ coach }) => (
+//         <>
+//         {coach &&
+//             <Link to={`${coach.coachId}/`} className='spanlinkstyle'>
+//                 <li className="list-item">
+//                     <span>{coach.firstname} {coach.lastname}</span>
+//                 </li>
+//             </Link>}
+//         </>
+//     )
+// )
 
 export const Coaches = () => {
     const { data: coaches } = useQuery(coachListQuery());
@@ -40,7 +40,7 @@ export const Coaches = () => {
         return currentIndex === index;
     }).filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2).sort((a, b) => a.coachId - b.coachId);
 
-    console.log('coaches',coaches)
+    console.log('coaches', FILTERED_COACHES)
     return (
         <div className="xc-athlete-page">
         <div className="top-container">
@@ -54,6 +54,27 @@ export const Coaches = () => {
                 <p>Below is every cross country athlete that is on record. If you have a specific athlete you want to find, you can use the search bar below. If a record is missing, <span>please contact admin</span>.</p>
             </div>
         </div>
+
+        <table className="athlete-table">
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Started</th>
+                <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {FILTERED_COACHES?.map((coach: Coach) => (
+                <tr key={coach.coachId}>
+                    <td>{coach.firstName} {coach.lastName}</td>
+                    <td>{coach.year}</td>
+                    <td>
+                    <Link to={`coaches/${coach.coachId}`}>View Records</Link>
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+        </table>
         </div>
     // <div className='sub-page-container'>
     //     <SubHeader title={'Coaches'} />
