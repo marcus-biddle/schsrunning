@@ -49,7 +49,7 @@ export const TopRunnerMenu = () => {
                     <p>Below is every cross country athlete that is on record. If you have a specific athlete you want to find, you can use the search bar below. If a record is missing, <span>please contact admin</span>.</p>
                 </div>
                 <ul className='ranked-area'> 
-                    {COURSES.map((course, index) => {
+                    {COURSES.map((course) => {
                         return (
                             <li 
                             className={isActive(course.name) ? 'active' : ''}

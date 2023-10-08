@@ -1,10 +1,10 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom'
-import { fetchCoaches } from '../../../api/coaches';
-// import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
-import { useQuery } from '@tanstack/react-query';
-import { removeDuplicatesByName } from '../../../helpers';
+// import React from 'react';
+// import { Link } from 'react-router-dom'
+// import { fetchCoaches } from '../../../api/coaches';
+// // import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
+// import { useQuery } from '@tanstack/react-query';
+// import { removeDuplicatesByName } from '../../../helpers';
 
 // export const coachListQuery = () => ({
 //     queryKey: ['coaches'],

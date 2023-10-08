@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { BestTime, fetchBestTimes } from '../../../api/best-times';
+
+import {  fetchBestTimes } from '../../../api/best-times';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import './styled.css';
@@ -19,39 +19,39 @@ const bestTimeListQuery = (courseId: number) => ({
 })
 
 export const TopRunners = ({ courseId }: {courseId: number}) => {
-    const [ gradeFilter, setGradeFilter ] = useState(0);
+    // const [ gradeFilter, setGradeFilter ] = useState(0);
     const { data: bestTimes } = useQuery(bestTimeListQuery(courseId));
-    const [activeButton, setActiveButton] = useState<string>('all');
-    const [searchTerm, setSearchTerm] = useState('');
+    // const [activeButton, setActiveButton] = useState<string>('all');
+    // const [searchTerm, setSearchTerm] = useState('');
 
-    const handleButtonClick = (value: string) => {
-        setActiveButton(value === activeButton ? 'all' : value);
-    };
+    // const handleButtonClick = (value: string) => {
+    //     setActiveButton(value === activeButton ? 'all' : value);
+    // };
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
+    // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setSearchTerm(event.target.value);
+    // };
 
-    const filteredAthletesByGender = bestTimes?.filter(athlete => {
-        if (athlete.grade === gradeFilter) {
-            return athlete;
-            // redundant else ? 
-        } else if (gradeFilter === 0) {
-            return athlete;
-        }
-    }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete)
-    .slice(0, 25);
+    // const filteredAthletesByGender = bestTimes?.filter(athlete => {
+    //     if (athlete.grade === gradeFilter) {
+    //         return athlete;
+    //         // redundant else ? 
+    //     } else if (gradeFilter === 0) {
+    //         return athlete;
+    //     }
+    // }).filter((athlete: BestTime) => activeButton === 'women' ? athlete.genderId === 3 : activeButton === 'men' ? athlete.genderId === 2 : athlete)
+    // .slice(0, 25);
 
-    const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
-        const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
-        const searchTermLowerCase = searchTerm.toLowerCase();
-        return fullName.includes(searchTermLowerCase);
-      });
+    // const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
+    //     const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
+    //     const searchTermLowerCase = searchTerm.toLowerCase();
+    //     return fullName.includes(searchTermLowerCase);
+    //   });
 
-    const handleGradeClick = (grade: number) => {
-        setGradeFilter(grade);
-        console.log(grade);
-    }
+    // const handleGradeClick = (grade: number) => {
+    //     setGradeFilter(grade);
+    //     console.log(grade);
+    // }
 
   return (
     <div className='top-runners-container'>
@@ -68,7 +68,7 @@ export const TopRunners = ({ courseId }: {courseId: number}) => {
                 </tr>
             </thead>
             <tbody>
-                {filteredAthletesByName?.map((runner, index) => (
+                {bestTimes?.map((runner) => (
                 <tr key={runner.athleteId}>
                     <td>{runner.year}</td>
                     <td>{runner.firstName} {runner.lastName}</td>

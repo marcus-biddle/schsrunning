@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'santa-clara-high-cross-country/runners',
-        element: <Runners  gender={{ gender: 'all'}} />,
+        element: <Runners />,
         loader: runnerLoader(queryClient),
       },
       {
@@ -91,12 +91,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'santa-clara-high-cross-country/runners/men',
-        element: <Runners gender={{ gender: 'men'}}/>,
+        element: <Runners />,
         // loader: runnersLoader(queryClient),
       },
       {
         path: 'santa-clara-high-cross-country/runners/women',
-        element: <Runners gender={{ gender: 'women'}}/>,
+        element: <Runners />,
         // loader: runnersLoader(queryClient),
       },
       {

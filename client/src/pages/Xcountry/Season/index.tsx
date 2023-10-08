@@ -61,7 +61,7 @@ export const SeasonInfo = () => {
                             return (
                                 <Link to={`/santa-clara-high-cross-country/coaches/${coach.coachId}`} className='spanlinkstyle' key={coach.coachId}>
                                 <li className="list-item">
-                                    <span>{coach.firstname} {coach.lastname}</span>
+                                    {/* <span>{coach.firstname} {coach.lastname}</span> */}
                                 </li>
                             </Link>
                             )

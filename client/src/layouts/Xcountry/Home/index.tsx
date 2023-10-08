@@ -10,7 +10,7 @@ import useActiveLink from '../../../helpers/hooks/useActiveLink';
 const MENU = [
     {
         text: 'Athletes',
-        link: <Runners gender={{ gender: 'all'}} />
+        link: <Runners />
     },
     {
         text: 'Coaches',

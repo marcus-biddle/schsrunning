@@ -31,23 +31,23 @@ export interface GenderType {
     gender: 'men' | 'women' | 'all';
 }
 
-export const Runners = ({ gender }: { gender: GenderType }) => {
-    const [activeButton, setActiveButton] = useState<string>(gender.gender);
+export const Runners = () => {
+    // const [activeButton, setActiveButton] = useState<string>(gender.gender);
     const [searchTerm, setSearchTerm] = useState('');
 
     const { data: runners } = useQuery(runnerListQuery());
 
-    const handleButtonClick = (value: string) => {
-        setActiveButton(value === gender.gender ? activeButton === value ? 'all' : gender.gender : activeButton === value ? 'all' : value);
-    };
+    // const handleButtonClick = (value: string) => {
+    //     setActiveButton(value === gender.gender ? activeButton === value ? 'all' : gender.gender : activeButton === value ? 'all' : value);
+    // };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredAthletesByGender = runners?.filter((athlete: XCAthlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
+    // const filteredAthletesByGender = runners?.filter((athlete: XCAthlete) => activeButton === "women" ? athlete.genderId === 3 : activeButton === "men" ? athlete.genderId === 2 : athlete);
 
-    const filteredAthletesByName = filteredAthletesByGender?.filter((athlete) => {
+    const filteredAthletesByName = runners?.filter((athlete) => {
         const fullName = `${athlete.firstName} ${athlete.lastName}`.toLowerCase();
         const searchTermLowerCase = searchTerm.toLowerCase();
         return fullName.includes(searchTermLowerCase);

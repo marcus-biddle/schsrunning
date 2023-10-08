@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Link } from 'react-router-dom'
 import { Coach, fetchCoaches } from '../../../api/coaches';
 import { useQuery } from '@tanstack/react-query';
