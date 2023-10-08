@@ -24,6 +24,8 @@ import { connectMongoDb } from './config/mongoDbConn.js';
 import mongoose from 'mongoose';
 import handleUsers from './routes/mongo/users.routes.js';
 
+import { connection } from "./config/mysqlDbConn.js";
+
 dotenv.config();
 
 connectMongoDb();
@@ -54,6 +56,17 @@ app.use('/register', handleRegister);
 app.use('/login', handleLogin);
 app.use('/refresh', handleRefreshToken);
 app.use('/logout', handleLogout);
+
+app.get('/xc-athletes', async (req, res) => {
+  const query = `SELECT DISTINCT a.athleteId, a.firstName, a.lastName, a.genderId
+  FROM Athlete a
+  JOIN Competitor c ON a.athleteId = c.athleteId
+  JOIN Result re ON c.competitorId = re.competitorId
+  JOIN Race r ON re.raceId = r.raceId;
+  `;
+  const [rows] = await connection.query(query);
+  res.send(rows)
+});
 
 
 
@@ -386,16 +399,7 @@ app.get('/xc-athletes/season', async (req, res) => {
 });
 
 //     Get XC Runners
-app.get('/xc-athletes', async (req, res) => {
-  const query = `SELECT DISTINCT a.athleteId, a.firstName, a.lastName, a.genderId
-  FROM Athlete a
-  JOIN Competitor c ON a.athleteId = c.athleteId
-  JOIN Result re ON c.competitorId = re.competitorId
-  JOIN Race r ON re.raceId = r.raceId;
-  `;
-  const [rows] = await connection.query(query);
-  res.send(rows)
-});
+
 
 app.get('/xc-raceresults', async (req, res) => {
   const { yearId } = req.query;

@@ -41,8 +41,6 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
         setActiveButton(value === gender.gender ? activeButton === value ? 'all' : gender.gender : activeButton === value ? 'all' : value);
     };
 
-    console.log(handleButtonClick(''));
-
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
@@ -54,8 +52,8 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
         const searchTermLowerCase = searchTerm.toLowerCase();
         return fullName.includes(searchTermLowerCase);
       });
-      
-
+    console.log(filteredAthletesByName);
+    
   return (
     <div className="xc-athlete-page">
         <div className="top-container">
@@ -74,6 +72,27 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
                 <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
             </div>
         </div>
+        <table className="athlete-table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {filteredAthletesByName?.map((athlete: XCAthlete) => (
+      <tr key={athlete.athleteId}>
+        <td>{athlete.firstName}</td>
+        <td>{athlete.lastName}</td>
+        <td>
+          <Link to={`runners/${athlete.athleteId}`}>View Details</Link>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
         <ol className="list">
             {filteredAthletesByName?.map((athlete: XCAthlete) => (
                 <Link 

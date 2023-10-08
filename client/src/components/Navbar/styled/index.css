@@ -250,13 +250,15 @@
 
 .search-container {
   width: 100%;
-  height: 55%;
+  height: 100%;
+  display: flex;
 }
 .search-container input {
   width: 100%;
-  height: 100%;
+  height: 32px;
   border-radius: 32px;
   padding-left: 16px;
+  margin-top: 8px;
   color: #8890a0;
   background-color: #363a47;
   border: none;
