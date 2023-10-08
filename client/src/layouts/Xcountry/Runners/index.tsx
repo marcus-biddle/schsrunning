@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { XCAthlete, fetchXCAthletes } from "../../../api/athletes";
 import { useQuery } from '@tanstack/react-query';
 import { SearchInput } from "../../../components/SearchFeatures/SearchInput";
@@ -53,7 +53,7 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
         return fullName.includes(searchTermLowerCase);
       });
     console.log(filteredAthletesByName);
-    
+
   return (
     <div className="xc-athlete-page">
         <div className="top-container">
@@ -69,10 +69,11 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
             
             <div className="search-container">
                 <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-                <p style={{ color: '#007bff', fontWeight: 'bold' }}>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
+                <p>{searchTerm !== '' && `Found ${filteredAthletesByName?.length} results...`}</p>
             </div>
         </div>
-        <table className="athlete-table">
+        <PaginatedTable data={filteredAthletesByName} />
+        {/* <table className="athlete-table">
   <thead>
     <tr>
       <th>First Name</th>
@@ -91,9 +92,9 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
       </tr>
     ))}
   </tbody>
-</table>
+</table> */}
 
-        <ol className="list">
+        {/* <ol className="list">
             {filteredAthletesByName?.map((athlete: XCAthlete) => (
                 <Link 
                 to={`runners/${athlete.athleteId}`}
@@ -105,7 +106,76 @@ export const Runners = ({ gender }: { gender: GenderType }) => {
                 </Link>
                 
             ))}
-        </ol>
+        </ol> */}
     </div>
   )
 }
+
+const itemsPerPage = 10; // Number of items to display per page
+
+const PaginatedTable = ({ data }: any) => {
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Calculate the total number of pages based on data length
+    const totalPages = Math.ceil((data ? data.length : 1) / itemsPerPage);
+  
+    useEffect(() => {
+      // If the current page exceeds the total pages, set it to the last page
+      if (currentPage > totalPages) {
+        setCurrentPage(totalPages);
+      }
+    }, [data, currentPage, totalPages]);
+  
+    // Calculate the index range for the current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+  
+    // Slice the data to display only the items for the current page
+    const currentData = data?.slice(startIndex, endIndex);
+  
+    const handlePageChange = (page: number) => {
+      setCurrentPage(page);
+    };
+
+  return (
+    <div>
+        <table className="athlete-table">
+            <thead>
+                <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {currentData?.map((athlete: XCAthlete) => (
+                <tr key={athlete.athleteId}>
+                    <td>{athlete.firstName}</td>
+                    <td>{athlete.lastName}</td>
+                    <td>
+                    <Link to={`runners/${athlete.athleteId}`}>View Records</Link>
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+        </table>
+
+      {/* Pagination */}
+      <div className="pagination">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          {'<'}
+        </button>
+        <span>{currentPage}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          {'>'}
+        </button>
+      </div>
+    </div>
+  );
+};

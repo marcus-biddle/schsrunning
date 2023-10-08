@@ -49,17 +49,30 @@ export const Coaches = () => {
     }).filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2).sort((a, b) => a.coachId - b.coachId);
 
     return (
-    <div className='sub-page-container'>
-        <SubHeader title={'Coaches'} />
-        <ul className="list">
-            {coaches && FILTERED_COACHES && FILTERED_COACHES.map((coach: CoachSeason) => {
-                return (
-                    <CoachItem
-                    key={coach.coachId}
-                    coach={coach}
-                    />
-            )})}
-        </ul>
-    </div>
+        <div className="xc-athlete-page">
+        <div className="top-container">
+            <div className="xc-athlete-header">
+                <p>Cross Country <span>{'>'}</span> Coaches <span>{'>'}</span></p>
+                <h1>All Cross Country Coaches</h1>
+            {/* <SubHeader title={`Runners (${filteredAthletesByGender?.length})`} color="transparent" /> */}
+            {/* <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} /> */}
+            </div>
+            <div className="xc-athlete-desc">
+                <p>Below is every cross country athlete that is on record. If you have a specific athlete you want to find, you can use the search bar below. If a record is missing, <span>please contact admin</span>.</p>
+            </div>
+        </div>
+        </div>
+    // <div className='sub-page-container'>
+    //     <SubHeader title={'Coaches'} />
+    //     <ul className="list">
+    //         {coaches && FILTERED_COACHES && FILTERED_COACHES.map((coach: CoachSeason) => {
+    //             return (
+    //                 <CoachItem
+    //                 key={coach.coachId}
+    //                 coach={coach}
+    //                 />
+    //         )})}
+    //     </ul>
+    // </div>
     )
 }
