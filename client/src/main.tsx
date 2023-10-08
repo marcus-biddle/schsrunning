@@ -37,6 +37,7 @@ import {SearchPage} from './pages/SearchPage/index.tsx';
 import LoginPage from './pages/Login/LoginPage.tsx';
 import { AuthProvider } from './context/authProvider.tsx';
 import { PersistLoginPage } from './pages/Login/PersistLoginPage.tsx';
+import { NavbarProvider } from './context/NavbarContext.tsx';
 
 const queryClient = new QueryClient();
 
@@ -278,7 +279,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <NavbarProvider>
+          <RouterProvider router={router} />
+        </NavbarProvider>
       </AuthProvider>
     </QueryClientProvider>
     

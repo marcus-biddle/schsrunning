@@ -6,6 +6,8 @@ import { Runners } from '../Runners';
 import { Coaches } from '../Coaches';
 import { TopRunnerMenu } from '../TopRunnerMenu';
 import useActiveLink from '../../../helpers/hooks/useActiveLink';
+import { useNavbar } from '../../../context/NavbarContext';
+import { useMobile } from '../../../helpers/hooks/useMobile';
 
 const MENU = [
     {
@@ -31,15 +33,18 @@ const MENU = [
 ]
 export const CrossCountry = () => {
     const { isActive, toggleActive } = useActiveLink('0');
-    // const [ openDir, setOpenDir ] = useState(false);
+    const { isNavbarOpen, toggleNavbar } = useNavbar();
     const [ component, setComponent ] = useState<string | JSX.Element>(MENU[0].link);
+    const mobile = useMobile();
 
+    console.log('xc home', isNavbarOpen)
     const handleMenuClick = (index: number) => {
         const page = MENU[index].link;
 
         setComponent(page);
         // setOpenDir(false);
         toggleActive(`${index}`)
+        toggleNavbar();
     }
 
     // const handleDir = () => {
@@ -53,7 +58,7 @@ export const CrossCountry = () => {
 
         {/* <Header title='Cross Country' color="transparent" hideBreadcrumb={true}/> */}
         {/* <ImageCarousel images={teamImgs} interval={15000}/> */}
-            <div className='sidemenu-section'>
+            {(isNavbarOpen || !mobile) && <div className='sidemenu-section'>
                 {/* SHould be dynamic */}
                 <p>Cross Country</p>
                 <ul>
@@ -69,7 +74,7 @@ export const CrossCountry = () => {
                         )
                     })}
                 </ul>
-            </div>
+            </div>}
             <div style={{ width: '100%'}}>
                 {component}
             </div>

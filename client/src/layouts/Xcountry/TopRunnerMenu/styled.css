@@ -11,6 +11,7 @@
 .ranked-area {
     list-style: none;
     display: flex;
+    align-items: center;
     background-color: #363a47;
     border-radius: 16px;
     justify-content: center;
@@ -35,3 +36,14 @@
     color: #179BC6;
     border-radius: 16px;
 }
+
+@media (max-width: 768px) {
+    .xc-top-runner-page {
+        padding: 0 32px;
+        margin-right: 0;
+    }
+
+    .ranked-area li {
+        font-size: 14px;
+    }
+  }

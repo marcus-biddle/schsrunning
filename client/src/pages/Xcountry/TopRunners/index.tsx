@@ -61,9 +61,7 @@ export const TopRunners = ({ courseId }: {courseId: number}) => {
                 <tr>
                 <th>Year</th>
                 <th>Name</th>
-                <th>Grade</th>
                 <th>Time</th>
-                <th>Pace</th>
                 <th>Actions</th>
                 </tr>
             </thead>
@@ -72,11 +70,9 @@ export const TopRunners = ({ courseId }: {courseId: number}) => {
                 <tr key={runner.athleteId}>
                     <td>{runner.year}</td>
                     <td>{runner.firstName} {runner.lastName}</td>
-                    <td>{runner.grade}th grade</td>
                     <td>{runner.time}</td>
-                    <td>{runner.pace}</td>
                     <td>
-                        <Link to={`/santa-clara-high-cross-country/runners/${runner.genderId === 2 ? 'men' : 'women'}/${runner.athleteId}`}>View Records</Link>
+                        <Link to={`/santa-clara-high-cross-country/runners/${runner.genderId === 2 ? 'men' : 'women'}/${runner.athleteId}`}>View</Link>
                     </td>
                 </tr>
                 ))}

@@ -142,3 +142,21 @@
     font-weight: 700;
     letter-spacing: 1px;
 }
+
+@media (max-width: 768px) {
+    .sidemenu-section {
+        min-width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color: #23272F;
+        z-index: 100;
+    }
+
+    .sidemenu-section li {
+        padding: 14px 26px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        font-weight: 700;
+        letter-spacing: .55px;
+    }
+}

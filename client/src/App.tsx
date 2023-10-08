@@ -14,20 +14,32 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
+
     window.scrollTo(0,0);
     // Add event listener for window resize
     window.addEventListener('resize', handleResize);
-
     // Cleanup: remove the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
     };
 
   }, [pathname])
+
+  const navOption = () => {
+    if (pathname.includes('admin')) {
+      return null;
+    } else {
+      if (checkIfMobile(screenWidth)) {
+        return <MobileNavbar />
+      } else {
+        return <Navbar />
+      }
+    }
+  }
   
   return (
     <div>
-      {pathname.includes('admin') ? null : checkIfMobile(screenWidth) ? <MobileNavbar /> : <Navbar /> }
+      {navOption()}
       <div>
           <Outlet />
       </div>

@@ -200,3 +200,10 @@
     padding: 5px 10px;
     margin: 0 5px;
   }
+
+  @media (max-width: 768px) {
+    .xc-athlete-page {
+        padding: 0 32px;
+        margin-right: 0;
+    }
+  }
