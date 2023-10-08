@@ -1,21 +1,13 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { fetchCoaches } from '../../../api/coaches';
-import { CoachSeason, fetchCoachSeasonsByIds } from '../../../api/coachSeasons';
+import { Coach, fetchCoaches } from '../../../api/coaches';
 import { useQuery } from '@tanstack/react-query';
-import { SubHeader } from '../../../components/Header';
 
 export const coachListQuery = () => ({
     queryKey: ['coaches'],
     queryFn: async () => {
-        const coaches: CoachSeason[] = await fetchCoaches()
-        .then((data) => {
-            const coachIds: number[] = data.map(coach => coach.coachId);
-            const coachInfo = fetchCoachSeasonsByIds(coachIds);
-
-            return coachInfo
-        });
+        const coaches: Coach[] = await fetchCoaches();
 
         return coaches;
     },
@@ -28,7 +20,7 @@ export const loader = (queryClient: any) => async () => {
     return queryClient.getQueryData(coachListQuery().queryKey);
 }
 
-export const CoachItem: React.FC<{ coach: CoachSeason }> = React.memo(({ coach }) => (
+export const CoachItem: React.FC<{ coach: Coach }> = React.memo(({ coach }) => (
         <>
         {coach &&
             <Link to={`${coach.coachId}/`} className='spanlinkstyle'>
@@ -48,6 +40,7 @@ export const Coaches = () => {
         return currentIndex === index;
     }).filter((row) => row.coachTypeId === 1 || row.coachTypeId === 2).sort((a, b) => a.coachId - b.coachId);
 
+    console.log('coaches',coaches)
     return (
         <div className="xc-athlete-page">
         <div className="top-container">

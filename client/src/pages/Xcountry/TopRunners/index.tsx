@@ -1,12 +1,8 @@
 import { useState } from 'react'
 import { BestTime, fetchBestTimes } from '../../../api/best-times';
-import { convertToNum, } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { SubHeader } from '../../../components/Header';
-import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
-import { Pill } from '../../../components/SearchFeatures/Pill';
-import { Filters } from '../../../components/Filters';
+import './styled.css';
 
 const bestTimeListQuery = (courseId: number) => ({
     queryKey: ['bestTimes', courseId],
@@ -22,9 +18,9 @@ const bestTimeListQuery = (courseId: number) => ({
     },
 })
 
-export const TopRunners = ({ courseId }: {courseId: string}) => {
+export const TopRunners = ({ courseId }: {courseId: number}) => {
     const [ gradeFilter, setGradeFilter ] = useState(0);
-    const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
+    const { data: bestTimes } = useQuery(bestTimeListQuery(courseId));
     const [activeButton, setActiveButton] = useState<string>('all');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -58,36 +54,65 @@ export const TopRunners = ({ courseId }: {courseId: string}) => {
     }
 
   return (
-    <div className='sub-page-container'>
-        <SubHeader title={`Top 25 Runners - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-            <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
-        </div>
-        <Filters handleClick={handleGradeClick}/>
-        <ul className='list'>
-            {filteredAthletesByName?.map((runner, index) => {
-                return (
-                    <Link 
-                    to={`/santa-clara-high-cross-country/runners/${runner.genderId === 2 ? 'men' : 'women'}/${runner.athleteId}`}
-                    key={`${runner.athleteId}-${index}`}
-                    >
-                        <li style={{ lineHeight: '1', display: 'flex'}}>
-                            <span>
-                                <h2 style={{ margin: '0', padding: '6px 0 0 10px' }}>{runner.firstName} {runner.lastName}</h2>
-                                <p style={{ margin: '0', padding: '6px 10px 0 20px', color: 'grey' }}>({runner.year}) {runner.grade}th grade</p>
-                            </span>
-                            <span style={{ display: 'flex', flexDirection: 'column', justifyItems:'center', textAlign: 'center', justifyContent: 'end'}}>
-                                <h4 style={{ margin: '0' }}>Time: {runner.time}</h4> 
-                                <h4 style={{ margin: '0' }}>Pace: {runner.pace}</h4>
-                            </span>
-                        </li>
-                            
-                    </Link>
-                    
-                )
-            })}
-        </ul>
+    <div className='top-runners-container'>
+        <p>Distance: {bestTimes && bestTimes[0].courseDistance} miles</p>
+        <table className="athlete-table">
+            <thead>
+                <tr>
+                <th>Year</th>
+                <th>Name</th>
+                <th>Grade</th>
+                <th>Time</th>
+                <th>Pace</th>
+                <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filteredAthletesByName?.map((runner, index) => (
+                <tr key={runner.athleteId}>
+                    <td>{runner.year}</td>
+                    <td>{runner.firstName} {runner.lastName}</td>
+                    <td>{runner.grade}th grade</td>
+                    <td>{runner.time}</td>
+                    <td>{runner.pace}</td>
+                    <td>
+                        <Link to={`/santa-clara-high-cross-country/runners/${runner.genderId === 2 ? 'men' : 'women'}/${runner.athleteId}`}>View Records</Link>
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+        </table>
     </div>
+    // <div className='sub-page-container'>
+    //     <SubHeader title={`Top 25 Runners - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
+    //     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    //         <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+    //         <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
+    //     </div>
+    //     <Filters handleClick={handleGradeClick}/>
+    //     <ul className='list'>
+    //         {filteredAthletesByName?.map((runner, index) => {
+    //             return (
+    //                 <Link 
+    //                 to={`/santa-clara-high-cross-country/runners/${runner.genderId === 2 ? 'men' : 'women'}/${runner.athleteId}`}
+    //                 key={`${runner.athleteId}-${index}`}
+    //                 >
+    //                     <li style={{ lineHeight: '1', display: 'flex'}}>
+    //                         <span>
+    //                             <h2 style={{ margin: '0', padding: '6px 0 0 10px' }}>{runner.firstName} {runner.lastName}</h2>
+    //                             <p style={{ margin: '0', padding: '6px 10px 0 20px', color: 'grey' }}>({runner.year}) {runner.grade}th grade</p>
+    //                         </span>
+    //                         <span style={{ display: 'flex', flexDirection: 'column', justifyItems:'center', textAlign: 'center', justifyContent: 'end'}}>
+    //                             <h4 style={{ margin: '0' }}>Time: {runner.time}</h4> 
+    //                             <h4 style={{ margin: '0' }}>Pace: {runner.pace}</h4>
+    //                         </span>
+    //                     </li>
+                            
+    //                 </Link>
+                    
+    //             )
+    //         })}
+    //     </ul>
+    // </div>
   )
 }

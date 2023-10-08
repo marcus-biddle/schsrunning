@@ -1,0 +1,37 @@
+.xc-top-runner-page {
+    padding: 8px 32px;
+    margin-right: 80px;
+}
+
+.xc-top-runner-page .top-container {
+    border-bottom: 1px solid #363a47;
+    padding-bottom: 24px;
+}
+
+.ranked-area {
+    list-style: none;
+    display: flex;
+    background-color: #363a47;
+    border-radius: 16px;
+    justify-content: center;
+    text-align: center;
+}
+
+.ranked-area li {
+    display: block;
+    width: 100%;
+    padding: 6px;
+    color: #8890a0; /* White text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.ranked-area .active {
+    background-color: #2c2f39;
+    text-decoration: underline;
+    text-decoration-skip-ink: auto;
+    color: #179BC6;
+    border-radius: 16px;
+}

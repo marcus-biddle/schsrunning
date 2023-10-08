@@ -4,9 +4,11 @@ const BASE_URL = 'https://schs-server.onrender.com';
 
 export interface Coach {
   coachId: number;
-  firstName: string;
-  lastName: string;
-  genderId: number
+  coachTypeId: number;
+  year: number;
+  firstname: string;
+  lastname: string;
+  genderId: number;
 }
 
 export async function fetchCoaches(): Promise<Coach[]> {

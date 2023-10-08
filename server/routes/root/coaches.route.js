@@ -8,16 +8,16 @@ router.route('/coaches')
   .get(getAllCoachesHandler);
 
 // GET individual Coach
-router.get('/coaches/:coachId', getCoachByIdHandler);
+// router.get('/coaches/:coachId', getCoachByIdHandler);
 
-// GET Coach by year
-router.get('/coaches/season/:yearId', getAllCoachesByYearHandler);
+// // GET Coach by year
+// router.get('/coaches/season/:yearId', getAllCoachesByYearHandler);
 
-// GET coach type based on Coach
-router.get('/coaches/types/:coachTypeId', getCoachTypeByCoachIdHandler);
+// // GET coach type based on Coach
+// router.get('/coaches/types/:coachTypeId', getCoachTypeByCoachIdHandler);
 
- // GET an Array of years that a coach has been in
- router.get('/coaches/seasons/years/:coachId', getAllCoachesByYearHandler);
+//  // GET an Array of years that a coach has been in
+//  router.get('/coaches/seasons/years/:coachId', getAllCoachesByYearHandler);
 
 
 

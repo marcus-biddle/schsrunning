@@ -2,20 +2,18 @@ import axios from 'axios';
 
 const BASE_URL = 'https://schs-server.onrender.com';
 
-export interface CoachSeason {
+export interface CoachStats {
   coachId: number;
   coachTypeId: number;
   year: number;
   firstname: string;
   lastname: string;
+  genderId: number;
 }
 
-export async function fetchCoachSeasonsByIds(coachIds: number[]): Promise<CoachSeason[]> {
+export async function fetchCoaches(): Promise<CoachStats[]> {
     try {
-        const response = await axios.get(`${BASE_URL}/coach-seasons`, {
-        params: {
-            coachIds: coachIds.join(','),
-        },
+        const response = await axios.get(`${BASE_URL}/coaches`, {
         });
         return response.data;
     } catch (error) {
@@ -24,7 +22,7 @@ export async function fetchCoachSeasonsByIds(coachIds: number[]): Promise<CoachS
     }
   }
 
-export async function fetchCoachSeasons(coachId: number): Promise<CoachSeason[]> {
+export async function fetchCoachSeasons(coachId: number): Promise<CoachStats[]> {
   try {
     const response = await axios.get(`${BASE_URL}/coach-seasons/${coachId}`);
     return response.data;

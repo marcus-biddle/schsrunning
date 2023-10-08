@@ -1,10 +1,10 @@
 import { connection } from "../../config/mysqlDbConn.js";
 
-export const getAllCoachesHandler = async (req, res) => {
-    const query = "SELECT * FROM Coach";
-    const [rows] = await connection.query(query);
-    res.json(rows)
-};
+// export const getAllCoachesHandler = async (req, res) => {
+//     const query = "SELECT * FROM Coach";
+//     const [rows] = await connection.query(query);
+//     res.json(rows)
+// };
 
 export const getCoachByIdHandler = async (req, res) => {
     const { coachId } = req.params;
@@ -32,13 +32,12 @@ GROUP BY Coach.coachId;`;
   res.send(rows)
 }
 
-export const getAllYearsByCoachIdHandler = async (req, res) => {
+export const getAllCoachesHandler = async (req, res) => {
   const { coachId } = req.params;
 
-  const query = `SELECT CoachSeason.*, Coach.firstname, Coach.lastname
+  const query = `SELECT CoachSeason.*, Coach.*
   FROM CoachSeason
-  JOIN Coach ON CoachSeason.coachId = Coach.coachId
-  WHERE CoachSeason.coachId IN (?);
+  JOIN Coach ON CoachSeason.coachId = Coach.coachId;
   `;
   const [rows] = await connection.query(query, coachId);
   
