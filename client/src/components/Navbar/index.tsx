@@ -42,7 +42,7 @@ const LEFT_NAV_LINKS = [
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isActive, toggleActive, activeLink } = useActiveLink(location.pathname);
+  const { isActive, toggleActive } = useActiveLink(location.pathname);
   const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);

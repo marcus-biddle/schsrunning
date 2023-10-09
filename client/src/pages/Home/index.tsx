@@ -6,7 +6,7 @@ import Page from '../../Meta/index.tsx';
 import { BsCalendarEvent } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdGroups } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useNavbar } from '../../context/NavbarContext.tsx';
 import { useMobile } from '../../helpers/hooks/useMobile.tsx';
 
