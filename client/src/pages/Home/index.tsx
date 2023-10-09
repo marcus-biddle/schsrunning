@@ -75,12 +75,7 @@ export const Home = () => {
     <div className='home-page'>
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
-                {/* <div>
-                <h4>Cross Country | Track</h4>
-                <h4>|</h4>
-                <h4>Track</h4>
-                </div> */}
-                <div>
+                <div className='hero-txt'>
                     <h1>SCHS Running Records</h1>
                     <h3>Stay up to date on your <span>favorite team</span></h3>
                 </div>
@@ -95,17 +90,15 @@ export const Home = () => {
                 alt="Image"
                 /> */}
         </div>
-
-<div className='data-section'>
-    <h2>Explore Every <span>Athlete</span> that has ever competed</h2>
-    <p>...with new data added each year!</p>
-    <div className='icon-container'>
-        
-        <div>
-            <BsCalendarEvent className='home-icon' />
-            <h1>50+</h1>
-            <p>Seasons</p>
-        </div>
+    <div className='data-section'>
+        <h2>Explore Every <span>Athlete</span> that has ever competed</h2>
+        <p>...with new data added each year!</p>
+        <div className='icon-container'>
+            <div>
+                <BsCalendarEvent className='home-icon' />
+                <h1>50+</h1>
+                <p>Seasons</p>
+            </div>
         <div>
             <BiTimeFive className='home-icon' />
             <h1>100+</h1>

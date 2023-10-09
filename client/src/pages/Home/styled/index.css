@@ -7,10 +7,12 @@
   height: 70vh;
   background-color: #23272F;
   display: flex;
-  flex-direction: column;
-  gap: 52px;
   align-items: center;
-  justify-content: center;
+}
+
+.container .hero-txt {
+  width: 100%;
+  text-align: left;
 }
 
 .container h1 {
