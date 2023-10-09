@@ -7,18 +7,19 @@
   height: 70vh;
   background-color: #23272F;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: 0 80px;
 }
 
 .container .hero-txt {
   width: 100%;
-  text-align: left;
 }
 
 .container h1 {
   font-size: 48px;
-  text-transform: uppercase;
-  letter-spacing: 1.12px;
+  text-transform: capitalize;
+  letter-spacing: 1.05px;
   color: #FFFFFF
 }
 
@@ -26,6 +27,7 @@
   font-size: 28px;
   color: #8890a0;
   font-weight: lighter;
+  padding: 16px 0;
 }
 
 .container h3 > span {
@@ -34,24 +36,32 @@
   font-weight: lighter;
 }
 
-.container div {
-  text-align: center;
+.container p {
+  color: #2089AF;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1.05px;
+  padding: 16px 0;
+}
+
+.hero-btn {
+  width: 100%;
+  margin-top: 56px;
 }
 
 .hero-btn button {
-  background-color: transparent;
-  border: 2px solid #1692ba;
-  padding: 8px 24px;
+  background-color: #363a47;
+  border: 1px solid transparent;
+  padding: 16px 24px;
   font-size: 20px;
-  margin: 24px;
   color: #FFFFFF;
-  border-radius: 4px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
   cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .hero-btn button:hover {
-  opacity: .5;
+  color: #179BC6;
 }
 
 .icon-container {

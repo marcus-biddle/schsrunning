@@ -6,6 +6,7 @@ import Page from '../../Meta/index.tsx';
 import { BsCalendarEvent } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdGroups } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 
 const topCompRacesMenListQuery = () => ({
@@ -75,43 +76,39 @@ export const Home = () => {
     <div className='home-page'>
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
         <div className="container">
-                <div className='hero-txt'>
-                    <h1>SCHS Running Records</h1>
-                    <h3>Stay up to date on your <span>favorite team</span></h3>
-                </div>
-                
-                {/* <h3>Records</h3> */}
-                <div className='hero-btn'>
-                    {/* <button>Track & Field</button> */}
-                    <button>Cross Country Competitors</button>
-                </div>
-                {/* <img
-                src={img}
-                alt="Image"
-                /> */}
-        </div>
-    <div className='data-section'>
-        <h2>Explore Every <span>Athlete</span> that has ever competed</h2>
-        <p>...with new data added each year!</p>
-        <div className='icon-container'>
-            <div>
-                <BsCalendarEvent className='home-icon' />
-                <h1>50+</h1>
-                <p>Seasons</p>
+            <div className='hero-txt'>
+                <p>Santa Clara High School</p>
+                <h1>Collection of Cross Country records</h1>
+                <h3>Locate your past <span>accomplishments</span>. Find out who holds the top <span>records</span>.</h3>
             </div>
-        <div>
-            <BiTimeFive className='home-icon' />
-            <h1>100+</h1>
-            <p>Events</p>
+            <div className='hero-btn'>
+                {/* <button>Track & Field</button> */}
+                <Link to='santa-clara-high-cross-country/'>
+                    <button>View Collections</button>
+                </Link>
+            </div>
         </div>
-        <div className='center-icon-container'>
-            <MdGroups className='home-icon' />
-            <h1>700+</h1>
-            <p>Athletes</p>
+        <div className='data-section'>
+            <h2>Explore Every <span>Athlete</span> that has ever competed</h2>
+            <p>...with new data added each year!</p>
+            <div className='icon-container'>
+                <div>
+                    <BsCalendarEvent className='home-icon' />
+                    <h1>50+</h1>
+                    <p>Seasons</p>
+                </div>
+                <div>
+                    <BiTimeFive className='home-icon' />
+                    <h1>100+</h1>
+                    <p>Events</p>
+                </div>
+                <div className='center-icon-container'>
+                    <MdGroups className='home-icon' />
+                    <h1>700+</h1>
+                    <p>Athletes</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-        
     </div>
   )
 }
