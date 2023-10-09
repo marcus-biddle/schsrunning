@@ -1,27 +1,25 @@
 import { useState,  } from 'react'
-import { fetchBestTimes } from '../../../api/best-times';
 import { useParams } from 'react-router';
 import { convertGrade, convertToNum, } from '../../../helpers';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenTopTeams, fetchWomenTopTeams } from '../../../api/TopTeams';
 import { fetchXCRunner } from '../../../api/XCRunner';
-import { Header } from '../../../components/Header';
 import { Pill } from '../../../components/SearchFeatures/Pill';
 
-const bestTimeListQuery = (courseId: number) => ({
-    queryKey: ['bestTimes', courseId],
-    queryFn: async () => {
-        const times = await fetchBestTimes(courseId);
-        if (!times) {
-            throw new Response('', {
-                status: 404,
-                statusText: 'Not Found',
-            })
-        }
-        return times;
-    },
-})
+// const bestTimeListQuery = (courseId: number) => ({
+//     queryKey: ['bestTimes', courseId],
+//     queryFn: async () => {
+//         const times = await fetchBestTimes(courseId);
+//         if (!times) {
+//             throw new Response('', {
+//                 status: 404,
+//                 statusText: 'Not Found',
+//             })
+//         }
+//         return times;
+//     },
+// })
 
 const bestMenTeamListQuery = (courseId: number) => ({
     queryKey: ['bestMenTeams', courseId],
@@ -75,7 +73,7 @@ const bestWomenTeamListQuery = (courseId: number) => ({
 
 export const TopTeams = () => {
     const { courseId }= useParams();
-    const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
+    // const { data: bestTimes } = useQuery(bestTimeListQuery(convertToNum(courseId)));
     const { data: bestMenTeams } = useQuery(bestMenTeamListQuery(convertToNum(courseId)));
     const { data: bestWomenTeams } = useQuery(bestWomenTeamListQuery(convertToNum(courseId)));
     const [activeButton, setActiveButton] = useState<string>('all');
@@ -87,7 +85,7 @@ export const TopTeams = () => {
 
   return (
     <div className='page-container'>
-        <Header title={`Top Teams - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' />
+        {/* <Header title={`Top Teams - ${bestTimes && bestTimes[0].courseName} ${bestTimes && bestTimes[0].courseDistance} miles`} color='transparent' /> */}
         <div style={{ display: 'flex', justifyContent: 'end' }}>
             <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />
         </div>

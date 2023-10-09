@@ -1,4 +1,4 @@
-import LoginForm from '../../components/Form/Login';
+import LoginForm from '../../components/Login';
 import './styled.css'; 
 
 const LoginPage = () => {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import GenericForm, { Field } from '../../Form/GenericForm';
-import {GenericButton} from '../../Button';
 
 interface FormData {
   [name: string]: string;
@@ -23,13 +22,13 @@ const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) =
     });
   };
 
-  const handleAddForm = () => {
-    setFormDataList((prevFormDataList) => [...prevFormDataList, {}]);
-  };
+  // const handleAddForm = () => {
+  //   setFormDataList((prevFormDataList) => [...prevFormDataList, {}]);
+  // };
 
   useEffect(() => {
     setFormResults(formDataList)
-  }, [formDataList]);
+  }, [formDataList, setFormResults]);
 
   const data = isList ? formDataList : [formDataList[0]]
 
@@ -44,7 +43,7 @@ const ListOfForms = ({ formFields, setFormResults, isList }: ListOfFormsProps) =
         </React.Fragment>
         
       ))}
-      {isList && <GenericButton type='button' onClick={handleAddForm} label={'Add Row'} />}
+      {/* {isList && <GenericButton type='button' onClick={handleAddForm} label={'Add Row'} />} */}
     </div>
   );
 };

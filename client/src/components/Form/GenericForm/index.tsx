@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import {GenericButton} from '../../Button';
 
 export interface Field {
   name: string;
@@ -72,7 +71,7 @@ return (
         </div>
       ))}
       <div style={{ fontSize: '12px', padding: '5px 10px', marginTop: '10px', display: 'flex', textAlign: 'center', alignItems: 'center' }}>
-        <GenericButton type={'submit'} label={'Add'} color='green'/>
+        {/* <GenericButton type={'submit'} label={'Add'} color='green'/> */}
       </div>
       
     </form>

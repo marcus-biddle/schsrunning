@@ -1,6 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
-import { urlContains } from '../../../helpers';
-import { Header } from '../../../components/Header';
+import { Link } from 'react-router-dom'
 
 export enum CourseID {
     CRYSTAL_SPRING = 1,
@@ -18,11 +16,11 @@ export const TopTeamMenu = () => {
     //     { name: 'Baylands Park', path: CourseID.BAYLANDS_PARK},
     //     { name: 'Lynbrook High School', path: CourseID.LYNBRROK},
     // ]
-    const location = useLocation();
-    const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
+    // const location = useLocation();
+    // const pageType = urlContains(location.pathname, ['top-team', 'top-25-results']) === 'top-team' ? 15 : 25;
     return (
         <div className='page-container'>
-            <Header title={pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'} color='transparent' />
+            {/* <Header title={pageType === 25 ? 'SCHS Cross Country Top Individual Results' : 'SCHS Cross Country Top Team Results'} color='transparent' /> */}
             <div className="grid-container">
                 <Link to={'1/'} style={{ color: 'black'}}>
                     <div className="grid-item">

@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import { convertToNum, getYearFromDate } from "../../../helpers";
 import { fetchXCRunner } from "../../../api/XCRunner";
 import { useQuery } from '@tanstack/react-query';
-import {Header } from "../../../components/Header";
 import './styled.css';
 import img from '../../../assets/schs_logo.jpeg'
 
@@ -63,7 +62,7 @@ export const Runner = () => {
             src={img}
             alt="image unavailable"/>
           </div>
-          <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} hideBreadcrumb={true} />
+          {/* <Header title={`${xcrunner && xcrunner[0].firstname} ${xcrunner && xcrunner[0].lastname}`} hideBreadcrumb={true} /> */}
         </div>
         
         {/* Alumni Records */}

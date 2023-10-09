@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { raceNameListQuery } from '../RacesPage';
+import {  useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import { fetchCoursesByRace } from '../../../api/courses';
-import { Competitor, createCompetitor, fetchCompetitors, fetchCompetitorsByCourse } from '../../../api/competitors';
+import { fetchCompetitorsByCourse } from '../../../api/competitors';
 import { CompetitorByCourse, displayCompetitorsByCourse } from '../../../helpers';
 import GenericTable from '../../../components/DataTable';
 import { athleteListQuery } from '../AthletesPage';
-import { Result, addXCResult } from '../../../api/results';
 import { Field } from '../../../components/Form/GenericForm';
 import ListOfForms from '../../../components/List/Forms';
-import {GenericButton} from '../../../components/Button';
-import {Header} from '../../../components/Header';
 
 const competitorByRaceListQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRace', raceNameId],
@@ -21,13 +17,13 @@ const competitorByRaceListQuery = (raceNameId: number) => ({
     },
 });
 
-const competitorListQuery = () => ({
-    queryKey: ['competitors'],
-    queryFn: async () => {
-        const competitor = await fetchCompetitors();
-        return competitor;
-    }
-});
+// const competitorListQuery = () => ({
+//     queryKey: ['competitors'],
+//     queryFn: async () => {
+//         const competitor = await fetchCompetitors();
+//         return competitor;
+//     }
+// });
 
 const coursesByRaceQuery = (raceNameId: number) => ({
     queryKey: ['coursesByRaceName', raceNameId],
@@ -42,11 +38,11 @@ const RacePage = () => {
     const [formResults, setFormResults] = useState([]);
     const [ successMsg, setSuccessMsg] = useState('');
 
-    const { data: raceNames } = useQuery(raceNameListQuery());
+    // const { data: raceNames } = useQuery(raceNameListQuery());
     const { data: courses } = useQuery(competitorByRaceListQuery(parseInt(raceNameId || '')));
     const { data: courseNames } = useQuery(coursesByRaceQuery(parseInt(raceNameId || '')));
     const { data: athletes } = useQuery(athleteListQuery());
-    const { data: competitors } = useQuery(competitorListQuery());
+    // const { data: competitors } = useQuery(competitorListQuery());
     
     const comp = displayCompetitorsByCourse(courses || []);
 
@@ -76,50 +72,50 @@ const RacePage = () => {
         { name: 'pace', label: 'Pace', type: 'text' },
       ];
 
-    const createXCAthleteResult = useMutation({
-        mutationFn: async (resultData: Result) => await addXCResult(resultData),
-        onSuccess: (data, variables) => {
-            console.log('xc runner results', data, variables)
-        }
-    })
+    // const createXCAthleteResult = useMutation({
+    //     mutationFn: async (resultData: Result) => await addXCResult(resultData),
+    //     onSuccess: (data, variables) => {
+    //         console.log('xc runner results', data, variables)
+    //     }
+    // })
 
-    const createXCCompetitor = useMutation({
-        mutationFn: async (competitorData: Competitor) => await createCompetitor(competitorData),
-        onSuccess: (data, variables) => {
-            console.log('xc competitor', data, variables)
-        }
-    })
+    // const createXCCompetitor = useMutation({
+    //     mutationFn: async (competitorData: Competitor) => await createCompetitor(competitorData),
+    //     onSuccess: (data, variables) => {
+    //         console.log('xc competitor', data, variables)
+    //     }
+    // })
     
-    const mutateResults = async () => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        formResults.map((result: any) => {
-            const competitorId: string = (parseFloat(`${result.athleteId}.${result.grade}`)).toFixed(2);
-            console.log('mapping result', competitorId);
-            const competitorFound = competitors?.some(comp => comp.competitorId === competitorId);
-            competitorFound ? 
-            null : 
-            createXCCompetitor.mutate({
-                competitorId: competitorId,
-                athleteId: result.athleteId,
-                year: result.year,
-                grade: result.grade
-            }) 
+    // const mutateResults = async () => {
+    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //     formResults.map((result: any) => {
+    //         const competitorId: string = (parseFloat(`${result.athleteId}.${result.grade}`)).toFixed(2);
+    //         console.log('mapping result', competitorId);
+    //         const competitorFound = competitors?.some(comp => comp.competitorId === competitorId);
+    //         competitorFound ? 
+    //         null : 
+    //         createXCCompetitor.mutate({
+    //             competitorId: competitorId,
+    //             athleteId: result.athleteId,
+    //             year: result.year,
+    //             grade: result.grade
+    //         }) 
 
-            createXCAthleteResult.mutate({
-                competitorId: competitorId,
-                raceId: result.raceId,
-                time: result.time,
-                pace: result.pace
-            })
-        })
-    }
+    //         createXCAthleteResult.mutate({
+    //             competitorId: competitorId,
+    //             raceId: result.raceId,
+    //             time: result.time,
+    //             pace: result.pace
+    //         })
+    //     })
+    // }
 
-    const handleSubmit = async () => {
-        console.log('clicked submit', formResults);
-        await mutateResults();
-        setFormResults([]);
-        setSuccessMsg('Results Added. Please refresh if tables are not updated.')
-    }
+    // const handleSubmit = async () => {
+    //     console.log('clicked submit', formResults);
+    //     await mutateResults();
+    //     setFormResults([]);
+    //     setSuccessMsg('Results Added. Please refresh if tables are not updated.')
+    // }
 
     useEffect(() => {
         if (Object.keys(formResults[0] || {}).length > 0) {
@@ -129,7 +125,7 @@ const RacePage = () => {
       
   return (
     <div>
-        <Header title={`Race: ${raceNames && raceNames.filter(race => race.raceNameId === parseInt(raceNameId || '0'))[0].raceName}`} />
+        {/* <Header title={`Race: ${raceNames && raceNames.filter(race => race.raceNameId === parseInt(raceNameId || '0'))[0].raceName}`} /> */}
         <>
             <h2>Add Athlete Result</h2>
             <div style={{ marginLeft: '20px', marginRight: '20px'}}>
@@ -138,7 +134,7 @@ const RacePage = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}}>
                     {/* Add delete button, pass down the setFormResults to allow the table to remove a row */}
                     <GenericTable data={formResults} isEditable={false} />
-                    <GenericButton type='submit' onClick={handleSubmit} label={'Create All Results'} />
+                    {/* <GenericButton type='submit' onClick={handleSubmit} label={'Create All Results'} /> */}
                 </div>}
                 <ListOfForms formFields={fields} setFormResults={setFormResults} isList={false}/>
             </div>

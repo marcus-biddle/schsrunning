@@ -3,9 +3,8 @@ import { GenderType } from '../../../layouts/Xcountry/Runners';
 import { useQuery } from '@tanstack/react-query';
 import { XCAthleteByRace, fetchXCAthletesByRace } from '../../../api/athletes';
 import { useParams } from 'react-router';
-import { convertToNum, formatDate } from '../../../helpers';
+import { convertToNum } from '../../../helpers';
 import { Link } from 'react-router-dom';
-import { Header } from '../../../components/Header';
 import { SearchInput } from '../../../components/SearchFeatures/SearchInput';
 import { Pill } from '../../../components/SearchFeatures/Pill';
 
@@ -55,7 +54,7 @@ export const RaceResult = ({ gender }: { gender: GenderType }) => {
 
   return (
     <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem', minHeight: '100vh'}}>
-        {raceResultsByRace && <Header title={`${raceResultsByRace[0].raceName}: ${raceResultsByRace[0].courseName}, ${raceResultsByRace[0].courseDistance}M (${formatDate(raceResultsByRace[0].date)})`} />}
+        {/* {raceResultsByRace && <Header title={`${raceResultsByRace[0].raceName}: ${raceResultsByRace[0].courseName}, ${raceResultsByRace[0].courseDistance}M (${formatDate(raceResultsByRace[0].date)})`} />} */}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <SearchInput handleSearchChange={handleSearchChange} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
             <Pill handleButtonClick={handleButtonClick} activeButton={activeButton} />

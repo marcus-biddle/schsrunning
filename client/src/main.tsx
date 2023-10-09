@@ -33,7 +33,6 @@ import AddCompetitors from './pages/Admin/AddCompetitors/index.tsx';
 import { TopRunnerMenu } from './layouts/Xcountry/TopRunnerMenu/index.tsx';
 import { TopTeamMenu } from './layouts/Xcountry/TopTeamMenu/index.tsx';
 import { TopTeams } from './pages/Xcountry/TopTeams/index.tsx';
-import {SearchPage} from './pages/SearchPage/index.tsx';
 import LoginPage from './pages/Login/LoginPage.tsx';
 import { AuthProvider } from './context/authProvider.tsx';
 import { PersistLoginPage } from './pages/Login/PersistLoginPage.tsx';
@@ -53,10 +52,6 @@ const router = createBrowserRouter([
       {
         path: 'athlete/:athleteId',
         element: <Runner />,
-      },
-      {
-        path: 'search/',
-        element: <SearchPage/>,
       },
       // Cross Country Pages
       {

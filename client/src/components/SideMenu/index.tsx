@@ -5,6 +5,7 @@ interface SideMenuProps {
     list: any[];
 }
 
+// Admin Side Menu
 const SideMenu = ({ list }: SideMenuProps) => {
     const { isActive, toggleActive } = useActiveLink(null);
 

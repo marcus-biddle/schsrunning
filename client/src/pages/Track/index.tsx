@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom"
-import { teamImgs } from "../../assets"
-import ImageCarousel from "../../components/Carousel"
 
 
 export const Track = () => {
 
 return (
   <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '59rem'}}>
-      <ImageCarousel images={teamImgs} interval={15000}/>
+      {/* <ImageCarousel images={teamImgs} interval={15000}/> */}
       <div style={{ display: 'flex', justifyContent: 'space-around'}}>
           {/* First Column */}
           <div>
