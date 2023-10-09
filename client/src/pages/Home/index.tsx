@@ -6,7 +6,9 @@ import Page from '../../Meta/index.tsx';
 import { BsCalendarEvent } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdGroups } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useNavbar } from '../../context/NavbarContext.tsx';
+import { useMobile } from '../../helpers/hooks/useMobile.tsx';
 
 
 const topCompRacesMenListQuery = () => ({
@@ -55,6 +57,9 @@ export const Home = () => {
     const { data: topMen } = useQuery(topCompRacesMenListQuery());
     const { data: topWomen } = useQuery(topCompRacesWomenListQuery());
     const combinedData = topMen?.concat(topWomen || []);
+    const { isNavbarOpen, toggleNavbar } = useNavbar();
+    const isMobile = useMobile();
+    const navigate = useNavigate();
     console.log(topMen, topWomen);
 
     
@@ -72,6 +77,13 @@ export const Home = () => {
 
     // const latestYear = getYearFromDate(Object.keys(groupedData)[0])
 
+    const handleClick = () => {
+        if (isNavbarOpen === false && isMobile) {
+            toggleNavbar();
+        } 
+        navigate('santa-clara-high-cross-country/');
+    }
+
   return (
     <div className='home-page'>
         <Page title="Home" description="Welcome to SCHS Track and Cross Country home page." />
@@ -83,9 +95,7 @@ export const Home = () => {
             </div>
             <div className='hero-btn'>
                 {/* <button>Track & Field</button> */}
-                <Link to='santa-clara-high-cross-country/'>
-                    <button>View Collections</button>
-                </Link>
+                    <button onClick={() => handleClick()}>View Collections</button>
             </div>
         </div>
         <div className='data-section'>
