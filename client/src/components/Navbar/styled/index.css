@@ -246,7 +246,7 @@
   height: 100%;
   display: flex;
 }
-.navbar .search-container input {
+.navbar .search-container button {
   width: 100%;
   height: 32px;
   border-radius: 32px;
@@ -255,10 +255,8 @@
   color: #8890a0;
   background-color: #363a47;
   border: none;
-}
-
-.search-container input:focus {
-  outline: none;
+  text-align: left;
+  cursor: pointer;
 }
 
 .logo {
@@ -338,4 +336,105 @@
 .mobile-link-container .active {
   background-color: #2A3542;
   color: #179BC6;
+}
+
+.navbar .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.navbar .search-form {
+  background-color: #23272F;
+  width: 86vh;
+  height: 85vh;
+  border-radius: 8px;
+  padding: 32px;
+  border: 1px solid #363a47;
+  overflow: hidden;
+}
+
+.search-form input {
+  width: 97%;
+  border-radius: 16px;
+  padding: 6px 12px;
+  color: #8890a0;
+  background-color: #363a47;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.search-form button {
+  background-color: transparent;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 100%;
+  text-align: right;
+  padding: 8px;
+  margin-bottom: 16px
+}
+
+.search-form div {
+  border-bottom: 1px solid #363a47;
+  padding-bottom: 32px;
+}
+
+.nav-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.search-form ul {
+  list-style: none;
+  padding: 16px 0;
+}
+
+.search-form li {
+  padding: 12px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-form li:hover {
+  background-color: #179BC6;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search-form span {
+  height: 12px;
+  width: 100%;
+}
+
+.nav-modal-icon {
+  width: 10%;
+  height: 100%;
+  transform: scale(1.2);
+}
+
+.search-form li span:last-child {
+  display: none;
+  text-align: right;
+}
+
+.search-form li:hover span:last-child {
+  display: block;
 }

@@ -26,90 +26,113 @@ import img25 from './SC_XC_2016.jpg';
 import img26 from './SC_XC_2017.jpg';
 import img27 from './SC_XC_2018.jpg';
 
-export interface Images {
-    img: string;
-  }
-
-export const teamImgs: Images[] = [
+export const teamImgs = [
     {
-        img: img1,
+        src: img1,
+        alt: ''
     },
     {
-        img: img2,
+        src: img2,
+        alt: ''
     },
     {
-        img: img3,
+        src: img3,
+        alt: ''
     },
     {
-        img: img4,
+        src: img4,
+        alt: ''
     },
     {
-        img: img5,
+        src: img5,
+        alt: ''
     },
     {
-        img: img6,
+        src: img6,
+        alt: ''
     },
     {
-        img: img7,
+        src: img7,
+        alt: ''
     },
     {
-        img: img8,
+        src: img8,
+        alt: ''
     },
     {
-        img: img9,
+        src: img9,
+        alt: ''
     },
     {
-        img: img10,
+        src: img10,
+        alt: ''
     },
     {
-        img: img11,
+        src: img11,
+        alt: ''
     },
     {
-        img: img12,
+        src: img12,
+        alt: ''
     },
     {
-        img: img13,
+        src: img13,
+        alt: ''
     },
     {
-        img: img14,
+        src: img14,
+        alt: ''
     },
     {
-        img: img15,
+        src: img15,
+        alt: ''
     },
     {
-        img: img16,
+        src: img16,
+        alt: ''
     },
     {
-        img: img17,
+        src: img17,
+        alt: ''
     },
     {
-        img: img18,
+        src: img18,
+        alt: ''
     },
     {
-        img: img19,
+        src: img19,
+        alt: ''
     },
     {
-        img: img20,
+        src: img20,
+        alt: ''
     },
     {
-        img: img21,
+        src: img21,
+        alt: ''
     },
     {
-        img: img22,
+        src: img22,
+        alt: ''
     },
     {
-        img: img23,
+        src: img23,
+        alt: ''
     },
     {
-        img: img24,
+        src: img24,
+        alt: ''
     },
     {
-        img: img25,
+        src: img25,
+        alt: ''
     },
     {
-        img: img26,
+        src: img26,
+        alt: ''
     },
     {
-        img: img27,
+        src: img27,
+        alt: ''
     },
 ]

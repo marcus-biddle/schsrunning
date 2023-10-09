@@ -66,7 +66,7 @@ export const TopRunners = ({ courseId }: {courseId: number}) => {
                 </tr>
             </thead>
             <tbody>
-                {bestTimes?.map((runner) => (
+                {bestTimes?.slice(0, 25).map((runner) => (
                 <tr key={runner.athleteId}>
                     <td>{runner.year}</td>
                     <td>{runner.firstName} {runner.lastName}</td>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './styled/index.css';
 // import logo from '../../assets/index';
 import { BiMenu } from 'react-icons/bi';
 import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineSearch } from 'react-icons/ai'
+import {BsArrowReturnLeft } from 'react-icons/bs';
 import useActiveLink from '../../helpers/hooks/useActiveLink';
 import { useAuth } from '../../helpers/hooks/useAuth';
 import useLogout from '../../helpers/hooks/useLogout';
@@ -39,12 +40,13 @@ const LEFT_NAV_LINKS = [
 ]
 
 export const Navbar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const { isActive, toggleActive } = useActiveLink(location.pathname);
   const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState(false);
   const { auth } = useAuth();
   const logout = useLogout();
 
@@ -61,14 +63,20 @@ export const Navbar = () => {
     toggleActive(link);
   }
 
-  // const filteredData = athletes && athletes.filter((athlete) => {
-  //   const fullName = `${athlete.firstName} ${athlete.lastName}`;
-  //   return fullName.toLowerCase().includes(searchTerm.toLowerCase());
-  // });
+  const handleSearchButton = () => {
+    setOpenModal(true);
+  }
 
-  // const handleViewProfile = (athleteId: number) => {
-  //   navigate(`/athlete/${athleteId}`);
-  // };
+  const filteredData = athletes && athletes.filter((athlete) => {
+    const fullName = `${athlete.firstName} ${athlete.lastName}`;
+    return fullName.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  const handleViewProfile = (athleteId: number) => {
+    navigate(`/santa-clara-high-cross-country/runners/${athleteId}`);
+    setOpenModal(false);
+    setSearchTerm('');
+  };
 
   return (
     <nav className="navbar">
@@ -76,12 +84,7 @@ export const Navbar = () => {
         SCHS
       </div>
       <div className='search-container'>
-        <input
-            type="text"
-            placeholder={athletes ? "Search Athletes" : "Loading..."}
-            value={searchTerm}
-            onChange={handleSearchChange}
-        />
+        <button onClick={() => handleSearchButton()}>Search Athletes</button>
       </div>
       <div className='link-container'>
         {LEFT_NAV_LINKS.map((link) => {
@@ -104,6 +107,31 @@ export const Navbar = () => {
             auth.accessToken != "" ? 'Logout' : 'Login'}
           </Link>
       </div>
+      {openModal && (
+        <div className="nav-modal">
+          <div className='search-form'>
+            <div>
+            <button onClick={() => setOpenModal(false)}>Close</button>
+            <input
+              type="text"
+              placeholder="Search Athletes"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            </div>
+            <ul>
+            {searchTerm != '' && filteredData?.map((athlete) => (
+                <li key={athlete.athleteId} onClick={() => handleViewProfile(athlete.athleteId)}>
+                  <span>{athlete.firstName} {athlete.lastName}</span>
+                  <span>
+                    <BsArrowReturnLeft className='nav-modal-icon' />
+                  </span>
+                </li>
+            ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

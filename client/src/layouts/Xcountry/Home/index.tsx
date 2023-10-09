@@ -8,6 +8,7 @@ import { TopRunnerMenu } from '../TopRunnerMenu';
 import useActiveLink from '../../../helpers/hooks/useActiveLink';
 import { useNavbar } from '../../../context/NavbarContext';
 import { useMobile } from '../../../helpers/hooks/useMobile';
+import { TeamPhotos } from '../TeamPhotos';
 
 const MENU = [
     {
@@ -24,7 +25,7 @@ const MENU = [
     },
     {
         text: 'Team Photos',
-        link: ''
+        link: <TeamPhotos />
     },
     {
         text: 'Misc',

@@ -49,6 +49,7 @@
 .xc-athlete-page {
     padding: 8px 32px;
     margin-right: 80px;
+    padding-bottom: 56px;
 }
 
 .xc-athlete-page .top-container {
@@ -150,15 +151,14 @@
 }
 
 .athlete-table tbody a {
-    background-color: #2A3542;
     padding: 4px;
-    border-radius: 8px;
     color: #ffffffb4;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
 }
 
 .athlete-table tbody a:hover {
-    color: #FFFFFF
+    color: #FFFFFF;
+    background-color: #2A3542;
+    border-radius: 8px;
 }
 
 .athlete-table tbody tr:hover {

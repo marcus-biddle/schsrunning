@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TopRunners } from '../../../pages/Xcountry/TopRunners';
+import { TopRunners } from '../TopRunners';
 import './styled.css'
 import useActiveLink from '../../../helpers/hooks/useActiveLink';
 
