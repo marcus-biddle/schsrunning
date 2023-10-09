@@ -74,8 +74,9 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className='login-form'>
-      <h2>Login</h2>
+      
       <form onSubmit={handleSubmit}>
+      <h2>Login</h2>
         <div>
           <label>Username:</label>
           <input
