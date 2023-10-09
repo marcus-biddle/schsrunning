@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './styled/index.css';
 // import logo from '../../assets/index';
@@ -42,7 +42,7 @@ const LEFT_NAV_LINKS = [
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isActive, toggleActive } = useActiveLink(location.pathname);
+  const { isActive, toggleActive, activeLink } = useActiveLink(location.pathname);
   const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -137,7 +137,8 @@ export const Navbar = () => {
 };
 
 export const MobileNavbar: React.FC = () => {
-  const { isActive, toggleActive } = useActiveLink(location.pathname);
+  const location = useLocation();
+  const { isActive, toggleActive, activeLink } = useActiveLink(location.pathname);
   const { isNavbarOpen, toggleNavbar } = useNavbar();
   const { auth } = useAuth();
   const logout = useLogout();
@@ -146,7 +147,9 @@ export const MobileNavbar: React.FC = () => {
     if (auth.accessToken) {
       await logout();
     }
+    
     toggleActive(link);
+    toggleNavbar();
   }
 
   const handleNavClick = (link: string) => {
@@ -154,9 +157,15 @@ export const MobileNavbar: React.FC = () => {
     toggleNavbar();
   }
 
+  useEffect(() => {
+    const isInsideArray = LEFT_NAV_LINKS.some((obj) => obj.link === location.pathname);
+    if (activeLink !== location.pathname && isInsideArray) {
+      toggleActive(location.pathname)
+    }
+  }, [activeLink, location.pathname, toggleActive])
+
   return (
-    <div>
-      {/* Make below position fixed when nav is open */}
+    <nav>
       <div className='nav-icon-container'>
           <BiMenu className='navbar-icon' onClick={toggleNavbar}/>
           <AiOutlineSearch className='navbar-icon' />
@@ -184,51 +193,6 @@ export const MobileNavbar: React.FC = () => {
             </Link>
         </div>
       </div>}
-    </div>
-    // <div className={isOpen ? 'navbar-mobile-fullscreen' : 'navbar-mobile'}>
-    //   <div style={{ display: 'flex', paddingTop: `${isOpen ? '8.5px' : ''}`}}>
-    //   {/* <img src={logo} alt='logo' style={{ height: '38px' }}/> */}
-    //   <h1 style={{ color: 'white', fontSize: '20px', paddingTop: '8px', paddingLeft: '2px', fontWeight: 'lighter', fontFamily: '"Roboto", sans-serif'}}>SCHS Running</h1>
-    //   </div>
-      
-    //   <div style={{ display: 'flex', justifyContent: 'space-around', gap: '8px'}}>
-    //   <div className='navbar-icon-container-search'>
-    //       
-    //     </div>
-    //     <div className='navbar-icon-container-menu'>
-    //       <BiMenu className='navbar-icon' onClick={() => handleMenuToggle()}/>
-    //     </div>
-    //   </div>
-
-    //   {isOpen && <div className={`menu-content ${isOpen ? 'open' : 'closed'}`}>
-    //     {/* Your menu items go here */}
-    //     <h4>
-    //       <Link to={'/'} onClick={() => setIsOpen(false)}>Home</Link>
-    //     </h4>
-    //     <h4>
-    //       <Link to={'/cross-country'} onClick={() => setIsOpen(false)}>Cross Country</Link>
-    //     </h4>
-    //     <ul>
-    //       <li>
-    //         <Link to={'/athletes/cross-country'}>Athletes</Link>
-    //       </li>
-    //       <li>
-    //         <Link to={'/coaches/cross-country'}>Coaches</Link>
-    //       </li>
-    //       <li>Team Records</li>
-    //     </ul>
-    //     <h4>Track & Field</h4>
-    //     <ul>
-    //       <li>Athletes</li>
-    //       <li>Coaches</li>
-    //       <li>Team Records</li>
-    //     </ul>
-    //     <div className='lineStyle'>
-    //       <div className='line-break'></div>
-    //     </div>
-    //     <h4>Search</h4>
-    //     <h4>Gallery</h4>
-    //     <h4>Sites</h4>
-    //   </div>}
+    </nav>
   );
 }

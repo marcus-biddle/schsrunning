@@ -23,7 +23,9 @@ function useActiveLink(defaultActive: string | null) {
     });
   };
 
-  return { isActive, toggleActive };
+  const activeLink = activeLinks[0];
+
+  return { isActive, toggleActive, activeLink };
 }
 
 export default useActiveLink;
