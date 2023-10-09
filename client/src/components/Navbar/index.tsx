@@ -40,6 +40,7 @@ const LEFT_NAV_LINKS = [
 ]
 
 export const Navbar = () => {
+  //
   const navigate = useNavigate();
   const location = useLocation();
   const { isActive, toggleActive } = useActiveLink(location.pathname);
