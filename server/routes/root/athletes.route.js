@@ -9,7 +9,7 @@ router.route('/athletes')
 // Create New Athlete
 // .post(authenticateRoles(ROLES_LIST.admin), createNewAthleteHandler);
 
-// GET all Athletes
+// GET athlete by Id
 router.get('/athletes/:athleteId', getAthleteByAthleteIdHandler);
 
 

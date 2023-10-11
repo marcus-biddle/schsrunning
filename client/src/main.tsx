@@ -24,11 +24,8 @@ import { TrackCoachPage } from './pages/Track/CoachPage/index.tsx';
 import { XCCoachPage } from './pages/Xcountry/Coach/index.tsx';
 import { SeasonPage } from './pages/Track/SeasonPage/index.tsx';
 import AdminDashboard from './pages/Admin/Dashboard/index.tsx';
-import EditAthlete from './pages/Admin/EditAthlete/index.tsx';
 import CreateAthleteForm from './pages/Admin/CreateAthlete/index.tsx';
-import AdminAthletesPage from './pages/Admin/AthletesPage/index.tsx';
 import AdminRacesPage from './pages/Admin/RacesPage/index.tsx';
-import RacePage from './pages/Admin/RacePage/index.tsx';
 import AddCompetitors from './pages/Admin/AddCompetitors/index.tsx';
 import { TopRunnerMenu } from './layouts/Xcountry/TopRunnerMenu/index.tsx';
 import { TopTeamMenu } from './layouts/Xcountry/TopTeamMenu/index.tsx';
@@ -219,18 +216,7 @@ const router = createBrowserRouter([
           <AdminDashboard />
         ),
       },
-      {
-        path: 'admin/athletes',
-        element: (
-          <AdminAthletesPage />
-        ),
-      },
-      {
-        path: 'admin/athletes/:athleteId',
-        element: (
-          <EditAthlete />
-        ),
-      },
+
       {
         path: 'admin/athletes/create',
         element: (
@@ -243,12 +229,7 @@ const router = createBrowserRouter([
           <AdminRacesPage/>
         ),
       },
-      {
-        path: 'admin/xc/races/:raceNameId',
-        element: (
-          <RacePage />
-        ),
-      },
+
       {
         path: 'admin/xc/races/add-results',
         element: (

@@ -1,15 +1,10 @@
-import { AxiosInstance } from "axios";
-import { UserData } from "../../types";
-import { apiClient } from "../config/axios";
+import { AxiosResponse } from "axios";
+import { UserData } from "../../../types";
+import { apiClient } from "../../config/axios";
 
-interface UserApiProps {
-    privateApi: AxiosInstance;
-}
-
-const findAll = async ({ privateApi }: UserApiProps) => {
+const findAll = async ({ privateApi }: { privateApi: any }): Promise<any> => {
     const controller = new AbortController();
-    console.log('privateApi', privateApi);
-    const response = await privateApi.get('/users', {
+    const response: AxiosResponse<any[]> = await privateApi.get('/users', {
         signal: controller.signal
     });
 

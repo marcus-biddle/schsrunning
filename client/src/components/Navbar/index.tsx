@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './styled/index.css';
 // import logo from '../../assets/index';
 import { BiMenu } from 'react-icons/bi';
-import { fetchAthletes } from '../../api/athletes';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineSearch } from 'react-icons/ai'
 import {BsArrowReturnLeft } from 'react-icons/bs';
@@ -11,22 +10,23 @@ import useActiveLink from '../../helpers/hooks/useActiveLink';
 import { useAuth } from '../../helpers/hooks/useAuth';
 import useLogout from '../../helpers/hooks/useLogout';
 import { useNavbar } from '../../context/NavbarContext';
+import { AthleteActions } from '../../api/athletes';
 // import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const athleteListQuery = () => ({
-  queryKey: ['all-athletes'],
-  queryFn: async () => {
-      const athletes = await fetchAthletes();
-      if (!athletes) {
-          throw new Response('', {
-              status: 404,
-              statusText: 'Not Found',
-          })
-      }
-      return athletes;
-  },
-})
+// export const athleteListQuery = () => ({
+//   queryKey: ['all-athletes'],
+//   queryFn: async () => {
+//       const athletes = await fetchAthletes();
+//       if (!athletes) {
+//           throw new Response('', {
+//               status: 404,
+//               statusText: 'Not Found',
+//           })
+//       }
+//       return athletes;
+//   },
+// })
 
 const LEFT_NAV_LINKS = [
   {
@@ -40,11 +40,12 @@ const LEFT_NAV_LINKS = [
 ]
 
 export const Navbar = () => {
-  //
+  const {data: athletes } = useQuery(['athletes'], async () => await AthleteActions.findAll());
+
   const navigate = useNavigate();
   const location = useLocation();
   const { isActive, toggleActive } = useActiveLink(location.pathname);
-  const { data: athletes } = useQuery(athleteListQuery());
+  // const { data: athletes } = useQuery(athleteListQuery());
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);

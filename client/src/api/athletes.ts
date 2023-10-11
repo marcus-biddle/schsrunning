@@ -36,7 +36,7 @@ export interface XCAthleteByRace {
   athleteId: number;
 }
 
-export async function fetchAthletes(): Promise<Athlete[]> {
+const findAll = async (): Promise<Athlete[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/athletes`);
     return response.data;
@@ -46,7 +46,7 @@ export async function fetchAthletes(): Promise<Athlete[]> {
   }
 }
 
-export async function fetchAthlete(athleteId: number): Promise<Athlete> {
+const findByAthleteId = async (athleteId: number): Promise<Athlete> => {
     try {
         const response = await axios.get(`${BASE_URL}/athletes/${athleteId}`);
         return response.data;
@@ -98,4 +98,9 @@ export async function createAthlete(athleteData: Partial<Athlete>): Promise<Athl
     console.log('Error creating athlete:', error);
     throw new Error('Failed to create athlete');
   }
+}
+
+export const AthleteActions = {
+  findAll,
+  findByAthleteId
 }

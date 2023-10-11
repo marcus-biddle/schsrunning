@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { privateApiClient } from '../../api/config/axios';
-import { AuthType } from "../../context/authProvider";
+import { useAuth } from "./useAuth";
+import { useRefreshToken } from "./useRefreshToken";
 
-export const usePrivateApi = ({ auth, refresh }: { auth: AuthType, refresh: () => Promise<any> }) => {
-    console.log('usePrivateApi', auth,);
+export const usePrivateApi = async () => {
+    const { auth } = useAuth();
+    const refresh = await useRefreshToken();
 
     useEffect(() => {
 

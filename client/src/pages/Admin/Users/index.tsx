@@ -1,10 +1,16 @@
 import { useLocation, useNavigate } from 'react-router';
-import { UserData, useUsersData } from '../../../helpers/hooks/data/useUserData';
+import { UserData } from '../../../helpers/hooks/data/useUserData';
+import { usePrivateApi } from '../../../helpers/hooks/usePrivateAPI';
+import { UserActions } from '../../../api/Auth/User/user';
+import { useQuery } from '@tanstack/react-query';
 
 const UsersPage = () => {
-    const { isLoading, data, isError, error, isFetching } = useUsersData();
+    const privateApi = usePrivateApi();
+    const {data: users, isLoading, isError, error, isFetching} = useQuery(['users'], async () => await UserActions.findAll({ privateApi }));
+
     const navigate = useNavigate();
     const location = useLocation();
+
 
     if (isLoading || isFetching) {
         return <h1>Loading...</h1>
@@ -19,7 +25,7 @@ const UsersPage = () => {
     return (
     <div>
         <p>test</p>
-        {data && data.map((user: UserData) => {
+        {users && users?.map((user: UserData) => {
             return (
                 <div key={`${user._id}`}>
                     {user.username}

@@ -1,5 +1,5 @@
 import { refreshTokenActions } from "../../api/Auth/refresh";
-import {useAuth} from "./useAuth";
+import { useAuth } from "./useAuth";
 
 export const useRefreshToken = () => {
     const { setAuth } = useAuth();
