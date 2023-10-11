@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { UserData } from "../../../types";
 import { apiClient } from "../../config/axios";
+import { UserData } from "../../../constants/types";
 
 const findAll = async ({ privateApi }: { privateApi: any }): Promise<any> => {
     const controller = new AbortController();

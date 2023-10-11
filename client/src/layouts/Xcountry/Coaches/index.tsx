@@ -19,18 +19,6 @@ export const loader = (queryClient: any) => async () => {
     return queryClient.getQueryData(coachListQuery().queryKey);
 }
 
-// export const CoachItem: React.FC<{ coach: Coach }> = React.memo(({ coach }) => (
-//         <>
-//         {coach &&
-//             <Link to={`${coach.coachId}/`} className='spanlinkstyle'>
-//                 <li className="list-item">
-//                     <span>{coach.firstname} {coach.lastname}</span>
-//                 </li>
-//             </Link>}
-//         </>
-//     )
-// )
-
 export const Coaches = () => {
     const { data: coaches } = useQuery(coachListQuery());
 

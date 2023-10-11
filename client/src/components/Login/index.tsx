@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import './styled/index.css'
 import { AuthActions } from '../../api/Auth/auth';
-import { UserData } from '../../types';
 import { useAuth } from '../../helpers/hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
+import { UserData } from '../../constants/types';
 
 const LoginForm: React.FC = () => {
   const { setAuth, auth } = useAuth();

@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from 'react-router';
-import { UserData } from '../../../helpers/hooks/data/useUserData';
 import { usePrivateApi } from '../../../helpers/hooks/usePrivateAPI';
 import { UserActions } from '../../../api/Auth/User/user';
 import { useQuery } from '@tanstack/react-query';
+import { UserData } from '../../../constants/types';
 
 const UsersPage = () => {
     const privateApi = usePrivateApi();

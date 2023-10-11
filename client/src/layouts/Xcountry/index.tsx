@@ -1,14 +1,14 @@
 
 import { useState } from 'react';
-import Page from '../../../Meta';
+import Page from '../../Meta';
 import './styled.css';
-import { Runners } from '../Runners';
-import { Coaches } from '../Coaches';
-import { TopRunnerMenu } from '../TopRunnerMenu';
-import useActiveLink from '../../../helpers/hooks/useActiveLink';
-import { useNavbar } from '../../../context/NavbarContext';
-import { useMobile } from '../../../helpers/hooks/useMobile';
-import { TeamPhotos } from '../TeamPhotos';
+import { Runners } from './Runners';
+import { Coaches } from './Coaches';
+import { TopRunnerMenu } from './TopRunnerMenu';
+import useActiveLink from '../../helpers/hooks/useActiveLink';
+import { useNavbar } from '../../context/NavbarContext';
+import { useMobile } from '../../helpers/hooks/useMobile';
+import { TeamPhotos } from './TeamPhotos';
 
 const MENU = [
     {

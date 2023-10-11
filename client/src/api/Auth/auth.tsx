@@ -1,4 +1,4 @@
-import { UserData } from "../../types";
+import { UserData } from "../../constants/types";
 import { apiClient, privateApiClient } from "../config/axios";
 
 const handleLogin = async ({ username, password }: UserData) => {
