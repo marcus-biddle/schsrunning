@@ -1,7 +1,7 @@
-import { privateApiClient } from "../config/axios";
+import { privateAxiosInstance } from "../config/axios";
 
 const findRefreshToken = async () => {
-    const { data } = await privateApiClient.get('/refresh');
+    const { data } = await privateAxiosInstance.get('/refresh');
     return data;
 }
 

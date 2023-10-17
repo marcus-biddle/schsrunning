@@ -1,4 +1,4 @@
-import { privateApiClient } from "../../api/config/axios";
+import { privateAxiosInstance } from "../../api/config/axios";
 import { useAuth } from "./useAuth";
 
 const useLogout = () => {
@@ -13,7 +13,7 @@ const useLogout = () => {
           });
         
           try {
-            await privateApiClient('/logout')
+            await privateAxiosInstance('/logout')
           } catch (err) {
             console.error(err)
           }

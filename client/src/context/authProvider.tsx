@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [auth, setAuth] = useState<AuthType>(initialAuth);
 
   // Log auth for debugging
-  console.log('auth', auth);
+  console.log('authProvider', auth);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

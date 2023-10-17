@@ -1,5 +1,5 @@
 import { UserData } from "../../constants/types";
-import { apiClient, privateApiClient } from "../config/axios";
+import { axiosInstance, privateAxiosInstance } from "../config/axios";
 
 const handleLogin = async ({ username, password }: UserData) => {
   
@@ -11,7 +11,7 @@ const handleLogin = async ({ username, password }: UserData) => {
         };
     
         // Make a POST request to your login endpoint
-        const response = await apiClient.post('/login', credentials);
+        const response = await axiosInstance.post('/login', credentials);
     
         // Check the response for success or failure
         if (response.status === 200) {
@@ -35,7 +35,7 @@ const handleLogin = async ({ username, password }: UserData) => {
 };
 
 const handleLogout = async () => {
-  const response = await privateApiClient.get(`/logout`);
+  const response = await privateAxiosInstance.get(`/logout`);
   return response.data;
 }
 

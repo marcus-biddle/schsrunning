@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { apiClient } from "../../config/axios";
+import { axiosInstance } from "../../config/axios";
 import { UserData } from "../../../constants/types";
 
 const findAll = async ({ privateApi }: { privateApi: any }): Promise<any> => {
@@ -12,22 +12,22 @@ const findAll = async ({ privateApi }: { privateApi: any }): Promise<any> => {
 }
 
 const findById = async (id: any) => {
-    const response = await apiClient.get(`/users/${id}`);
+    const response = await axiosInstance.get(`/users/${id}`);
     return response.data;
 }
 
 const findByUsername = async (username: string) => {
-    const response = await apiClient.get(`/users?username=${username}`);
+    const response = await axiosInstance.get(`/users?username=${username}`);
     return response.data;
 }
 
 const createUser = async ({ username, password }: UserData) => {
-    const response = await apiClient.post('/register', { username, password });
+    const response = await axiosInstance.post('/register', { username, password });
     return response.data;
 }
 
 // const updateUser = async ({ username, password, roles }: UserData) => {
-//     const response = await apiClient.post('/register', { username, password });
+//     const response = await axiosInstance.post('/register', { username, password });
 //     return response.data;
 // }
 

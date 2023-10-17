@@ -7,8 +7,8 @@ export const useRefreshToken = () => {
     const refresh = async () => {
         const response = await refreshTokenActions.findRefreshToken();
         setAuth(prev => {
-            console.log('useRefreshToken', JSON.stringify(prev));
-            console.log('useRefreshToken', response.data.accessToken);
+            console.log('useRefreshToken PREV', JSON.stringify(prev));
+            console.log('useRefreshToken NEW', response.data.accessToken);
             return { 
                 ...prev, 
                 roles: response.data.roles,
